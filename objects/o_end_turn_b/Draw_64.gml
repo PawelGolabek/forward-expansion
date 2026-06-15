@@ -1,0 +1,1 @@
+draw_sprite(s_player_icon, 0, display_get_gui_width() - 40, display_get_gui_height() - 40);
