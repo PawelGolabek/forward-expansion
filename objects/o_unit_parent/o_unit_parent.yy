@@ -10,10 +10,13 @@
   "name":"o_unit_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"player",
+    "path":"folders/objects/units/player.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_unit",
+    "path":"objects/o_unit/o_unit.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -36,5 +39,8 @@
     "path":"sprites/Sprite1/Sprite1.yy",
   },
   "spriteMaskId":null,
+  "tags":[
+    "unit",
+  ],
   "visible":true,
 }

@@ -9,8 +9,8 @@
   "name":"o_building_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"buildings",
+    "path":"folders/objects/buildings.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -35,5 +35,8 @@
     "path":"sprites/Sprite1_1/Sprite1_1.yy",
   },
   "spriteMaskId":null,
+  "tags":[
+    "building",
+  ],
   "visible":true,
 }

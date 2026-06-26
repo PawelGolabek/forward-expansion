@@ -10,8 +10,8 @@
   "name":"o_inferna",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"player",
+    "path":"folders/objects/units/player.yy",
   },
   "parentObjectId":{
     "name":"o_unit_parent",
@@ -39,5 +39,8 @@
     "path":"sprites/Sprite1_4/Sprite1_4.yy",
   },
   "spriteMaskId":null,
+  "tags":[
+    "unit",
+  ],
   "visible":true,
 }

@@ -1,0 +1,1 @@
+spawn_object = o_archer;

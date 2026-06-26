@@ -4,17 +4,18 @@
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"o_enemy_unit_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"enemy",
+    "path":"folders/objects/units/enemy.yy",
   },
   "parentObjectId":{
-    "name":"o_unit_parent",
-    "path":"objects/o_unit_parent/o_unit_parent.yy",
+    "name":"o_unit",
+    "path":"objects/o_unit/o_unit.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -38,5 +39,8 @@
     "path":"sprites/Sprite1_3/Sprite1_3.yy",
   },
   "spriteMaskId":null,
+  "tags":[
+    "unit",
+  ],
   "visible":true,
 }

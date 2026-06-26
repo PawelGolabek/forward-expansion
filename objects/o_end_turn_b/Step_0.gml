@@ -5,4 +5,7 @@ if (mouse_check_button_pressed(mb_left))
         var r = instance_find(o_combat_resolver, 0);
         if (r != noone) r.resolve_combat();
     }
+	with(o_unit){
+		onRoundEnd()
+	}
 }

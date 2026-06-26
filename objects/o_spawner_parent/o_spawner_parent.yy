@@ -9,8 +9,8 @@
   "name":"o_spawner_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"player",
+    "path":"folders/objects/spawners/player.yy",
   },
   "parentObjectId":null,
   "persistent":false,

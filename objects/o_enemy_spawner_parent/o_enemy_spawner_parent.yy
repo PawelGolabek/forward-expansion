@@ -9,8 +9,8 @@
   "name":"o_enemy_spawner_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"enemy",
+    "path":"folders/objects/spawners/enemy.yy",
   },
   "parentObjectId":{
     "name":"o_spawner_parent",
@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_3",
-    "path":"sprites/Sprite1_3/Sprite1_3.yy",
+    "name":"Sprite1_7",
+    "path":"sprites/Sprite1_7/Sprite1_7.yy",
   },
   "spriteMaskId":null,
   "visible":true,

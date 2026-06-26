@@ -9,8 +9,8 @@
   "name":"o_spawner_building",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"buildings",
+    "path":"folders/objects/spawners/player/buildings.yy",
   },
   "parentObjectId":{
     "name":"o_spawner_parent",
