@@ -1,27 +1,16 @@
 x = owner.x
 y = owner.y - 30
+depth = owner.depth - 200
 
-if(global.draggingUnit != noone){
-	other1 = global.draggingUnit
-	var dx = other1.x - owner.x;
-	var dy = other1.y - owner.y;
-	var dist = dx * dx + dy * dy;
-	if(dist <= owner.range){
-		visible = true;
-	}else{
-		visible = false;
-	}
-}else{
-	visible = false;
-}
 
-if (instance_exists(owner.target))
+if (instance_exists(owner.tmpTarget) and owner.tmpTarget != noone){
+    image_angle = point_direction(x, y, owner.tmpTarget.x, owner.tmpTarget.y);	
+	visible = true
+}else if (instance_exists(owner.target) and owner.target != noone)
 {
     image_angle = point_direction(x, y, owner.target.x, owner.target.y);
+	visible = true
+}else{
+	visible = false
 }
 
-
-
-//debug
-
-visible = true

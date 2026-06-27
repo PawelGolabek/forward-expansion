@@ -48,3 +48,8 @@ camera_set_view_size(cam, 1920 / zoom, 1080 / zoom);
 // update previous mouse
 prev_mouse_x = mx;
 prev_mouse_y = my;
+
+if (keyboard_check_pressed(vk_f11))
+{
+    window_set_fullscreen(!window_get_fullscreen());
+}

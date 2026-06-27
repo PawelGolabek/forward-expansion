@@ -6,4 +6,4 @@ hp = 10
 maxhp = 10
 allegience = "enemy"
 damageTaken = 0
-range = 500
+range = 200
