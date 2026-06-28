@@ -23,6 +23,7 @@ if (mouse_check_button_pressed(mb_left))
 
 if (dragging)
 {
+	drag_draw_offset = -30;
     mask_index = dragging_mask;
     global.draggingUnit = self;
     x = mouse_x;
@@ -87,5 +88,16 @@ if (dragging)
 }
 else
 {
+	drag_draw_offset = 0;
     mask_index = standard_collisions;
+}
+breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
+image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
+image_yscale = base_scale - sin(breathe_timer) * breathe_amount;
+
+blink-=delta_time;
+if(blink <= 0){
+	lEye.blink()
+	rEye.blink()
+	blink = maxBlink
 }

@@ -1,4 +1,4 @@
-allegiance = "enemy"
+allegience = "enemy"
 
 range = 1000;
 target = noone;
@@ -6,11 +6,51 @@ tmpTarget = noone;
 hp = 10
 maxhp = hp
 
+// ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow)
 arrow.owner = self
 standard_collisions = mask_index
 dragging_mask = s_unit_mask
-
+//cosmetics
+eyeX = 20
+eyeDist = 30;
+lEye = instance_create_depth(x-sprite_width+eyeDist + eyeX,y,depth-10,o_eye);
+rEye = instance_create_depth(x-sprite_width+sprite_width-eyeDist + eyeX,y,depth-10,o_eye);
+lEye.originX = lEye.x - x;
+lEye.originY = lEye.y - y;
+rEye.originX = rEye.x - x;
+rEye.originY = rEye.y - y;
+lEyeLid = instance_create_depth(x-sprite_width+eyeDist + eyeX,y,depth-10,o_eye_lid);
+rEyeLid = instance_create_depth(x-sprite_width+sprite_width-eyeDist + eyeX,y,depth-10,o_eye_lid);
+lEyeLid.owner = self;
+rEyeLid.owner = self;
+rEyeLid.originX = rEye.x - x;
+rEyeLid.originY = rEye.y - y;
+lEyeLid.originX = rEye.x - x;
+lEyeLid.originY = rEye.y - y;
+lPupil = instance_create_depth(lEye.x + lEye.sprite_width/2,lEye.y + lEye.sprite_height/2,depth-10,o_pupil);
+lPupil.x -= lPupil.sprite_width/2
+lPupil.y -= lPupil.sprite_height/2
+lPupil.owner = self;
+lPupil.originX = lPupil.x - x;
+lPupil.originY = lPupil.y - y;
+rPupil = instance_create_depth(rEye.x + rEye.sprite_width/2,rEye.y + rEye.sprite_height/2,depth-10,o_pupil);
+rPupil.x -= rPupil.sprite_width/2
+rPupil.y -= rPupil.sprite_height/2
+rPupil.owner = self;
+rPupil.originX = rPupil.x - x;
+rPupil.originY = rPupil.y - y;
+lEye.owner = self;
+rEye.owner = self;
+blink = 2000000+random(20000);
+maxBlink = blink
+//animations
+breathe_timer = 0;
+breathe_speed = 0.05;   // how fast it breathes
+breathe_amount = 0.05;  // how much it scales (0.05 = 5%)
+base_scale = 1;         // your sprite's normal scale
+//drag
+drag_draw_offset = 0;
 justFinishedDragging = false;
 
 //shaders

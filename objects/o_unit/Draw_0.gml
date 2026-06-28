@@ -29,7 +29,7 @@ draw_sprite_pos(
 // --- 2. DRAW SELF (Your original code starts here) ---
 //draw_self();
 
-draw_self()
+draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
 var w = 30;
 var h = 12;
@@ -52,7 +52,7 @@ draw_rectangle(x1, y1, x1 + ( hp_ratio * totalLength), y1 + h, false);
 draw_set_color(c_white);
 
 // 2. Check if a valid unit is currently being dragged
-if (instance_exists(global.draggingUnit))
+if (global.draggingUnit != noone)
 {
         // 4. Check if that dragged enemy is within THIS unit's range
         var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
@@ -91,3 +91,11 @@ if (position_meeting(mouse_x, mouse_y, id)){
     1
 );
 }
+
+
+lPupil.movePupil();
+rPupil.movePupil();
+lEye.moveEye();
+rEye.moveEye();
+lEyeLid.moveEye();
+rEyeLid.moveEye();

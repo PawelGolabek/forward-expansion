@@ -19,8 +19,8 @@
     {"name":"inst_3F7100FC1","path":"rooms/r_vertical_slice/r_vertical_slice.yy",},
     {"name":"inst_29CB87A1_1","path":"rooms/r_vertical_slice/r_vertical_slice.yy",},
     {"name":"inst_688E7E50","path":"rooms/r_vertical_slice/r_vertical_slice.yy",},
-    {"name":"inst_74ADAD12","path":"roomui/RoomUI/RoomUI.yy",},
     {"name":"inst_6C5FD499","path":"rooms/r_vertical_slice/r_vertical_slice.yy",},
+    {"name":"inst_74ADAD12","path":"roomui/RoomUI/RoomUI.yy",},
   ],
   "isDnd":false,
   "layers":[
