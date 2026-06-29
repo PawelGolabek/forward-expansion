@@ -1,18 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_impassable",
+  "%Name":"o_terrain",
   "eventList":[],
   "managed":true,
-  "name":"o_impassable",
+  "name":"o_terrain",
   "overriddenProperties":[],
   "parent":{
     "name":"terrain",
     "path":"folders/objects/terrain.yy",
   },
-  "parentObjectId":{
-    "name":"o_terrain",
-    "path":"objects/o_terrain/o_terrain.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

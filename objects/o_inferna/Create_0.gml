@@ -3,7 +3,7 @@ dragging = false;
 
 hp = 10
 maxhp = hp
-damage = 1
+damage = 5
 allegience = "player"
 damageTaken = 0
 

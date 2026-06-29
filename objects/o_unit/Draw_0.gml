@@ -1,35 +1,36 @@
-// --- 1. DRAW SHADOW FIRST ---
-if (shader_is_compiled(shd_shadow)) 
-{
+if (shader_is_compiled(shd_shadow)) {
     shader_set(shd_shadow);
-    // Set shadow color to dark grey/black with our alpha setting
-    shader_set_uniform_f(u_shadow_color, 0.1, 0.1, 0.1, shadow_alpha);
-    
-var width_scale = 0.9; // 1.5 = 150% wider
-var skew = -8; 
-var sw = sprite_width * width_scale; // Scale the base width
-var sh = sprite_height * 0.5;
 
-var _x = x;
-var _y = y + shadow_offset_y;
+    var shadow_r = 0.1;
+    var shadow_g = 0.1;
+    var shadow_b = 0.1;
+	color = c_white
+    if (hit_timer > 0) {
+        shadow_r = 1.0;
+        shadow_g = 0.0;
+        shadow_b = 0.0;
+		color = c_red
+    }
 
-draw_sprite_pos(
-    sprite_index,
-    image_index,
-    _x - (sw / 2) + skew, _y - sh, // Top-Left
-    _x + (sw / 2) - skew, _y - sh, // Top-Right
-    _x + (sw / 2),        _y,      // Bottom-Right
-    _x - (sw / 2),        _y,      // Bottom-Left
-    1.0
-);
-    
+    shader_set_uniform_f(u_shadow_color, shadow_r, shadow_g, shadow_b, shadow_alpha);
+
+    draw_sprite_ext(
+        sprite_index,
+        image_index,
+        x, y + shadow_offset_y,
+        image_xscale * 0.9,
+        image_yscale * 0.5,
+        0,
+        c_white,
+        0.4
+    );
+
     shader_reset();
 }
-
 // --- 2. DRAW SELF (Your original code starts here) ---
 //draw_self();
 
-draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, color, image_alpha);
 
 var w = 30;
 var h = 12;

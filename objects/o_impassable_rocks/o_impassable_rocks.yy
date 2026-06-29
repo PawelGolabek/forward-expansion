@@ -1,17 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"o_impassable",
+  "%Name":"o_impassable_rocks",
   "eventList":[],
   "managed":true,
-  "name":"o_impassable",
+  "name":"o_impassable_rocks",
   "overriddenProperties":[],
   "parent":{
     "name":"terrain",
     "path":"folders/objects/terrain.yy",
   },
   "parentObjectId":{
-    "name":"o_terrain",
-    "path":"objects/o_terrain/o_terrain.yy",
+    "name":"o_impassable",
+    "path":"objects/o_impassable/o_impassable.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -30,7 +30,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite28",
+    "path":"sprites/Sprite28/Sprite28.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

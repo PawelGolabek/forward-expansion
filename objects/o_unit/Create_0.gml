@@ -49,6 +49,7 @@ breathe_timer = 0;
 breathe_speed = 0.05;   // how fast it breathes
 breathe_amount = 0.05;  // how much it scales (0.05 = 5%)
 base_scale = 1;         // your sprite's normal scale
+hit_timer = 0;
 //drag
 drag_draw_offset = 0;
 justFinishedDragging = false;
@@ -57,7 +58,7 @@ justFinishedDragging = false;
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
 
 // Shadow settings: Adjust these to change how the shadow looks
-shadow_offset_y = 90;     // How far "down" the shadow sits from the sprite's feet
+shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's feet
 shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
 shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
 

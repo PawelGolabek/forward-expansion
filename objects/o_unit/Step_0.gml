@@ -64,7 +64,9 @@ if (dragging)
     // (e.g. completely boxed in) — guarantees we never show or drop
     // an overlapping position, even then.
     var _check = instance_place(x, y, o_unit);
-    if (_check == noone || _check == id)
+	var _checkTerrain = instance_place(x, y, o_impassable);
+	
+    if (_check == noone || _check == id || _checkTerrain == noone || _checkTerrain == id)
     {
         last_valid_x = x;
         last_valid_y = y;
@@ -82,6 +84,9 @@ if (dragging)
         // No extra resolution here on purpose — x/y above is already
         // the final, validated position. Dropping just locks it in.
         resetTargets();
+		global.dropped = self;
+		o_combat_resolver.resolve_first_strike()
+		global.dropped = noone;
         dragging = false;
         global.draggingUnit = noone;
     }
@@ -101,3 +106,6 @@ if(blink <= 0){
 	rEye.blink()
 	blink = maxBlink
 }
+
+if (hit_timer > 0)
+    hit_timer--;

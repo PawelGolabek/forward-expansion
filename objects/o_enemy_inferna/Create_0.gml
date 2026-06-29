@@ -1,7 +1,7 @@
 
 event_inherited()
 dragging = false;
-damage = 1
+damage = 5
 hp = 10
 maxhp = 10
 allegience = "enemy"

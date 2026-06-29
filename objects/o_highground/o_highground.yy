@@ -6,10 +6,13 @@
   "name":"o_highground",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"terrain",
+    "path":"folders/objects/terrain.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_terrain",
+    "path":"objects/o_terrain/o_terrain.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
