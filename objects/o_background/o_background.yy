@@ -1,16 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"o_bloodstain",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"o_background",
+  "eventList":[],
   "managed":true,
-  "name":"o_bloodstain",
+  "name":"o_background",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"backgrounds",
+    "path":"folders/objects/backgrounds.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite31",
-    "path":"sprites/Sprite31/Sprite31.yy",
+    "name":"Sprite32",
+    "path":"sprites/Sprite32/Sprite32.yy",
   },
   "spriteMaskId":null,
   "visible":true,

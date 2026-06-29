@@ -10,8 +10,8 @@
   "name":"o_blood_droplet",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/objects/units.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
   "parentObjectId":null,
   "persistent":false,

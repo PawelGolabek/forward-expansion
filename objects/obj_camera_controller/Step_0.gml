@@ -1,10 +1,13 @@
-var mx = mouse_x;
-var my = mouse_y;
+// raw window-space mouse — NOT affected by camera/view, so no feedback loop
+var mx = window_mouse_get_x();
+var my = window_mouse_get_y();
 
 // start drag
 if (mouse_check_button_pressed(mb_middle))
 {
     dragging = true;
+    prev_mouse_x = mx;
+    prev_mouse_y = my;
 }
 
 // stop drag
@@ -13,23 +16,20 @@ if (!mouse_check_button(mb_middle))
     dragging = false;
 }
 
-// pan
+// pan — convert screen-pixel delta into world units via current zoom
 if (dragging)
 {
-    cam_x -= (mx - prev_mouse_x);
-    cam_y -= (my - prev_mouse_y);
+    var dx = (mx - prev_mouse_x) / zoom;
+    var dy = (my - prev_mouse_y) / zoom;
+    cam_x -= dx;
+    cam_y -= dy;
 }
 
 // zoom
 var scroll = mouse_wheel_up() - mouse_wheel_down();
-
 if (scroll != 0)
 {
     var old_zoom = zoom;
-
-    var mx = mouse_x;
-    var my = mouse_y;
-
     // screen → world before zoom
     var world_x = cam_x + mx / old_zoom;
     var world_y = cam_y + my / old_zoom;
