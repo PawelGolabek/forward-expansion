@@ -3,12 +3,14 @@ allegience = "enemy"
 range = 1000;
 target = noone;
 tmpTarget = noone;
+damage = 100
 hp = 10
 maxhp = hp
 firstStrike = true;
 reactionStrike = true;
 //tmp variables for combat
 damageTaken = 0
+drawCircle = false;
 
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow)
@@ -48,6 +50,7 @@ lEye.owner = self;
 rEye.owner = self;
 blink = 2000000+random(20000);
 maxBlink = blink
+noEyes = false
 //animations
 breathe_timer = 0;
 breathe_speed = 0.05;   // how fast it breathes
@@ -57,6 +60,7 @@ hit_timer = 0;
 //drag
 drag_draw_offset = 0;
 justFinishedDragging = false;
+placed = false;
 
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");

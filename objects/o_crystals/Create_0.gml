@@ -1,6 +1,10 @@
 // Inherit the parent event
 event_inherited();
 
-range = 0
-hp = 6
+range = 0;
+hp = 6;
+maxHp = hp;
 firstStrike = false;
+damage = 0;
+noEyes = true;
+allegience = "none";

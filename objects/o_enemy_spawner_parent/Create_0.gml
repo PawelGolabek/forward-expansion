@@ -1,1 +1,0 @@
-spawn_object = o_enemy_unit_parent;

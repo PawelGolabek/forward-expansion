@@ -1,16 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_enemy_spawner_parent",
+  "%Name":"o_worker_spawner",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_enemy_spawner_parent",
+  "name":"o_worker_spawner",
   "overriddenProperties":[],
   "parent":{
-    "name":"enemy",
-    "path":"folders/objects/spawners/enemy.yy",
+    "name":"player",
+    "path":"folders/objects/spawners/player.yy",
   },
   "parentObjectId":{
     "name":"o_spawner_parent",
@@ -34,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_7",
-    "path":"sprites/Sprite1_7/Sprite1_7.yy",
+    "name":"Sprite36",
+    "path":"sprites/Sprite36/Sprite36.yy",
   },
   "spriteMaskId":null,
   "visible":true,

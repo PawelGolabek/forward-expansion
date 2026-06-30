@@ -8,8 +8,8 @@
   "name":"o_arrow",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -11,14 +11,17 @@
 depth = -y;
 tmpTarget = noone;
 
-if (mouse_check_button_pressed(mb_left))
-{
-    if (position_meeting(mouse_x, mouse_y, id))
-    {
-        dragging = true;
-        last_valid_x = x;
-        last_valid_y = y;
-    }
+if(position_meeting(mouse_x, mouse_y, id)){
+	drawCircle = true
+	if (mouse_check_button_pressed(mb_left))
+	{
+	    if ( global.draggingUnit == noone and not placed)
+	    {
+	        dragging = true;
+	        last_valid_x = x;
+	        last_valid_y = y;
+	    }
+	}
 }
 
 if (dragging)
@@ -82,8 +85,10 @@ if (dragging)
 		global.dropped = self;
 		o_combat_resolver.resolve_first_strike()
 		global.dropped = noone;
+		global.draggingUnit =noone;
         dragging = false;
-        global.draggingUnit = noone;
+		placed = true;
+		o_combat_resolver.resolve_combat()
     }
 }
 else
@@ -95,12 +100,51 @@ breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
 image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
 image_yscale = base_scale - sin(breathe_timer) * breathe_amount;
 
-blink-=delta_time;
-if(blink <= 0){
-	lEye.blink()
-	rEye.blink()
-	blink = maxBlink
+
+if(not noEyes){
+	blink-=delta_time;
+	if(blink <= 0){
+		lEye.blink()
+		rEye.blink()
+		blink = maxBlink
+	}
 }
 
 if (hit_timer > 0)
     hit_timer--;
+
+if (global.draggingUnit == self)
+{
+	global.expectedDmg = 0;
+	with(o_unit){
+	    // 4. Check if that dragged enemy is within THIS unit's range
+	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+	    if(global.draggingUnit == self){
+			drawCircle = true
+		}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
+		){
+			drawCircle = true
+			tmpTarget = global.draggingUnit;
+			global.expectedDmg += damage
+		}
+	}
+}
+// will run for every unit which is bad but eh
+// 4. Check if that dragged enemy is within THIS unit's range
+if (global.draggingUnit != noone and global.draggingUnit != self) {
+    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+
+    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
+        drawCircle = true;
+        tmpTarget = global.draggingUnit;
+        global.expectedDmg += damage;
+    } else {
+        drawCircle = false;
+    }
+} else if (global.draggingUnit == self) {
+    drawCircle = true; // always show circle on the unit being dragged
+} else if (position_meeting(mouse_x, mouse_y, id)) {
+    drawCircle = true;
+} else {
+    drawCircle = false;
+}
