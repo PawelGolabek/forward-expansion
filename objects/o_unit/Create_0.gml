@@ -5,6 +5,10 @@ target = noone;
 tmpTarget = noone;
 hp = 10
 maxhp = hp
+firstStrike = true;
+reactionStrike = true;
+//tmp variables for combat
+damageTaken = 0
 
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow)

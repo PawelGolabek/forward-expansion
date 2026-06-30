@@ -26,12 +26,12 @@ function resolve_combat(){
 
 function resolve_first_strike(){
 	with(o_unit){
-		if(distance_to_object(global.dropped) <= range and global.dropped.allegience != allegience){
+		if(distance_to_object(global.dropped) <= range and global.dropped.allegience != allegience and reactionStrike){
 			global.dropped.damageTaken += self.damage;
 		}
 	}
 	with(global.dropped){
-		if(self.target != noone){
+		if(self.target != noone and firstStrike){
 			target.damageTaken += self.damage;
 		}
 	}

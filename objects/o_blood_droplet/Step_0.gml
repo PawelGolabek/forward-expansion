@@ -6,6 +6,5 @@ y += ySpeed * delta_time * 0.00000001;
 ttl -= delta_time
 if(ttl <= 0){
 	instance_create_depth(x,y,200,o_bloodstain)
-	show_debug_message("AAAA")
 	instance_destroy()
 }

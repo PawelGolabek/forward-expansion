@@ -5,7 +5,6 @@ hp = 10
 maxhp = hp
 damage = 5
 allegience = "player"
-damageTaken = 0
 
 range = 500
 

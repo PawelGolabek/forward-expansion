@@ -1,0 +1,1 @@
+global.crystals = 0

@@ -43,51 +43,69 @@ totalLength = w + maxhp ;
 
 // hp
 // background
-draw_set_color(c_red);
+draw_set_color(c_gray);
 draw_rectangle(x1, y1, x1 + totalLength, y1 + h, false);
 
 // fill 
 draw_set_color(c_lime);
+if(hp_ratio <= 0.5){
+	draw_set_color(c_yellow);
+
+}
+if(hp_ratio <= 0.2){
+	draw_set_color(c_red);
+
+}
 draw_rectangle(x1, y1, x1 + ( hp_ratio * totalLength), y1 + h, false);
 
 draw_set_color(c_white);
 
 // 2. Check if a valid unit is currently being dragged
-if (global.draggingUnit != noone)
+if (global.draggingUnit == self)
 {
-        // 4. Check if that dragged enemy is within THIS unit's range
-        var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
-		drawCircle = false
-        if(global.draggingUnit == self){
-			drawCircle = true
-		}else if (dist <= range and global.draggingUnit.allegience != allegience
-		){
-			drawCircle = true
-			tmpTarget = global.draggingUnit;
+		global.expectedDmg = 0;
+		with(o_unit){
+	        // 4. Check if that dragged enemy is within THIS unit's range
+	        var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+			drawCircle = false
+	        if(global.draggingUnit == self){
+				drawCircle = true
+			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
+			){
+				drawCircle = true
+				tmpTarget = global.draggingUnit;
+				global.expectedDmg += damage
+			}
+			if(drawCircle){
+		        // The enemy is in range! Draw this unit's threat radius.
+		        var circleColor = c_orange; // Orange/Yellow works great for a warning outline
+            
+		        draw_set_alpha(0.3); // Semi-transparent outline
+		        draw_circle_color(x, y, range, circleColor, circleColor, true);
+            
+		        draw_set_alpha(0.05); // Super faint filled center
+		        draw_circle_color(x, y, range, circleColor, circleColor, false);
+            
+		        // Reset alpha back to normal
+		        draw_set_alpha(1.0);
+			}
 		}
-		if(drawCircle){
-	        // The enemy is in range! Draw this unit's threat radius.
-	        var circleColor = c_orange; // Orange/Yellow works great for a warning outline
-            
-	        draw_set_alpha(0.3); // Semi-transparent outline
-	        draw_circle_color(x, y, range, circleColor, circleColor, true);
-            
-	        draw_set_alpha(0.05); // Super faint filled center
-	        draw_circle_color(x, y, range, circleColor, circleColor, false);
-            
-	        // Reset alpha back to normal
-	        draw_set_alpha(1.0);
-		}
-}else{
-	tmpTarget = target
+		
+	draw_set_font(fnt_24);
+	draw_text_colour(x, y-180, global.expectedDmg,
+    c_yellow,  // bottom-right
+    c_yellow,  // bottom-right
+    c_yellow,  // bottom-right
+    c_green,  // bottom-right
+    1)
 }
 
 if (position_meeting(mouse_x, mouse_y, id)){
 	draw_set_font(fnt_24);
 	draw_text_colour(x, y, hp,
-    c_green,  // bottom-right
-    c_green,  // bottom-right
-    c_green,  // bottom-right
+    c_yellow,  // bottom-right
+    c_yellow,  // bottom-right
+    c_yellow,  // bottom-right
     c_green,  // bottom-right
     1
 );

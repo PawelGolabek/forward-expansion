@@ -7,3 +7,4 @@ maxhp = hp
 allegience = "enemy"
 damageTaken = 0
 range = 200
+reactionStrike = false;
