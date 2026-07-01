@@ -10,7 +10,8 @@ firstStrike = true;
 reactionStrike = true;
 //tmp variables for combat
 damageTaken = 0
-drawCircle = false;
+drawCircle = false; 
+fragility = 10;
 
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow)

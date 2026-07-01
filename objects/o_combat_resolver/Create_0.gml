@@ -25,6 +25,8 @@ function resolve_combat(){
 		findNewTargetForSelf(); 
 	}
 	
+	o_ai.ai_evaluate_and_place() 
+	
 }
 
 

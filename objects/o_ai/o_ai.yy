@@ -1,18 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_unit",
+  "%Name":"o_ai",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":1,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_unit",
+  "name":"o_ai",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/objects/units.yy",
+    "name":"objects",
+    "path":"folders/objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -33,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1",
-    "path":"sprites/Sprite1/Sprite1.yy",
+    "name":"Sprite37",
+    "path":"sprites/Sprite37/Sprite37.yy",
   },
   "spriteMaskId":null,
   "visible":true,
