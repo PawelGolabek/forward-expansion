@@ -35,6 +35,7 @@ if (dragging)
     var _iterations = 300;
     repeat (_iterations)
     {
+			
         var _list = ds_list_create();
         var _num = instance_place_list(x, y, o_unit, _list, false);
         var _moved = false;
@@ -68,16 +69,44 @@ if (dragging)
     var _check = instance_place(x, y, o_unit);
 	var _checkTerrain = instance_place(x, y, o_impassable);
 	
-    if (_check == noone || _check == id || _checkTerrain == noone || _checkTerrain == id)
-    {
-        last_valid_x = x;
-        last_valid_y = y;
-    }
-    else
-    {
-        x = last_valid_x;
-        y = last_valid_y;
-    }
+
+	var _deployable = false
+	var _cx = x;
+	var _cy = y;
+	var myId = self
+	var u;
+
+	for (var i = 0; i < instance_number(o_unit); i++)
+	{
+	    u = instance_find(o_unit, i);
+
+	    if (u == id) continue;
+	    if (u.allegience != "player") continue;
+
+	    if (point_distance(x, y, u.x, u.y) <= u.range)
+	    {
+			 u.drawCircle = true;
+			 lastFriendly = u;
+	        _deployable = true;
+	        break;
+	    }
+	}
+	var valid = (_checkTerrain == noone) && _deployable;
+
+	if (!valid)
+	{
+	    x = last_valid_x;
+	    y = last_valid_y;
+		global.deployHighlight = lastFriendly;	
+	}
+	else
+	{
+	    last_valid_x = x;
+	    last_valid_y = y;
+		if(lastFriendly != noone){
+			global.deployHighlight = u;			
+		}
+	}
     findNewTargetForSelf();
     if (!mouse_check_button(mb_left))
     {
@@ -88,6 +117,7 @@ if (dragging)
 		global.draggingUnit =noone;
         dragging = false;
 		placed = true;
+		lastFriendly = noone;
 		o_combat_resolver.resolve_combat()
     }
 }
@@ -99,19 +129,6 @@ else
 breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
 image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
 image_yscale = base_scale - sin(breathe_timer) * breathe_amount;
-
-
-if(not noEyes){
-	blink-=delta_time;
-	if(blink <= 0){
-		lEye.blink()
-		rEye.blink()
-		blink = maxBlink
-	}
-}
-
-if (hit_timer > 0)
-    hit_timer--;
 
 if (global.draggingUnit == self)
 {
@@ -148,3 +165,18 @@ if (global.draggingUnit != noone and global.draggingUnit != self) {
 } else {
     drawCircle = false;
 }
+
+
+
+
+if(not noEyes){
+	blink-=delta_time;
+	if(blink <= 0){
+		lEye.blink()
+		rEye.blink()
+		blink = maxBlink
+	}
+}
+
+if (hit_timer > 0)
+    hit_timer--;

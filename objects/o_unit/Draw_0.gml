@@ -1,3 +1,20 @@
+var inst = instance_position(x, y, o_unit);
+
+last_valid_x = x;
+last_valid_y = y;
+if (inst != noone && inst != id)
+{
+    draw_text_colour(
+        x, y - 180, "Im colliding",
+        c_yellow,
+        c_yellow,
+        c_yellow,
+        c_green,
+        1
+    );
+}
+
+image_alpha = 0.5
 color = c_white
 if (shader_is_compiled(shd_shadow)) {
 	shader_set(shd_shadow);
@@ -58,7 +75,7 @@ draw_set_color(c_white);
 
 // 2. Check if a valid unit is currently being dragged
 
-if(drawCircle){
+if(drawCircle or global.deployHighlight == id){
 	// The enemy is in range! Draw this unit's threat radius.
 	var circleColor = c_orange; // Orange/Yellow works great for a warning outline
 	draw_set_alpha(0.5); // Semi-transparent outline
@@ -68,7 +85,11 @@ if(drawCircle){
 
 	// Reset alpha back to normal
 	draw_set_alpha(1.0);
+	if(global.deployHighlight == self){
+		global.deployHighlight = noone;
+	}
 }
+
 			
 	
 if (global.draggingUnit == self)

@@ -18,6 +18,7 @@ arrow = instance_create_depth(x,y,depth-10,o_arrow)
 arrow.owner = self
 standard_collisions = mask_index
 dragging_mask = s_unit_mask
+lastFriendly = noone;
 //cosmetics
 eyeX = 20
 eyeDist = 30;

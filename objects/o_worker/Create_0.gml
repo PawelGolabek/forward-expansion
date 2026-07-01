@@ -3,7 +3,7 @@ dragging = false;
 
 hp = 3
 maxhp = hp
-damage = 10
+damage = 7
 allegience = "player"
 
 range = 500

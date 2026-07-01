@@ -61,11 +61,19 @@ function ai_evaluate_and_place() {
             if (position_meeting(cx, cy, o_unit))       continue;
             if (position_meeting(cx, cy, o_impassable)) continue;
 
+
+			
             // closest enemy unit to this cell (for screening term)
             var closest_enemy_x    = -1;
             var closest_enemy_y    = -1;
             var closest_enemy_dist = 999999;
+			var _deployable = false;
             with (o_unit) {
+				if(allegience == "enemy"){
+					if(point_distance(cx, cy, x, y) < range){
+						_deployable = true;
+					}		
+				}
                 if (allegience == "player") {
                     var _d = point_distance(cx, cy, x, y);
                     if (_d < closest_enemy_dist) {
@@ -75,10 +83,16 @@ function ai_evaluate_and_place() {
                     }
                 }
             }
+			if(!_deployable){
+				continue;
+			}
 
             for (var t = 0; t < array_length(unit_types); t++) {
                 var u     = unit_types[t];
                 var score1 = 0;
+				
+				closestEnemy = noone;
+				var minDist = 9999999
 
                 with (o_unit) {
                     var _d    = point_distance(cx, cy, x, y);
@@ -87,7 +101,11 @@ function ai_evaluate_and_place() {
                     if (!_is_ai) {
                         // + proximity to player units/nodes
                         score1 += 10 / (1 + _d / 100);
-
+						
+						if(minDist > _d){
+							minDist = _d;
+							closestEnemy = self;
+						}
                         // - danger: player units whose range covers this cell
                         if (_d <= range) {
                             score1 -= u.fragility * 5;
@@ -118,7 +136,9 @@ function ai_evaluate_and_place() {
                 // + HUNTING: aggressive units chase fragile enemies
                 if (u.is_aggressive && fragile_enemy_x != -1) {
                     var _dfe = point_distance(cx, cy, fragile_enemy_x, fragile_enemy_y);
-                    score1 += (u.damage / (1 + _dfe / 100)) * 5;
+					if(range > minDist){
+						score1 += u.damage  * 5;
+					}
                 }
 
                 if (score1 > best_score1) {
@@ -130,10 +150,10 @@ function ai_evaluate_and_place() {
             }
         }
     }
-
+	var _spawned = noone
     // --- spawn winner ---
     if (best_type != -1 && best_x != -1) {
-        var _spawned        = instance_create_layer(best_x, best_y, "units", unit_types[best_type].obj);
+        _spawned        = instance_create_layer(best_x, best_y, "units", unit_types[best_type].obj);
         _spawned.placed     = true;
         _spawned.allegience = "enemy";
         
@@ -157,20 +177,22 @@ function ai_evaluate_and_place() {
                     x += lengthdir_x(1, _dir);
                     y += lengthdir_y(1, _dir);
                     _moved = true;
+					
+		            // --- clamp to room bounds using sprite extents ---
+		            var _halfLeft   = sprite_get_xoffset(sprite_index);
+		            var _halfRight  = sprite_get_width(sprite_index)  - _halfLeft;
+		            var _halfTop    = sprite_get_yoffset(sprite_index);
+		            var _halfBottom = sprite_get_height(sprite_index) - _halfTop;
+        
+		            x = clamp(x, _halfLeft,  room_width  - _halfRight);
+		            y = clamp(y, _halfTop,   room_height - _halfBottom);
+        
+					
                 }
                 ds_list_destroy(_list);
                 if (!_moved) break;
             }
             
-            // --- clamp to room bounds using sprite extents ---
-            var _halfLeft   = sprite_get_xoffset(sprite_index);
-            var _halfRight  = sprite_get_width(sprite_index)  - _halfLeft;
-            var _halfTop    = sprite_get_yoffset(sprite_index);
-            var _halfBottom = sprite_get_height(sprite_index) - _halfTop;
-        
-            x = clamp(x, _halfLeft,  room_width  - _halfRight);
-            y = clamp(y, _halfTop,   room_height - _halfBottom);
-        
             // --- validate final position exactly like a player drop ---
             var _unit_hit    = instance_place(x, y, o_unit);
             var _terrain_hit = instance_place(x, y, o_impassable);
@@ -191,8 +213,16 @@ function ai_evaluate_and_place() {
             global.dropped = _spawned;
             o_combat_resolver.resolve_first_strike();
             global.dropped = noone;
+			visible = true
         }
+		else{
+			visible = false	
+		}
     }
+	
+	if(_spawned == noone){
+		visible = false	
+	}
     
     show_debug_message(string(best_x) + " " +  string(best_y));
 }
