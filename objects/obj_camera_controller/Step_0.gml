@@ -3,9 +3,12 @@ var mx = window_mouse_get_x();
 var my = window_mouse_get_y();
 
 // start drag
+// start drag
 if (mouse_check_button_pressed(mb_middle))
 {
     dragging = true;
+    mx = window_mouse_get_x(); // Force current window tracking coordinates immediately
+    my = window_mouse_get_y();
     prev_mouse_x = mx;
     prev_mouse_y = my;
 }

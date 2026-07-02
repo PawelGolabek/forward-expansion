@@ -108,28 +108,64 @@ if (dragging)
 		}
 	}
     findNewTargetForSelf();
-    if (!mouse_check_button(mb_left))
-    {
-        resetTargets();
-		global.dropped = self;
-		o_combat_resolver.resolve_first_strike()
-		global.dropped = noone;
-		global.draggingUnit =noone;
-        dragging = false;
-		placed = true;
-		lastFriendly = noone;
-		o_combat_resolver.resolve_combat()
-    }
-}
-else
+if (!mouse_check_button(mb_left))
 {
-	drag_draw_offset = 0;
-    mask_index = standard_collisions;
-}
-breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
-image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
-image_yscale = base_scale - sin(breathe_timer) * breathe_amount;
+    o_clock.toNextEvent = o_clock.maxToNextEvent;
 
+    ds_queue_enqueue(o_clock.action_queue, {
+        // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+        my_spawned_unit: id, 
+    
+        func: function() {
+            show_debug_message("Action 1: Player dropped a unit!");
+            
+            var _unit = self.my_spawned_unit;
+            
+            // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
+            if (instance_exists(_unit)) {
+                with (_unit) {
+                    // 1. These now run perfectly inside the unit's scope AFTER the delay
+                    resetTargets();
+                    
+                    global.dropped = id; 
+                    global.draggingUnit = id;
+                    
+                    o_combat_resolver.resolve_first_strike();
+                    
+				    global.dropped = noone;
+				    global.draggingUnit = noone;
+				    global.deployHighlight = noone;
+				    // 2. Clear state inside the unit context right as combat resolves
+                    if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+                        lastFriendly.drawCircle = false;
+                        lastFriendly = noone;
+                    }
+                    
+                }
+            }
+            
+            // 3. Resolve global combat after the unit handles its drop actions
+            o_combat_resolver.resolve_combat();
+        }
+    }); 
+	
+               
+		dragging = false;
+		placed = true;
+		drag_draw_offset = 0;
+		drag_draw_offset = 0;
+		mask_index = standard_collisions;
+                    
+	
+	
+	
+}
+}
+if (animationOn) {
+    breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
+    image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
+    image_yscale = base_scale; // Finished off your cut-off line here!
+}
 if (global.draggingUnit == self)
 {
 	global.expectedDmg = 0;

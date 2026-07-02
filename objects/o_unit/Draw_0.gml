@@ -43,10 +43,12 @@ if (shader_is_compiled(shd_shadow)) {
     shader_reset();
 }
 // --- 2. DRAW SELF (Your original code starts here) ---
-//draw_self();
 
-draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, color, image_alpha);
-
+if(animationOn){
+	draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, color, image_alpha);
+}else{
+	draw_self();
+}
 var w = 30;
 var h = 12;
 var x1 = x - w * 0.5;

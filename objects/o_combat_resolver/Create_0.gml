@@ -2,34 +2,42 @@ global.deployHighlight = noone
 global.draggingUnit = noone
 
 function resolve_combat(){
-	with(o_unit){
-		if(target != noone){
-			target.damageTaken += self.damage;	
-		}
-	}
 	
-	with(o_unit){
-		hp -= damageTaken;
-		if(damageTaken){
-			hit_timer = 8; // flash for 8 frames
-		}
-		damageTaken = 0
-		if(hp <= 0){
-		    with(o_unit){
-		        if(target == other.id) target = noone;
-		    }
-		    instance_destroy();
-		}
-	}
-	
-	with(o_unit){
-		findNewTargetForSelf(); 
-	}
-	
-	o_ai.ai_evaluate_and_place() 
-	
-}
+    ds_queue_enqueue(o_clock.action_queue, {
+        // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+    
+        func: function() {
+            show_debug_message("resolving!");
 
+		with(o_unit){
+			if(target != noone){
+				target.damageTaken += self.damage;	
+			}
+		}
+	
+		with(o_unit){
+			hp -= damageTaken;
+			if(damageTaken){
+				hit_timer = 8; // flash for 8 frames
+			}
+			damageTaken = 0
+			if(hp <= 0){
+			    with(o_unit){
+			        if(target == other.id) target = noone;
+			    }
+			    instance_destroy();
+			}
+		}
+	
+		with(o_unit){
+			findNewTargetForSelf(); 
+		}
+	
+		o_ai.ai_evaluate_and_place() 
+	
+		}
+	});
+}
 
 function resolve_first_strike(){
 	

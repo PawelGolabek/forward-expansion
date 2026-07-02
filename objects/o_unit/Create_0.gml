@@ -12,6 +12,8 @@ reactionStrike = true;
 damageTaken = 0
 drawCircle = false; 
 fragility = 10;
+aiType = "melee";
+animationOn = true;
 
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow)
@@ -59,6 +61,7 @@ breathe_speed = 0.05;   // how fast it breathes
 breathe_amount = 0.05;  // how much it scales (0.05 = 5%)
 base_scale = 1;         // your sprite's normal scale
 hit_timer = 0;
+drawCircle = false;
 //drag
 drag_draw_offset = 0;
 justFinishedDragging = false;

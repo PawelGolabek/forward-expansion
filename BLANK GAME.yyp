@@ -52,6 +52,7 @@
     {"id":{"name":"o_building_parent","path":"objects/o_building_parent/o_building_parent.yy",},},
     {"id":{"name":"o_cavalry_spawner","path":"objects/o_cavalry_spawner/o_cavalry_spawner.yy",},},
     {"id":{"name":"o_cavalry","path":"objects/o_cavalry/o_cavalry.yy",},},
+    {"id":{"name":"o_clock","path":"objects/o_clock/o_clock.yy",},},
     {"id":{"name":"o_combat_resolver","path":"objects/o_combat_resolver/o_combat_resolver.yy",},},
     {"id":{"name":"o_crystals","path":"objects/o_crystals/o_crystals.yy",},},
     {"id":{"name":"o_dzida","path":"objects/o_dzida/o_dzida.yy",},},
