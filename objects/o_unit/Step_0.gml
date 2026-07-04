@@ -117,7 +117,8 @@ if (!mouse_check_button(mb_left))
         my_spawned_unit: id, 
     
         func: function() {
-            show_debug_message("Action 1: Player dropped a unit!");
+			
+			o_combat_log.log("Player spawned " + my_spawned_unit.name );
             
             var _unit = self.my_spawned_unit;
             

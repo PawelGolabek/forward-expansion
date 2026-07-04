@@ -1,6 +1,7 @@
 event_inherited()
 dragging = false;
 
+name = "inferna";
 hp = 10
 maxhp = hp
 damage = 4

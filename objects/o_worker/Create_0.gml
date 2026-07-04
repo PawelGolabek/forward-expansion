@@ -1,6 +1,7 @@
 event_inherited()
 dragging = false;
 
+name = "worker";
 hp = 3
 maxhp = hp
 damage = 7

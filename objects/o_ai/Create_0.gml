@@ -218,7 +218,7 @@ function ai_evaluate_and_place() {
 // --- Process final resolution back in manager scope if the unit survived ---
         if (!_destroyed) {
             // Note: Removed 'x = _spawned.x;' which was moving the manager object itself!
-            
+            o_combat_log.currentLog += "\nEnemy spawned " + _spawned.name;
             _spawned.resetTargets();
     
             global.dropped = _spawned;

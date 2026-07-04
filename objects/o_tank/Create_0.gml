@@ -1,6 +1,7 @@
 event_inherited()
 dragging = false;
 
+name = "tank";
 hp = 50
 maxhp = hp
 damage = 1

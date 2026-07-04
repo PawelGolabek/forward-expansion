@@ -38,6 +38,7 @@
   "name":"BLANK GAME",
   "resources":[
     {"id":{"name":"fnt_24","path":"fonts/fnt_24/fnt_24.yy",},},
+    {"id":{"name":"fnt_log","path":"fonts/fnt_log/fnt_log.yy",},},
     {"id":{"name":"o_ai","path":"objects/o_ai/o_ai.yy",},},
     {"id":{"name":"o_archer_spawner","path":"objects/o_archer_spawner/o_archer_spawner.yy",},},
     {"id":{"name":"o_archer","path":"objects/o_archer/o_archer.yy",},},
@@ -53,6 +54,7 @@
     {"id":{"name":"o_cavalry_spawner","path":"objects/o_cavalry_spawner/o_cavalry_spawner.yy",},},
     {"id":{"name":"o_cavalry","path":"objects/o_cavalry/o_cavalry.yy",},},
     {"id":{"name":"o_clock","path":"objects/o_clock/o_clock.yy",},},
+    {"id":{"name":"o_combat_log","path":"objects/o_combat_log/o_combat_log.yy",},},
     {"id":{"name":"o_combat_resolver","path":"objects/o_combat_resolver/o_combat_resolver.yy",},},
     {"id":{"name":"o_crystals","path":"objects/o_crystals/o_crystals.yy",},},
     {"id":{"name":"o_dzida","path":"objects/o_dzida/o_dzida.yy",},},
@@ -132,6 +134,7 @@
     {"id":{"name":"Sprite35","path":"sprites/Sprite35/Sprite35.yy",},},
     {"id":{"name":"Sprite36","path":"sprites/Sprite36/Sprite36.yy",},},
     {"id":{"name":"Sprite37","path":"sprites/Sprite37/Sprite37.yy",},},
+    {"id":{"name":"Sprite38","path":"sprites/Sprite38/Sprite38.yy",},},
     {"id":{"name":"Sprite5","path":"sprites/Sprite5/Sprite5.yy",},},
     {"id":{"name":"Sprite6","path":"sprites/Sprite6/Sprite6.yy",},},
   ],

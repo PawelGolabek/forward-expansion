@@ -8,10 +8,14 @@ function resolve_combat(){
     
         func: function() {
             show_debug_message("resolving!");
+				o_combat_log.log("Combat resolution initiated");
 
 		with(o_unit){
 			if(target != noone){
-				target.damageTaken += self.damage;	
+				target.damageTaken += damage;
+				if(target.logHit){
+					o_combat_log.log(string(target.allegience) + "'s " + string(target.name) + " got hit by " + string(target.allegience) + "'s "  + string(name) + " by " + string(damage));
+				}
 			}
 		}
 	
@@ -22,6 +26,9 @@ function resolve_combat(){
 			}
 			damageTaken = 0
 			if(hp <= 0){
+				if(logDeath){
+					o_combat_log.log(string(target.allegience) + "'s " + name + " died");					
+				}
 			    with(o_unit){
 			        if(target == other.id) target = noone;
 			    }
@@ -42,6 +49,7 @@ function resolve_combat(){
 function resolve_first_strike(){
 	
 	with(o_unit){
+		show_debug_message(global.dropped.x)
 		if(point_distance(x, y, global.dropped.x, global.dropped.y) <= range and global.dropped.allegience != allegience and reactionStrike){
 			global.dropped.damageTaken += self.damage;
 		}

@@ -1,5 +1,6 @@
 allegience = "enemy"
 
+name = "NO NAME ASSIGNED";
 range = 1000;
 target = noone;
 tmpTarget = noone;
@@ -66,6 +67,9 @@ drawCircle = false;
 drag_draw_offset = 0;
 justFinishedDragging = false;
 placed = false;
+//log
+logDeath = true;
+logHit = true;
 
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");

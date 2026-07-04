@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fnt_24",
+  "%Name":"fnt_log",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":39,
@@ -232,7 +232,7 @@
   "last":0,
   "lineHeight":49,
   "maintainGms1Font":false,
-  "name":"fnt_24",
+  "name":"fnt_log",
   "parent":{
     "name":"fonts",
     "path":"folders/objects/fonts.yy",
