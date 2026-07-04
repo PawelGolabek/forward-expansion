@@ -73,7 +73,7 @@ function ai_evaluate_and_place() {
 			var _deployable = false;
             with (o_unit) {
 				if(allegience == "enemy"){
-					if(point_distance(cx, cy, x, y) < range){
+					if(point_distance(cx, cy, x, y) < range and not targetted){
 						_deployable = true;
 					}		
 				}

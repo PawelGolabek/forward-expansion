@@ -4,6 +4,7 @@ name = "NO NAME ASSIGNED";
 range = 1000;
 target = noone;
 tmpTarget = noone;
+targetted = false;
 damage = 100
 hp = 10
 maxhp = hp

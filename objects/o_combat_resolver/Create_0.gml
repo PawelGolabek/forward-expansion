@@ -41,12 +41,30 @@ function resolve_combat(){
 		}
 	
 		o_ai.ai_evaluate_and_place() 
+		
+		with (o_unit)
+			targetted = false;
+
+		with (o_unit)
+		{
+		    if (instance_exists(target))
+		        target.targetted = true;
+		}
 	
 		}
 	});
 }
 
 function resolve_first_strike(){
+	
+	with (o_unit)
+		targetted = false;
+
+	with (o_unit)
+	{
+	    if (instance_exists(target))
+	        target.targetted = true;
+	}
 	
 	with(o_unit){
 		show_debug_message(global.dropped.x)

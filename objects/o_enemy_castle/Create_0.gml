@@ -1,5 +1,6 @@
 
 event_inherited()
+name = "castle";
 dragging = false;
 damage = 1
 hp = 800

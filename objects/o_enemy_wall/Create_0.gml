@@ -1,5 +1,6 @@
 
 event_inherited()
+name = "wall"
 dragging = false;
 damage = 0
 hp = 100

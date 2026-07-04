@@ -83,7 +83,7 @@ if (dragging)
 	    if (u == id) continue;
 	    if (u.allegience != "player") continue;
 
-	    if (point_distance(x, y, u.x, u.y) <= u.range)
+	    if (point_distance(x, y, u.x, u.y) <= u.range and not u.targetted)
 	    {
 			 u.drawCircle = true;
 			 lastFriendly = u;
@@ -104,22 +104,19 @@ if (dragging)
 	    last_valid_x = x;
 	    last_valid_y = y;
 		if(lastFriendly != noone){
-			global.deployHighlight = u;			
+			global.deployHighlight = u;
 		}
 	}
     findNewTargetForSelf();
 if (!mouse_check_button(mb_left))
 {
     o_clock.toNextEvent = o_clock.maxToNextEvent;
-
     ds_queue_enqueue(o_clock.action_queue, {
         // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
-        my_spawned_unit: id, 
-    
+        my_spawned_unit: id,
         func: function() {
 			
 			o_combat_log.log("Player spawned " + my_spawned_unit.name );
-            
             var _unit = self.my_spawned_unit;
             
             // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
