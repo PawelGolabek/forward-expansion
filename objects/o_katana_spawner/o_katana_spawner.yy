@@ -1,15 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"o_background",
-  "eventList":[],
+  "%Name":"o_katana_spawner",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"o_background",
+  "name":"o_katana_spawner",
   "overriddenProperties":[],
   "parent":{
-    "name":"backgrounds",
-    "path":"folders/objects/backgrounds.yy",
+    "name":"player",
+    "path":"folders/objects/spawners/player.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_spawner_parent",
+    "path":"objects/o_spawner_parent/o_spawner_parent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -28,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite32",
-    "path":"sprites/Sprite32/Sprite32.yy",
+    "name":"s_katana",
+    "path":"sprites/s_katana/s_katana.yy",
   },
   "spriteMaskId":null,
   "visible":true,

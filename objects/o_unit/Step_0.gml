@@ -66,6 +66,7 @@ if (dragging)
 	var _cy = y;
 	var myId = self
 	var u;
+	var _lineClear = false;
 
 	for (var i = 0; i < instance_number(o_unit); i++)
 	{
@@ -79,10 +80,18 @@ if (dragging)
 			 u.drawCircle = true;
 			 lastFriendly = u;
 	        _deployable = true;
-	        break;
+			
+			if(_deployable){
+				_lineClear = not line_blocked(x, y, lastFriendly.x, lastFriendly.y)
+			}
+			if(_lineClear){
+				break;
+			}else{
+				continue;
+			}
 	    }
 	}
-	var valid = (_checkTerrain == noone) && _deployable;
+	var valid = (_checkTerrain == noone) && _deployable && _lineClear;
 
 	if (!valid)
 	{
@@ -118,7 +127,6 @@ if (!mouse_check_button(mb_left))
                     
                     global.dropped = id; 
                     global.draggingUnit = id;
-                    
                     o_combat_resolver.resolve_first_strike();
                     
 				    global.dropped = noone;
@@ -129,26 +137,18 @@ if (!mouse_check_button(mb_left))
                         lastFriendly.drawCircle = false;
                         lastFriendly = noone;
                     }
-                    
                 }
             }
-            
             // 3. Resolve global combat after the unit handles its drop actions
             o_combat_resolver.resolve_combat();
         }
     }); 
-	
-               
 		dragging = false;
 		placed = true;
 		drag_draw_offset = 0;
 		drag_draw_offset = 0;
-		mask_index = standard_collisions;
-                    
-	
-	
-	
-}
+		mask_index = standard_collisions;        
+	}
 }
 if (animationOn) {
     breathe_timer += breathe_speed * (delta_time / 1000000) * 60;

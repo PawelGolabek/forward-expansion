@@ -92,6 +92,9 @@ if(drawCircle or global.deployHighlight == id){
 	}
 }
 
+if(global.draggingUnit == self and global.deployHighlight != noone){
+	draw_line_width(x,y,global.deployHighlight.x, global.deployHighlight.y,10)
+}
 			
 	
 if (global.draggingUnit == self)

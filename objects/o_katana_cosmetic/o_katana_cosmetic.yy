@@ -1,13 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"o_background",
-  "eventList":[],
+  "%Name":"o_katana_cosmetic",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"o_background",
+  "name":"o_katana_cosmetic",
   "overriddenProperties":[],
   "parent":{
-    "name":"backgrounds",
-    "path":"folders/objects/backgrounds.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -28,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite32",
-    "path":"sprites/Sprite32/Sprite32.yy",
+    "name":"Sprite25",
+    "path":"sprites/Sprite25/Sprite25.yy",
   },
   "spriteMaskId":null,
   "visible":true,

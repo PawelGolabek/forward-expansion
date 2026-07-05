@@ -82,6 +82,31 @@ shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid
 shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
 
 
+function line_blocked(_x1, _y1, _x2, _y2)
+{
+    var dist = point_distance(_x1, _y1, _x2, _y2);
+    var dir  = point_direction(_x1, _y1, _x2, _y2);
+
+    for (var d = 0; d < dist; d += 4) // sample every 4 pixels
+    {
+        var xx = _x1 + lengthdir_x(d, dir);
+        var yy = _y1 + lengthdir_y(d, dir);
+
+        if (position_meeting(xx, yy, o_impassable))
+            return true;
+			u = instance_place(xx, yy, o_unit);
+			if (u != noone)
+			{
+			    if (u.allegience != allegience)
+			    {
+			        return true;
+			    }
+			}
+    }
+
+    return false;
+}
+
 function resetTargets() 
 {
     // Store references to the dropped unit's properties before looping
