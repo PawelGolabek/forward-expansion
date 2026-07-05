@@ -1,6 +1,11 @@
  
  // Only tick if there is actually something waiting in line
 if (!ds_queue_empty(action_queue)) {
+	blocked = true;
+	for (var i = 0; i < array_length(ui_to_block); i++)
+		{
+		    ui_to_block[i].active = false;
+		}
 	toNextEvent -= delta_time;
 	if(toNextEvent < 0){
 		toNextEvent = 0;
@@ -17,6 +22,7 @@ if (!ds_queue_empty(action_queue)) {
 		toNextEvent = maxToNextEvent;
     }
 } else {
+	blocked = false;
     // Keep the timer refreshed when the queue is completely empty
     action_timer = 0; 
 }

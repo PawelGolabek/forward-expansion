@@ -1,6 +1,5 @@
 aiPassed = 0;
 
-
 function ai_evaluate_and_place() {
 
     // --- read stats directly from the actual objects ---

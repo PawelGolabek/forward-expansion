@@ -2,21 +2,22 @@ allegience = "enemy"
 
 name = "NO NAME ASSIGNED";
 range = 1000;
-target = noone;
-tmpTarget = noone;
-targetted = false;
 damage = 100
 hp = 10
 maxhp = hp
 firstStrike = true;
 reactionStrike = true;
+crystalCost = 10
 //tmp variables for combat
 damageTaken = 0
 drawCircle = false; 
 fragility = 10;
 aiType = "melee";
 animationOn = true;
-
+//targetting
+target = noone;
+tmpTarget = noone;
+targetted = false;
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow)
 arrow.owner = self

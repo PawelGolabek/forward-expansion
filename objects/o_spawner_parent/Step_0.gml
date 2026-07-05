@@ -1,4 +1,13 @@
-if (mouse_check_button_pressed(mb_left))
+if(o_clock.blocked){
+	active = false;
+}else{
+	if(global.crystals >= crystalCost){
+		active = true;
+
+	}
+}
+
+if (mouse_check_button_pressed(mb_left) and active)
 {
     if (position_meeting(mouse_x, mouse_y, id) and active)
     {
@@ -8,9 +17,4 @@ if (mouse_check_button_pressed(mb_left))
 		global.draggingUnit = inst;
 		global.crystals -= crystalCost
     }
-}
-
-if(global.crystals >= crystalCost){
-	active = true;
-
 }

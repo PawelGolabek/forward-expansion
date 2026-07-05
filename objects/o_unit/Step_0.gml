@@ -1,19 +1,10 @@
-// =====================================================================
-// ADD TO CREATE EVENT (if not already present):
-//
-//   dragging      = false;
-//   mask_index    = standard_collisions;
-//   last_valid_x  = x;
-//   last_valid_y  = y;
-//
-// =====================================================================
 
 depth = -y;
 tmpTarget = noone;
 
 if(position_meeting(mouse_x, mouse_y, id)){
 	drawCircle = true
-	if (mouse_check_button_pressed(mb_left))
+	if (mouse_check_button_pressed(mb_left) and (allegience == "player" or o_clock.debug == true))
 	{
 	    if ( global.draggingUnit == noone and not placed)
 	    {

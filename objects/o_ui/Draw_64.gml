@@ -6,3 +6,5 @@ if(global.draggingUnit == noone){
 if(global.deployHighlight != noone){
 	draw_text(0,90,global.deployHighlight)
 }
+
+	draw_text(0,180,o_clock.blocked)

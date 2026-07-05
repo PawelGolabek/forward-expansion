@@ -2,12 +2,12 @@ event_inherited()
 dragging = false;
 
 name = "inferna";
-hp = 10
+hp = 20
 maxhp = hp
 damage = 4
 allegience = "player"
 
-range = 500
+range = 300
 
 
 dzida = instance_create_depth(x + sprite_width/2,y - 64,depth-10,o_dzida);
