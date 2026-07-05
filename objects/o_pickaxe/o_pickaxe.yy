@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite36",
-    "path":"sprites/Sprite36/Sprite36.yy",
+    "name":"s_pickaxe",
+    "path":"sprites/s_pickaxe/s_pickaxe.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -17,12 +17,16 @@ if (!ds_queue_empty(action_queue)) {
         
         // Execute the assigned function
         _next_action.func();
-        
         // Reset the timer for the next item in line
 		toNextEvent = maxToNextEvent;
     }
 } else {
 	blocked = false;
-    // Keep the timer refreshed when the queue is completely empty
+	// random moment to reset parry but a good one
     action_timer = 0; 
+	with(o_unit){
+		if(parry){
+			parried = false;
+		}
+	}
 }

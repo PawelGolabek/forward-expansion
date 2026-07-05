@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite25",
-    "path":"sprites/Sprite25/Sprite25.yy",
+    "name":"s_dzida",
+    "path":"sprites/s_dzida/s_dzida.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite21",
-    "path":"sprites/Sprite21/Sprite21.yy",
+    "name":"s_eye",
+    "path":"sprites/s_eye/s_eye.yy",
   },
   "spriteMaskId":null,
   "visible":true,

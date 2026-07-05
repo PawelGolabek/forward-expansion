@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite19",
-    "path":"sprites/Sprite19/Sprite19.yy",
+    "name":"s_enemy_castle",
+    "path":"sprites/s_enemy_castle/s_enemy_castle.yy",
   },
   "spriteMaskId":null,
   "tags":[

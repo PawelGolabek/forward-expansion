@@ -72,6 +72,8 @@ placed = false;
 //log
 logDeath = true;
 logHit = true;
+//special abilities
+parry = false;
 
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");

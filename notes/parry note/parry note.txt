@@ -1,0 +1,1 @@
+parry was never fully implemented for enemy

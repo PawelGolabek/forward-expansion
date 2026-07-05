@@ -1,4 +1,4 @@
 event_inherited()
 
-spawn_object = o_inferna;
+spawn_object = o_katana;
 setCrystalCost()

@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite30",
-    "path":"sprites/Sprite30/Sprite30.yy",
+    "name":"s_blood_droplet",
+    "path":"sprites/s_blood_droplet/s_blood_droplet.yy",
   },
   "spriteMaskId":null,
   "visible":true,

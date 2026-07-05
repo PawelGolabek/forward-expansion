@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite23",
-    "path":"sprites/Sprite23/Sprite23.yy",
+    "name":"s_eyelid",
+    "path":"sprites/s_eyelid/s_eyelid.yy",
   },
   "spriteMaskId":null,
   "visible":true,
