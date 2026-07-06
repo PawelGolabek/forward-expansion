@@ -24,7 +24,7 @@ function ai_evaluate_and_place() {
     var by1  = 0;
     var bx2  = room_width;
     var by2  = room_height;
-    var step = 120;
+    var step = 60;
 
     // --- precompute fragile own unit (to screen) ---
     var fragile_own_x   = -1;
@@ -60,37 +60,50 @@ function ai_evaluate_and_place() {
     for (var cx = bx1; cx < bx2; cx += step) {
         for (var cy = by1; cy < by2; cy += step) {
 
+			// ... inside the cx/cy loop, before scoring per-type:
+
+			// --- precompute list of friendly (enemy-side) units that can still accept a link ---
+			var _friendlies = [];
+			with (o_unit) {
+			    if (allegience == "enemy" && !targetted) {
+			        array_push(_friendlies, self);
+			    }
+			}
+
+
+			var _cellDeployable = false;
+			var _cellLineClear  = false;
+			for (var f = 0; f < array_length(_friendlies); f++) {
+			    var _fr = _friendlies[f];
+			    if (!instance_exists(_fr)) continue;
+			    if (point_distance(cx, cy, _fr.x, _fr.y) <= _fr.range) {
+			        _cellDeployable = true;
+			        if (!o_unit.line_blocked(cx, cy, _fr.x, _fr.y)) {
+			            _cellLineClear = true;
+			            break;
+			        }
+			    }
+			}
+
+			// hard gate: skip cells that could never pass the post-spawn validation
+			if (!_cellDeployable || !_cellLineClear) continue;
             if (position_meeting(cx, cy, o_unit))       continue;
             if (position_meeting(cx, cy, o_impassable)) continue;
 
+	show_debug_message("best_score = " + string(best_score1));
+	show_debug_message("best_type = " + string(best_type));
 
-			
             // closest enemy unit to this cell (for screening term)
             var closest_enemy_x    = -1;
             var closest_enemy_y    = -1;
             var closest_enemy_dist = 999999;
-			var _deployable = false;
-            with (o_unit) {
-				if(allegience == "enemy"){
-					if(point_distance(cx, cy, x, y) < range and not targetted){
-						_deployable = true;
-					}		
-				}
-                if (allegience == "player") {
-                    var _d = point_distance(cx, cy, x, y);
-                    if (_d < closest_enemy_dist) {
-                        closest_enemy_dist = _d;
-                        closest_enemy_x    = x;
-                        closest_enemy_y    = y;
-                    }
-                }
-            }
-			if(!_deployable){
-				continue;
-			}
+			var _cx = x;
+			var _cy = y;
+			var myId = self
+			var u;
 
             for (var t = 0; t < array_length(unit_types); t++) {
-                var u     = unit_types[t];
+                u = unit_types[t];
                 var score1 = 0;
 				
 				var closestEnemy = noone;
@@ -203,21 +216,52 @@ function ai_evaluate_and_place() {
             var _unit_hit    = instance_place(x, y, o_unit);
             var _terrain_hit = instance_place(x, y, o_impassable);
 
-            var _blocked_by_unit    = (_unit_hit != noone && _unit_hit != id);
-            var _blocked_by_terrain = (_terrain_hit != noone && _terrain_hit != id);
+			var _lineClear = false;
+			var _deployable = false;
+			var _lastFriendly = noone;
 
-            if (_blocked_by_unit || _blocked_by_terrain) {
-                _destroyed = true;
-                instance_destroy();
-            }
+			for (var i = 0; i < instance_number(o_unit); i++){
+			    var u2 = instance_find(o_unit, i);          // FIX: declared as local now
+
+			    if (u2.allegience != "enemy") continue;
+
+			    if (point_distance(x, y, u2.x, u2.y) <= u2.range and not u2.targetted)
+			    {
+			        u2.drawCircle = true;
+			        _lastFriendly = u2;                     // FIX: track it like player's lastFriendly
+			        _deployable = true;
+
+			        if(_deployable){
+			            _lineClear = not line_blocked(x, y, u2.x, u2.y)
+			        }
+			        if(_lineClear){
+			            break;
+			        }else{
+			            continue;
+			        }
+			    }
+			}
+			var _blocked_by_unit    = (_unit_hit != noone && _unit_hit != id);
+			var _blocked_by_terrain = (_terrain_hit != noone && _terrain_hit != id);
+
+			// FIX: now actually requires _deployable, matching player logic
+			if (_blocked_by_unit || _blocked_by_terrain || !_deployable || !_lineClear) {
+			    _destroyed = true;
+			    instance_destroy();
+			} else {
+			    lastFriendly = _lastFriendly;               // FIX: populate for downstream use
+			    if (_lastFriendly != noone) {
+			        global.deployHighlight = _lastFriendly;
+			    }
+			}
         }
         
         // --- Process final resolution back in manager scope if the unit survived ---
 		// --- Process final resolution back in manager scope if the unit survived ---
-// --- Process final resolution back in manager scope if the unit survived ---
+		// --- Process final resolution back in manager scope if the unit survived ---
         if (!_destroyed) {
             // Note: Removed 'x = _spawned.x;' which was moving the manager object itself!
-            o_combat_log.log("\nEnemy spawned " + _spawned.name);
+            o_combat_log.log("Enemy spawned " + _spawned.name);
             _spawned.resetTargets();
     
             global.dropped = _spawned;
@@ -228,30 +272,31 @@ function ai_evaluate_and_place() {
             // Explicitly grab the manager's unique instance ID
             var _manager_id = id; 
     
+			x = _spawned.x
+			y = _spawned.y
             // --- CAMERA RESET FIX ---
             // Explicitly use the resolved _unit instance coordinates// --- CAMERA RESET FIX ---
 			if (instance_exists(obj_camera_controller) && instance_exists(_spawned)) {
 				with (obj_camera_controller) {
 					// Find the width and height of the view at current zoom level
-					var _view_w = 1920 / zoom;
-					var _view_h = 1080 / zoom;
         
-					// Center the camera bounding box directly on the unit
-					cam_x = _spawned.x - (_view_w / 2);
-					cam_y = _spawned.y - (_view_h / 2);
+					var _view_w = window_get_width() / zoom;
+					var _view_h = window_get_height() / zoom;
+
+					cam_x = _spawned.x - _view_w * 0.5;
+					cam_y = _spawned.y - _view_h * 0.5;
+
         
 					// Immediately apply position to avoid 1-frame visual hitching
 					camera_set_view_pos(cam, cam_x, cam_y);
         
 					// Align mouse state to prevent immediate jerkiness when panning resumes
-					prev_mouse_x = window_mouse_get_x();
-					prev_mouse_y = window_mouse_get_y();
+					prev_mouse_x = cam_x
+					prev_mouse_y = cam_y
 				}
 				visible = true;
 			}
 			
-			x = _spawned.x
-			y = _spawned.y
             ds_queue_enqueue(o_clock.action_queue, {
                 my_spawned_unit: _spawned, 
                 my_manager: _manager_id,
@@ -292,6 +337,8 @@ function ai_evaluate_and_place() {
             visible = false;   
         }
     
+	show_debug_message("best_score = " + string(best_score1));
+	show_debug_message("best_type = " + string(best_type));
 	if(_spawned == noone){
 		visible = false	
 		aiPassed = 1000000;

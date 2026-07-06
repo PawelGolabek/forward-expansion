@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"o_ui",
+  "%Name":"o_ui_element",
   "eventList":[],
   "managed":true,
-  "name":"o_ui",
+  "name":"o_ui_element",
   "overriddenProperties":[],
   "parent":{
     "name":"objects",

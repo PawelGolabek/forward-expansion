@@ -1,13 +1,17 @@
 visible = true;
 image_alpha = 1;
 
+og_sprite = sprite_index
+originX = x;
+originY = y;
+
 logList = ds_list_create();
 turn = 1;
 show_debug_message("visible = " + string(visible));
 // scrolling
 scroll_y = 0;
 scroll_speed = 40;
-max_visible_height = 500;
+max_visible_height = 430;
 wrap_width = 400;
 
 // panel position (GUI space)
@@ -22,5 +26,3 @@ function log(message1){
 function scrollEvent(_scroll){
     scroll_y -= _scroll * scroll_speed;
 }
-
-show_debug_message("LOG OBJECT CREATED");

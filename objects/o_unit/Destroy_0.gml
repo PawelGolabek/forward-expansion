@@ -8,5 +8,3 @@ instance_destroy(arrow)
 instance_create_depth(x,y,depth-20,o_blood_droplet)
 instance_create_depth(x,y,depth-20,o_blood_droplet)
 instance_create_depth(x,y,depth-20,o_blood_droplet)
-
-show_debug_message("ded")

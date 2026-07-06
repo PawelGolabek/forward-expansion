@@ -2,6 +2,7 @@
 var mx = window_mouse_get_x();
 var my = window_mouse_get_y();
 
+
 // start drag
 if (mouse_check_button_pressed(mb_middle))
 {
@@ -31,7 +32,25 @@ if (dragging)
 var scroll = mouse_wheel_up() - mouse_wheel_down();
 if (scroll != 0)
 {
-    var _ui_hit = instance_position(window_mouse_get_x(), window_mouse_get_y(), o_ui_display);
+
+    var _win_mx = window_mouse_get_x();
+    var _win_my = window_mouse_get_y();
+    
+    var _gui_mx = _win_mx * (display_get_gui_width()  / window_get_width());
+    var _gui_my = _win_my * (display_get_gui_height() / window_get_height());
+	
+	// Replace your old check with this:
+	var _ui_hit = noone;
+	with (o_ui_element)
+	{
+	    // Assumes x and y are your GUI coordinates for the element
+	    // and sprite_width/height represent its scale on the GUI
+	    if (point_in_rectangle(_gui_mx, _gui_my, x, y, x + sprite_width, y + sprite_height) and visible)
+	    {
+	        _ui_hit = id;
+	        break; // Found our UI element, stop looking
+	    }
+	}
     
     if (_ui_hit != noone)
     {
