@@ -27,7 +27,7 @@ if (shader_is_compiled(shd_shadow)) {
 	    shadow_b = 0.0;
 		color = c_red
 	}
-
+	//shadow
     shader_set_uniform_f(u_shadow_color, shadow_r, shadow_g, shadow_b, shadow_alpha);
     draw_sprite_ext(
         sprite_index,
@@ -44,8 +44,21 @@ if (shader_is_compiled(shd_shadow)) {
 }
 // --- 2. DRAW SELF (Your original code starts here) ---
 
+
+// active / in combat
+color = c_white
+inCombat = false;
+with(o_unit){
+	if(point_distance(x,y,other.x,other.y) <= range and allegience != other.allegience){
+		other.inCombat = true;
+	}
+}
+if(inCombat){
+	color = c_gray;
+}
+
 if(animationOn){
-	draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, color, image_alpha);
+	draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, color, alpha);
 }else{
 	draw_self();
 }

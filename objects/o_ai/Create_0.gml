@@ -1,4 +1,5 @@
 aiPassed = 0;
+image_alpha = 0.3
 
 function ai_evaluate_and_place() {
 

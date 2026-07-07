@@ -12,15 +12,24 @@ show_debug_message("visible = " + string(visible));
 scroll_y = 0;
 scroll_speed = 40;
 max_visible_height = 430;
-wrap_width = 400;
+wrap_width = 360;
 
 // panel position (GUI space)
-panel_x = 0;
-panel_y = 100;
+panel_x = x + 30;
+panel_y = y + 40;
 
-function log(message1){
+function log(message1)
+{
     ds_list_add(logList, string(message1));
-    scroll_y = 0; // auto-scroll to newest
+
+    // Calculate total height
+    var total_h = 0;
+    for (var i = 0; i < ds_list_size(logList); i++)
+    {
+        total_h += string_height_ext(logList[| i], 14, wrap_width) + 4;
+    }
+
+    scroll_y = max(0, total_h - max_visible_height);
 }
 
 function scrollEvent(_scroll){
