@@ -1,7 +1,9 @@
 cam = view_camera[0];
 
-cam_x = camera_get_view_x(cam);
-cam_y = camera_get_view_y(cam);
+cam_x = x
+cam_y = y
+
+camera_set_view_pos(cam, cam_x, cam_y);
 
 dragging = false;
 

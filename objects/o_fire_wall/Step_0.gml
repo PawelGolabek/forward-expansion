@@ -1,0 +1,1 @@
+y = og_y - o_combat_log.turn * 10

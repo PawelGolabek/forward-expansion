@@ -55,7 +55,7 @@ rPupil.originX = rPupil.x - x;
 rPupil.originY = rPupil.y - y;
 lEye.owner = self;
 rEye.owner = self;
-blink = 2000000+random(20000);
+blink = 20000000+random(200000);
 maxBlink = blink
 noEyes = false
 //animations

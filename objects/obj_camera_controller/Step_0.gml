@@ -23,7 +23,6 @@ if (mouse_check_button_pressed(mb_left)){
 		    _ui_hit = id;
 		    break;
 		}
-
 	}
 
 	if (_ui_hit != noone){

@@ -1,6 +1,6 @@
 event_inherited()
 
-visible = true;
+visible = false;	// this to make it visible and work and stuff
 image_alpha = 1;
 
 originX = x;
