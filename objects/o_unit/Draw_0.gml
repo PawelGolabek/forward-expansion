@@ -1,7 +1,5 @@
 var inst = instance_position(x, y, o_unit);
 
-last_valid_x = x;
-last_valid_y = y;
 if (inst != noone && inst != id)
 {
     draw_text_colour(
@@ -16,6 +14,7 @@ if (inst != noone && inst != id)
 
 image_alpha = 0.5
 color = c_white
+
 if (shader_is_compiled(shd_shadow)) {
 	shader_set(shd_shadow);
 	var shadow_r = 0.1;

@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_9",
-    "path":"sprites/Sprite1_9/Sprite1_9.yy",
+    "name":"s_calvalry",
+    "path":"sprites/s_calvalry/s_calvalry.yy",
   },
   "spriteMaskId":null,
   "tags":[

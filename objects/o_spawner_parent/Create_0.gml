@@ -1,6 +1,8 @@
 
 spawn_object = o_inferna;
 active = false;
+selected = false;
+mousePressed = false;
 
 function setCrystalCost(){
 
@@ -8,4 +10,10 @@ function setCrystalCost(){
 	crystalCost = inst.crystalCost;
 	instance_destroy(inst);
 
+}
+
+function mouseEvent(){
+	if(not selected){
+		mousePressed = true;
+	}
 }

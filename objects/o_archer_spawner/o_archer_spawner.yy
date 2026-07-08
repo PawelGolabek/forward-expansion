@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_5",
-    "path":"sprites/Sprite1_5/Sprite1_5.yy",
+    "name":"s_archer_1",
+    "path":"sprites/s_archer_1/s_archer_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

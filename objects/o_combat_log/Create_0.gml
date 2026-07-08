@@ -1,7 +1,8 @@
+event_inherited()
+
 visible = true;
 image_alpha = 1;
 
-og_sprite = sprite_index
 originX = x;
 originY = y;
 

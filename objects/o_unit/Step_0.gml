@@ -1,18 +1,8 @@
-
 depth = -y;
 tmpTarget = noone;
 
 if(position_meeting(mouse_x, mouse_y, id)){
 	drawCircle = true
-	if (mouse_check_button_pressed(mb_left) and (allegience == "player" or o_clock.debug == true))
-	{
-	    if ( global.draggingUnit == noone and not placed)
-	    {
-	        dragging = true;
-	        last_valid_x = x;
-	        last_valid_y = y;
-	    }
-	}
 }
 
 if (dragging)
@@ -26,7 +16,6 @@ if (dragging)
     var _iterations = 300;
     repeat (_iterations)
     {
-			
         var _list = ds_list_create();
         var _num = instance_place_list(x, y, o_unit, _list, false);
         var _moved = false;
@@ -44,7 +33,6 @@ if (dragging)
         if (!_moved) break;
     }
     // -----------------------------
-
     // --- KEEP INSIDE ROOM BOUNDS ---
     // Use the sprite's bounding box (relative to origin) so the unit's
     // visible edges stay inside the room, not just its origin point.
@@ -52,15 +40,11 @@ if (dragging)
     var _halfRight  = sprite_index != -1 ? (sprite_get_width(sprite_index) - sprite_get_xoffset(sprite_index)) : 0;
     var _halfTop    = sprite_index != -1 ? sprite_get_yoffset(sprite_index) : 0;
     var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) : 0;
-
     x = clamp(x, _halfLeft, room_width - _halfRight);
     y = clamp(y, _halfTop, room_height - _halfBottom);
     // --------------------------------
-
     var _check = instance_place(x, y, o_unit);
 	var _checkTerrain = instance_place(x, y, o_impassable);
-	
-
 	var _deployable = false
 	var _cx = x;
 	var _cy = y;
@@ -71,10 +55,8 @@ if (dragging)
 	for (var i = 0; i < instance_number(o_unit); i++)
 	{
 	    u = instance_find(o_unit, i);
-
 	    if (u == id) continue;
 	    if (u.allegience != "player") continue;
-
 	    if (point_distance(x, y, u.x, u.y) <= u.range and not u.targetted)
 	    {
 			 u.drawCircle = true;
@@ -91,7 +73,7 @@ if (dragging)
 			}
 	    }
 	}
-	var valid = (_checkTerrain == noone) && _deployable && _lineClear;
+	valid = (_checkTerrain == noone) && _deployable && _lineClear;
 
 	if (!valid)
 	{
@@ -108,47 +90,7 @@ if (dragging)
 		}
 	}
     findNewTargetForSelf();
-if (!mouse_check_button(mb_left))
-{
-    o_clock.toNextEvent = o_clock.maxToNextEvent;
-    ds_queue_enqueue(o_clock.action_queue, {
-        // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
-        my_spawned_unit: id,
-        func: function() {
-			
-			o_combat_log.log("Player spawned " + my_spawned_unit.name );
-            var _unit = self.my_spawned_unit;
-            
-            // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
-            if (instance_exists(_unit)) {
-                with (_unit) {
-                    // 1. These now run perfectly inside the unit's scope AFTER the delay
-                    resetTargets();
-                    
-                    global.dropped = id; 
-                    global.draggingUnit = id;
-                    o_combat_resolver.resolve_first_strike();
-                    
-				    global.dropped = noone;
-				    global.draggingUnit = noone;
-				    global.deployHighlight = noone;
-				    // 2. Clear state inside the unit context right as combat resolves
-                    if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-                        lastFriendly.drawCircle = false;
-                        lastFriendly = noone;
-                    }
-                }
-            }
-            // 3. Resolve global combat after the unit handles its drop actions
-            o_combat_resolver.resolve_combat();
-        }
-    }); 
-		dragging = false;
-		placed = true;
-		drag_draw_offset = 0;
-		drag_draw_offset = 0;
-		mask_index = standard_collisions;        
-	}
+	place()
 }
 if (animationOn) {
     breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
@@ -191,9 +133,6 @@ if (global.draggingUnit != noone and global.draggingUnit != self) {
     drawCircle = false;
 }
 
-
-
-
 if(not noEyes){
 	blink-=delta_time;
 	if(blink <= 0){
@@ -203,5 +142,7 @@ if(not noEyes){
 	}
 }
 
-if (hit_timer > 0)
+if (hit_timer > 0){
     hit_timer--;
+}
+mouseClicked = false;

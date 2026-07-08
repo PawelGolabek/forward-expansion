@@ -13,7 +13,10 @@
     "name":"player",
     "path":"folders/objects/spawners/player.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_ui_element",
+    "path":"objects/o_ui_element/o_ui_element.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_4",
-    "path":"sprites/Sprite1_4/Sprite1_4.yy",
+    "name":"s_inferna",
+    "path":"sprites/s_inferna/s_inferna.yy",
   },
   "spriteMaskId":null,
   "visible":true,

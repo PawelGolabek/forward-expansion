@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_9",
-    "path":"sprites/Sprite1_9/Sprite1_9.yy",
+    "name":"s_calvalry_1",
+    "path":"sprites/s_calvalry_1/s_calvalry_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

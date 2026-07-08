@@ -68,9 +68,15 @@ drawCircle = false;
 //idk alpha
 alpha = 1.0
 //drag
+dragging = false;
 drag_draw_offset = 0;
 justFinishedDragging = false;
+last_valid_x = -9999;
+last_valid_y = -9999;
 placed = false;
+valid = false;
+// input
+mouseClicked = false;
 //log
 logDeath = true;
 logHit = true;
@@ -85,6 +91,9 @@ shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's fe
 shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
 shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
 
+function mouseEvent(){
+	mouseClicked = true;
+}
 
 function line_blocked(_x1, _y1, _x2, _y2)
 {
@@ -110,6 +119,64 @@ function line_blocked(_x1, _y1, _x2, _y2)
 
     return false;
 }
+
+function place(){
+	if (mouseClicked and valid){
+		with(o_spawner_parent){
+			selected = false;
+		}
+		if(last_valid_x < 0 and last_valid_y < 0){
+			global.dropped = noone;
+			global.draggingUnit = noone;
+			global.deployHighlight = noone;
+			instance_destroy();
+		}else{
+			o_clock.toNextEvent = o_clock.maxToNextEvent;
+		    ds_queue_enqueue(o_clock.action_queue, {
+		        // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+		        my_spawned_unit: id,
+		        func: function() {
+			
+					o_combat_log.log("Player spawned " + my_spawned_unit.name );
+		            var _unit = self.my_spawned_unit;
+            
+		            // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
+		            if (instance_exists(_unit)) {
+		                with (_unit) {
+		                    // 1. These now run perfectly inside the unit's scope AFTER the delay
+		                    resetTargets();
+                    
+		                    global.dropped = id; 
+		                    global.draggingUnit = id;
+		                    o_combat_resolver.resolve_first_strike();
+                    
+						    global.dropped = noone;
+						    global.draggingUnit = noone;
+						    global.deployHighlight = noone;
+						    // 2. Clear state inside the unit context right as combat resolves
+		                    if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+		                        lastFriendly.drawCircle = false;
+		                        lastFriendly = noone;
+		                    }
+		                }
+		            }
+		            // 3. Resolve global combat after the unit handles its drop actions
+		            o_combat_resolver.resolve_combat();
+		        }
+		    }); 
+				dragging = false;
+				placed = true;
+				drag_draw_offset = 0;
+				drag_draw_offset = 0;
+				mask_index = standard_collisions;        
+			}
+		}
+
+
+
+}
+
+
 
 function resetTargets() 
 {

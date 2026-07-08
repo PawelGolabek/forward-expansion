@@ -5,6 +5,9 @@ instance_destroy(rEye)
 instance_destroy(lEyeLid)
 instance_destroy(rEyeLid)
 instance_destroy(arrow)
-instance_create_depth(x,y,depth-20,o_blood_droplet)
-instance_create_depth(x,y,depth-20,o_blood_droplet)
-instance_create_depth(x,y,depth-20,o_blood_droplet)
+
+if(placed){
+	instance_create_depth(x,y,depth-20,o_blood_droplet)
+	instance_create_depth(x,y,depth-20,o_blood_droplet)
+	instance_create_depth(x,y,depth-20,o_blood_droplet)
+}

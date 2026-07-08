@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_katana",
-    "path":"sprites/s_katana/s_katana.yy",
+    "name":"s_katana_1",
+    "path":"sprites/s_katana_1/s_katana_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

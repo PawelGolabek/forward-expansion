@@ -5,9 +5,9 @@ cam_y = camera_get_view_y(cam);
 
 dragging = false;
 
-zoom = 1;
+zoom = 0.5;
 zoom_min = 0.25;
-zoom_max = 1;
+zoom_max = 0.5;
 zoom_speed = 0.1;
 
 prev_mouse_x = mouse_x;

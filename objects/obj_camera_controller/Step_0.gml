@@ -1,7 +1,52 @@
 // raw window-space mouse — NOT affected by camera/view, so no feedback loop
 var mx = window_mouse_get_x();
 var my = window_mouse_get_y();
+var _win_mx = window_mouse_get_x();
+var _win_my = window_mouse_get_y();
 
+var _ui_hit = noone;
+
+if (mouse_check_button_pressed(mb_left)){
+	with (o_ui_element){
+	    // Assumes x and y are your GUI coordinates for the element
+	    // and sprite_width/height represent its scale on the GUI
+		var w = sprite_width;
+		var h = sprite_height;
+
+		var left   = x;
+		var top    = y;
+		var right  = x + w;
+		var bottom = y + h;
+
+		if (point_in_rectangle(mouse_x,mouse_y, left, top, right, bottom) && visible)
+		{
+		    _ui_hit = id;
+		    break;
+		}
+
+	}
+
+	if (_ui_hit != noone){
+	    with (_ui_hit)
+	    {
+			_ui_hit.mouseEvent();
+		}
+	}
+	else{
+		with(o_unit){
+			if(dragging){
+				show_debug_message("CLICK BITCH")
+				mouseEvent();
+				break;
+			}else{
+				continue;
+			}
+		}
+	}
+}
+
+var _gui_mx = _win_mx * (display_get_gui_width()  / window_get_width());
+var _gui_my = _win_my * (display_get_gui_height() / window_get_height());
 
 // start drag
 if (mouse_check_button_pressed(mb_middle))
@@ -33,14 +78,8 @@ var scroll = mouse_wheel_up() - mouse_wheel_down();
 if (scroll != 0)
 {
 
-    var _win_mx = window_mouse_get_x();
-    var _win_my = window_mouse_get_y();
-    
-    var _gui_mx = _win_mx * (display_get_gui_width()  / window_get_width());
-    var _gui_my = _win_my * (display_get_gui_height() / window_get_height());
-	
 	// Replace your old check with this:
-	var _ui_hit = noone;
+	_ui_hit = noone;
 	with (o_ui_element)
 	{
 	    // Assumes x and y are your GUI coordinates for the element
