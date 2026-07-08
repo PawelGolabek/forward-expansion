@@ -58,6 +58,7 @@
     {"id":{"name":"o_combat_log","path":"objects/o_combat_log/o_combat_log.yy",},},
     {"id":{"name":"o_combat_resolver","path":"objects/o_combat_resolver/o_combat_resolver.yy",},},
     {"id":{"name":"o_crystals","path":"objects/o_crystals/o_crystals.yy",},},
+    {"id":{"name":"o_deck_holder","path":"objects/o_deck_holder/o_deck_holder.yy",},},
     {"id":{"name":"o_dzida","path":"objects/o_dzida/o_dzida.yy",},},
     {"id":{"name":"o_end_turn_b","path":"objects/o_end_turn_b/o_end_turn_b.yy",},},
     {"id":{"name":"o_enemy_archer","path":"objects/o_enemy_archer/o_enemy_archer.yy",},},

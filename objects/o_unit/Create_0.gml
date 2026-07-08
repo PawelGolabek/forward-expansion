@@ -164,6 +164,7 @@ function place(){
 		            o_combat_resolver.resolve_combat();
 		        }
 		    }); 
+				o_deck_holder.discard_card(parentSpawner);
 				dragging = false;
 				placed = true;
 				drag_draw_offset = 0;

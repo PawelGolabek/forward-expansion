@@ -25,5 +25,6 @@ if(mousePressed){
 		inst.x = -9999;
 		inst.y = -9999;
 		inst.dragging = true;
+		inst.parentSpawner = self;
 	}
 }
