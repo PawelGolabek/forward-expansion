@@ -11,8 +11,8 @@
   "name":"o_unit",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/objects/units.yy",
+    "name":"player",
+    "path":"folders/objects/units/player.yy",
   },
   "parentObjectId":null,
   "persistent":false,

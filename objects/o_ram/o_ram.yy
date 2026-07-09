@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_ram",
-    "path":"sprites/s_ram/s_ram.yy",
+    "name":"s_ram_flag",
+    "path":"sprites/s_ram_flag/s_ram_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

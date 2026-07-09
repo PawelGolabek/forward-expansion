@@ -1,4 +1,5 @@
 // Inherit the parent event
 event_inherited();
 
-instance_destroy(pickaxe)
+
+instance_destroy(shield)

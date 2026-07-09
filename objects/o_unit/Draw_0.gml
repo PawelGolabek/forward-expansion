@@ -1,5 +1,6 @@
 var inst = instance_position(x, y, o_unit);
 
+
 if (inst != noone && inst != id)
 {
     draw_text_colour(
@@ -57,6 +58,7 @@ if(inCombat){
 }
 
 if(animationOn){
+	
 	draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, image_xscale, image_yscale, image_angle, color, alpha);
 }else{
 	draw_self();
@@ -132,10 +134,12 @@ if (position_meeting(mouse_x, mouse_y, id)){
 );
 }
 
+if(not noEyes){
+	lPupil.movePupil();
+	rPupil.movePupil();
+	lEye.moveEye();
+	rEye.moveEye();
+	lEyeLid.moveEye();
+	rEyeLid.moveEye();
 
-lPupil.movePupil();
-rPupil.movePupil();
-lEye.moveEye();
-rEye.moveEye();
-lEyeLid.moveEye();
-rEyeLid.moveEye();
+}

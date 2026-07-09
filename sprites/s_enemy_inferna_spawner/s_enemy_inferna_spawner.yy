@@ -44,8 +44,8 @@
   },
   "origin":4,
   "parent":{
-    "name":"shaders",
-    "path":"folders/shaders.yy",
+    "name":"spawners",
+    "path":"folders/objects/spawners.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

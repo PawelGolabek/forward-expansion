@@ -1,5 +1,4 @@
 event_inherited()
 
 
-
-pickaxe.move();
+dzida.move();

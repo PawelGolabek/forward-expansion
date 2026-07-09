@@ -12,3 +12,6 @@ reactionStrike = false;
 name = "cavalry";
 
 range = 200
+
+
+myUnitlet = o_calvalry_let;

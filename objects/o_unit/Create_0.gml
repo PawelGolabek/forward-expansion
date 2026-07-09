@@ -1,5 +1,4 @@
 allegience = "enemy"
-
 name = "NO NAME ASSIGNED";
 range = 1000;
 damage = 100
@@ -24,40 +23,43 @@ arrow.owner = self
 standard_collisions = mask_index
 dragging_mask = s_unit_mask
 lastFriendly = noone;
+//// this makes no sense but might keep it for later.
+noEyes = true
 //cosmetics
-eyeX = 20
-eyeDist = 30;
-lEye = instance_create_depth(x-sprite_width+eyeDist + eyeX,y,depth-10,o_eye);
-rEye = instance_create_depth(x-sprite_width+sprite_width-eyeDist + eyeX,y,depth-10,o_eye);
-lEye.originX = lEye.x - x;
-lEye.originY = lEye.y - y;
-rEye.originX = rEye.x - x;
-rEye.originY = rEye.y - y;
-lEyeLid = instance_create_depth(x-sprite_width+eyeDist + eyeX,y,depth-10,o_eye_lid);
-rEyeLid = instance_create_depth(x-sprite_width+sprite_width-eyeDist + eyeX,y,depth-10,o_eye_lid);
-lEyeLid.owner = self;
-rEyeLid.owner = self;
-rEyeLid.originX = rEye.x - x;
-rEyeLid.originY = rEye.y - y;
-lEyeLid.originX = rEye.x - x;
-lEyeLid.originY = rEye.y - y;
-lPupil = instance_create_depth(lEye.x + lEye.sprite_width/2,lEye.y + lEye.sprite_height/2,depth-10,o_pupil);
-lPupil.x -= lPupil.sprite_width/2
-lPupil.y -= lPupil.sprite_height/2
-lPupil.owner = self;
-lPupil.originX = lPupil.x - x;
-lPupil.originY = lPupil.y - y;
-rPupil = instance_create_depth(rEye.x + rEye.sprite_width/2,rEye.y + rEye.sprite_height/2,depth-10,o_pupil);
-rPupil.x -= rPupil.sprite_width/2
-rPupil.y -= rPupil.sprite_height/2
-rPupil.owner = self;
-rPupil.originX = rPupil.x - x;
-rPupil.originY = rPupil.y - y;
-lEye.owner = self;
-rEye.owner = self;
-blink = 20000000+random(200000);
-maxBlink = blink
-noEyes = false
+if(!noEyes){
+	eyeX = 20
+	eyeDist = 30;
+	lEye = instance_create_depth(x-sprite_width+eyeDist + eyeX,y,depth-10,o_eye);
+	rEye = instance_create_depth(x-sprite_width+sprite_width-eyeDist + eyeX,y,depth-10,o_eye);
+	lEye.originX = lEye.x - x;
+	lEye.originY = lEye.y - y;
+	rEye.originX = rEye.x - x;
+	rEye.originY = rEye.y - y;
+	lEyeLid = instance_create_depth(x-sprite_width+eyeDist + eyeX,y,depth-10,o_eye_lid);
+	rEyeLid = instance_create_depth(x-sprite_width+sprite_width-eyeDist + eyeX,y,depth-10,o_eye_lid);
+	lEyeLid.owner = self;
+	rEyeLid.owner = self;
+	rEyeLid.originX = rEye.x - x;
+	rEyeLid.originY = rEye.y - y;
+	lEyeLid.originX = rEye.x - x;
+	lEyeLid.originY = rEye.y - y;
+	lPupil = instance_create_depth(lEye.x + lEye.sprite_width/2,lEye.y + lEye.sprite_height/2,depth-10,o_pupil);
+	lPupil.x -= lPupil.sprite_width/2
+	lPupil.y -= lPupil.sprite_height/2
+	lPupil.owner = self;
+	lPupil.originX = lPupil.x - x;
+	lPupil.originY = lPupil.y - y;
+	rPupil = instance_create_depth(rEye.x + rEye.sprite_width/2,rEye.y + rEye.sprite_height/2,depth-10,o_pupil);
+	rPupil.x -= rPupil.sprite_width/2
+	rPupil.y -= rPupil.sprite_height/2
+	rPupil.owner = self;
+	rPupil.originX = rPupil.x - x;
+	rPupil.originY = rPupil.y - y;
+	lEye.owner = self;
+	rEye.owner = self;
+	blink = 20000000+random(200000);
+	maxBlink = blink
+}
 //animations
 breathe_timer = 0;
 breathe_speed = 0.05;   // how fast it breathes
@@ -82,6 +84,9 @@ logDeath = true;
 logHit = true;
 //special abilities
 parry = false;
+// unitlets
+myUnitlet = o_unitlet;
+unitlets = []
 
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
@@ -169,12 +174,42 @@ function place(){
 				placed = true;
 				drag_draw_offset = 0;
 				drag_draw_offset = 0;
-				mask_index = standard_collisions;        
+				mask_index = standard_collisions;       
+				tmp = hp;
+				repeat(tmp)
+				{
+				    var placed_ok = false;
+				    var tries = 0;
+				    var angle;
+				    var dist;
+				    var px;
+				    var py;
+
+				    while (!placed_ok && tries < 40)
+				    {
+				        angle = random(360);
+				        dist = random(100);
+
+				        px = x + lengthdir_x(dist, angle);
+				        py = y + lengthdir_y(dist, angle);
+
+				        placed_ok = !place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit);
+
+				        tries++;
+				    }
+
+				    ulet = instance_create_depth(px, py, depth, myUnitlet);
+					array_push(unitlets,ulet);
+
+				    ulet.owner = self;
+				    ulet.unit = self;
+				    ulet.image_xscale = 0.3;
+				    ulet.image_yscale = 0.3;
+					ulet.initiate();
+					ulet.initiate2();
+				}
 			}
 		}
-
-
-
 }
 
 

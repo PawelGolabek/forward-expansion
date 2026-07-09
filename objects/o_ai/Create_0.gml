@@ -71,7 +71,6 @@ function ai_evaluate_and_place() {
 			    }
 			}
 
-
 			var _cellDeployable = false;
 			var _cellLineClear  = false;
 			for (var f = 0; f < array_length(_friendlies); f++) {
@@ -85,14 +84,10 @@ function ai_evaluate_and_place() {
 			        }
 			    }
 			}
-
 			// hard gate: skip cells that could never pass the post-spawn validation
 			if (!_cellDeployable || !_cellLineClear) continue;
             if (position_meeting(cx, cy, o_unit))       continue;
             if (position_meeting(cx, cy, o_impassable)) continue;
-
-	show_debug_message("best_score = " + string(best_score1));
-	show_debug_message("best_type = " + string(best_type));
 
             // closest enemy unit to this cell (for screening term)
             var closest_enemy_x    = -1;
@@ -277,8 +272,8 @@ function ai_evaluate_and_place() {
 			y = _spawned.y
             // --- CAMERA RESET FIX ---
             // Explicitly use the resolved _unit instance coordinates// --- CAMERA RESET FIX ---
-			if (instance_exists(obj_camera_controller) && instance_exists(_spawned)) {
-				with (obj_camera_controller) {
+			if (instance_exists(o_camera_controller) && instance_exists(_spawned)) {
+				with (o_camera_controller) {
 					// Find the width and height of the view at current zoom level
         
 					var _view_w = window_get_width() / zoom;
@@ -338,14 +333,10 @@ function ai_evaluate_and_place() {
             visible = false;   
         }
     
-	show_debug_message("best_score = " + string(best_score1));
-	show_debug_message("best_type = " + string(best_type));
-	if(_spawned == noone){
-		visible = false	
-		aiPassed = 1000000;
-	}
-    
-    show_debug_message(string(best_x) + " " +  string(best_y));
-    }
+		if(_spawned == noone){
+			visible = false	
+			aiPassed = 1000000;
+		}
+	    }
 	
 }

@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_calvalry",
-    "path":"sprites/s_calvalry/s_calvalry.yy",
+    "name":"s_calvalry_flag",
+    "path":"sprites/s_calvalry_flag/s_calvalry_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

@@ -8,6 +8,10 @@ if(position_meeting(mouse_x, mouse_y, id)){
 if (dragging)
 {
 	drag_draw_offset = -30;
+	for (var i = 0; i < array_length(unitlets); i++)
+	{
+	    unitlets[i].drag_draw_offset = drag_draw_offset;
+	}
     mask_index = dragging_mask;
     global.draggingUnit = self;
     x = mouse_x;
@@ -126,12 +130,12 @@ if (global.draggingUnit != noone and global.draggingUnit != self) {
         drawCircle = false;
     }
 } else if (global.draggingUnit == self) {
-    drawCircle = true; // always show circle on the unit being dragged
-} else if (position_meeting(mouse_x, mouse_y, id)) {
-    drawCircle = true;
-} else {
-    drawCircle = false;
-}
+	drawCircle = true; // always show circle on the unit being dragged
+	} else if (position_meeting(mouse_x, mouse_y, id)) {
+	    drawCircle = true;
+	} else {
+	    drawCircle = false;
+	}
 
 if(not noEyes){
 	blink-=delta_time;

@@ -8,7 +8,6 @@ originY = y;
 
 logList = ds_list_create();
 turn = 1;
-show_debug_message("visible = " + string(visible));
 // scrolling
 scroll_y = 0;
 scroll_speed = 40;

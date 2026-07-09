@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_inferna",
-    "path":"sprites/s_inferna/s_inferna.yy",
+    "name":"s_inferna_flag",
+    "path":"sprites/s_inferna_flag/s_inferna_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

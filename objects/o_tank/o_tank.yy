@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1",
-    "path":"sprites/Sprite1/Sprite1.yy",
+    "name":"s_tank_flag",
+    "path":"sprites/s_tank_flag/s_tank_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite34",
-    "path":"sprites/Sprite34/Sprite34.yy",
+    "name":"s_shield",
+    "path":"sprites/s_shield/s_shield.yy",
   },
   "spriteMaskId":null,
   "visible":true,
