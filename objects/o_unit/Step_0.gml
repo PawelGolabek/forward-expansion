@@ -1,6 +1,13 @@
 depth = -y;
 tmpTarget = noone;
 
+if(not bornOfSpawner){
+	
+	last_valid_x = x;
+	last_valid_y = y;
+	place();
+}
+
 if(position_meeting(mouse_x, mouse_y, id)){
 	drawCircle = true
 }

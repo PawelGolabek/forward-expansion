@@ -19,6 +19,7 @@ if(mousePressed){
 		selected = true;
 		var units = layer_get_id("units");
 	    var inst = instance_create_layer(mouse_x, mouse_y, units, spawn_object);
+		inst.bornOfSpawner = true;
 	    inst.dragging = true;
 		global.draggingUnit = inst;
 		global.crystals -= crystalCost

@@ -1,7 +1,7 @@
 function movePupil() {
     x = originX + owner.x;
     y = originY + owner.y;
-    depth = owner.depth - 600;
+    depth = owner.depth - 6;
 
     var target = noone;
     if (instance_exists(unit.tmpTarget) && unit.tmpTarget != noone) {

@@ -26,6 +26,8 @@ lastFriendly = noone;
 //// this makes no sense but might keep it for later.
 noEyes = true
 //cosmetics
+bornOfSpawner = false;
+
 if(!noEyes){
 	eyeX = 20
 	eyeDist = 30;
@@ -126,7 +128,7 @@ function line_blocked(_x1, _y1, _x2, _y2)
 }
 
 function place(){
-	if (mouseClicked and valid){
+if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 		with(o_spawner_parent){
 			selected = false;
 		}
@@ -136,40 +138,45 @@ function place(){
 			global.deployHighlight = noone;
 			instance_destroy();
 		}else{
-			o_clock.toNextEvent = o_clock.maxToNextEvent;
-		    ds_queue_enqueue(o_clock.action_queue, {
-		        // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
-		        my_spawned_unit: id,
-		        func: function() {
 			
-					o_combat_log.log("Player spawned " + my_spawned_unit.name );
-		            var _unit = self.my_spawned_unit;
+			
+			//// first strike, ommit if spawned on room creation
+			if(bornOfSpawner){
+				o_clock.toNextEvent = o_clock.maxToNextEvent;
+				ds_queue_enqueue(o_clock.action_queue, {
+				    // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+				    my_spawned_unit: id,
+				    func: function() {
+			
+						o_combat_log.log("Player spawned " + my_spawned_unit.name );
+				        var _unit = self.my_spawned_unit;
             
-		            // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
-		            if (instance_exists(_unit)) {
-		                with (_unit) {
-		                    // 1. These now run perfectly inside the unit's scope AFTER the delay
-		                    resetTargets();
+				        // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
+				        if (instance_exists(_unit)) {
+				            with (_unit) {
+				                // 1. These now run perfectly inside the unit's scope AFTER the delay
+				                resetTargets();
                     
-		                    global.dropped = id; 
-		                    global.draggingUnit = id;
-		                    o_combat_resolver.resolve_first_strike();
+				                global.dropped = id; 
+				                global.draggingUnit = id;
+				                o_combat_resolver.resolve_first_strike();
                     
-						    global.dropped = noone;
-						    global.draggingUnit = noone;
-						    global.deployHighlight = noone;
-						    // 2. Clear state inside the unit context right as combat resolves
-		                    if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-		                        lastFriendly.drawCircle = false;
-		                        lastFriendly = noone;
-		                    }
-		                }
-		            }
-		            // 3. Resolve global combat after the unit handles its drop actions
-		            o_combat_resolver.resolve_combat();
-		        }
-		    }); 
-				o_deck_holder.discard_card(parentSpawner);
+								global.dropped = noone;
+								global.draggingUnit = noone;
+								global.deployHighlight = noone;
+								// 2. Clear state inside the unit context right as combat resolves
+				                if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+				                    lastFriendly.drawCircle = false;
+				                    lastFriendly = noone;
+				                }
+				            }
+				        }
+					    // 3. Resolve global combat after the unit handles its drop actions
+					    o_combat_resolver.resolve_combat();
+					    }
+					}); 
+					o_deck_holder.discard_card(parentSpawner);
+				}
 				dragging = false;
 				placed = true;
 				drag_draw_offset = 0;
@@ -184,20 +191,31 @@ function place(){
 				    var dist;
 				    var px;
 				    var py;
+					var best_dist = 999999;
+					var best_x = x;
+					var best_y = y;
 
-				    while (!placed_ok && tries < 40)
-				    {
-				        angle = random(360);
-				        dist = random(100);
+					for (var i = 0; i < 300; i++)
+					{
+					    angle = random(360);
+					    dist = random(200);
 
-				        px = x + lengthdir_x(dist, angle);
-				        py = y + lengthdir_y(dist, angle);
+					    px = x + lengthdir_x(dist, angle);
+					    py = y + lengthdir_y(dist, angle);
 
-				        placed_ok = !place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit);
+					    if (!place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit))
+					    {
+					        if (dist < best_dist)
+					        {
+					            best_dist = dist;
+					            best_x = px;
+					            best_y = py;
+					        }
+					    }
+					}
 
-				        tries++;
-				    }
-
+					px = best_x;
+					py = best_y;
 				    ulet = instance_create_depth(px, py, depth, myUnitlet);
 					array_push(unitlets,ulet);
 

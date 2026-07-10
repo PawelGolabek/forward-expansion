@@ -10,7 +10,7 @@ function initiate(){
 function moveEye(){
 	x = originX + owner.x
 	y = originY + owner.y
-	depth = owner.depth - 200
+	depth = owner.depth - 2
 	image_yscale = sin((blink_time / blink_max_time) * pi/2) * base_yScale;
 	offset = height * (1- sin((blink_time / blink_max_time) * pi/2))/1.5;
 	y += offset;

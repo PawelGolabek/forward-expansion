@@ -1,3 +1,12 @@
+// Create event or a persistent spot
+//Outline shader
+//Outline shader
+sprite_scale = shader_get_uniform(shd_outline, "sprite_size");
+tex = sprite_get_texture(sprite_index,image_index);
+//Texel
+tex_h = (1/sprite_height)*image_yscale;
+tex_w = (1/sprite_width)*image_xscale;
+
 function initiate(){
 	
 	show_debug_message(image_xscale)
@@ -72,7 +81,7 @@ function initiate(){
 	rPupil.originX = rPupil.x - x;
 	rPupil.originY = rPupil.y - y;
 
-	blink = 20000000+random(200000);
+	blink = 10000000+random(20000000);
 	maxBlink = blink;
 	drag_draw_offset = 0;
 }

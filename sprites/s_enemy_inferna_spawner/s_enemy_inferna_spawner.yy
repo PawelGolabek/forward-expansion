@@ -44,8 +44,8 @@
   },
   "origin":4,
   "parent":{
-    "name":"spawners",
-    "path":"folders/objects/spawners.yy",
+    "name":"enemy",
+    "path":"folders/objects/spawners/enemy.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
