@@ -7,3 +7,9 @@ if(not noEyes){
 		blink = maxBlink
 	}
 }
+
+
+if (position_meeting(mouse_x, mouse_y, id))
+{
+	unit.signalFromUnitlet = true;
+}

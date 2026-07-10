@@ -11,15 +11,22 @@ if (bbox_right < vx ||
 {
     exit; // Don't draw
 }
-
-/*
-*/
+// Draw event
 shader_set(shd_outline);
+
+if (redGlow){
+	shader_set_uniform_f(u_outlineColor, 1.0, 0.0, 0.0, 1.0); // red
+	redGlow = false;
+} else if (glow) {
+    shader_set_uniform_f(u_outlineColor, 1.0, 1.0, 0.0, 1.0); // yellow
+	glow = false;
+} else{
+    shader_set_uniform_f(u_outlineColor, 0.0, 0.0, 0.0, 1.0); // black
+}
 
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale*1.1, image_yscale*1.1, image_angle, c_white, image_alpha);
 
-
-
+shader_reset();
 
 if(not noEyes){
 	lPupil.movePupil();
@@ -28,7 +35,6 @@ if(not noEyes){
 	rEye.moveEye();
 	lEyeLid.moveEye();
 	rEyeLid.moveEye();
-
 }
 
 shader_reset();

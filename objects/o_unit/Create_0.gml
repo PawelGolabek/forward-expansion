@@ -23,6 +23,7 @@ arrow.owner = self
 standard_collisions = mask_index
 dragging_mask = s_unit_mask
 lastFriendly = noone;
+signalFromUnitlet = false;
 //// this makes no sense but might keep it for later.
 noEyes = true
 //cosmetics
@@ -322,7 +323,14 @@ function findNewTargetForSelf()
     }
     
     // Set ONLY this unit's target to the closest enemy found
-    target = closestEnemy; 
+    target = closestEnemy;
+	with(closestEnemy){
+		ulets = array_length(unitlets) - 1
+		while(ulets >= 0){
+			unitlets[ulets].redGlow = true;
+			ulets-=1;
+		}
+	}
 }
 
 

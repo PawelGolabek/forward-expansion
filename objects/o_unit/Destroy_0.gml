@@ -5,5 +5,12 @@ if(not noEyes){
 	instance_destroy(rEye)
 	instance_destroy(lEyeLid)
 	instance_destroy(rEyeLid)
-	instance_destroy(arrow)
+}
+
+instance_destroy(arrow)
+
+while(array_length(unitlets) > 0){
+	ulet = array_pop(unitlets);
+	instance_destroy(ulet);
+		
 }

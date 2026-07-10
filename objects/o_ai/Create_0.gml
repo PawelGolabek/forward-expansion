@@ -298,7 +298,6 @@ function ai_evaluate_and_place() {
                 my_manager: _manager_id,
         
                 func: function() {
-                    show_debug_message("Action 1: AI spawns a unit!");
     
                     var _unit = my_spawned_unit;
                     var _mgr  = my_manager;

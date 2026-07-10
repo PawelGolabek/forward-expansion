@@ -6,11 +6,13 @@ tex = sprite_get_texture(sprite_index,image_index);
 //Texel
 tex_h = (1/sprite_height)*image_yscale;
 tex_w = (1/sprite_width)*image_xscale;
-
+glow = false;
+redGlow = false;
+// Create event (once)
+u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
+u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");
 function initiate(){
 	
-	show_debug_message(image_xscale)
-	show_debug_message(image_yscale)
 	noEyes = false;
 	eyeX = 20;
 	eyeDist = 30;

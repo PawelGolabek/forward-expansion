@@ -91,7 +91,6 @@ function resolve_first_strike(){
     with(o_unit){
         if(damageTaken){
             hit_timer = 8;
-            instance_create_depth(x,y,depth,o_blood_droplet)
         }
         hp -= damageTaken;
         damageTaken = 0

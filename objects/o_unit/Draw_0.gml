@@ -91,7 +91,14 @@ draw_set_color(c_white);
 
 // 2. Check if a valid unit is currently being dragged
 
-if(drawCircle or global.deployHighlight == id){
+if(drawCircle or global.deployHighlight == id or signalFromUnitlet){
+	
+	ulets = array_length(unitlets) - 1
+	while(ulets >= 0){
+		unitlets[ulets].glow = true;
+		ulets-=1;
+	}
+	signalFromUnitlet = false;
 	// The enemy is in range! Draw this unit's threat radius.
 	var circleColor = c_orange; // Orange/Yellow works great for a warning outline
 	draw_set_alpha(0.5); // Semi-transparent outline

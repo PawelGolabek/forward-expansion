@@ -138,11 +138,17 @@ if (global.draggingUnit != noone and global.draggingUnit != self) {
     }
 } else if (global.draggingUnit == self) {
 	drawCircle = true; // always show circle on the unit being dragged
-	} else if (position_meeting(mouse_x, mouse_y, id)) {
+} else if (position_meeting(mouse_x, mouse_y, id)) {
 	    drawCircle = true;
-	} else {
+} else {
 	    drawCircle = false;
-	}
+}
+
+if(array_length(unitlets) > hp){
+	ulet = array_pop(unitlets);
+	instance_destroy(ulet);
+}
+
 
 if(not noEyes){
 	blink-=delta_time;
