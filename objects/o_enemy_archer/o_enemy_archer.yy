@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_6",
-    "path":"sprites/Sprite1_6/Sprite1_6.yy",
+    "name":"s_archer_flag_1",
+    "path":"sprites/s_archer_flag_1/s_archer_flag_1.yy",
   },
   "spriteMaskId":null,
   "tags":[

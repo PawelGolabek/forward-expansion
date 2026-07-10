@@ -1,5 +1,5 @@
 toNextEvent = 0;
-maxToNextEvent = 1000000;
+maxToNextEvent = 10000;
 
 debug = false;
 blocked = false;

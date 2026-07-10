@@ -1,4 +1,4 @@
-depth = owner.depth - 1;
+depth = owner.depth + 20;
 if(not noEyes){
 	blink-=delta_time;
 	if(blink <= 0){

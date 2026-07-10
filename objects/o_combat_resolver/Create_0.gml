@@ -38,7 +38,7 @@ function resolve_combat(){
                 findNewTargetForSelf(); 
             }
     
-            o_ai.ai_evaluate_and_place() 
+        //    o_ai.ai_evaluate_and_place() 
         
             with (o_unit)
                 targetted = false;

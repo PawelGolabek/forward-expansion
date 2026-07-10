@@ -195,10 +195,10 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					var best_x = x;
 					var best_y = y;
 
-					for (var i = 0; i < 300; i++)
+					for (var i = 0; i < 200; i++)
 					{
 					    angle = random(360);
-					    dist = random(200);
+					    dist = random(300);
 
 					    px = x + lengthdir_x(dist, angle);
 					    py = y + lengthdir_y(dist, angle);
@@ -216,7 +216,7 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 
 					px = best_x;
 					py = best_y;
-				    ulet = instance_create_depth(px, py, depth, myUnitlet);
+				    ulet = instance_create_depth(px, py, depth - 500, myUnitlet);
 					array_push(unitlets,ulet);
 
 				    ulet.owner = self;

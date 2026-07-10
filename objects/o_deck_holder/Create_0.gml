@@ -6,11 +6,6 @@ deck = [
     instance_create_layer(0, 0, "Cards", o_inferna_spawner),
     instance_create_layer(0, 0, "Cards", o_inferna_spawner),
     instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
     instance_create_layer(0, 0, "Cards", o_archer_spawner),
     instance_create_layer(0, 0, "Cards", o_archer_spawner),
     instance_create_layer(0, 0, "Cards", o_archer_spawner),
@@ -18,6 +13,13 @@ deck = [
     instance_create_layer(0, 0, "Cards", o_archer_spawner),
     instance_create_layer(0, 0, "Cards", o_archer_spawner),
     instance_create_layer(0, 0, "Cards", o_archer_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
 ];
 
 discard = []

@@ -9,3 +9,4 @@ allegience = "enemy"
 damageTaken = 0
 
 range = 600
+myUnitlet = o_enemy_inferna_unitlet
