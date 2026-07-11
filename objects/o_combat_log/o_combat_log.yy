@@ -11,8 +11,8 @@
   "name":"o_combat_log",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"ui",
+    "path":"folders/objects/ui.yy",
   },
   "parentObjectId":{
     "name":"o_ui_element",

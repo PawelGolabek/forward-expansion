@@ -11,3 +11,5 @@ noEyes = true;
 allegience = "none";
 logDeath = false;
 logHit = false;
+
+noUnitlets = true;

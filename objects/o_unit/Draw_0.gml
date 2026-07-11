@@ -1,5 +1,9 @@
 var inst = instance_position(x, y, o_unit);
-
+if(expectedDamage >= hp){
+	skull.visible = true;
+}else{
+	skull.visible = false;
+}
 
 if (inst != noone && inst != id)
 {
@@ -42,7 +46,7 @@ if (shader_is_compiled(shd_shadow)) {
 
     shader_reset();
 }
-// --- 2. DRAW SELF (Your original code starts here) ---
+
 
 
 // active / in combat
@@ -90,15 +94,29 @@ draw_rectangle(x1, y1, x1 + ( hp_ratio * totalLength), y1 + h, false);
 draw_set_color(c_white);
 
 // 2. Check if a valid unit is currently being dragged
-
+/*
+	var ot = self;
+	with(o_unit){
+		var dist = point_distance(x, y, other.x, other.y);
+		if (dist <= range and ot.allegience != allegience or target == ot or tmpTarget == ot)
+		
+		{
+			show_debug_message(ot.expectedDmg)
+			ot.expectedDmg += damage;
+		}
+	}
+*/
+    draw_text(x,y-200,expectedDamage)
 if(drawCircle or global.deployHighlight == id or signalFromUnitlet){
 	
-	ulets = array_length(unitlets) - 1
-	while(ulets >= 0){
-		unitlets[ulets].glow = true;
-		ulets-=1;
+	if(not noUnitlets){
+		ulets = array_length(unitlets) - 1
+		while(ulets >= 0){
+			unitlets[ulets].glow = true;
+			ulets-=1;
+		}
+		signalFromUnitlet = false;
 	}
-	signalFromUnitlet = false;
 	// The enemy is in range! Draw this unit's threat radius.
 	var circleColor = c_orange; // Orange/Yellow works great for a warning outline
 	draw_set_alpha(0.5); // Semi-transparent outline
@@ -148,5 +166,6 @@ if(not noEyes){
 	rEye.moveEye();
 	lEyeLid.moveEye();
 	rEyeLid.moveEye();
-
 }
+
+expectedDamage = 0;

@@ -1,16 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"o_camera_controller",
+  "%Name":"o_skull",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_camera_controller",
+  "name":"o_skull",
   "overriddenProperties":[],
   "parent":{
-    "name":"ui",
-    "path":"folders/objects/ui.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,7 +31,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite65",
+    "path":"sprites/Sprite65/Sprite65.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

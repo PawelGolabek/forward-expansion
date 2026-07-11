@@ -18,14 +18,17 @@ target = noone;
 tmpTarget = noone;
 targetted = false;
 // ui
-arrow = instance_create_depth(x,y,depth-10,o_arrow)
-arrow.owner = self
+arrow = instance_create_depth(x,y,depth-10,o_arrow);
+arrow.owner = self;
+skull = instance_create_depth(x,y,depth - 30,o_skull);
+skull.unit = self;
 standard_collisions = mask_index
 dragging_mask = s_unit_mask
 lastFriendly = noone;
 signalFromUnitlet = false;
 //// this makes no sense but might keep it for later.
 noEyes = true
+noUnitlets = false;
 //cosmetics
 bornOfSpawner = false;
 
@@ -90,7 +93,7 @@ parry = false;
 // unitlets
 myUnitlet = o_unitlet;
 unitlets = []
-
+expectedDamage = 0;
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
 
@@ -107,23 +110,29 @@ function line_blocked(_x1, _y1, _x2, _y2)
 {
     var dist = point_distance(_x1, _y1, _x2, _y2);
     var dir  = point_direction(_x1, _y1, _x2, _y2);
-
+	var xx;
+	var yy;
     for (var d = 0; d < dist; d += 4) // sample every 4 pixels
     {
-        var xx = _x1 + lengthdir_x(d, dir);
-        var yy = _y1 + lengthdir_y(d, dir);
-
+        xx = _x1 + lengthdir_x(d, dir);
+        yy = _y1 + lengthdir_y(d, dir);
         if (position_meeting(xx, yy, o_impassable))
             return true;
-			u = instance_place(xx, yy, o_unit);
-			if (u != noone)
-			{
-			    if (u.allegience != allegience)
-			    {
-			        return true;
-			    }
+		u = collision_point(xx, yy, o_unitlet, false, true);
+		if(u != noone){
+			if(u.unit.allegience != allegience){
+				return true;
 			}
+		}
     }
+	u = instance_place(xx, yy, o_unitlet);
+	if (u != noone)
+	{
+		if (u.unit.allegience != allegience)
+		{
+			return true;
+		}
+	}
 
     return false;
 }
@@ -139,96 +148,93 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			global.deployHighlight = noone;
 			instance_destroy();
 		}else{
+		//// first strike, ommit if spawned on room creation
+		if(bornOfSpawner){
+			o_clock.toNextEvent = o_clock.maxToNextEvent;
+			ds_queue_enqueue(o_clock.action_queue, {
+				// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+				my_spawned_unit: id,
+				func: function() {
 			
-			
-			//// first strike, ommit if spawned on room creation
-			if(bornOfSpawner){
-				o_clock.toNextEvent = o_clock.maxToNextEvent;
-				ds_queue_enqueue(o_clock.action_queue, {
-				    // FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
-				    my_spawned_unit: id,
-				    func: function() {
-			
-						o_combat_log.log("Player spawned " + my_spawned_unit.name );
-				        var _unit = self.my_spawned_unit;
-            
-				        // Safety check: Make sure the unit wasn't somehow destroyed while waiting in the queue
-				        if (instance_exists(_unit)) {
-				            with (_unit) {
-				                // 1. These now run perfectly inside the unit's scope AFTER the delay
-				                resetTargets();
+					o_combat_log.log("Player spawned " + my_spawned_unit.name );
+				    var _unit = self.my_spawned_unit;
+
+				    if (instance_exists(_unit)) {
+				        with (_unit) {
+				            resetTargets();
                     
-				                global.dropped = id; 
-				                global.draggingUnit = id;
-				                o_combat_resolver.resolve_first_strike();
+				            global.dropped = id; 
+				            global.draggingUnit = id;
+				            o_combat_resolver.resolve_first_strike();
                     
-								global.dropped = noone;
-								global.draggingUnit = noone;
-								global.deployHighlight = noone;
-								// 2. Clear state inside the unit context right as combat resolves
-				                if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-				                    lastFriendly.drawCircle = false;
-				                    lastFriendly = noone;
-				                }
+							global.dropped = noone;
+							global.draggingUnit = noone;
+							global.deployHighlight = noone;
+							// 2. Clear state inside the unit context right as combat resolves
+				            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+				                lastFriendly.drawCircle = false;
+				                lastFriendly = noone;
 				            }
 				        }
-					    // 3. Resolve global combat after the unit handles its drop actions
-					    o_combat_resolver.resolve_combat();
-					    }
-					}); 
-					o_deck_holder.discard_card(parentSpawner);
-				}
-				dragging = false;
-				placed = true;
-				drag_draw_offset = 0;
-				drag_draw_offset = 0;
-				mask_index = standard_collisions;       
-				tmp = hp;
+				    }
+					// 3. Resolve global combat after the unit handles its drop actions
+					o_combat_resolver.resolve_combat();
+					}
+				}); 
+				o_deck_holder.discard_card(parentSpawner);
+			}
+			dragging = false;
+			placed = true;
+			drag_draw_offset = 0;
+			drag_draw_offset = 0;
+			mask_index = standard_collisions;       
+			tmp = hp;
+			if(not noUnitlets){
 				repeat(tmp)
 				{
-				    var placed_ok = false;
-				    var tries = 0;
-				    var angle;
-				    var dist;
-				    var px;
-				    var py;
+					var placed_ok = false;
+					var tries = 0;
+					var angle;
+					var dist;
+					var px;
+					var py;
 					var best_dist = 999999;
 					var best_x = x;
 					var best_y = y;
 
 					for (var i = 0; i < 200; i++)
 					{
-					    angle = random(360);
-					    dist = random(300);
+						angle = random(360);
+						dist = random(300);
 
-					    px = x + lengthdir_x(dist, angle);
-					    py = y + lengthdir_y(dist, angle);
+						px = x + lengthdir_x(dist, angle);
+						py = y + lengthdir_y(dist, angle);
 
-					    if (!place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit))
-					    {
-					        if (dist < best_dist)
-					        {
-					            best_dist = dist;
-					            best_x = px;
-					            best_y = py;
-					        }
-					    }
+						if (!place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit))
+						{
+						    if (dist < best_dist)
+						    {
+						        best_dist = dist;
+						        best_x = px;
+						        best_y = py;
+						    }
+						}
 					}
 
 					px = best_x;
 					py = best_y;
-				    ulet = instance_create_depth(px, py, depth - 500, myUnitlet);
-					array_push(unitlets,ulet);
-
-				    ulet.owner = self;
-				    ulet.unit = self;
-				    ulet.image_xscale = 0.3;
-				    ulet.image_yscale = 0.3;
+					ulet = instance_create_depth(px, py, depth - 500, myUnitlet);
+					array_push(unitlets,ulet);				   
+					ulet.owner = self;
+					ulet.unit = self;
+					ulet.image_xscale = 0.3;
+					ulet.image_yscale = 0.3;
 					ulet.initiate();
 					ulet.initiate2();
 				}
 			}
 		}
+	}
 }
 
 
@@ -294,6 +300,7 @@ function resetTargets()
     // Set the dropped unit's target to the closest enemy found
     droppedUnit.target = closestEnemy;
 }
+
 function findNewTargetForSelf() 
 {
     // Store references to this unit's properties before entering the loop
@@ -325,10 +332,12 @@ function findNewTargetForSelf()
     // Set ONLY this unit's target to the closest enemy found
     target = closestEnemy;
 	with(closestEnemy){
-		ulets = array_length(unitlets) - 1
-		while(ulets >= 0){
-			unitlets[ulets].redGlow = true;
-			ulets-=1;
+		if(not closestEnemy.noUnitlets){
+			ulets = array_length(unitlets) - 1
+			while(ulets >= 0){
+				unitlets[ulets].redGlow = true;
+				ulets-=1;
+			}
 		}
 	}
 }
@@ -338,6 +347,172 @@ function onRoundEnd(){
 	if(not instance_exists(target) or target == noone){
 		findNewTargetForSelf() 
 	}
-	
 }
 
+function executeStep(){
+	depth = -y;
+	tmpTarget = noone;
+	if(not bornOfSpawner){
+		last_valid_x = x;
+		last_valid_y = y;
+		place();
+	}
+	if(position_meeting(mouse_x, mouse_y, id)){
+		drawCircle = true
+	}
+	if (dragging)
+	{
+		drag_draw_offset = -30;
+		for (var i = 0; i < array_length(unitlets); i++)
+		{
+		    unitlets[i].drag_draw_offset = drag_draw_offset;
+		}
+	    mask_index = dragging_mask;
+	    global.draggingUnit = self;
+	    x = mouse_x;
+	    y = mouse_y;
+	    // --- COLLISION RESOLUTION ---
+	    var _iterations = 300;
+	    repeat (_iterations)
+	    {
+	        var _list = ds_list_create();
+	        var _num = instance_place_list(x, y, o_unit, _list, false);
+	        var _moved = false;
+	        for (var i = 0; i < _num; i++)
+	        {
+	            var _other = _list[| i];
+	            if (_other == id) continue;
+	            var _dir = point_direction(_other.x, _other.y, x, y);
+	            if (x == _other.x && y == _other.y) _dir = random(360);
+	            x += lengthdir_x(1, _dir);
+	            y += lengthdir_y(1, _dir);
+	            _moved = true;
+	        }
+	        ds_list_destroy(_list);
+	        if (!_moved) break;
+	    }
+	    // -----------------------------
+	    // --- KEEP INSIDE ROOM BOUNDS ---
+	    // Use the sprite's bounding box (relative to origin) so the unit's
+	    // visible edges stay inside the room, not just its origin point.
+	    var _halfLeft   = sprite_index != -1 ? sprite_get_xoffset(sprite_index) : 0;
+	    var _halfRight  = sprite_index != -1 ? (sprite_get_width(sprite_index) - sprite_get_xoffset(sprite_index)) : 0;
+	    var _halfTop    = sprite_index != -1 ? sprite_get_yoffset(sprite_index) : 0;
+	    var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) : 0;
+	    x = clamp(x, _halfLeft, room_width - _halfRight);
+	    y = clamp(y, _halfTop, room_height - _halfBottom);
+	    // --------------------------------
+	    var _check = instance_place(x, y, o_unit);
+		var _checkTerrain = instance_place(x, y, o_impassable);
+		var _deployable = false
+		var _cx = x;
+		var _cy = y;
+		var myId = self
+		var u;
+		var _lineClear = false;
+
+		for (var i = 0; i < instance_number(o_unit); i++)
+		{
+		    u = instance_find(o_unit, i);
+		    if (u == id) continue;
+		    if (u.allegience != "player") continue;
+		    if (point_distance(x, y, u.x, u.y) <= u.range and not u.targetted)
+		    {
+				 u.drawCircle = true;
+				 lastFriendly = u;
+		        _deployable = true;
+				if(_deployable){
+					_lineClear = not line_blocked(x, y, lastFriendly.x, lastFriendly.y)
+				}
+				if(_lineClear){
+					break;
+				}else{
+					continue;
+				}
+		    }
+		}
+		valid = (_checkTerrain == noone) && _deployable && _lineClear;
+
+		if (!valid)
+		{
+		    x = last_valid_x;
+		    y = last_valid_y;
+			global.deployHighlight = lastFriendly;	
+		}
+		else
+		{
+		    last_valid_x = x;
+		    last_valid_y = y;
+			if(lastFriendly != noone){
+				global.deployHighlight = u;
+			}
+		}
+	    findNewTargetForSelf();
+		place()
+	}
+	if (animationOn) {
+	    breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
+	    image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
+	    image_yscale = base_scale; // Finished off your cut-off line here!
+	}
+	if (global.draggingUnit == self)
+	{
+		global.expectedDmg = 0;
+		with(o_unit){
+		    // 4. Check if that dragged enemy is within THIS unit's range
+		    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+		    if(global.draggingUnit == self){
+				drawCircle = true
+			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
+			){
+				drawCircle = true
+				tmpTarget = global.draggingUnit;
+				global.expectedDmg += damage
+			}
+		}
+	}
+	global.expectedDmg = 0;
+
+	
+	// will run for every unit which is bad but eh
+	// 4. Check if that dragged enemy is within THIS unit's range
+	if (global.draggingUnit != noone and global.draggingUnit != self) {
+	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+
+	    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
+	        drawCircle = true;
+	        tmpTarget = global.draggingUnit;
+	        global.expectedDmg += damage;
+	    } else {
+	        drawCircle = false;
+	    }
+	} else if (global.draggingUnit == self) {
+		drawCircle = true; // always sho circle on the unit being dragged
+	} else if (position_meeting(mouse_x, mouse_y, id)) {
+		    drawCircle = true;
+	} else {
+		    drawCircle = false;
+	}
+
+	if(array_length(unitlets) > hp){
+		ulet = array_pop(unitlets);
+		instance_destroy(ulet);
+	}
+	////////////////////////////////////// exoected dmg calculation
+
+
+	if(not noEyes){
+		blink -= delta_time;
+		if(blink <= 0){
+			lEye.blink()
+			rEye.blink()
+			blink = maxBlink
+		}
+	}
+
+	if (hit_timer > 0){
+	    hit_timer--;
+	}
+	mouseClicked = false;
+
+}

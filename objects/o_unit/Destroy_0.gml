@@ -7,6 +7,7 @@ if(not noEyes){
 	instance_destroy(rEyeLid)
 }
 
+instance_destroy(skull)
 instance_destroy(arrow)
 
 while(array_length(unitlets) > 0){

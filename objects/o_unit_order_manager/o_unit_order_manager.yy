@@ -1,9 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"o_target_organizer",
-  "eventList":[],
+  "%Name":"o_unit_order_manager",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"o_target_organizer",
+  "name":"o_unit_order_manager",
   "overriddenProperties":[],
   "parent":{
     "name":"objects",

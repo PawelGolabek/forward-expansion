@@ -34,7 +34,6 @@ if (mouse_check_button_pressed(mb_left)){
 	else{
 		with(o_unit){
 			if(dragging){
-				show_debug_message("CLICK BITCH")
 				mouseEvent();
 				break;
 			}else{
