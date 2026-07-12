@@ -6,7 +6,7 @@ hp = 20
 maxhp = hp
 damage = 4
 allegience = "player"
-range = 300
+range = 450
 
 og_image_xscale = 10;
 og_image_yscale = 10;

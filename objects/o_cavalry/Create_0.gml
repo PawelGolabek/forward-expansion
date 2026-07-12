@@ -9,7 +9,7 @@ damage = 10
 allegience = "player"
 damageTaken = 0
 reactionStrike = false;
-range = 200
+range = 300
 dragging = false;
 
 

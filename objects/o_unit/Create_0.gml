@@ -40,6 +40,8 @@ noUnitlets = false;
 //cosmetics
 bornOfSpawner = false;
 // shaders
+glow = false;
+redGlow = false;
 u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
 u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");
 
@@ -229,40 +231,38 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					var best_dist = 999999;
 					var best_x = x;
 					var best_y = y;
-
-					for (var i = 0; i < 200; i++)
-					{
-						angle = random(360);
-						dist = random(300);
-						px = x + lengthdir_x(dist, angle);
-						py = y + lengthdir_y(dist, angle);
-						
-						mask_index = uletSize;
-						image_xscale = ulet_xScale;
-						image_yscale = ulet_yScale;
-						if (!place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit))
-						{
-							if(line_blocked_terrain_only(x, y, px, py)){
-								continue;
-							}
-						    if (dist < best_dist)
-						    {
-						        best_dist = dist;
-						        best_x = px;
-						        best_y = py;
-						    }
-						}
-					}
-					px = best_x;
-					py = best_y;
-					ulet = instance_create_depth(px, py, depth - 500, myUnitlet);
-					array_push(unitlets,ulet);				   
+					ulet = instance_create_depth(-9999999, -999999, depth - 500, myUnitlet);		   
 					ulet.owner = self;
 					ulet.unit = self;
 					ulet.image_xscale = 0.3;
 					ulet.image_yscale = 0.3;
 					ulet.initiate();
 					ulet.initiate2();
+
+				for (var i = 0; i < 200; i++) {
+    angle = random(360);
+    dist = random(300);
+    px = x + lengthdir_x(dist, angle);
+    py = y + lengthdir_y(dist, angle);
+
+    var blocked = false;
+    with (ulet) {
+        blocked = place_meeting(px, py, o_unitlet) || place_meeting(px, py, o_unit);
+    }
+
+    if (!blocked) {
+        if (line_blocked_terrain_only(x, y, px, py)) continue;
+        if (dist < best_dist) {
+            best_dist = dist;
+            best_x = px;
+            best_y = py;
+        }
+    }
+}
+					ulet.x = best_x;
+					ulet.y = best_y;
+					
+					array_push(unitlets,ulet);		
 				}
 			}
 		}
@@ -367,6 +367,7 @@ function findNewTargetForSelf()
     target = closestEnemy;
 	with(closestEnemy){
 		if(not closestEnemy.noUnitlets){
+			redGlow = true;
 			ulets = array_length(unitlets) - 1
 			while(ulets >= 0){
 				unitlets[ulets].redGlow = true;
@@ -450,7 +451,7 @@ function executeStep(){
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance(x, y, u.x, u.y) <= u.range and not u.targetted)
+		    if (point_distance(x, y, u.x, u.y) <= u.range and not u.inCombat)
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;

@@ -13,5 +13,4 @@ instance_destroy(arrow)
 while(array_length(unitlets) > 0){
 	ulet = array_pop(unitlets);
 	instance_destroy(ulet);
-		
 }

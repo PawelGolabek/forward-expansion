@@ -11,3 +11,4 @@ noEyes = true;
 
 
 myUnitlet = o_tank_let;
+uletSize = Sprite67;

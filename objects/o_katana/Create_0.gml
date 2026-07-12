@@ -7,7 +7,7 @@ maxhp = hp
 damage = 4
 allegience = "player"
 
-range = 380
+range = 580
 
 
 myUnitlet = o_katana_let;

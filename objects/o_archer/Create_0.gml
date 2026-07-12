@@ -19,3 +19,4 @@ range = 1000
 aiType = "range"
 
 myUnitlet = o_archer_let;
+uletSize = s_new_unit;

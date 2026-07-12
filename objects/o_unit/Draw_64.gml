@@ -21,7 +21,6 @@ if (expectedDamage > 0) {
 
 
 shader_reset();
-
 		
 if (expectedDamage > 0) {
     draw_set_font(Font3);
