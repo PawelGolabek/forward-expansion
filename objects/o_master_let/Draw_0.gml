@@ -12,7 +12,6 @@ if(unit.parried){
 	dzida.image_angle = 45
 }
 
-draw_text(x,y+40,unit.parried);
 
 katana.move();
 dzida.move();

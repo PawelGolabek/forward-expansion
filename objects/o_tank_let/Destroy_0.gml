@@ -2,4 +2,4 @@
 event_inherited();
 
 
-instance_destroy(shield)
+//instance_destroy(shield)

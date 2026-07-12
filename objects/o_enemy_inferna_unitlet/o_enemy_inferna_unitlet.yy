@@ -12,8 +12,8 @@
     "path":"folders/objects/units/player/lets.yy",
   },
   "parentObjectId":{
-    "name":"o_unitlet",
-    "path":"objects/o_unitlet/o_unitlet.yy",
+    "name":"o_inferna_let",
+    "path":"objects/o_inferna_let/o_inferna_let.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite1_7",
-    "path":"sprites/Sprite1_7/Sprite1_7.yy",
+    "name":"s_inferna_new",
+    "path":"sprites/s_inferna_new/s_inferna_new.yy",
   },
   "spriteMaskId":null,
   "visible":true,

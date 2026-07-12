@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"enemy",
-    "path":"folders/objects/units/player/enemy.yy",
+    "path":"folders/objects/units/enemy.yy",
   },
   "parentObjectId":{
     "name":"o_cavalry",

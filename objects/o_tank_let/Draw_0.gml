@@ -2,5 +2,4 @@
 event_inherited();
 
 
-
-shield.move();
+//shield.move();

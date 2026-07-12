@@ -20,6 +20,17 @@ deck = [
     instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
     instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
     instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, 0, "Cards", o_katana_spawner),
+    instance_create_layer(0, 0, "Cards", o_shield_spawner),
+    instance_create_layer(0, 0, "Cards", o_master_spawner),
+    instance_create_layer(0, 0, "Cards", o_katana_spawner),
+    instance_create_layer(0, 0, "Cards", o_shield_spawner),
+    instance_create_layer(0, 0, "Cards", o_master_spawner),
+    instance_create_layer(0, 0, "Cards", o_katana_spawner),
+    instance_create_layer(0, 0, "Cards", o_shield_spawner),
+    instance_create_layer(0, 0, "Cards", o_master_spawner),
+    instance_create_layer(0, 0, "Cards", o_master_spawner),
+    instance_create_layer(0, 0, "Cards", o_master_spawner),
 ];
 
 discard = []

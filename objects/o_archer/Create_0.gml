@@ -12,6 +12,8 @@ damageTaken = 0
 
 firstStrike = false;
 
+og_image_xscale = 10;
+og_image_yscale = 10;
 range = 1000
 
 aiType = "range"

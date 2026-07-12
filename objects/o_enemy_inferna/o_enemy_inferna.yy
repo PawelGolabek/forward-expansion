@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"enemy",
-    "path":"folders/objects/units/player/enemy.yy",
+    "path":"folders/objects/units/enemy.yy",
   },
   "parentObjectId":{
     "name":"o_inferna",
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_inferna_flag_1",
-    "path":"sprites/s_inferna_flag_1/s_inferna_flag_1.yy",
+    "name":"s_inferna_flag_2",
+    "path":"sprites/s_inferna_flag_2/s_inferna_flag_2.yy",
   },
   "spriteMaskId":null,
   "tags":[

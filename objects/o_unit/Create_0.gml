@@ -7,6 +7,14 @@ maxhp = hp
 firstStrike = true;
 reactionStrike = true;
 crystalCost = 10
+// ulet spawning
+og_image_xscale = image_xscale;
+og_image_yscale = image_yscale;
+ogXscale = og_image_xscale;
+ogYscale = og_image_yscale;
+uletSize = Sprite1;
+ulet_xScale = 0.3;
+ulet_yScale = ulet_xScale;
 //tmp variables for combat
 damageTaken = 0
 drawCircle = false; 
@@ -31,6 +39,10 @@ noEyes = true
 noUnitlets = false;
 //cosmetics
 bornOfSpawner = false;
+// shaders
+u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
+u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");
+
 
 if(!noEyes){
 	eyeX = 20
@@ -137,6 +149,22 @@ function line_blocked(_x1, _y1, _x2, _y2)
     return false;
 }
 
+function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
+{
+    var dist = point_distance(_x1, _y1, _x2, _y2);
+    var dir  = point_direction(_x1, _y1, _x2, _y2);
+	var xx;
+	var yy;
+    for (var d = 0; d < dist; d += 4) // sample every 4 pixels
+    {
+        xx = _x1 + lengthdir_x(d, dir);
+        yy = _y1 + lengthdir_y(d, dir);
+        if (position_meeting(xx, yy, o_impassable))
+            return true;
+		
+    }
+    return false;
+}
 function place(){
 if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 		with(o_spawner_parent){
@@ -206,12 +234,17 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					{
 						angle = random(360);
 						dist = random(300);
-
 						px = x + lengthdir_x(dist, angle);
 						py = y + lengthdir_y(dist, angle);
-
+						
+						mask_index = uletSize;
+						image_xscale = ulet_xScale;
+						image_yscale = ulet_yScale;
 						if (!place_meeting(px, py, o_unitlet) && !place_meeting(px, py, o_unit))
 						{
+							if(line_blocked_terrain_only(x, y, px, py)){
+								continue;
+							}
 						    if (dist < best_dist)
 						    {
 						        best_dist = dist;
@@ -220,7 +253,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 						    }
 						}
 					}
-
 					px = best_x;
 					py = best_y;
 					ulet = instance_create_depth(px, py, depth - 500, myUnitlet);
@@ -235,6 +267,8 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			}
 		}
 	}
+	image_xscale = ogXscale;
+	image_yscale = ogYscale;
 }
 
 
@@ -493,14 +527,12 @@ function executeStep(){
 	} else {
 		    drawCircle = false;
 	}
-
+	///////////////////////////////////////// on taking damage kill unitlets /////////////////////
 	if(array_length(unitlets) > hp){
 		ulet = array_pop(unitlets);
 		instance_destroy(ulet);
 	}
-	////////////////////////////////////// exoected dmg calculation
-
-
+	////////////////////////////////////// exoected dmg calculation ///////////////
 	if(not noEyes){
 		blink -= delta_time;
 		if(blink <= 0){

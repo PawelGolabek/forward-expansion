@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"enemy",
-    "path":"folders/objects/units/player/enemy.yy",
+    "path":"folders/objects/units/enemy.yy",
   },
   "parentObjectId":{
     "name":"o_archer",
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_archer_flag_1",
-    "path":"sprites/s_archer_flag_1/s_archer_flag_1.yy",
+    "name":"s_enemy_archer_flag_4",
+    "path":"sprites/s_enemy_archer_flag_4/s_enemy_archer_flag_4.yy",
   },
   "spriteMaskId":null,
   "tags":[

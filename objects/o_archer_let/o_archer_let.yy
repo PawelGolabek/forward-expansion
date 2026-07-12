@@ -1,7 +1,10 @@
 {
   "$GMObject":"",
   "%Name":"o_archer_let",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"o_archer_let",
   "overriddenProperties":[],
@@ -31,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_archer",
-    "path":"sprites/s_archer/s_archer.yy",
+    "name":"s_new_unit",
+    "path":"sprites/s_new_unit/s_new_unit.yy",
   },
   "spriteMaskId":null,
   "visible":true,

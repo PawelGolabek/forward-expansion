@@ -191,7 +191,7 @@
   "name":"fnt_log",
   "parent":{
     "name":"fonts",
-    "path":"folders/objects/fonts.yy",
+    "path":"folders/fonts.yy",
   },
   "pointRounding":0,
   "ranges":[

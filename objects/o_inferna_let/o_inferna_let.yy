@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_inferna",
-    "path":"sprites/s_inferna/s_inferna.yy",
+    "name":"s_inferna_new",
+    "path":"sprites/s_inferna_new/s_inferna_new.yy",
   },
   "spriteMaskId":null,
   "visible":true,
