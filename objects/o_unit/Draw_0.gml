@@ -159,9 +159,11 @@ if(drawCircle or global.deployHighlight == id or signalFromUnitlet){
 	// The enemy is in range! Draw this unit's threat radius.
 	var circleColor = c_blue; // Orange/Yellow works great for a warning outline
 	draw_set_alpha(0.5); // Semi-transparent outline
-	draw_circle_square()
+	
+	draw_circle_color(x, y, range, circleColor, circleColor, true);
+	
 	draw_set_alpha(0.15); // Super faint filled center
-	draw_circle_square()
+	draw_circle_color(x, y, range, circleColor, circleColor, false);
 	
 
 	
