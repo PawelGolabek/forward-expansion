@@ -220,6 +220,7 @@
     {"id":{"name":"Sprite77","path":"sprites/Sprite77/Sprite77.yy",},},
     {"id":{"name":"Sprite78","path":"sprites/Sprite78/Sprite78.yy",},},
     {"id":{"name":"Sprite79","path":"sprites/Sprite79/Sprite79.yy",},},
+    {"id":{"name":"Sprite80","path":"sprites/Sprite80/Sprite80.yy",},},
     {"id":{"name":"TileSet1","path":"tilesets/TileSet1/TileSet1.yy",},},
   ],
   "resourceType":"GMProject",
