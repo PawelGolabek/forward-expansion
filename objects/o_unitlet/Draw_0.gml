@@ -1,3 +1,6 @@
+var tilemap = layer_tilemap_get_id("Tiles_1");
+tilemap_get_at_pixel(tilemap,x,y)
+
 var cam = view_camera[0];
 var vx = camera_get_view_x(cam) - 50;
 var vy = camera_get_view_y(cam) - 50;

@@ -240,25 +240,30 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					ulet.initiate2();
 
 				for (var i = 0; i < 200; i++) {
-    angle = random(360);
-    dist = random(300);
-    px = x + lengthdir_x(dist, angle);
-    py = y + lengthdir_y(dist, angle);
+				    angle = random(360);
+				    dist = random(300);
+				    px = x + lengthdir_x(dist, angle);
+				    py = y + lengthdir_y(dist, angle);
 
-    var blocked = false;
-    with (ulet) {
-        blocked = place_meeting(px, py, o_unitlet) || place_meeting(px, py, o_unit);
-    }
+				    var blocked = false;
+				    with (ulet) {
+				        blocked = place_meeting(px, py, o_unitlet) || place_meeting(px, py, o_unit);
+						var tilemap = layer_tilemap_get_id("Tiles_1");
+						show_debug_message(tilemap_get_at_pixel(tilemap,x,y))
+						if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
+							blocked = true;
+						}
+				    }
 
-    if (!blocked) {
-        if (line_blocked_terrain_only(x, y, px, py)) continue;
-        if (dist < best_dist) {
-            best_dist = dist;
-            best_x = px;
-            best_y = py;
-        }
-    }
-}
+				    if (!blocked) {
+				        if (line_blocked_terrain_only(x, y, px, py)) continue;
+				        if (dist < best_dist) {
+				            best_dist = dist;
+				            best_x = px;
+				            best_y = py;
+				        }
+				    }
+				}
 					ulet.x = best_x;
 					ulet.y = best_y;
 					
