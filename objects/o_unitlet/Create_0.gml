@@ -2,6 +2,7 @@
 //Outline shader
 //Outline shader
 sprite_scale = shader_get_uniform(shd_outline, "sprite_size");
+outline_surf = -1
 tex = sprite_get_texture(sprite_index,image_index);
 //Texel
 tex_h = (1/sprite_height)*image_yscale;

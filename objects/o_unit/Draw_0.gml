@@ -1,69 +1,102 @@
 
 
-image_alpha = 0.5
-color = c_white
-
-if (shader_is_compiled(shd_shadow)) {
-	shader_set(shd_shadow);
-	var shadow_r = 0.1;
-	var shadow_g = 0.1;
-	var shadow_b = 0.1;
-	if (hit_timer > 0) {
-	    shadow_r = 1.0;
-	    shadow_g = 0.0;
-	    shadow_b = 0.0;
-		color = c_red
+if(drawCircle or global.deployHighlight == id or signalFromUnitlet){
+	if(not noUnitlets){
+		glow = true;
+		ulets = array_length(unitlets) - 1
+		while(ulets >= 0){
+			unitlets[ulets].glow = true;
+			ulets-=1;
+		}
+		signalFromUnitlet = false;
 	}
-	//shadow
-    shader_set_uniform_f(u_shadow_color, shadow_r, shadow_g, shadow_b, shadow_alpha);
-    draw_sprite_ext(
-        sprite_index,
-        image_index,
-        x, y + shadow_offset_y,
-        og_image_xscale * 0.9,
-        og_image_yscale * 0.5,
-        0,
-        c_white,
-        0.4
-    );
-    shader_reset();
+	// The enemy is in range! Draw this unit's threat radius.
+	var circleColor = c_blue; // Orange/Yellow works great for a warning outline
+	draw_set_alpha(0.5); // Semi-transparent outline
+	
+	draw_circle_color(x, y, range, circleColor, circleColor, true);
+	
+	draw_set_alpha(0.15); // Super faint filled center
+	draw_circle_color(x, y, range, circleColor, circleColor, false);
+	
+
+	
+
+	// Reset alpha back to normal
+	draw_set_alpha(1.0);
+	if(global.deployHighlight == self){
+		global.deployHighlight = noone;
+	}
+}
+
+if(global.draggingUnit == self and global.deployHighlight != noone){
+	draw_line_width(x,y,global.deployHighlight.x, global.deployHighlight.y,10)
 }
 
 
-var cam = view_camera[0];
-var vx = camera_get_view_x(cam) - 50;
-var vy = camera_get_view_y(cam) - 50;
-var vw = camera_get_view_width(cam) + 100;
-var vh = camera_get_view_height(cam) + 100;
-
-if (bbox_right < vx ||
-    bbox_left > vx + vw ||
-    bbox_bottom < vy ||
-    bbox_top > vy + vh)
-{
-    exit; // Don't draw
-}
-// Draw event
-shader_set(shd_outline);
 
 
-shader_set_uniform_f(u_outlineColor, 0.0, 0.0, 0.0, 1.0); // black
 
-draw_sprite_ext(sprite_index, image_index, x, y, og_image_xscale*1.2, og_image_yscale*1.2, image_angle, c_white, image_alpha);
+
+
+
+
+color = c_white
+var tilemap = layer_tilemap_get_id("Tiles_1");
+tilemap_get_at_pixel(tilemap,x,y)
+
+
+outline_surf = scr_draw_sprite_outline(
+    sprite_index, image_index,
+     x - sprite_width, y + drag_draw_offset - sprite_height,
+     og_image_xscale, og_image_yscale,
+    c_white, image_alpha,   // sprite blend/alpha
+    20, c_black,              // outline thickness (px), outline colour
+    outline_surf
+);
+
 
 
 if (redGlow){
+outline_surf = scr_draw_sprite_outline(
+    sprite_index, image_index,
+     x - sprite_width, y + drag_draw_offset - sprite_height, og_image_xscale, og_image_yscale,
+    c_white, image_alpha,   // sprite blend/alpha
+    2, c_red,              // outline thickness (px), outline colour
+    outline_surf
+);
 	redGlow = false;
-	shader_set_uniform_f(u_outlineColor, 1.0, 0.0, 0.0, 1.0); // red	
-	draw_sprite_ext(sprite_index, image_index, x, y, og_image_xscale*1.1, og_image_yscale*1.1, image_angle, c_white, image_alpha);
 } else if (glow) {
+outline_surf = scr_draw_sprite_outline(
+    sprite_index, image_index,
+     x + 1/2*sprite_width, y + drag_draw_offset - 1/2 * sprite_height, og_image_xscale, og_image_yscale,
+    c_white, image_alpha,   // sprite blend/alpha
+    20, c_yellow,              // outline thickness (px), outline colour
+    outline_surf
+);
 	glow = false;
-    shader_set_uniform_f(u_outlineColor, 1.0, 1.0, 0.0, 1.0); // yellow
-	draw_sprite_ext(sprite_index, image_index, x, y, og_image_xscale*1.1, og_image_yscale*1.1, image_angle, c_white, image_alpha);
-
 }
 
-shader_reset();
+
+
+if(inCombat){
+	alpha = 0.7;
+}else{
+	alpha = 1;
+}
+
+//draw_sprite_ext(sprite_index, image_index, x + 1/2*sprite_width, y + drag_draw_offset - 1/2 * sprite_height, og_image_xscale, og_image_yscale, image_angle, c_white, alpha);
+
+outline_surf = scr_draw_sprite_outline(
+    sprite_index, image_index,
+     x + 1/2*sprite_width, y + drag_draw_offset - 1/2 * sprite_height, og_image_xscale, og_image_yscale,
+    c_white, alpha,   // sprite blend/alpha
+    0, c_white,              // outline thickness (px), outline colour
+    outline_surf
+);
+
+glow = false;
+
 
 if(not noEyes){
 	lPupil.movePupil();
@@ -74,14 +107,14 @@ if(not noEyes){
 	rEyeLid.moveEye();
 }
 
+/*
 if(animationOn){
-	
-	draw_sprite_ext(sprite_index, image_index, x, y + drag_draw_offset, og_image_xscale, og_image_yscale, image_angle, color, alpha);
+	draw_sprite_ext(sprite_index, image_index, x, y - sprite_height*1.1/2 + drag_draw_offset, og_image_xscale, og_image_yscale, image_angle, color, alpha);
 }else{
 	draw_self();
 }
 
-
+*/
 
 // death indicator
 var inst = instance_position(x, y, o_unit);
@@ -147,38 +180,6 @@ draw_rectangle(x1, y1, x1 + ( hp_ratio * totalLength), y1 + h, false);
 draw_set_color(c_white);
 
 
-if(drawCircle or global.deployHighlight == id or signalFromUnitlet){
-	if(not noUnitlets){
-		glow = true;
-		ulets = array_length(unitlets) - 1
-		while(ulets >= 0){
-			unitlets[ulets].glow = true;
-			ulets-=1;
-		}
-		signalFromUnitlet = false;
-	}
-	// The enemy is in range! Draw this unit's threat radius.
-	var circleColor = c_blue; // Orange/Yellow works great for a warning outline
-	draw_set_alpha(0.5); // Semi-transparent outline
-	
-	draw_circle_color(x, y, range, circleColor, circleColor, true);
-	
-	draw_set_alpha(0.15); // Super faint filled center
-	draw_circle_color(x, y, range, circleColor, circleColor, false);
-	
-
-	
-
-	// Reset alpha back to normal
-	draw_set_alpha(1.0);
-	if(global.deployHighlight == self){
-		global.deployHighlight = noone;
-	}
-}
-
-if(global.draggingUnit == self and global.deployHighlight != noone){
-	draw_line_width(x,y,global.deployHighlight.x, global.deployHighlight.y,10)
-}
 
 // hp on hover. to change or delete tbh
 if (position_meeting(mouse_x, mouse_y, id)){
@@ -188,7 +189,7 @@ if (position_meeting(mouse_x, mouse_y, id)){
 }
 
 
-// this has to be replaced with a sprite with a nice shader. This is a death to the optimisation. The destroyer of worlds
+// this has to be replaced with a sprite with a nice shade. This is a death to the optimisation. The destroyer of worlds
 function draw_circle_square(){
 	var tile = 16; // grid size
 	var radius = range;

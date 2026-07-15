@@ -139,6 +139,8 @@
     {"id":{"name":"r_vertical_slice","path":"rooms/r_vertical_slice/r_vertical_slice.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"RoomUI","path":"roomui/RoomUI/RoomUI.yy",},},
+    {"id":{"name":"Script1","path":"scripts/Script1/Script1.yy",},},
+    {"id":{"name":"Shader3","path":"shaders/Shader3/Shader3.yy",},},
     {"id":{"name":"shd_outline","path":"shaders/shd_outline/shd_outline.yy",},},
     {"id":{"name":"shd_shadow","path":"shaders/shd_shadow/shd_shadow.yy",},},
     {"id":{"name":"s_archer_1","path":"sprites/s_archer_1/s_archer_1.yy",},},

@@ -2,7 +2,7 @@ x = owner.x
 y = owner.y - 30
 depth = owner.depth - 200
 
-
+// calculate damage for units
 if (instance_exists(owner.tmpTarget) and owner.tmpTarget != noone){
     image_angle = point_direction(x, y, owner.tmpTarget.x, owner.tmpTarget.y);	
 	visible = true
@@ -28,6 +28,9 @@ if (instance_exists(owner.tmpTarget) and owner.tmpTarget != noone){
 }else{
 	visible = false
 }
+
+
+
 /*
 if(owner.hp <= owner.expectedDamage){
 	owner.skull.visible = true;

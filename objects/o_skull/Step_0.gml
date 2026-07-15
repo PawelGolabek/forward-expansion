@@ -1,5 +1,5 @@
-x = unit.x
-y = unit.y	
+x = unit.xx
+y = unit.yy
 
 depth = unit.depth - 50
 

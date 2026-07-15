@@ -25,6 +25,7 @@ animationOn = true;
 target = noone;
 tmpTarget = noone;
 targetted = false;
+inCombat = false;
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow);
 arrow.owner = self;
@@ -34,6 +35,16 @@ standard_collisions = mask_index
 dragging_mask = s_unit_mask
 lastFriendly = noone;
 signalFromUnitlet = false;
+// ui for skull
+cam = view_camera[0];
+viewX = camera_get_view_x(cam);
+viewY = camera_get_view_y(cam);
+viewW = camera_get_view_width(cam);
+viewH = camera_get_view_height(cam);
+guiX = (x - viewX) * display_get_gui_width() / viewW;
+guiY = (y - viewY) * display_get_gui_height() / viewH;
+xx = guiX;
+yy = guiY + 35;
 //// this makes no sense but might keep it for later.
 noEyes = true
 noUnitlets = false;
@@ -42,8 +53,8 @@ bornOfSpawner = false;
 // shaders
 glow = false;
 redGlow = false;
-u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
-u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");
+outline_surf = -2
+
 
 
 if(!noEyes){
@@ -115,6 +126,30 @@ u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
 shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's feet
 shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
 shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
+
+
+function calculateDamageExpectedDelayed() {
+	// cache self's data since 'self' changes inside the with block
+	var myId = id;
+	var myAllegience = allegience;
+	var myX = x;
+	var myY = y;
+	
+	var total = 0;
+	
+	with (o_unit) {
+		if (id == myId) continue;              // skip self
+		if (allegience == myAllegience) continue; // skip allies
+		
+		var dist = point_distance(x, y, myX, myY);
+		if (dist <= range) {
+			total += damage;
+		}
+	}
+	
+	return total;
+}
+
 
 function mouseEvent(){
 	mouseClicked = true;
