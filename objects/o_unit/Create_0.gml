@@ -284,7 +284,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 				    with (ulet) {
 				        blocked = place_meeting(px, py, o_unitlet) || place_meeting(px, py, o_unit);
 						var tilemap = layer_tilemap_get_id("Tiles_1");
-						show_debug_message(tilemap_get_at_pixel(tilemap,x,y))
 						if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
 							blocked = true;
 						}

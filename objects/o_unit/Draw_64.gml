@@ -17,7 +17,7 @@ if (expectedDamage > 0)
     draw_set_font(Font3);
 
     xx = guiX;
-    yy = guiY + 15;
+    yy = guiY;
     var txt = string(expectedDamage);
 
     // Thick black outline
@@ -57,7 +57,7 @@ if (_expected > 0)
     draw_set_font(Font3);
 
     xx = guiX;
-    yy = guiY + 35;
+    yy = guiY + 35 * o_camera_controller.zoom;
     var txt = string(_expected);
 
     // Thick black outline

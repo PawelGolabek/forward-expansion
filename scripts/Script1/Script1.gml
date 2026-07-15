@@ -1,28 +1,8 @@
-
-
 /// @function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _blend, _alpha, _thickness, _outline_colour, _surf)
 /// @description Draws a sprite with a crop-safe outline of adjustable pixel
 ///              thickness and colour. Works by rendering the sprite onto a
 ///              padded surface first, so texture-page cropping never eats
-///              into the outline.
-///
-/// @param {Asset.GMSprite} _sprite
-/// @param {Real}   _subimg
-/// @param {Real}   _x
-/// @param {Real}   _y
-/// @param {Real}   _xscale
-/// @param {Real}   _yscale
-/// @param {Constant.Color} _blend
-/// @param {Real}   _alpha
-/// @param {Real}   _thickness        outline thickness in pixels, 0-8 (see shd_outline.fsh)
-/// @param {Constant.Color} _outline_colour
-/// @param {Id.Surface} _surf         pass -1 the first call; then keep passing back
-///                                   whatever this function returns
-/// @returns {Id.Surface}             store this back into your instance variable
-///
-/// NOTE: if you also rotate the sprite before calling this, the padding below
-/// won't account for the larger rotated bounding box - pad extra manually in
-/// that case, or rotate the surface itself with draw_surface_ext instead.
+///              into the outline. Works with any sprite origin or scale!
 function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _blend, _alpha, _thickness, _outline_colour, _surf)
 {
     static _u_texel   = shader_get_uniform(shd_outline, "u_texel");
@@ -31,8 +11,13 @@ function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _bl
     static _u_uvclamp = shader_get_uniform(shd_outline, "u_uvClamp");
 
     var _pad    = ceil(_thickness) + 1;
-    var _sw     = ceil( sprite_get_width(_sprite)  * abs(_xscale) );
-    var _sh     = ceil( sprite_get_height(_sprite) * abs(_yscale) );
+    var _w      = sprite_get_width(_sprite);
+    var _h      = sprite_get_height(_sprite);
+    var _xoffset = sprite_get_xoffset(_sprite);
+    var _yoffset = sprite_get_yoffset(_sprite);
+
+    var _sw     = ceil(_w * abs(_xscale));
+    var _sh     = ceil(_h * abs(_yscale));
     var _surf_w = _sw + _pad * 2;
     var _surf_h = _sh + _pad * 2;
 
@@ -43,10 +28,18 @@ function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _bl
         _surf = surface_create(_surf_w, _surf_h);
     }
 
-    // Draw the plain sprite into the padded surface (no shader here)
+    // Math: Determine the leftmost/topmost boundary of the sprite relative to its origin
+    // This perfectly accounts for negative/flipped scales too!
+    var _left_boundary = (_xscale >= 0) ? (-_xoffset * _xscale) : ((_w - _xoffset) * _xscale);
+    var _top_boundary  = (_yscale >= 0) ? (-_yoffset * _yscale) : ((_h - _yoffset) * _yscale);
+
+    var _draw_surf_x = _pad - _left_boundary;
+    var _draw_surf_y = _pad - _top_boundary;
+
+    // Draw the plain sprite into the padded surface
     surface_set_target(_surf);
     draw_clear_alpha(0, 0);
-    draw_sprite_ext(_sprite, _subimg, _pad, _pad, _xscale, _yscale, 0, c_white, 1);
+    draw_sprite_ext(_sprite, _subimg, _draw_surf_x, _draw_surf_y, _xscale, _yscale, 0, c_white, 1);
     surface_reset_target();
 
     // Draw the padded surface to the screen through the outline shader
@@ -58,17 +51,15 @@ function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _bl
         color_get_green(_outline_colour) / 255,
         color_get_blue(_outline_colour)  / 255,
         1);
-    // Whole surface belongs to this one draw, so no atlas bleed protection needed
     shader_set_uniform_f(_u_uvclamp, 0, 0, 1, 1);
 
-    draw_surface_ext(_surf, _x - _pad, _y - _pad, 1, 1, 0, _blend, _alpha);
+    // Calculate where to draw the surface in room space so the origin aligns perfectly
+    var _room_draw_x = _x - _draw_surf_x;
+    var _room_draw_y = _y - _draw_surf_y;
+
+    draw_surface_ext(_surf, _room_draw_x, _room_draw_y, 1, 1, 0, _blend, _alpha);
 
     shader_reset();
 
     return _surf;
 }
-
-
-
-
-

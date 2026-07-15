@@ -245,10 +245,7 @@ function ai_evaluate_and_place() {
 			    _destroyed = true;
 			    instance_destroy();
 			} else {
-			    lastFriendly = _lastFriendly;               // FIX: populate for downstream use
-			    if (_lastFriendly != noone) {
-			        global.deployHighlight = _lastFriendly;
-			    }
+			    lastFriendly = _lastFriendly;
 			}
         }
         
@@ -310,7 +307,6 @@ function ai_evaluate_and_place() {
     
                     global.draggingUnit = noone;
                     global.dropped = noone;
-                    global.deployHighlight = noone;
 
 
                     if (instance_exists(_unit)) {
