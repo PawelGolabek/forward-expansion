@@ -8,12 +8,9 @@ var draw_x = x - (_sw / 2);
 var draw_y = y + drag_draw_offset - _sh; 
 
 // --- 3. DRAGGING LINE ---
-if (global.draggingUnit == id and global.deployHighlight != noone
-
-){
+if (global.draggingUnit == self and global.deployHighlight != noone){
     draw_line_width(x, y, global.deployHighlight.x, global.deployHighlight.y, 10);
 }
-
 
 
 // --- 2. THREAT RADIUS & RANGE CIRCLES ---

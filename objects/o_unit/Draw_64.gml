@@ -5,13 +5,8 @@ viewW = camera_get_view_width(cam);
 viewH = camera_get_view_height(cam);
 guiX = (x - viewX) * display_get_gui_width() / viewW;
 guiY = (y - viewY) * display_get_gui_height() / viewH;
-
-guiX = (x - viewX) * display_get_gui_width() / viewW;
-guiY = (y - viewY) * display_get_gui_height() / viewH;
 		
-	// Draw event
-		
-	
+// Draw event
 if (expectedDamage > 0)
 {
     draw_set_font(Font3);
