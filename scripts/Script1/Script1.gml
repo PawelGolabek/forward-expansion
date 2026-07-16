@@ -1,65 +1,69 @@
-/// @function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _blend, _alpha, _thickness, _outline_colour, _surf)
-/// @description Draws a sprite with a crop-safe outline of adjustable pixel
-///              thickness and colour. Works by rendering the sprite onto a
-///              padded surface first, so texture-page cropping never eats
-///              into the outline. Works with any sprite origin or scale!
-function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _blend, _alpha, _thickness, _outline_colour, _surf)
+/// @function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _blend, _alpha, _thickness, _outline_colour)
+/// @description Draws a sprite with an outline, using a temporary surface that is freed immediately.
+///              No persistent surfaces, no memory leaks.
+function scr_draw_sprite_outline(_sprite, _subimg, _x, _y, _xscale, _yscale, _blend, _alpha, _thickness, _outline_colour)
+{
+    shader_reset();
+
+    //  Crucial: free the temporary surface immediately
+    surface_free(_surf);
+}
+
+/// @param _instances
+/// @param _thickness
+/// @param _outline_colour
+/// @param _instances   array of instance ids to draw
+/// @param _thickness   outline thickness in px, used only for glowing instances
+/// @param _instances       array of instance ids to draw
+/// @param _thickness       glow outline thickness (px), used when redGlow/glow is set
+/// @param _black_thickness black background outline thickness (px), always drawn
+function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 {
     static _u_texel   = shader_get_uniform(shd_outline, "u_texel");
     static _u_thick   = shader_get_uniform(shd_outline, "u_thickness");
     static _u_colour  = shader_get_uniform(shd_outline, "u_outlineColour");
     static _u_uvclamp = shader_get_uniform(shd_outline, "u_uvClamp");
 
-    var _pad    = ceil(_thickness) + 1;
-    var _w      = sprite_get_width(_sprite);
-    var _h      = sprite_get_height(_sprite);
-    var _xoffset = sprite_get_xoffset(_sprite);
-    var _yoffset = sprite_get_yoffset(_sprite);
+    var n = array_length(_instances);
 
-    var _sw     = ceil(_w * abs(_xscale));
-    var _sh     = ceil(_h * abs(_yscale));
-    var _surf_w = _sw + _pad * 2;
-    var _surf_h = _sh + _pad * 2;
-
-    // (Re)create the surface if it doesn't exist or the required size changed
-    if ( !surface_exists(_surf) || surface_get_width(_surf) != _surf_w || surface_get_height(_surf) != _surf_h )
+    for (var i = 0; i < n; i++)
     {
-        if ( surface_exists(_surf) ) surface_free(_surf);
-        _surf = surface_create(_surf_w, _surf_h);
+        var inst = _instances[i];
+        if (!instance_exists(inst)) continue;
+
+        var _spr = inst.sprite_index;
+        var _idx = inst.image_index;
+        var _tex = sprite_get_texture(_spr, _idx);
+        var _uv  = texture_get_uvs(_tex);
+
+        shader_set(shd_outline);
+        shader_set_uniform_f(_u_texel, texture_get_texel_width(_tex), texture_get_texel_height(_tex));
+        shader_set_uniform_f(_u_uvclamp, _uv[0], _uv[1], _uv[2], _uv[3]);
+
+        // 1) always: bigger black ring behind everything
+        shader_set_uniform_f(_u_thick, _black_thickness);
+        shader_set_uniform_f(_u_colour, 0, 0, 0, 1);
+        draw_sprite_ext(_spr, _idx, inst.x, inst.y, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
+
+        // 2) optional: coloured glow ring on top of the black one
+        if (inst.redGlow || inst.glow)
+        {
+            var _col = inst.redGlow ? c_red : c_yellow;
+            shader_set_uniform_f(_u_thick, _thickness);
+            shader_set_uniform_f(_u_colour,
+                color_get_red(_col)   / 255,
+                color_get_green(_col) / 255,
+                color_get_blue(_col)  / 255,
+                1);
+            draw_sprite_ext(_spr, _idx, inst.x, inst.y, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
+
+            inst.redGlow = false;
+            inst.glow    = false;
+        }
+
+        shader_reset();
+
+        // 3) the real sprite on top, masking the ring's interior
+        draw_sprite_ext(_spr, _idx, inst.x, inst.y, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
     }
-
-    // Math: Determine the leftmost/topmost boundary of the sprite relative to its origin
-    // This perfectly accounts for negative/flipped scales too!
-    var _left_boundary = (_xscale >= 0) ? (-_xoffset * _xscale) : ((_w - _xoffset) * _xscale);
-    var _top_boundary  = (_yscale >= 0) ? (-_yoffset * _yscale) : ((_h - _yoffset) * _yscale);
-
-    var _draw_surf_x = _pad - _left_boundary;
-    var _draw_surf_y = _pad - _top_boundary;
-
-    // Draw the plain sprite into the padded surface
-    surface_set_target(_surf);
-    draw_clear_alpha(0, 0);
-    draw_sprite_ext(_sprite, _subimg, _draw_surf_x, _draw_surf_y, _xscale, _yscale, 0, c_white, 1);
-    surface_reset_target();
-
-    // Draw the padded surface to the screen through the outline shader
-    shader_set(shd_outline);
-    shader_set_uniform_f(_u_texel, 1 / _surf_w, 1 / _surf_h);
-    shader_set_uniform_f(_u_thick, _thickness);
-    shader_set_uniform_f(_u_colour,
-        color_get_red(_outline_colour)   / 255,
-        color_get_green(_outline_colour) / 255,
-        color_get_blue(_outline_colour)  / 255,
-        1);
-    shader_set_uniform_f(_u_uvclamp, 0, 0, 1, 1);
-
-    // Calculate where to draw the surface in room space so the origin aligns perfectly
-    var _room_draw_x = _x - _draw_surf_x;
-    var _room_draw_y = _y - _draw_surf_y;
-
-    draw_surface_ext(_surf, _room_draw_x, _room_draw_y, 1, 1, 0, _blend, _alpha);
-
-    shader_reset();
-
-    return _surf;
 }

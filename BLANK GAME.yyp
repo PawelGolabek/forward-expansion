@@ -135,6 +135,7 @@
     {"id":{"name":"o_worker","path":"objects/o_worker/o_worker.yy",},},
     {"id":{"name":"r_ai_test_room","path":"rooms/r_ai_test_room/r_ai_test_room.yy",},},
     {"id":{"name":"r_run_map_test_1","path":"rooms/r_run_map_test_1/r_run_map_test_1.yy",},},
+    {"id":{"name":"r_run_map_test_2","path":"rooms/r_run_map_test_2/r_run_map_test_2.yy",},},
     {"id":{"name":"r_run_map_test","path":"rooms/r_run_map_test/r_run_map_test.yy",},},
     {"id":{"name":"r_vertical_slice","path":"rooms/r_vertical_slice/r_vertical_slice.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
@@ -228,6 +229,7 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"r_run_map_test_2","path":"rooms/r_run_map_test_2/r_run_map_test_2.yy",},},
     {"roomId":{"name":"r_run_map_test_1","path":"rooms/r_run_map_test_1/r_run_map_test_1.yy",},},
     {"roomId":{"name":"r_run_map_test","path":"rooms/r_run_map_test/r_run_map_test.yy",},},
     {"roomId":{"name":"r_ai_test_room","path":"rooms/r_ai_test_room/r_ai_test_room.yy",},},

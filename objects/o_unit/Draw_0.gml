@@ -57,8 +57,7 @@ outline_surf = scr_draw_sprite_outline(
     draw_x, draw_y,
     og_image_xscale, og_image_yscale,
     c_white, image_alpha,
-    20, c_black,
-    outline_surf
+    20, c_black
 );
 
 // Selection/Status Glow Overlays
@@ -68,8 +67,7 @@ if (redGlow){
         draw_x, draw_y, 
         og_image_xscale, og_image_yscale,
         c_white, image_alpha,
-        5, c_red,
-        outline_surf
+        5, c_red
     );
     redGlow = false;
 } else if (glow) {
@@ -78,8 +76,7 @@ if (redGlow){
         draw_x, draw_y, 
         og_image_xscale, og_image_yscale,
         c_white, image_alpha,
-        5, c_yellow,
-        outline_surf
+        5, c_yellow
     );
     glow = false;
 }
@@ -90,8 +87,7 @@ outline_surf = scr_draw_sprite_outline(
     draw_x, draw_y, 
     og_image_xscale, og_image_yscale,
     c_white, alpha,
-    0, c_white,
-    outline_surf
+    0, c_white
 );
 
 glow = false;
