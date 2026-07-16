@@ -14,5 +14,4 @@ if (position_meeting(mouse_x, mouse_y, id))
 	unit.signalFromUnitlet = true;
 }
 
-redGlow = true;
 array_push(o_draw_manager.ulets, id);

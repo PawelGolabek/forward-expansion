@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite32",
-    "path":"sprites/Sprite32/Sprite32.yy",
+    "name":"s_legacy_tilemap",
+    "path":"sprites/s_legacy_tilemap/s_legacy_tilemap.yy",
   },
   "spriteMaskId":null,
   "visible":false,

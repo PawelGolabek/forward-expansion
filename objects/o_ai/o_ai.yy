@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite37",
-    "path":"sprites/Sprite37/Sprite37.yy",
+    "name":"s_ai",
+    "path":"sprites/s_ai/s_ai.yy",
   },
   "spriteMaskId":null,
   "visible":true,

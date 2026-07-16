@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite31",
-    "path":"sprites/Sprite31/Sprite31.yy",
+    "name":"s_blood",
+    "path":"sprites/s_blood/s_blood.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite33",
-    "path":"sprites/Sprite33/Sprite33.yy",
+    "name":"s_crystals",
+    "path":"sprites/s_crystals/s_crystals.yy",
   },
   "spriteMaskId":null,
   "visible":false,

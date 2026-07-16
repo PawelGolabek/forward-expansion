@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite65",
-    "path":"sprites/Sprite65/Sprite65.yy",
+    "name":"s_skull",
+    "path":"sprites/s_skull/s_skull.yy",
   },
   "spriteMaskId":null,
   "visible":true,

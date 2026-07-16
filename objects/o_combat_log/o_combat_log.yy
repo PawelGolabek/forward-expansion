@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite42",
-    "path":"sprites/Sprite42/Sprite42.yy",
+    "name":"s_combat_log",
+    "path":"sprites/s_combat_log/s_combat_log.yy",
   },
   "spriteMaskId":null,
   "visible":true,

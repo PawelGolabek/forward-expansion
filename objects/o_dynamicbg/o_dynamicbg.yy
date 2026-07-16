@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite76",
-    "path":"sprites/Sprite76/Sprite76.yy",
+    "name":"s_background",
+    "path":"sprites/s_background/s_background.yy",
   },
   "spriteMaskId":null,
   "visible":true,

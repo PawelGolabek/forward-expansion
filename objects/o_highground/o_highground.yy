@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite27",
-    "path":"sprites/Sprite27/Sprite27.yy",
+    "name":"s_hill",
+    "path":"sprites/s_hill/s_hill.yy",
   },
   "spriteMaskId":null,
   "visible":true,

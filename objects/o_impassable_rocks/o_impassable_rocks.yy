@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite28",
-    "path":"sprites/Sprite28/Sprite28.yy",
+    "name":"s_blockade",
+    "path":"sprites/s_blockade/s_blockade.yy",
   },
   "spriteMaskId":null,
   "visible":true,

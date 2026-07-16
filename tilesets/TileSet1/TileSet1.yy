@@ -12,14 +12,14 @@
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
-    "name":"BLANK GAME",
-    "path":"BLANK GAME.yyp",
+    "name":"sprites",
+    "path":"folders/sprites.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"Sprite68",
-    "path":"sprites/Sprite68/Sprite68.yy",
+    "name":"s_tileset",
+    "path":"sprites/s_tileset/s_tileset.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{

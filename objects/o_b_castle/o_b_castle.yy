@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite26",
-    "path":"sprites/Sprite26/Sprite26.yy",
+    "name":"s_castle_placeholder",
+    "path":"sprites/s_castle_placeholder/s_castle_placeholder.yy",
   },
   "spriteMaskId":null,
   "visible":true,

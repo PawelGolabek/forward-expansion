@@ -8,7 +8,3 @@ if (!noEyes)
     lEyeLid.moveEye();
     rEyeLid.moveEye();
 }
-
-
-draw_text(x,y,glow)
-draw_text(x,y+20,redGlow)

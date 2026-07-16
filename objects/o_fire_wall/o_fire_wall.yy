@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite50",
-    "path":"sprites/Sprite50/Sprite50.yy",
+    "name":"s_firewall",
+    "path":"sprites/s_firewall/s_firewall.yy",
   },
   "spriteMaskId":null,
   "visible":true,

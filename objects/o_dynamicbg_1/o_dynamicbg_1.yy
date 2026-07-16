@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite77",
-    "path":"sprites/Sprite77/Sprite77.yy",
+    "name":"s_clouds_bg",
+    "path":"sprites/s_clouds_bg/s_clouds_bg.yy",
   },
   "spriteMaskId":null,
   "visible":true,
