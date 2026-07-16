@@ -48,10 +48,13 @@ void main()
             float dist = length( vec2( float(x), float(y) ) );
             if ( dist > u_thickness ) continue;
 
-            vec2 sampleUV = v_vTexcoord + vec2( float(x), float(y) ) * u_texel;
-            sampleUV = clamp( sampleUV, u_uvClamp.xy, u_uvClamp.zw );
-
-            maxAlpha = max( maxAlpha, texture2D( gm_BaseTexture, sampleUV ).a );
+			vec2 sampleUV = v_vTexcoord + vec2( float(x), float(y) ) * u_texel;
+			if ( sampleUV.x < u_uvClamp.x || sampleUV.x > u_uvClamp.z ||
+			     sampleUV.y < u_uvClamp.y || sampleUV.y > u_uvClamp.w )
+{
+    continue; // outside this sprite's own frame — treat as no data, don't sample
+}
+maxAlpha = max( maxAlpha, texture2D( gm_BaseTexture, sampleUV ).a );
         }
     }
 

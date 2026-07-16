@@ -152,6 +152,7 @@
     {"id":{"name":"s_archer_flag","path":"sprites/s_archer_flag/s_archer_flag.yy",},},
     {"id":{"name":"s_archer","path":"sprites/s_archer/s_archer.yy",},},
     {"id":{"name":"s_background","path":"sprites/s_background/s_background.yy",},},
+    {"id":{"name":"s_background1","path":"sprites/s_background1/s_background1.yy",},},
     {"id":{"name":"s_blockade","path":"sprites/s_blockade/s_blockade.yy",},},
     {"id":{"name":"s_blood_droplet","path":"sprites/s_blood_droplet/s_blood_droplet.yy",},},
     {"id":{"name":"s_blood","path":"sprites/s_blood/s_blood.yy",},},
@@ -235,6 +236,6 @@
   ],
   "templateType":"game",
   "TextureGroups":[
-    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMTextureGroup":"","%Name":"Default","autocrop":false,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
   ],
 }
