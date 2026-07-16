@@ -43,7 +43,7 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
         // 1) always: bigger black ring behind everything
         shader_set_uniform_f(_u_thick, _black_thickness);
         shader_set_uniform_f(_u_colour, 0, 0, 0, 1);
-        draw_sprite_ext(_spr, _idx, inst.x, inst.y, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
+        draw_sprite_ext(_spr, _idx, inst.x - inst.sprite_width/2, inst.y - inst.sprite_height/2, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
 
         // 2) optional: coloured glow ring on top of the black one
         if (inst.redGlow || inst.glow)
@@ -55,7 +55,7 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
                 color_get_green(_col) / 255,
                 color_get_blue(_col)  / 255,
                 1);
-            draw_sprite_ext(_spr, _idx, inst.x, inst.y, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
+            draw_sprite_ext(_spr, _idx, inst.x - inst.sprite_width/2, inst.y - inst.sprite_height/2, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
 
             inst.redGlow = false;
             inst.glow    = false;
@@ -64,6 +64,6 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
         shader_reset();
 
         // 3) the real sprite on top, masking the ring's interior
-        draw_sprite_ext(_spr, _idx, inst.x, inst.y, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
+        draw_sprite_ext(_spr, _idx, inst.x - inst.sprite_width/2, inst.y - inst.sprite_height/2, inst.image_xscale, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
     }
 }

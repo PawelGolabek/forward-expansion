@@ -586,5 +586,19 @@ function executeStep(){
 	    hit_timer--;
 	}
 	mouseClicked = false;
-
+	//draw
+	if (drawCircle or global.deployHighlight == id or signalFromUnitlet){
+	    if (not noUnitlets){
+	        glow = true;
+	        ulets = array_length(unitlets) - 1;
+	        while(ulets >= 0){
+	            unitlets[ulets].glow = true;
+	            ulets -= 1;
+	        }
+	        signalFromUnitlet = false;
+	    }
+	}
+	image_xscale = og_image_xscale * image_xscale;
+	image_yscale = og_image_xscale * image_yscale;
+	array_push(o_draw_manager.units,id)
 }

@@ -15,15 +15,6 @@ if (global.draggingUnit == self and global.deployHighlight != noone){
 
 // --- 2. THREAT RADIUS & RANGE CIRCLES ---
 if (drawCircle or global.deployHighlight == id or signalFromUnitlet){
-    if (not noUnitlets){
-        glow = true;
-        ulets = array_length(unitlets) - 1;
-        while(ulets >= 0){
-            unitlets[ulets].glow = true;
-            ulets -= 1;
-        }
-        signalFromUnitlet = false;
-    }
     // Draw threat radius
     var circleColor = c_blue; 
     draw_set_alpha(0.5); 
@@ -49,46 +40,6 @@ if (inCombat){
 } else {
     alpha = 1;
 }
-
-// --- 5. DRAW SPRITE & OUTLINES ---
-// Base black backing outline (always drawn)
-outline_surf = scr_draw_sprite_outline(
-    sprite_index, image_index,
-    draw_x, draw_y,
-    og_image_xscale, og_image_yscale,
-    c_white, image_alpha,
-    20, c_black
-);
-
-// Selection/Status Glow Overlays
-if (redGlow){
-    outline_surf = scr_draw_sprite_outline(
-        sprite_index, image_index,
-        draw_x, draw_y, 
-        og_image_xscale, og_image_yscale,
-        c_white, image_alpha,
-        5, c_red
-    );
-    redGlow = false;
-} else if (glow) {
-    outline_surf = scr_draw_sprite_outline(
-        sprite_index, image_index,
-        draw_x, draw_y, 
-        og_image_xscale, og_image_yscale,
-        c_white, image_alpha,
-        5, c_yellow
-    );
-    glow = false;
-}
-
-// Draw the main sprite clean inside the surface
-outline_surf = scr_draw_sprite_outline(
-    sprite_index, image_index,
-    draw_x, draw_y, 
-    og_image_xscale, og_image_yscale,
-    c_white, alpha,
-    0, c_white
-);
 
 glow = false;
 
