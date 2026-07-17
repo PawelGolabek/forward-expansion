@@ -13,6 +13,9 @@ redGlow = false;
 u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
 u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");
 noEyes = false;
+inCombat = false;
+color= c_white;
+alpha = 1.0;
 
 
 function initiate(){

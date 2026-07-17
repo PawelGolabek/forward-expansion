@@ -35,11 +35,6 @@ color = c_white;
 var tilemap = layer_tilemap_get_id("Tiles_1");
 tilemap_get_at_pixel(tilemap, x, y);
 
-if (inCombat){
-    alpha = 0.7;
-} else {
-    alpha = 1;
-}
 
 glow = false;
 
@@ -69,17 +64,6 @@ if (inst != noone && inst != id)
     );
 }
 
-// Active / Combat checks
-inCombat = false;
-with(o_unit){
-    if (point_distance(x, y, other.x, other.y) <= range and allegience != other.allegience){
-        other.inCombat = true;
-    }
-}
-
-if (inCombat){
-    color = c_gray;
-}
 
 // HP Bar
 var w = 30;

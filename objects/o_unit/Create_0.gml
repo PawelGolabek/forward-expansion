@@ -598,6 +598,14 @@ function executeStep(){
 	        signalFromUnitlet = false;
 	    }
 	}
+	
+	if (inCombat){
+		color = c_gray;
+		alpha = 0.7;
+	}else{
+		color = c_white
+	    alpha = 1.0;
+	}
 	image_xscale = og_image_xscale * image_xscale;
 	image_yscale = og_image_xscale * image_yscale;
 	array_push(o_draw_manager.units,id)
