@@ -12,6 +12,19 @@ with(o_unit){
 	}
 }
 
+	// Active / Combat checks
+	with(o_unit){
+	inCombat = false;
+	}
+	with(o_unit){
+		with(o_unit){
+			if (point_distance(x, y, other.x, other.y) <= range and allegience != other.allegience){
+			    other.inCombat = true;
+				draw_text(x,y,inCombat)
+			}
+		}
+	}
+
 array_sort(ulets, function(a, b) {
     return a.depth - b.depth;
 });

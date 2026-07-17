@@ -25,6 +25,10 @@ og_image_xscale = 1;
 og_image_yscale = 1;
 breatheDrawXOffset = 0
 image_xscaleToSend = 1;
+inCombat = false;
+color= c_white;
+alpha = 1.0;
+
 function initiate(){
 	if(not noEyes){
 		eyeX = 20;

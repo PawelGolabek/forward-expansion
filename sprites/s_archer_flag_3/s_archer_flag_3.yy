@@ -3,7 +3,7 @@
   "%Name":"s_archer_flag_3",
   "bboxMode":2,
   "bbox_bottom":27,
-  "bbox_left":9,
+  "bbox_left":7,
   "bbox_right":11,
   "bbox_top":25,
   "collisionKind":1,

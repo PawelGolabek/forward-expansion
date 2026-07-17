@@ -594,7 +594,6 @@ function executeStep(){
 	        signalFromUnitlet = false;
 	    }
 	}
-	////////////////// skull for the skull throne
 	cam = view_camera[0];
 	viewX = camera_get_view_x(cam);
 	viewY = camera_get_view_y(cam);
@@ -605,12 +604,16 @@ function executeStep(){
 		
 	xx = guiX;
 	yy = guiY;
-////////////////////////
-	
-	
-	
-	
+		
 	image_xscale = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
 	image_yscale = og_image_yscale * base_scale;
+	
+	if (inCombat){
+		color = c_gray;
+		alpha = 0.7;
+	}else{
+		color = c_white
+	    alpha = 1.0;
+	}
 	array_push(o_draw_manager.units,id)
 }
