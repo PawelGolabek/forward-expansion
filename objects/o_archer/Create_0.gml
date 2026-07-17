@@ -14,9 +14,14 @@ firstStrike = false;
 
 og_image_xscale = 10;
 og_image_yscale = 10;
+image_xscale = og_image_xscale;
+image_yscale = og_image_yscale;
 range = 1000
 
 aiType = "range"
 
 myUnitlet = o_archer_let;
 uletSize = s_new_unit;
+
+
+sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);

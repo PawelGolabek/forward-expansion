@@ -1,7 +1,7 @@
 // Inherit the parent event
 event_inherited();
 
-
+/*
 if(unit.parried){
 
 	katana.image_angle = 45
@@ -12,6 +12,6 @@ if(unit.parried){
 	dzida.image_angle = 45
 }
 
-
 katana.move();
 dzida.move();
+*/

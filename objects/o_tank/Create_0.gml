@@ -12,3 +12,5 @@ noEyes = true;
 
 myUnitlet = o_tank_let;
 uletSize = Sprite67;
+unit_collisions = mask_index
+sprite_center_offset = (sprite_get_width(sprite_index) / 2.0)

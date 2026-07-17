@@ -10,8 +10,6 @@ crystalCost = 10
 // ulet spawning
 og_image_xscale = image_xscale;
 og_image_yscale = image_yscale;
-ogXscale = og_image_xscale;
-ogYscale = og_image_yscale;
 uletSize = Sprite1;
 ulet_xScale = 0.3;
 ulet_yScale = ulet_xScale;
@@ -20,7 +18,7 @@ damageTaken = 0
 drawCircle = false; 
 fragility = 10;
 aiType = "melee";
-animationOn = true;
+animationOn = false;
 //targetting
 target = noone;
 tmpTarget = noone;
@@ -31,8 +29,6 @@ arrow = instance_create_depth(x,y,depth-10,o_arrow);
 arrow.owner = self;
 skull = instance_create_depth(x,y,depth - 30,o_skull);
 skull.unit = self;
-standard_collisions = mask_index
-dragging_mask = s_unit_mask
 lastFriendly = noone;
 signalFromUnitlet = false;
 // ui for skull
@@ -54,8 +50,8 @@ bornOfSpawner = false;
 glow = false;
 redGlow = false;
 outline_surf = -2
-
-
+breatheDrawXOffset = 0
+global.deployHighlight = noone
 
 if(!noEyes){
 	eyeX = 20
@@ -159,22 +155,22 @@ function line_blocked(_x1, _y1, _x2, _y2)
 {
     var dist = point_distance(_x1, _y1, _x2, _y2);
     var dir  = point_direction(_x1, _y1, _x2, _y2);
-	var xx;
-	var yy;
+	var xx1;
+	var yy1;
     for (var d = 0; d < dist; d += 4) // sample every 4 pixels
     {
-        xx = _x1 + lengthdir_x(d, dir);
-        yy = _y1 + lengthdir_y(d, dir);
-        if (position_meeting(xx, yy, o_impassable))
+        xx1 = _x1 + lengthdir_x(d, dir);
+        yy1 = _y1 + lengthdir_y(d, dir);
+        if (position_meeting(xx1, yy1, o_impassable))
             return true;
-		u = collision_point(xx, yy, o_unitlet, false, true);
+		u = collision_point(xx1, yy1, o_unitlet, false, true);
 		if(u != noone){
 			if(u.unit.allegience != allegience){
 				return true;
 			}
 		}
     }
-	u = instance_place(xx, yy, o_unitlet);
+	u = instance_place(xx1, yy1, o_unitlet);
 	if (u != noone)
 	{
 		if (u.unit.allegience != allegience)
@@ -190,13 +186,13 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
 {
     var dist = point_distance(_x1, _y1, _x2, _y2);
     var dir  = point_direction(_x1, _y1, _x2, _y2);
-	var xx;
-	var yy;
+	var xx1;
+	var yy1;
     for (var d = 0; d < dist; d += 4) // sample every 4 pixels
     {
-        xx = _x1 + lengthdir_x(d, dir);
-        yy = _y1 + lengthdir_y(d, dir);
-        if (position_meeting(xx, yy, o_impassable))
+        xx1 = _x1 + lengthdir_x(d, dir);
+        yy1 = _y1 + lengthdir_y(d, dir);
+        if (position_meeting(xx1, yy1, o_impassable))
             return true;
 		
     }
@@ -210,7 +206,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 		if(last_valid_x < 0 and last_valid_y < 0){
 			global.dropped = noone;
 			global.draggingUnit = noone;
-			global.deployHighlight = noone;
 			instance_destroy();
 		}else{
 		//// first strike, ommit if spawned on room creation
@@ -234,7 +229,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
                     
 							global.dropped = noone;
 							global.draggingUnit = noone;
-							global.deployHighlight = noone;
 							// 2. Clear state inside the unit context right as combat resolves
 				            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
 				                lastFriendly.drawCircle = false;
@@ -252,7 +246,7 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			placed = true;
 			drag_draw_offset = 0;
 			drag_draw_offset = 0;
-			mask_index = standard_collisions;       
+			
 			tmp = hp;
 			if(not noUnitlets){
 				repeat(tmp)
@@ -306,8 +300,9 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			}
 		}
 	}
-	image_xscale = ogXscale;
-	image_yscale = ogYscale;
+	image_xscale = og_image_xscale;
+	image_yscale = og_image_yscale;
+	animationOn = true;
 }
 
 
@@ -441,10 +436,9 @@ function executeStep(){
 		{
 		    unitlets[i].drag_draw_offset = drag_draw_offset;
 		}
-	    mask_index = dragging_mask;
 	    global.draggingUnit = self;
-	    x = mouse_x;
-	    y = mouse_y;
+	    x = mouse_x - sprite_width/2;
+	    y = mouse_y - sprite_height + drag_draw_offset;
 	    // --- COLLISION RESOLUTION ---
 	    var _iterations = 300;
 	    repeat (_iterations)
@@ -469,15 +463,14 @@ function executeStep(){
 	    // --- KEEP INSIDE ROOM BOUNDS ---
 	    // Use the sprite's bounding box (relative to origin) so the unit's
 	    // visible edges stay inside the room, not just its origin point.
-	    var _halfLeft   = sprite_index != -1 ? sprite_get_xoffset(sprite_index) : 0;
-	    var _halfRight  = sprite_index != -1 ? (sprite_get_width(sprite_index) - sprite_get_xoffset(sprite_index)) : 0;
-	    var _halfTop    = sprite_index != -1 ? sprite_get_yoffset(sprite_index) : 0;
-	    var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) : 0;
-	    x = clamp(x, _halfLeft, room_width - _halfRight);
+		var _halfLeft   = sprite_index != -1 ? sprite_get_xoffset(sprite_index) * image_xscale : 0;
+		var _halfRight  = sprite_index != -1 ? (sprite_get_width(sprite_index) - sprite_get_xoffset(sprite_index)) * image_xscale : 0;
+		var _halfTop    = sprite_index != -1 ? sprite_get_yoffset(sprite_index) * image_yscale : 0;
+		var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale : 0;	    x = clamp(x, _halfLeft, room_width - _halfRight);
 	    y = clamp(y, _halfTop, room_height - _halfBottom);
 	    // --------------------------------
-	    var _check = instance_place(x, y, o_unit);
-		var _checkTerrain = instance_place(x, y, o_impassable);
+	    var _check = instance_place(x, y + sprite_height - drag_draw_offset, o_unit);
+		var _checkTerrain = instance_place(x, y + sprite_height - drag_draw_offset, o_impassable);
 		var _deployable = false
 		var _cx = x;
 		var _cy = y;
@@ -526,15 +519,18 @@ function executeStep(){
 	}
 	if (animationOn) {
 	    breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
-	    image_xscale = base_scale + sin(breathe_timer) * breathe_amount;
-	    image_yscale = base_scale; // Finished off your cut-off line here!
+	    image_xscaleToSend = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
+
+	    // "true" position is whatever x was before we started nudging it
+
+	    breatheDrawXOffset = ((image_xscaleToSend - og_image_xscale) * sprite_center_offset);
 	}
-	if (global.draggingUnit == self)
+		if (global.draggingUnit == self)
 	{
 		global.expectedDmg = 0;
 		with(o_unit){
 		    // 4. Check if that dragged enemy is within THIS unit's range
-		    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+		    var dist = point_distance(x - breatheDrawXOffset, y, global.draggingUnit.x, global.draggingUnit.y);
 		    if(global.draggingUnit == self){
 				drawCircle = true
 			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
@@ -551,7 +547,7 @@ function executeStep(){
 	// will run for every unit which is bad but eh
 	// 4. Check if that dragged enemy is within THIS unit's range
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
-	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+	    var dist = point_distance(x - breatheDrawXOffset, y, global.draggingUnit.x, global.draggingUnit.y);
 
 	    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
 	        drawCircle = true;
@@ -598,7 +594,23 @@ function executeStep(){
 	        signalFromUnitlet = false;
 	    }
 	}
-	image_xscale = og_image_xscale * image_xscale;
-	image_yscale = og_image_xscale * image_yscale;
+	////////////////// skull for the skull throne
+	cam = view_camera[0];
+	viewX = camera_get_view_x(cam);
+	viewY = camera_get_view_y(cam);
+	viewW = camera_get_view_width(cam);
+	viewH = camera_get_view_height(cam);
+	guiX = (x - viewX) * display_get_gui_width() / viewW;
+	guiY = (y - viewY) * display_get_gui_height() / viewH;
+		
+	xx = guiX;
+	yy = guiY;
+////////////////////////
+	
+	
+	
+	
+	image_xscale = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
+	image_yscale = og_image_yscale * base_scale;
 	array_push(o_draw_manager.units,id)
 }

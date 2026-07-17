@@ -6,13 +6,13 @@ viewH = camera_get_view_height(cam);
 guiX = (x - viewX) * display_get_gui_width() / viewW;
 guiY = (y - viewY) * display_get_gui_height() / viewH;
 		
+xx = guiX;
+yy = guiY;
 // Draw event
 if (expectedDamage > 0)
 {
     draw_set_font(Font3);
 
-    xx = guiX;
-    yy = guiY;
     var txt = string(expectedDamage);
 
     // Thick black outline

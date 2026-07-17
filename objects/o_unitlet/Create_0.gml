@@ -13,8 +13,18 @@ redGlow = false;
 u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
 u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");
 noEyes = false;
-
-
+//animations
+animationOn = true
+breathe_timer = random(200000);
+breathe_speed = 0.05;   // how fast it breathes
+breathe_amount = 0.05;  // how much it scales (0.05 = 5%)
+base_scale = 1;         // your sprite's normal scale
+hit_timer = 0;
+drawCircle = false;
+og_image_xscale = 1;
+og_image_yscale = 1;
+breatheDrawXOffset = 0
+image_xscaleToSend = 1;
 function initiate(){
 	if(not noEyes){
 		eyeX = 20;

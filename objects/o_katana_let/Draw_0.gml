@@ -3,4 +3,4 @@ event_inherited();
 
 
 
-katana.move();
+//katana.move();

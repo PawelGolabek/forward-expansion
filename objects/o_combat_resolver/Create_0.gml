@@ -1,4 +1,3 @@
-global.deployHighlight = noone
 global.draggingUnit = noone
 
 function resolve_combat(){

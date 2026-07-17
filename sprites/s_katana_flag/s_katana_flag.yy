@@ -2,9 +2,9 @@
   "$GMSprite":"v2",
   "%Name":"s_katana_flag",
   "bboxMode":2,
-  "bbox_bottom":125,
+  "bbox_bottom":126,
   "bbox_left":54,
-  "bbox_right":70,
+  "bbox_right":72,
   "bbox_top":115,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -16,7 +16,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":128,
+  "height":30,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"e44482c9-ae1b-484d-9ae3-4c47b5eff2c7","blendMode":0,"displayName":"default","isLocked":false,"name":"e44482c9-ae1b-484d-9ae3-4c47b5eff2c7","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -105,5 +105,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":128,
+  "width":20,
 }

@@ -2,5 +2,5 @@
 event_inherited();
 
 
-instance_destroy(katana)
-instance_destroy(dzida)
+//instance_destroy(katana)
+//instance_destroy(dzida)

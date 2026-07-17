@@ -2,4 +2,4 @@
 event_inherited();
 
 
-instance_destroy(katana)
+//instance_destroy(katana)

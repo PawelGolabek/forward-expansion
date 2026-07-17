@@ -1,7 +1,9 @@
 {
   "$GMObject":"",
   "%Name":"o_calvalry_let",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"o_calvalry_let",
   "overriddenProperties":[],
@@ -31,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_calvalry",
-    "path":"sprites/s_calvalry/s_calvalry.yy",
+    "name":"Sprite80",
+    "path":"sprites/Sprite80/Sprite80.yy",
   },
   "spriteMaskId":null,
   "visible":true,
