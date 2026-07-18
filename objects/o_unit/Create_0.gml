@@ -437,8 +437,8 @@ function executeStep(){
 		    unitlets[i].drag_draw_offset = drag_draw_offset;
 		}
 	    global.draggingUnit = self;
-	    x = mouse_x - sprite_width/2;
-	    y = mouse_y - sprite_height + drag_draw_offset;
+	    x = mouse_x;
+	    y = mouse_y + drag_draw_offset;
 	    // --- COLLISION RESOLUTION ---
 	    var _iterations = 300;
 	    repeat (_iterations)
@@ -517,20 +517,18 @@ function executeStep(){
 	    findNewTargetForSelf();
 		place()
 	}
-	if (animationOn) {
-	    breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
-	    image_xscaleToSend = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
+	breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
+	image_xscaleToSend = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
 
-	    // "true" position is whatever x was before we started nudging it
+	// "true" position is whatever x was before we started nudging it
 
-	    breatheDrawXOffset = ((image_xscaleToSend - og_image_xscale) * sprite_center_offset);
-	}
-		if (global.draggingUnit == self)
-	{
+	breatheDrawXOffset = ((image_xscaleToSend - og_image_xscale) * sprite_center_offset);
+
+	if (global.draggingUnit == self){
 		global.expectedDmg = 0;
 		with(o_unit){
 		    // 4. Check if that dragged enemy is within THIS unit's range
-		    var dist = point_distance(x - breatheDrawXOffset, y, global.draggingUnit.x, global.draggingUnit.y);
+		    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
 		    if(global.draggingUnit == self){
 				drawCircle = true
 			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
@@ -547,7 +545,7 @@ function executeStep(){
 	// will run for every unit which is bad but eh
 	// 4. Check if that dragged enemy is within THIS unit's range
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
-	    var dist = point_distance(x - breatheDrawXOffset, y, global.draggingUnit.x, global.draggingUnit.y);
+	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
 
 	    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
 	        drawCircle = true;
