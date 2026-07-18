@@ -38,5 +38,5 @@
     "path":"sprites/s_crystals/s_crystals.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }
