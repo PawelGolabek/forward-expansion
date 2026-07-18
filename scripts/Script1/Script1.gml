@@ -35,8 +35,8 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
         shader_set_uniform_f(_u_colour, 0, 0, 0, 1);
 		
 
-		var sx = inst.x - inst.breatheDrawXOffset;
-		var sy = inst.y;
+		var sx = inst.x - inst.sprite_width/2;
+		var sy = inst.y - inst.sprite_height;
 		
 		draw_sprite_ext(
 			_spr, _idx,

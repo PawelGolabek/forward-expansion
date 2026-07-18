@@ -1,36 +1,35 @@
 // CREATE EVENT
 deck = [
-
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_inferna_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_archer_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, 0, "Cards", o_katana_spawner),
-    instance_create_layer(0, 0, "Cards", o_shield_spawner),
-    instance_create_layer(0, 0, "Cards", o_master_spawner),
-    instance_create_layer(0, 0, "Cards", o_katana_spawner),
-    instance_create_layer(0, 0, "Cards", o_shield_spawner),
-    instance_create_layer(0, 0, "Cards", o_master_spawner),
-    instance_create_layer(0, 0, "Cards", o_katana_spawner),
-    instance_create_layer(0, 0, "Cards", o_shield_spawner),
-    instance_create_layer(0, 0, "Cards", o_master_spawner),
-    instance_create_layer(0, 0, "Cards", o_master_spawner),
-    instance_create_layer(0, 0, "Cards", o_master_spawner),
+    instance_create_layer(0, -999990, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -999990, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -999990, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_katana_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_shield_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_master_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_katana_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_shield_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_master_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_katana_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_shield_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_master_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_master_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_master_spawner),
 ];
 
 discard = []
@@ -39,11 +38,9 @@ function deck_draw()
 {
 	shuffle_deck();
     if (array_length(deck) == 0) return;
-
     var card = array_pop(deck);
     card.visible = true;
 	card.layer = layer_get_id("UILayer_1");
-
     array_push(hand, card);
     organize_hand();
 }
@@ -51,16 +48,11 @@ function deck_draw()
 function deck_return(card)
 {
     var index = hand_index(card);
-
     if (index == -1) return;
-
     array_delete(hand, index, 1);
     array_push(deck, card.object_index);
-
     instance_destroy(card);
-
     array_shuffle(deck);
-
     organize_hand();
 }
 
@@ -88,7 +80,6 @@ function shuffle_deck()
     for (var i = count - 1; i > 0; i--)
     {
         var j = irandom(i);
-
         var temp = deck[i];
         deck[i] = deck[j];
         deck[j] = temp;
@@ -108,40 +99,29 @@ function hand_index(card)
 function discard_card(card)
 {
     var index = hand_index(card);
-
     if (index == -1){
 		show_debug_message("nie znaleziono karty");
 	 return;
 	}
-
     array_delete(hand, index, 1);
     array_push(discard, card.object_index);
-
     instance_destroy(card);
-	
 	deck_draw();
-
     organize_hand();
 }
 
 function return_to_deck(card)
 {
     var index = hand_index(card);
-
     if (index == -1) return;
-
     array_delete(hand, index, 1);
     array_push(deck, card.object_index);
-
     instance_destroy(card);
-
     array_shuffle(deck);
-
     organize_hand();
 }
 
 array_shuffle(deck);
-
 hand = [];
 
 repeat (3)

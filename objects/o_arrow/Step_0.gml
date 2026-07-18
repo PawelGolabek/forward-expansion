@@ -28,13 +28,3 @@ if (instance_exists(owner.tmpTarget) and owner.tmpTarget != noone){
 }else{
 	visible = false
 }
-
-
-
-/*
-if(owner.hp <= owner.expectedDamage){
-	owner.skull.visible = true;
-}else{
-	owner.skull.visible = false;
-}
-

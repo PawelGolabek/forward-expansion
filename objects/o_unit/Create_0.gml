@@ -178,7 +178,6 @@ function line_blocked(_x1, _y1, _x2, _y2)
 			return true;
 		}
 	}
-
     return false;
 }
 
@@ -192,9 +191,7 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     {
         xx1 = _x1 + lengthdir_x(d, dir);
         yy1 = _y1 + lengthdir_y(d, dir);
-        if (position_meeting(xx1, yy1, o_impassable))
-            return true;
-		
+        if (position_meeting(xx1, yy1, o_impassable)) return true;
     }
     return false;
 }
@@ -249,8 +246,7 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			
 			tmp = hp;
 			if(not noUnitlets){
-				repeat(tmp)
-				{
+				repeat(tmp){
 					var placed_ok = false;
 					var tries = 0;
 					var angle;
@@ -273,7 +269,7 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 				    dist = random(300);
 				    px = x + lengthdir_x(dist, angle);
 				    py = y + lengthdir_y(dist, angle);
-
+					
 				    var blocked = false;
 				    with (ulet) {
 				        blocked = place_meeting(px, py, o_unitlet) || place_meeting(px, py, o_unit);
@@ -282,7 +278,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 							blocked = true;
 						}
 				    }
-
 				    if (!blocked) {
 				        if (line_blocked_terrain_only(x, y, px, py)) continue;
 				        if (dist < best_dist) {
@@ -294,7 +289,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 				}
 					ulet.x = best_x;
 					ulet.y = best_y;
-					
 					array_push(unitlets,ulet);		
 				}
 			}
@@ -302,7 +296,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 	}
 	image_xscale = og_image_xscale;
 	image_yscale = og_image_yscale;
-	animationOn = true;
 }
 
 

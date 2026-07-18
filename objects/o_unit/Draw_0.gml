@@ -38,7 +38,7 @@ if (not noEyes){
 // Death indicator
 var inst = instance_position(x, y, o_unit);
 if (expectedDamage >= hp){
-    skull.visible = true;
+   // skull.visible = true;
 } else {
     skull.visible = false;
 }
