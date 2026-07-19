@@ -1,12 +1,13 @@
-event_inherited()
+event_inherited();
 
 
 dragging = false;
-damage = 1
-hp = 10
-maxhp = 10
-allegience = "enemy"
-damageTaken = 0
+damage = 1;
+hp = 10;
+maxhp = 10;
+allegience = "enemy";
+damageTaken = 0;
 
 
-myUnitlet = o_enemy_inferna_unitlet
+myUnitlet = o_enemy_inferna_unitlet;
+mySprite = sprite_index;

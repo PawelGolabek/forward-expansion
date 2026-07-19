@@ -8,6 +8,7 @@ firstStrike = true;
 reactionStrike = true;
 crystalCost = 10
 // ulet spawning
+mySprite = sprite_index;
 og_image_xscale = image_xscale;
 og_image_yscale = image_yscale;
 uletSize = Sprite1;
@@ -31,6 +32,7 @@ skull = instance_create_depth(x,y,depth - 30,o_skull);
 skull.unit = self;
 lastFriendly = noone;
 signalFromUnitlet = false;
+mous = false
 // ui for skull
 cam = view_camera[0];
 viewX = camera_get_view_x(cam);
@@ -94,7 +96,6 @@ breathe_speed = 0.05;   // how fast it breathes
 breathe_amount = 0.05;  // how much it scales (0.05 = 5%)
 base_scale = 1;         // your sprite's normal scale
 hit_timer = 0;
-drawCircle = false;
 //idk alpha
 alpha = 1.0
 //drag
@@ -131,19 +132,16 @@ function calculateDamageExpectedDelayed() {
 	var myAllegience = allegience;
 	var myX = x;
 	var myY = y;
-	
 	var total = 0;
 	
 	with (o_unit) {
 		if (id == myId) continue;              // skip self
 		if (allegience == myAllegience) continue; // skip allies
-		
-		var dist = point_distance(x, y, myX, myY);
+		var dist = point_distance(x, y - drag_draw_offset, myX, myY - drag_draw_offset);
 		if (dist <= range) {
 			total += damage;
 		}
 	}
-	
 	return total;
 }
 
@@ -206,6 +204,8 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			global.draggingUnit = noone;
 			instance_destroy();
 		}else{
+			
+		mask_index = s_flag_hitbox;
 		// animation thingy
 		
 		instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);
@@ -235,7 +235,6 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 							global.draggingUnit = noone;
 							// 2. Clear state inside the unit context right as combat resolves
 				            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-				                lastFriendly.drawCircle = false;
 				                lastFriendly = noone;
 				            }
 				        }
@@ -389,7 +388,7 @@ function findNewTargetForSelf()
         if (id == myId || allegience == myAllegience) continue;
         
         // Calculate distance from the calling unit to this potential enemy
-        var dist = point_distance(myX, myY, x, y);
+        var dist = point_distance(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset);
         
         // If this enemy is closer than the previous closest, update it
         if (dist < minDistance && myRange > dist)
@@ -421,6 +420,11 @@ function onRoundEnd(){
 }
 
 function executeStep(){
+	drawCircle = false;
+mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
+// i hate that it does not match the flag but will fix later brb
+if(mous){drawCircle = true;}
+	alpha = 1.0;
 	depth = -y;
 	tmpTarget = noone;
 	if(not bornOfSpawner){
@@ -428,11 +432,9 @@ function executeStep(){
 		last_valid_y = y;
 		place();
 	}
-	if(position_meeting(mouse_x, mouse_y, id)){
-		drawCircle = true
-	}
 	if (dragging)
 	{
+		mask_index = s_minimal_hitbox
 		drag_draw_offset = -30;
 		for (var i = 0; i < array_length(unitlets); i++)
 		{
@@ -471,7 +473,6 @@ function executeStep(){
 		var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale : 0;	    x = clamp(x, _halfLeft, room_width - _halfRight);
 	    y = clamp(y, _halfTop, room_height - _halfBottom);
 	    // --------------------------------
-	    var _check = instance_place(x, y + sprite_height - drag_draw_offset, o_unit);
 		var _checkTerrain = instance_place(x, y + sprite_height - drag_draw_offset, o_impassable);
 		var _deployable = false
 		var _cx = x;
@@ -530,7 +531,7 @@ function executeStep(){
 		global.expectedDmg = 0;
 		with(o_unit){
 		    // 4. Check if that dragged enemy is within THIS unit's range
-		    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset);
+		    var dist = point_distance(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset);
 		    if(global.draggingUnit == self){
 				drawCircle = true
 			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
@@ -553,15 +554,9 @@ function executeStep(){
 	        drawCircle = true;
 	        tmpTarget = global.draggingUnit;
 	        global.expectedDmg += damage;
-	    } else {
-	        drawCircle = false;
 	    }
 	} else if (global.draggingUnit == self) {
 		drawCircle = true; // always sho circle on the unit being dragged
-	} else if (position_meeting(mouse_x, mouse_y, id)) {
-		    drawCircle = true;
-	} else {
-		    drawCircle = false;
 	}
 	///////////////////////////////////////// on taking damage kill unitlets /////////////////////
 	if(array_length(unitlets) > hp){
@@ -589,6 +584,7 @@ function executeStep(){
 	if (drawCircle or global.deployHighlight == id or signalFromUnitlet){
 	    if (not noUnitlets){
 	        glow = true;
+			alpha = 0.5;
 	        ulets = array_length(unitlets) - 1;
 	        while(ulets >= 0){
 	            unitlets[ulets].glow = true;

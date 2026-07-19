@@ -107,7 +107,7 @@ function ai_evaluate_and_place() {
 
                 with (o_unit) {
 					var estimatedDamage = 0;
-                    var _d    = point_distance(cx, cy, x, y);
+                    var _d    = point_distance(cx, cy - other.drag_draw_offset, x, y - drag_draw_offset);
                     var _is_ai = (allegience == "enemy" || allegience != "player");
 
                     if (!_is_ai) {

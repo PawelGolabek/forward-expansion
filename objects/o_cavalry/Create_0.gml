@@ -11,7 +11,7 @@ damageTaken = 0
 reactionStrike = false;
 range = 300
 dragging = false;
-
+mySprite = sprite_index;
 
 
 myUnitlet = o_calvalry_let;

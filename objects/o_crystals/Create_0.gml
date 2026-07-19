@@ -21,3 +21,4 @@ image_yscale = og_image_yscale;
 
 
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
+mySprite = sprite_index;

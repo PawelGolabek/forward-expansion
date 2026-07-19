@@ -13,7 +13,7 @@ description = "Deflects enemy first strikes";
 parry = true;
 parried = false;
 firstStrike = false;
-
+mySprite = sprite_index;
 
 
 myUnitlet = o_master_let;

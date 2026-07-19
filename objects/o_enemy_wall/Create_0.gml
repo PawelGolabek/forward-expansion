@@ -8,3 +8,4 @@ maxhp = 100
 allegience = "enemy"
 damageTaken = 0
 range = 0
+mySprite = sprite_index;

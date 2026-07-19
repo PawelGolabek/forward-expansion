@@ -9,7 +9,7 @@ allegience = "player"
 range = 500
 noEyes = true;
 
-
+mySprite = sprite_index;
 myUnitlet = o_tank_let;
 uletSize = Sprite67;
 unit_collisions = mask_index

@@ -1,11 +1,19 @@
 // --- 3. DRAGGING LINE ---
 if (global.draggingUnit == self and global.deployHighlight != noone){
-    draw_line_width(x, y + drag_draw_offset, global.deployHighlight.x, global.deployHighlight.y, 10);
+    draw_line_width(x, y - drag_draw_offset, global.deployHighlight.x, global.deployHighlight.y, 10);
 }
 
-
 // --- 2. THREAT RADIUS & RANGE CIRCLES ---
-if (drawCircle or global.deployHighlight == id or signalFromUnitlet){
+
+draw_text(x,y+100,mouse_x)
+draw_text(x+100,y+100,mouse_y)
+draw_text(x,y+150,x)
+draw_text(x,y+200,y)
+
+mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height > mouse_y and y < mouse_y)
+if (drawCircle or global.deployHighlight == id 
+or signalFromUnitlet
+or mous){
     // Draw threat radius
     var circleColor = c_blue; 
     draw_set_alpha(0.5); 

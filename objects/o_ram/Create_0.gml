@@ -8,7 +8,7 @@ maxhp = 10
 damage = 80
 allegience = "player"
 damageTaken = 0
-
+mySprite = sprite_index;
 
 
 range = 200

@@ -45,7 +45,7 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 			inst.image_yscale,
 			inst.image_angle,
 			c_white,
-			inst.image_alpha
+			inst.alpha
 		);
         // 2) optional: coloured glow ring on top of the black one
         if (inst.redGlow || inst.glow)
@@ -57,7 +57,8 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
                 color_get_green(_col) / 255,
                 color_get_blue(_col)  / 255,
                 1);
-            draw_sprite_ext(_spr, _idx, sx, sy, inst.image_xscaleToSend, inst.image_yscale, inst.image_angle, c_white, inst.image_alpha);
+            draw_sprite_ext(_spr, _idx, sx, sy, inst.image_xscaleToSend, inst.image_yscale,
+			inst.image_angle, c_white, inst.alpha);
 
 
             inst.redGlow = false;

@@ -20,6 +20,7 @@ range = 1000
 
 aiType = "range"
 
+mySprite = s_archer_flag_3
 myUnitlet = o_archer_let;
 uletSize = s_new_unit;
 
