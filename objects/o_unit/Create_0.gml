@@ -53,6 +53,7 @@ outline_surf = -2
 breatheDrawXOffset = 0
 global.deployHighlight = noone
 
+
 if(!noEyes){
 	eyeX = 20
 	eyeDist = 30;
@@ -191,7 +192,7 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     {
         xx1 = _x1 + lengthdir_x(d, dir);
         yy1 = _y1 + lengthdir_y(d, dir);
-        if (position_meeting(xx1, yy1, o_impassable)) return true;
+        if (position_meeting(xx1, yy1 + drag_draw_offset, o_impassable)) return true;
     }
     return false;
 }
@@ -205,6 +206,10 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			global.draggingUnit = noone;
 			instance_destroy();
 		}else{
+		// animation thingy
+		
+		instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);
+		
 		//// first strike, ommit if spawned on room creation
 		if(bornOfSpawner){
 			o_clock.toNextEvent = o_clock.maxToNextEvent;
@@ -213,8 +218,10 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 				my_spawned_unit: id,
 				func: function() {
 			
-					o_combat_log.log("Player spawned " + my_spawned_unit.name );
+					o_combat_log.log("Player spawned " + my_spawned_unit.name);
 				    var _unit = self.my_spawned_unit;
+					my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
+					my_spawned_unit.drag_draw_offset = 0;
 
 				    if (instance_exists(_unit)) {
 				        with (_unit) {
@@ -237,11 +244,13 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					o_combat_resolver.resolve_combat();
 					}
 				}); 
+				y -= drag_draw_offset;
+				drag_draw_offset = 0;
 				o_deck_holder.discard_card(parentSpawner);
 			}
 			dragging = false;
 			placed = true;
-			drag_draw_offset = 0;
+			y -= drag_draw_offset;
 			drag_draw_offset = 0;
 			
 			tmp = hp;
@@ -272,18 +281,18 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					
 				    var blocked = false;
 				    with (ulet) {
-				        blocked = place_meeting(px, py, o_unitlet) || place_meeting(px, py, o_unit);
+				        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
 						var tilemap = layer_tilemap_get_id("Tiles_1");
 						if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
 							blocked = true;
 						}
 				    }
 				    if (!blocked) {
-				        if (line_blocked_terrain_only(x, y, px, py)) continue;
+				        if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
 				        if (dist < best_dist) {
 				            best_dist = dist;
 				            best_x = px;
-				            best_y = py;
+				            best_y = py + drag_draw_offset;
 				        }
 				    }
 				}
@@ -476,13 +485,13 @@ function executeStep(){
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance(x, y, u.x, u.y) <= u.range and not u.inCombat)
+		    if (point_distance(x, y - drag_draw_offset, u.x, u.y) <= u.range and not u.inCombat)
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;
 		        _deployable = true;
 				if(_deployable){
-					_lineClear = not line_blocked(x, y, lastFriendly.x, lastFriendly.y)
+					_lineClear = not line_blocked(x, y - drag_draw_offset, lastFriendly.x, lastFriendly.y)
 				}
 				if(_lineClear){
 					break;
@@ -521,7 +530,7 @@ function executeStep(){
 		global.expectedDmg = 0;
 		with(o_unit){
 		    // 4. Check if that dragged enemy is within THIS unit's range
-		    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+		    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset);
 		    if(global.draggingUnit == self){
 				drawCircle = true
 			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
@@ -538,7 +547,7 @@ function executeStep(){
 	// will run for every unit which is bad but eh
 	// 4. Check if that dragged enemy is within THIS unit's range
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
-	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y);
+	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset);
 
 	    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
 	        drawCircle = true;
@@ -559,6 +568,9 @@ function executeStep(){
 		ulet = array_pop(unitlets);
 		instance_destroy(ulet);
 	}
+	/////////////////////////////////////// drop animation
+	
+	
 	////////////////////////////////////// exoected dmg calculation ///////////////
 	if(not noEyes){
 		blink -= delta_time;

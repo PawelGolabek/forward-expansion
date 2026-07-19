@@ -5,18 +5,29 @@ deck = [
     instance_create_layer(0, -999990, "Cards", o_inferna_spawner),
     instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
     instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
     instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
     instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
     instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
     instance_create_layer(0, -9999900, "Cards", o_katana_spawner),
@@ -27,7 +38,6 @@ deck = [
     instance_create_layer(0, -9999900, "Cards", o_master_spawner),
     instance_create_layer(0, -9999900, "Cards", o_katana_spawner),
     instance_create_layer(0, -9999900, "Cards", o_shield_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_master_spawner),
     instance_create_layer(0, -9999900, "Cards", o_master_spawner),
     instance_create_layer(0, -9999900, "Cards", o_master_spawner),
 ];
@@ -61,15 +71,13 @@ function organize_hand()
     var count = array_length(hand);
     if (count == 0) return;
     var spacing = 140;
-    var newY = display_get_gui_height() - 120;
+    var newY = display_get_gui_height() - 140;
     var start = display_get_gui_width() * 0.5 - ((count - 1) * spacing * 0.5);
 
     for (var i = 0; i < count; i++)
     {
         hand[i].x = start + i * spacing;
         hand[i].y = newY;
-		hand[i].image_xscale = 0.5;
-		hand[i].image_yscale = 0.5;
     }
 }
 

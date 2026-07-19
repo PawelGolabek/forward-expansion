@@ -10,7 +10,7 @@ if(not noEyes){
 }
 
 
-if (position_meeting(mouse_x, mouse_y, id))
+if (position_meeting(mouse_x + sprite_width/2, mouse_y + sprite_height, id))
 {
 	unit.signalFromUnitlet = true;
 }

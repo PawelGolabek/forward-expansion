@@ -1,6 +1,6 @@
 // --- 3. DRAGGING LINE ---
 if (global.draggingUnit == self and global.deployHighlight != noone){
-    draw_line_width(x, y, global.deployHighlight.x, global.deployHighlight.y, 10);
+    draw_line_width(x, y + drag_draw_offset, global.deployHighlight.x, global.deployHighlight.y, 10);
 }
 
 
