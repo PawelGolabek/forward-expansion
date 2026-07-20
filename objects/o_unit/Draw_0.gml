@@ -10,11 +10,11 @@ draw_text(x+100,y+100,mouse_y)
 draw_text(x,y+150,x)
 draw_text(x,y+200,y)
 */
+mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
 
 if(dragging){
 	mous = true;
-	mousVisible = true;
-	if(TheOne == noone){
+	if(not immortalExists){
 		TheOne = instance_create_layer(x, y, "units", o_expand_circle);
 		TheOne.life = 1
 		TheOne.end_scale =( range / TheOne.sprite_width) * 2
@@ -22,22 +22,25 @@ if(dragging){
 		TheOne.immortal = true;
 		TheOne.timer = TheOne.life;
 		immortalExists = true;
-		}
-		TheOne.x = x;
-		TheOne.y = y;
+	}
+	TheOne.x = x;
+	TheOne.y = y;
 		
 }
-if (drawCircle or global.deployHighlight == id  or mous
-){
-    // Draw threat radius
-  //  var circleColor = c_blue; 
-  //  draw_set_alpha(0.5); 
- //   draw_circle_color(x, y + drag_draw_offset, range, circleColor, circleColor, true);
+if (drawCircle or global.deployHighlight == id){
+    //Draw threat radius
+    var circleColor = c_aqua; 
+    draw_set_alpha(0.15); 
+   draw_circle_color(x, y , range, circleColor, circleColor, true);
     
-   // draw_set_alpha(0.15); // Filled center
-  //  draw_circle_color(x , y + drag_draw_offset, range, circleColor, circleColor, false);
+    circleColor = c_blue; 
+    draw_set_alpha(0.10); // Filled center
+    draw_circle_color(x , y, range, circleColor, circleColor, false);
     
     draw_set_alpha(1.0); // Reset alpha
+}
+
+if( mous){
 	if(not immortalExists){
 		u = instance_create_layer(x, y, "units", o_expand_circle);
 		u.life = 1

@@ -33,7 +33,7 @@ skull.unit = self;
 lastFriendly = noone;
 signalFromUnitlet = false;
 mous = false
-mousCooldown = 1500000;
+mousCooldown = 4500000;
 mousMaxCooldown = mousCooldown
 immortalExists = false;
 TheOne = noone;
@@ -586,7 +586,6 @@ if(mous){drawCircle = true;}
 	mouseClicked = false;
 	//draw
 	if (drawCircle or global.deployHighlight == id or signalFromUnitlet){
-		mous = true;
 	    if (not noUnitlets){
 	        glow = true;
 			alpha = 0.5;
