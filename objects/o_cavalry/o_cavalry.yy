@@ -3,7 +3,6 @@
   "%Name":"o_cavalry",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":1,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"o_cavalry",
@@ -34,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_calvalry_flag",
-    "path":"sprites/s_calvalry_flag/s_calvalry_flag.yy",
+    "name":"s_calvalry_flag_3",
+    "path":"sprites/s_calvalry_flag_3/s_calvalry_flag_3.yy",
   },
   "spriteMaskId":null,
   "tags":[

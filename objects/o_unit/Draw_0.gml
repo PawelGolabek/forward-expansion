@@ -4,27 +4,70 @@ if (global.draggingUnit == self and global.deployHighlight != noone){
 }
 
 // --- 2. THREAT RADIUS & RANGE CIRCLES ---
-
+/*
 draw_text(x,y+100,mouse_x)
 draw_text(x+100,y+100,mouse_y)
 draw_text(x,y+150,x)
 draw_text(x,y+200,y)
+*/
 
-mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height > mouse_y and y < mouse_y)
-if (drawCircle or global.deployHighlight == id 
-or signalFromUnitlet
-or mous){
+if(dragging){
+	mous = true;
+	mousVisible = true;
+	if(TheOne == noone){
+		TheOne = instance_create_layer(x, y, "units", o_expand_circle);
+		TheOne.life = 1
+		TheOne.end_scale =( range / TheOne.sprite_width) * 2
+		TheOne.owner = self;
+		TheOne.immortal = true;
+		TheOne.timer = TheOne.life;
+		immortalExists = true;
+		}
+		TheOne.x = x;
+		TheOne.y = y;
+		
+}
+if (drawCircle or global.deployHighlight == id  or mous
+){
     // Draw threat radius
-    var circleColor = c_blue; 
-    draw_set_alpha(0.5); 
-    draw_circle_color(x, y + drag_draw_offset, range, circleColor, circleColor, true);
+  //  var circleColor = c_blue; 
+  //  draw_set_alpha(0.5); 
+ //   draw_circle_color(x, y + drag_draw_offset, range, circleColor, circleColor, true);
     
-    draw_set_alpha(0.15); // Filled center
-    draw_circle_color(x , y + drag_draw_offset, range, circleColor, circleColor, false);
+   // draw_set_alpha(0.15); // Filled center
+  //  draw_circle_color(x , y + drag_draw_offset, range, circleColor, circleColor, false);
     
     draw_set_alpha(1.0); // Reset alpha
-    
+	if(not immortalExists){
+		u = instance_create_layer(x, y, "units", o_expand_circle);
+		u.life = 1
+		u.end_scale =( range / u.sprite_width) * 2
+		u.owner = self;
+		u.immortal = true;
+		u.timer = u.life;
+		immortalExists = true;
+	}
+	mousVisible = true;
+}else{
+	mousVisible = false
+	immortalExists = false;
 }
+
+if(mousCooldown == 0){
+	u = instance_create_layer(x, y, "units", o_expand_circle);
+	u.life = random(150)+150
+	u.end_scale =( range / u.sprite_width) * 2
+	u.owner = self;
+	mousCooldown = mousMaxCooldown;
+}
+if(mousCooldown != 0){
+	mousCooldown -= delta_time
+}
+if(mousCooldown < 0){
+	mousCooldown = 0;
+}
+
+
 
 // --- 4. TILEMAP & ALPHA STATE ---
 color = c_white;

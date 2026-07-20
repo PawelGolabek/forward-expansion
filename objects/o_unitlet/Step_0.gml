@@ -27,3 +27,5 @@ array_push(o_draw_manager.ulets, id);
 	    breatheDrawXOffset = ((image_xscale - og_image_xscale) * sprite_center_offset);
 		image_xscaleToSend = image_xscale;
 	}
+timeElapsed += delta_time
+//image_angle = (sin(timeElapsed/100000)) 

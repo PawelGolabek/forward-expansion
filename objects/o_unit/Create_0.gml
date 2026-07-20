@@ -33,6 +33,10 @@ skull.unit = self;
 lastFriendly = noone;
 signalFromUnitlet = false;
 mous = false
+mousCooldown = 1500000;
+mousMaxCooldown = mousCooldown
+immortalExists = false;
+TheOne = noone;
 // ui for skull
 cam = view_camera[0];
 viewX = camera_get_view_x(cam);
@@ -582,6 +586,7 @@ if(mous){drawCircle = true;}
 	mouseClicked = false;
 	//draw
 	if (drawCircle or global.deployHighlight == id or signalFromUnitlet){
+		mous = true;
 	    if (not noUnitlets){
 	        glow = true;
 			alpha = 0.5;
