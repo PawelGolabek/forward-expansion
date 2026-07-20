@@ -11,9 +11,9 @@ draw_text(x,y+150,x)
 draw_text(x,y+200,y)
 */
 mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
-
+killImmortal = true;
 if(dragging){
-	mous = true;
+	mous = false;
 	if(not immortalExists){
 		TheOne = instance_create_layer(x, y, "units", o_expand_circle);
 		TheOne.life = 1
@@ -25,6 +25,7 @@ if(dragging){
 	}
 	TheOne.x = x;
 	TheOne.y = y;
+	killImmortal = false;
 		
 }
 if (drawCircle or global.deployHighlight == id){
@@ -38,6 +39,7 @@ if (drawCircle or global.deployHighlight == id){
     draw_circle_color(x , y, range, circleColor, circleColor, false);
     
     draw_set_alpha(1.0); // Reset alpha
+	killImmortal = false;
 }
 
 if( mous){
@@ -50,10 +52,12 @@ if( mous){
 		u.timer = u.life;
 		immortalExists = true;
 	}
+	killImmortal = false;
 	mousVisible = true;
 }else{
 	mousVisible = false
 	immortalExists = false;
+
 }
 
 if(mousCooldown == 0){

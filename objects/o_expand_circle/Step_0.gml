@@ -20,6 +20,6 @@ if(not immortal){
 
 if (t >= 1 and not immortal)
     instance_destroy();
-if(immortal and not visible){
+if(immortal and not visible and owner.killImmortal){
     instance_destroy();
 }
