@@ -141,7 +141,7 @@ function calculateDamageExpectedDelayed() {
 	with (o_unit) {
 		if (id == myId) continue;              // skip self
 		if (allegience == myAllegience) continue; // skip allies
-		var dist = point_distance(x, y - drag_draw_offset, myX, myY - drag_draw_offset);
+		var dist = point_distance(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset);
 		if (dist <= range) {
 			total += damage;
 		}

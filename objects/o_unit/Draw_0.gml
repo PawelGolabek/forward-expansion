@@ -28,15 +28,65 @@ if(dragging){
 	killImmortal = false;
 		
 }
+
+function draw_half_circle(cx, cy, radius, start_angle, end_angle)
+{
+    var segments = 32;
+
+    draw_primitive_begin(pr_trianglefan);
+    draw_vertex(cx, cy);
+
+    for (var i = 0; i <= segments; i++)
+    {
+        var ang = lerp(start_angle, end_angle, i / segments);
+
+        draw_vertex(
+            cx + lengthdir_x(radius, ang),
+            cy + lengthdir_y(radius, ang)
+        );
+    }
+
+    draw_primitive_end();
+}
+
+function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, yscale)
+{
+    var segments = 32;
+
+    draw_primitive_begin(pr_trianglefan);
+    draw_vertex(cx, cy);
+
+    for (var i = 0; i <= segments; i++)
+    {
+        var ang = lerp(start_angle, end_angle, i / segments);
+
+        draw_vertex(
+            cx + lengthdir_x(radius, ang) * xscale,
+            cy + lengthdir_y(radius, ang) * yscale
+        );
+    }
+
+    draw_primitive_end();
+}
+
+
 if (drawCircle or global.deployHighlight == id){
     //Draw threat radius
     var circleColor = c_aqua; 
     draw_set_alpha(0.15); 
-   draw_circle_color(x, y , range, circleColor, circleColor, true);
+//   draw_circle_color(x, y , range, circleColor, circleColor, true);
+	draw_set_alpha(0.15);
+
+    circleColor = c_blue; 
+	draw_set_color(c_blue);
+	draw_half_circle(x, y, range, 0, 180); // bottom half
+	draw_half_circle_scale(x, y, range, 180, 360, 1.0, 0.6); // top half
+
+	draw_set_alpha(1);
     
     circleColor = c_blue; 
     draw_set_alpha(0.10); // Filled center
-    draw_circle_color(x , y, range, circleColor, circleColor, false);
+  //  draw_circle_color(x , y, range, circleColor, circleColor, false);
     
     draw_set_alpha(1.0); // Reset alpha
 	killImmortal = false;
