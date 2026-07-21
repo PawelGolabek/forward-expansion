@@ -1,4 +1,13 @@
 
+function point_distance_ellipse(x1, y1, x2, y2, y_scale)
+{
+    var dx = x2 - x1;
+    var dy = (y2 - y1) * 1/y_scale;
+    return sqrt(dx * dx + dy * dy);
+}
+
+
+
 /// @param _instances
 /// @param _thickness
 /// @param _outline_colour

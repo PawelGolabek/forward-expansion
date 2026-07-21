@@ -329,7 +329,7 @@ function resetTargets()
         // If this unit is an enemy to the dropped unit
         if (allegience != droppedAllegience) 
         {
-            var distanceToDropped = point_distance(x, y, droppedX, droppedY);
+            var distanceToDropped = point_distance_ellipse(x, y, droppedX, droppedY,0.6);
             
             if (distanceToDropped <= range) 
             {
@@ -338,12 +338,7 @@ function resetTargets()
             }
             else if (target == droppedUnit) 
             {
-                // NEW LOGIC: This unit WAS targeting the dropped unit, 
-                // but now the dropped unit is OUT of range.
-                target = noone; // Clear the old target first
-                
-                // Call the function to find a new target
-                // (Executing inside the 'with' block means 'self' is this specific o_unit)
+                target = noone;
                 findNewTargetForSelf(); 
             }
         }
@@ -359,18 +354,15 @@ function resetTargets()
         if (id == droppedUnit || allegience == droppedAllegience) continue;
         
         // Calculate distance to this potential enemy
-        var dist = point_distance(droppedX, droppedY, x, y);
+        var dist = point_distance_ellipse(droppedX, droppedY, x, y, 0.6);
         
         // If this one is closer than the previous closest, update it
-        // Note: I also checked if the dropped unit's OWN range allows it to hit them
         if (dist < minDistance and dist <= droppedUnit.range) 
         {
             minDistance = dist;
             closestEnemy = id;
         }
     }
-    
-    // Set the dropped unit's target to the closest enemy found
     droppedUnit.target = closestEnemy;
 }
 
@@ -392,7 +384,7 @@ function findNewTargetForSelf()
         if (id == myId || allegience == myAllegience) continue;
         
         // Calculate distance from the calling unit to this potential enemy
-        var dist = point_distance(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset);
+        var dist = point_distance_ellipse(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
         
         // If this enemy is closer than the previous closest, update it
         if (dist < minDistance && myRange > dist)
@@ -490,7 +482,7 @@ if(mous){drawCircle = true;}
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance(x, y - drag_draw_offset, u.x, u.y) <= u.range and not u.inCombat)
+		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range and not u.inCombat)
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;
@@ -535,7 +527,7 @@ if(mous){drawCircle = true;}
 		global.expectedDmg = 0;
 		with(o_unit){
 		    // 4. Check if that dragged enemy is within THIS unit's range
-		    var dist = point_distance(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset);
+		    var dist = point_distance_ellipse(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 		    if(global.draggingUnit == self){
 				drawCircle = true
 			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
@@ -552,7 +544,7 @@ if(mous){drawCircle = true;}
 	// will run for every unit which is bad but eh
 	// 4. Check if that dragged enemy is within THIS unit's range
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
-	    var dist = point_distance(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset);
+	    var dist = point_distance_ellipse(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 
 	    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
 	        drawCircle = true;

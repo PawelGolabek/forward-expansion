@@ -9,7 +9,7 @@ damage = 10
 allegience = "player"
 damageTaken = 0
 reactionStrike = false;
-range = 300
+range = 380
 dragging = false;
 mySprite = s_calvalry_flag_3;
 

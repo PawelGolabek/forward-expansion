@@ -63,7 +63,7 @@ function resolve_first_strike(){
     }
     
     with(o_unit){
-        if(point_distance(x, y, global.dropped.x, global.dropped.y) <= range and global.dropped.allegience != allegience and reactionStrike){
+        if(point_distance_ellipse(x, y, global.dropped.x, global.dropped.y, 0.6) <= range and global.dropped.allegience != allegience and reactionStrike){
             if(global.dropped.parry){			
                 // FIXED: was using name/damage generically but attacker here is self, victim is global.dropped
                 o_combat_log.log(string(global.dropped.allegience) + "'s " + string(global.dropped.name) + " parried " + string(allegience) + "'s " + string(name) + " and hit it back by " + string(damage));

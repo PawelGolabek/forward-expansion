@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_palette_enforcer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_palette_enforcer",
+  "parent":{
+    "name":"terrain",
+    "path":"folders/objects/terrain.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

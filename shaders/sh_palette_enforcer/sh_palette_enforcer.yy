@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_palette_enforcer",
+  "name":"sh_palette_enforcer",
+  "parent":{
+    "name":"shaders",
+    "path":"folders/shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

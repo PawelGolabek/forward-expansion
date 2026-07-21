@@ -18,7 +18,7 @@ with(o_unit){
 	}
 	with(o_unit){
 		with(o_unit){
-			if (point_distance(x, y, other.x, other.y) <= range and allegience != other.allegience){
+			if (point_distance_ellipse(x, y, other.x, other.y, 0.6) <= range and allegience != other.allegience){
 			    other.inCombat = true;
 				draw_text(x,y,inCombat)
 			}

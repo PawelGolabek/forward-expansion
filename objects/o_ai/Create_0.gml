@@ -76,7 +76,7 @@ function ai_evaluate_and_place() {
 			for (var f = 0; f < array_length(_friendlies); f++) {
 			    var _fr = _friendlies[f];
 			    if (!instance_exists(_fr)) continue;
-			    if (point_distance(cx, cy, _fr.x, _fr.y) <= _fr.range) {
+			    if (point_distance_ellipse(cx, cy, _fr.x, _fr.y,0.6) <= _fr.range) {
 			        _cellDeployable = true;
 			        if (!o_unit.line_blocked(cx, cy, _fr.x, _fr.y)) {
 			            _cellLineClear = true;
@@ -107,7 +107,7 @@ function ai_evaluate_and_place() {
 
                 with (o_unit) {
 					var estimatedDamage = 0;
-                    var _d    = point_distance(cx, cy - other.drag_draw_offset, x, y - drag_draw_offset);
+                    var _d    = point_distance_ellipse(cx, cy - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
                     var _is_ai = (allegience == "enemy" || allegience != "player");
 
                     if (!_is_ai) {
@@ -140,9 +140,9 @@ function ai_evaluate_and_place() {
 
                 // + SCREENING: bonus for sitting between closest enemy and own fragile unit
                 if (fragile_own_x != -1 && closest_enemy_x != -1) {
-                    var _dte       = point_distance(cx, cy, closest_enemy_x, closest_enemy_y);
-                    var _dtf       = point_distance(cx, cy, fragile_own_x, fragile_own_y);
-                    var _etf       = point_distance(closest_enemy_x, closest_enemy_y, fragile_own_x, fragile_own_y);
+                    var _dte       = point_distance_ellipse(cx, cy, closest_enemy_x, closest_enemy_y,0.6);
+                    var _dtf       = point_distance_ellipse(cx, cy, fragile_own_x, fragile_own_y,0.6);
+                    var _etf       = point_distance_ellipse(closest_enemy_x, closest_enemy_y, fragile_own_x, fragile_own_y,0.6);
                     var _intercept = _etf - (_dte + _dtf);
                     var _finv      = 1 - u.fragility;
                     score1 += (1 / (1 + abs(_intercept) / 50)) * _finv * 6;
@@ -150,7 +150,7 @@ function ai_evaluate_and_place() {
 
                 // + HUNTING: aggressive units chase fragile enemies
                 if (u.aiType == "melee" && fragile_enemy_x != -1) {
-                    var _dfe = point_distance(cx, cy, fragile_enemy_x, fragile_enemy_y);
+                    var _dfe = point_distance_ellipse(cx, cy, fragile_enemy_x, fragile_enemy_y,0.6);
 					if(u.range > minDist){
 						score1 += u.damage  * 5;
 					}
@@ -221,7 +221,7 @@ function ai_evaluate_and_place() {
 
 			    if (u2.allegience != "enemy") continue;
 
-			    if (point_distance(x, y, u2.x, u2.y) <= u2.range and not u2.targetted)
+			    if (point_distance_ellipse(x, y, u2.x, u2.y,0.6) <= u2.range and not u2.targetted)
 			    {
 			        u2.drawCircle = true;
 			        _lastFriendly = u2;                     // FIX: track it like player's lastFriendly

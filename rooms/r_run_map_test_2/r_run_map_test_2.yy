@@ -51,11 +51,13 @@
     {"name":"inst_32DE8FB5","path":"rooms/r_run_map_test_2/r_run_map_test_2.yy",},
     {"name":"inst_4D6A0D74","path":"rooms/r_run_map_test_2/r_run_map_test_2.yy",},
     {"name":"inst_1F6ACFA3","path":"rooms/r_run_map_test_2/r_run_map_test_2.yy",},
+    {"name":"inst_4C4AF9B","path":"rooms/r_run_map_test_2/r_run_map_test_2.yy",},
   ],
   "isDnd":false,
   "layers":[
     {"$GMRInstanceLayer":"","%Name":"Cards","depth":-100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_7B1A91C8","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7B1A91C8","objectId":{"name":"o_draw_manager","path":"objects/o_draw_manager/o_draw_manager.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":19.0,"scaleY":15.0,"x":3488.0,"y":4640.0,},
+        {"$GMRInstance":"v4","%Name":"inst_4C4AF9B","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4C4AF9B","objectId":{"name":"obj_palette_enforcer","path":"objects/obj_palette_enforcer/obj_palette_enforcer.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":29.0,"scaleY":19.0,"x":2944.0,"y":-480.0,},
       ],"layers":[],"name":"Cards","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"ui","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_7E9C7806_1_1_1_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7E9C7806_1_1_1_1","objectId":{"name":"o_ui_display","path":"objects/o_ui_display/o_ui_display.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":9.0,"scaleY":9.0,"x":864.0,"y":-448.0,},

@@ -16,7 +16,7 @@ og_image_xscale = 10;
 og_image_yscale = 10;
 image_xscale = og_image_xscale;
 image_yscale = og_image_yscale;
-range = 1000
+range = 700
 
 aiType = "range"
 
