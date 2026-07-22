@@ -416,7 +416,6 @@ function onRoundEnd(){
 }
 
 function executeStep(){
-	drawCircle = false;
 mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
 // i hate that it does not match the flag but will fix later brb
 if(mous){drawCircle = true;}

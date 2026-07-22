@@ -3,6 +3,7 @@ global.deployHighlight = noone
 
 with(o_unit){
 	expectedDmg = 0;
+	drawCircle = false;
 }
 
 with(o_unit){
@@ -12,18 +13,19 @@ with(o_unit){
 	}
 }
 
+
+
 	// Active / Combat checks
-	with(o_unit){
+with(o_unit){
 	inCombat = false;
-	}
+}
+with(o_unit){
 	with(o_unit){
-		with(o_unit){
-			if (point_distance_ellipse(x, y, other.x, other.y, 0.6) <= range and allegience != other.allegience){
-			    other.inCombat = true;
-				draw_text(x,y,inCombat)
-			}
+		if (point_distance_ellipse(x, y - drag_draw_offset, other.x, other.y - other.drag_draw_offset, 0.6) <= range and allegience != other.allegience){
+			other.inCombat = true;
 		}
 	}
+}
 
 array_sort(ulets, function(a, b) {
     return a.depth - b.depth;

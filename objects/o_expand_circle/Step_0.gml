@@ -14,7 +14,7 @@ image_angle = ((life % 4) * angleShift ) % 4
 if(not immortal){
 	timer++;
 }else{
-	image_alpha = 0.3;
+	image_alpha = 0.2;
 }
 
 
