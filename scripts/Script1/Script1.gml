@@ -7,7 +7,6 @@ function point_distance_ellipse(x1, y1, x2, y2, y_scale)
 }
 
 
-
 /// @param _instances
 /// @param _thickness
 /// @param _outline_colour
@@ -46,33 +45,34 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 
 		var sx = inst.x - inst.sprite_width/2;
 		var sy = inst.y - inst.sprite_height;
-		
-		draw_sprite_ext(
-			_spr, _idx,
-			sx, sy,
-			inst.image_xscaleToSend,
-			inst.image_yscale,
-			inst.image_angle,
-			c_white,
-			inst.alpha
-		);
-        // 2) optional: coloured glow ring on top of the black one
-        if (inst.redGlow || inst.glow)
-        {
-            var _col = inst.redGlow ? c_red : c_yellow;
-            shader_set_uniform_f(_u_thick, _thickness);
-            shader_set_uniform_f(_u_colour,
-                color_get_red(_col)   / 255,
-                color_get_green(_col) / 255,
-                color_get_blue(_col)  / 255,
-                1);
-            draw_sprite_ext(_spr, _idx, sx, sy, inst.image_xscaleToSend, inst.image_yscale,
-			inst.image_angle, c_white, inst.alpha);
+		if(inst.visible){
+			draw_sprite_ext(
+				_spr, _idx,
+				sx, sy,
+				inst.image_xscaleToSend,
+				inst.image_yscale,
+				inst.image_angle,
+				c_white,
+				inst.alpha
+			);
+	        // 2) optional: coloured glow ring on top of the black one
+	        if (inst.redGlow || inst.glow)
+	        {
+	            var _col = inst.redGlow ? c_red : c_yellow;
+	            shader_set_uniform_f(_u_thick, _thickness);
+	            shader_set_uniform_f(_u_colour,
+	                color_get_red(_col)   / 255,
+	                color_get_green(_col) / 255,
+	                color_get_blue(_col)  / 255,
+	                1);
+	            draw_sprite_ext(_spr, _idx, sx, sy, inst.image_xscaleToSend, inst.image_yscale,
+				inst.image_angle, c_white, inst.alpha);
 
 
-            inst.redGlow = false;
-            inst.glow    = false;
-        }
-        shader_reset();
+	            inst.redGlow = false;
+	            inst.glow    = false;
+	        }
+	        shader_reset();
+		}
 	}
 }

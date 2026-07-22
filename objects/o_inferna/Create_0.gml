@@ -6,7 +6,7 @@ hp = 20
 maxhp = hp
 damage = 4
 allegience = "player"
-range = 450
+range = 750
 
 myUnitlet = o_inferna_let;
 unit_collisions = mask_index

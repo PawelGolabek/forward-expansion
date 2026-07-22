@@ -14,3 +14,9 @@ while(array_length(unitlets) > 0){
 	ulet = array_pop(unitlets);
 	instance_destroy(ulet);
 }
+
+with(o_expand_circle){
+	if(owner == other){
+		instance_destroy()
+	}
+}

@@ -37,6 +37,7 @@ mousCooldown = 4500000;
 mousMaxCooldown = mousCooldown
 immortalExists = false;
 TheOne = noone;
+minDistToPlayer = 99999999
 // ui for skull
 cam = view_camera[0];
 viewX = camera_get_view_x(cam);
@@ -481,7 +482,7 @@ if(mous){drawCircle = true;}
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range and not u.inCombat)
+		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range and not u.inCombat and not line_blocked(x,y - drag_draw_offset, u.x,u.y))
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;
