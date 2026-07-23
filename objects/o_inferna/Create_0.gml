@@ -6,13 +6,14 @@ hp = 20
 maxhp = hp
 damage = 4
 allegience = "player"
-range = 750
+range = 350
+revealRange = range * 2
 
 myUnitlet = o_inferna_let;
 unit_collisions = mask_index
 
-og_image_xscale = 10;
-og_image_yscale = 10;
+og_image_xscale = 1;
+og_image_yscale = 1;
 image_xscale = og_image_xscale;
 image_yscale = og_image_yscale;
 mySprite = sprite_index;

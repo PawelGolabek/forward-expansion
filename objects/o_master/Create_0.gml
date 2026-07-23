@@ -7,6 +7,7 @@ maxhp = hp;
 damage = 4;
 allegience = "player";
 range = 480;
+revealRange = range * 2
 description = "Deflects enemy first strikes";
 
 // unique

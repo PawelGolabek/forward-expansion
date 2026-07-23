@@ -76,3 +76,47 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 		}
 	}
 }
+
+
+function scr_draw_units_batch_trees(_instances, _thickness)
+{
+    static _u_texel   = shader_get_uniform(shd_outline, "u_texel");
+    static _u_thick   = shader_get_uniform(shd_outline, "u_thickness");
+    static _u_colour  = shader_get_uniform(shd_outline, "u_outlineColour");
+    static _u_uvclamp = shader_get_uniform(shd_outline, "u_uvClamp");
+    var n = array_length(_instances);
+
+    for (var i = 0; i < n; i++)
+    {
+        var inst = _instances[i];
+        if (!instance_exists(inst)) continue;
+
+        var _spr = inst.sprite_index;
+        var _idx = inst.image_index;
+        var _tex = sprite_get_texture(_spr, _idx);
+        var _uv  = texture_get_uvs(_tex);
+
+        shader_set(shd_outline);
+        shader_set_uniform_f(_u_texel, texture_get_texel_width(_tex), texture_get_texel_height(_tex));
+        shader_set_uniform_f(_u_uvclamp, _uv[0], _uv[1], _uv[2], _uv[3]);
+
+        // 1) always: bigger black ring behind everything
+        shader_set_uniform_f(_u_thick, _thickness);
+        shader_set_uniform_f(_u_colour, 0, 0, 0, 1);
+
+		var sx = inst.x - inst.sprite_width/2;
+		var sy = inst.y - inst.sprite_height;
+		if(inst.visible){
+			draw_sprite_ext(
+				_spr, _idx,
+				sx, sy,
+				inst.image_xscaleToSend,
+				inst.image_yscale,
+				inst.image_angle,
+				c_white,
+				inst.alpha
+			);
+	        shader_reset();
+		}
+	}
+}

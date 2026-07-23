@@ -10,8 +10,8 @@
     "path":"folders/objects/terrain_cosmetics.yy",
   },
   "parentObjectId":{
-    "name":"o_terrain_cosmetic",
-    "path":"objects/o_terrain_cosmetic/o_terrain_cosmetic.yy",
+    "name":"o_trees",
+    "path":"objects/o_trees/o_trees.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

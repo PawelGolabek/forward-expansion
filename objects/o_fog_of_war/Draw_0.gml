@@ -12,7 +12,7 @@ with(o_unit){
 	if(allegience == "player"){
 		draw_set_color(c_white);
 		if(not dragging){
-			draw_ellipse(x - range, y - range*0.6, x + range, y + range*0.6, false);
+			draw_ellipse(x - revealRange, y - revealRange*0.6, x + revealRange, y + revealRange*0.6, false);
 		}
 	}
 }

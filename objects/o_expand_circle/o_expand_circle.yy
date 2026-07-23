@@ -9,8 +9,8 @@
   "name":"o_expand_circle",
   "overriddenProperties":[],
   "parent":{
-    "name":"lets",
-    "path":"folders/objects/units/player/lets.yy",
+    "name":"units",
+    "path":"folders/objects/units.yy",
   },
   "parentObjectId":null,
   "persistent":false,

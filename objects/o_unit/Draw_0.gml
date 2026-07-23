@@ -1,3 +1,6 @@
+
+
+
 // --- 1. DRAGGING LINE ---
 if (global.draggingUnit == self and global.deployHighlight != noone){
     draw_line_width(x, y - drag_draw_offset, global.deployHighlight.x, global.deployHighlight.y, 10);
@@ -58,7 +61,7 @@ if (immortalExists and not instance_exists(circleInst)) {
 
 if (wantCircle) {
     if (not immortalExists) {
-        circleInst = instance_create_layer(x, y, "units", o_expand_circle);
+        circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle);
         circleInst.life = 1;
         circleInst.end_scale = (range / circleInst.sprite_width) * 2;
         circleInst.owner = self;
@@ -67,14 +70,14 @@ if (wantCircle) {
         immortalExists = true;
     }
     circleInst.x = x;
-    circleInst.y = y;
+    circleInst.y = y - drag_draw_offset;
     killImmortal = false;
     mousVisible = true;
 
     // Draw the threat-radius half circle whenever the persistent circle is active
     draw_set_alpha(0.15);
     draw_set_color(c_blue);
-    draw_half_circle(x, y, range, 0, 180);              // bottom half
+    draw_half_circle(x, y - drag_draw_offset, range, 0, 180);              // bottom half
     draw_half_circle_scale(x, y, range, 180, 360, 1.0, 0.6); // top half (squashed)
     draw_set_alpha(1.0);
 } else {
@@ -83,7 +86,7 @@ if (wantCircle) {
 
 // --- 3. PERIODIC PULSE CIRCLES (self-destructing, unrelated to immortal one) ---
 if (mousCooldown == 0){
-    u = instance_create_layer(x, y, "units", o_expand_circle);
+    u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle);
     u.life = random(150) + 150;
     u.end_scale = (range / u.sprite_width) * 2;
     u.owner = self;
@@ -116,7 +119,8 @@ if (not noEyes){
 // Death indicator
 var inst = instance_position(x, y, o_unit);
 if (expectedDamage >= hp){
-    // skull.visible = true;
+  //  skull.visible = true;
+  //skull is weirdly bugged so lets disable for now.
 } else {
     skull.visible = false;
 }

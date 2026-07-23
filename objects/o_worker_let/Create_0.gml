@@ -9,8 +9,8 @@ function initiate2(){
 	pickaxe.originY = pickaxe.y - y;
 	pickaxe.owner = unit;
 	
-image_xscale = 0.25;
-image_yscale = 0.25;
+image_xscale = 0.125;
+image_yscale = 0.125;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2);
 
 og_image_xscale = image_xscale

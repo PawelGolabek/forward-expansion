@@ -1,6 +1,7 @@
 allegience = "enemy"
 name = "NO NAME ASSIGNED";
-range = 1000;
+range = 10;
+revealRange = 10
 damage = 100
 hp = 10
 maxhp = hp
@@ -25,6 +26,7 @@ target = noone;
 tmpTarget = noone;
 targetted = false;
 inCombat = false;
+peaceful = false;
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow);
 arrow.owner = self;
@@ -59,6 +61,9 @@ redGlow = false;
 outline_surf = -2
 breatheDrawXOffset = 0
 global.deployHighlight = noone
+//drawing
+isTree = false;
+isUnit = true;
 
 
 if(!noEyes){
@@ -159,8 +164,8 @@ function line_blocked(_x1, _y1, _x2, _y2)
 {
     var dist = point_distance(_x1, _y1, _x2, _y2);
     var dir  = point_direction(_x1, _y1, _x2, _y2);
-	var xx1;
-	var yy1;
+	var xx1 = _x1;
+	var yy1 = _y1;
     for (var d = 0; d < dist; d += 4) // sample every 4 pixels
     {
         xx1 = _x1 + lengthdir_x(d, dir);
@@ -431,7 +436,7 @@ if(mous){drawCircle = true;}
 	if (dragging)
 	{
 		mask_index = s_minimal_hitbox
-		drag_draw_offset = -30;
+		drag_draw_offset = - 5;
 		for (var i = 0; i < array_length(unitlets); i++)
 		{
 		    unitlets[i].drag_draw_offset = drag_draw_offset;

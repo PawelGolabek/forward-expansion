@@ -15,7 +15,10 @@
     "name":"units",
     "path":"folders/objects/units.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_outlinable",
+    "path":"objects/o_outlinable/o_outlinable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

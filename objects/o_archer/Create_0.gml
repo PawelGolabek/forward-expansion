@@ -12,11 +12,12 @@ damageTaken = 0
 
 firstStrike = false;
 
-og_image_xscale = 10;
-og_image_yscale = 10;
+og_image_xscale = 1;
+og_image_yscale = 1;
 image_xscale = og_image_xscale;
 image_yscale = og_image_yscale;
-range = 800
+range = 160
+revealRange = range * 2
 
 aiType = "range"
 
