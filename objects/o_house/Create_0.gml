@@ -6,7 +6,7 @@ hp = 20
 maxhp = hp
 damage = 0
 allegience = "player"
-range = 400
+range = 200
 revealRange = range * 2
 
 peaceful = true;

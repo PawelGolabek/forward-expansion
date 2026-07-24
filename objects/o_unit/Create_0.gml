@@ -592,6 +592,7 @@ if(mous){drawCircle = true;}
 	            ulets -= 1;
 	        }
 	        signalFromUnitlet = false;
+			drawCircle = true;
 	    }
 	}
 	cam = view_camera[0];

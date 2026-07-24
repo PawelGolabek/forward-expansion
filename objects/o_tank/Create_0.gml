@@ -14,8 +14,8 @@ mySprite = sprite_index;
 myUnitlet = o_tank_let;
 uletSize = Sprite67;
 
-og_image_xscale = 1;
-og_image_yscale = 1;
+og_image_xscale = 2;
+og_image_yscale = 2;
 image_xscale = og_image_xscale;
 image_yscale = og_image_yscale;
 mySprite = sprite_index;

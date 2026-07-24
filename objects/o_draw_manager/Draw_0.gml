@@ -18,7 +18,6 @@ with(o_unit){
 	}
 }
 
-
 with(o_unit){
 	if(allegience == "player"){
 		visible = true;
@@ -42,7 +41,8 @@ with(o_unit){
 			}
 		}
 		if(isTree and other.allegience == "player"){						
-			udistToPlayer = point_distance_ellipse(x, y, otherU.x + (other.sprite_width/other.image_xscale)/2, otherU.y + (sprite_height/other.image_yscale) - otherU.drag_draw_offset, 0.6)
+			udistToPlayer = point_distance_ellipse(x, y, otherU.x + (other.sprite_width/other.image_xscale)/2, 
+				otherU.y + (sprite_height/other.image_yscale) - otherU.drag_draw_offset, 0.6)
 			if(udistToPlayer < other.revealRange){
 				fowVisible = true;
 				visible = true;
@@ -59,7 +59,6 @@ with(o_unit){
 	inCombat = false;
 }
 with(o_unit){
-	draw_text(x,y,x)
 	with(o_unit){
 		if (point_distance_ellipse(x, y - drag_draw_offset, other.x, other.y - other.drag_draw_offset, 0.6) <= range 
 		and allegience != other.allegience and not other.peaceful){

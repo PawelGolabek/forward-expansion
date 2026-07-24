@@ -59,7 +59,7 @@ if (immortalExists and not instance_exists(circleInst)) {
     immortalExists = false;
 }
 
-if (wantCircle) {
+if (wantCircle or keyboard_check(vk_tab)) {
     if (not immortalExists) {
         circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle);
         circleInst.life = 1;
