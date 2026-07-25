@@ -14,8 +14,8 @@
     "path":"folders/objects/terrain_cosmetics.yy",
   },
   "parentObjectId":{
-    "name":"o_outlinable",
-    "path":"objects/o_outlinable/o_outlinable.yy",
+    "name":"o_object",
+    "path":"objects/o_object/o_object.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
