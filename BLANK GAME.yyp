@@ -117,6 +117,7 @@
     {"id":{"name":"o_master_let","path":"objects/o_master_let/o_master_let.yy",},},
     {"id":{"name":"o_master_spawner","path":"objects/o_master_spawner/o_master_spawner.yy",},},
     {"id":{"name":"o_master","path":"objects/o_master/o_master.yy",},},
+    {"id":{"name":"o_object","path":"objects/o_object/o_object.yy",},},
     {"id":{"name":"o_outlinable","path":"objects/o_outlinable/o_outlinable.yy",},},
     {"id":{"name":"o_pickaxe","path":"objects/o_pickaxe/o_pickaxe.yy",},},
     {"id":{"name":"o_pupil","path":"objects/o_pupil/o_pupil.yy",},},

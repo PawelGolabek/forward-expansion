@@ -49,6 +49,17 @@ with(o_unit){
 			}
 		}
 	}
+	
+	if (not o_fog_of_war.active){
+		with(o_object){
+			visible = true;
+			if(isUnit){
+				for (var i = 0; i < array_length(unitlets); ++i) {
+					unitlets[i].visible = true;
+				}
+			}
+		}
+	}
 	executeStep();
 	if(inCombat){
 		alpha = 0.7
