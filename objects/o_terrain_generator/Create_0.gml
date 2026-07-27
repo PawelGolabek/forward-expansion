@@ -100,7 +100,9 @@ for (var r = 1; r < rows; r++) {
 // ---------------------------------------------------------------
 // STEP 3 — spawn the tiles + cliffs
 // ---------------------------------------------------------------
-var bottom_y = start_y + (rows - 1) * tile_height + (tile_height / 2); // bottom edge of the whole triangle
+var f = instance_create_layer(x, y, layer, flat_object);
+var bottom_y = start_y + (rows - 1) * tile_height + (tile_height / 2) - f.sprite_height/4// bottom edge of the whole triangle
+instance_destroy(f)
 
 for (var r = 0; r < rows; r++) {
 
@@ -115,7 +117,7 @@ for (var r = 0; r < rows; r++) {
         var tile_x = row_left_x + c * tile_width;
 
         // --- flat surface ---
-        var f = instance_create_layer(tile_x, row_y, layer, flat_object);
+        f = instance_create_layer(tile_x, row_y, layer, flat_object);
         f.depth = flat_depth;
         f.level = levels[r][c]; // expose the chosen height level to the tile itself
         f.row   = r;
@@ -128,16 +130,55 @@ for (var r = 0; r < rows; r++) {
         }
 
         // --- cliff underneath: from the middle of this flat down to the bottom of the triangle ---
-        var cliff_top_y = row_y + (tile_height / 2);
-        var cliff_span  = bottom_y - cliff_top_y;
+		if( r != rows -1){
+	        var cliff_top_y = row_y + f.sprite_height/2;
+	        var cliff_span  = bottom_y - cliff_top_y;
 
-        var cl = instance_create_layer(tile_x, cliff_top_y, layer, cliff_object);
-        cl.depth        = cliff_depth;
-        cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index);
-        cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
-        cl.level = levels[r][c];
-        cl.row   = r;
-        cl.col   = c;
-        cliff_inst[r][c] = cl;
-    }
+	        var cl = instance_create_layer(tile_x, cliff_top_y, layer, cliff_object);
+	        cl.depth        = cliff_depth;
+	        cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index);
+	        cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
+	        cl.level = levels[r][c];
+	        cl.row   = r;
+	        cl.col   = c;
+	        cliff_inst[r][c] = cl;
+	    }
+	}
 }
+
+
+// ---------------------------------------------------------------
+// STEP 4 — spawn o_path objects linking consecutive tiles along the
+// guaranteed climb path (visually shows the route from apex to base)
+// ---------------------------------------------------------------
+path_seg_inst = array_create(rows - 1, noone); // path_seg_inst[r] = segment connecting row r to row r+1
+
+examplepath = instance_create_layer(x,y, layer, o_path);
+for (var r = 1; r < rows; r++) {
+    var a = path_inst[r - 1]; // upper tile
+    var b = path_inst[r];     // lower tile
+
+    var mid_x = (a.x + b.x) / 2;
+    var mid_y = (a.y + b.y) / 2 + f.sprite_height/2;
+
+    var p = instance_create_layer(mid_x, mid_y, layer, o_path);
+    p.depth = min(a.depth, b.depth) - 1; // sit in front of both flats it connects
+    p.image_angle = point_direction(a.x, a.y, b.x, b.y);
+	
+
+    // path_col[r] == path_col[r-1]     -> moved LEFT going down  -> xscale 1 (default)
+    // path_col[r] == path_col[r-1] + 1 -> moved RIGHT going down -> xscale -1 (flip)
+    var went_right = (path_col[r] == path_col[r - 1] + 1);
+    p.image_xscale = went_right ? -1 : 1;
+	if (went_right) {
+	    p.image_xscale = -1;
+	    p.x += lengthdir_x(sprite_width, p.image_angle);
+	    p.y += lengthdir_y(sprite_width, p.image_angle);
+	} else {
+	    p.image_xscale = 1;
+	}
+
+    path_seg_inst[r - 1] = p;
+}
+
+instance_destroy(examplepath)

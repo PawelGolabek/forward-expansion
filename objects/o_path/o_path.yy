@@ -1,11 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"o_terrain_generator",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"o_path",
+  "eventList":[],
   "managed":true,
-  "name":"o_terrain_generator",
+  "name":"o_path",
   "overriddenProperties":[],
   "parent":{
     "name":"terrain_gen",
@@ -29,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite98",
+    "path":"sprites/Sprite98/Sprite98.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
