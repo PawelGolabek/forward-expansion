@@ -9,8 +9,8 @@
   "name":"o_crystals",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/objects/units.yy",
+    "name":"player",
+    "path":"folders/objects/units/player.yy",
   },
   "parentObjectId":{
     "name":"o_unit",

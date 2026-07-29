@@ -1,7 +1,7 @@
 event_inherited()
 dragging = false;
 name = "worker";
-hp = 3;
+hp = 1;
 maxhp = hp;
 damage = 7;
 allegience = "player";
@@ -25,3 +25,4 @@ mySprite = sprite_index;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
 
+handleHeartsCreation(self)

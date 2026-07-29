@@ -2,7 +2,7 @@ event_inherited()
 dragging = false;
 
 name = "tank";
-hp = 50
+hp = 5
 maxhp = hp
 damage = 1
 allegience = "player"
@@ -23,3 +23,4 @@ mySprite = sprite_index;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
 
+handleHeartsCreation(self)

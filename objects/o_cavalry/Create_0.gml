@@ -2,7 +2,7 @@ event_inherited()
 
 
 name = "cavalry";
-hp = 30
+hp = 2
 maxhp = hp
 crystalCost = 60
 damage = 10
@@ -24,3 +24,5 @@ mySprite = sprite_index;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 myUnitlet = o_calvalry_let;
 
+
+handleHeartsCreation(self)

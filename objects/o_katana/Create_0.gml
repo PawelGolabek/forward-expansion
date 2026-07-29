@@ -2,7 +2,7 @@ event_inherited()
 dragging = false;
 
 name = "katana";
-hp = 17
+hp = 1
 maxhp = hp
 damage = 4
 allegience = "player"
@@ -20,3 +20,5 @@ sprite_center_offset = (sprite_get_width(sprite_index) / 2.0)
 og_image_xscale = 2;
 og_image_yscale = 2;
 
+
+handleHeartsCreation(self)

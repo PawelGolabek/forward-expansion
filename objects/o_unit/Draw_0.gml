@@ -1,6 +1,7 @@
 
 
 
+
 // --- 1. DRAGGING LINE ---
 if (global.draggingUnit == self and global.deployHighlight != noone){
     draw_line_width(x, y - drag_draw_offset, global.deployHighlight.x, global.deployHighlight.y, 10);
@@ -53,6 +54,24 @@ mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sp
 killImmortal = true;
 
 var wantCircle = (mous or dragging or drawCircle);
+
+
+if(wantCircle){
+	for(i = 0; i < array_length(hearts); i+=1){
+		with(hearts[i]){
+			visible = true;
+		}
+	}
+}else{
+	for(i = 0; i < array_length(hearts); i+=1){
+		with(hearts[i]){
+			visible = false;
+		}
+	}
+}
+
+
+
 
 // Resync our tracking flag in case the child already self-destructed.
 if (immortalExists and not instance_exists(circleInst)) {

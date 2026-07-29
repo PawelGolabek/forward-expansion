@@ -4,7 +4,7 @@ event_inherited()
 dragging = false;
 
 name = "archer"
-hp = 5
+hp = 1
 maxhp = hp
 damage = 2
 allegience = "player"
@@ -27,3 +27,5 @@ uletSize = s_new_unit;
 
 
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
+
+handleHeartsCreation(self)

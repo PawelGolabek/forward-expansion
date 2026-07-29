@@ -1,7 +1,9 @@
 {
   "$GMObject":"",
   "%Name":"o_heart",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"o_heart",
   "overriddenProperties":[],
@@ -28,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite98",
-    "path":"sprites/Sprite98/Sprite98.yy",
+    "name":"Sprite99",
+    "path":"sprites/Sprite99/Sprite99.yy",
   },
   "spriteMaskId":null,
   "visible":true,

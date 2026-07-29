@@ -2,7 +2,7 @@ event_inherited()
 dragging = false;
 
 name = "Master";
-hp = 20;
+hp = 2;
 maxhp = hp;
 damage = 4;
 allegience = "player";
@@ -20,3 +20,5 @@ mySprite = sprite_index;
 myUnitlet = o_master_let;
 unit_collisions = mask_index
 sprite_center_offset = (sprite_get_width(sprite_index) / 2.0)
+
+handleHeartsCreation(self)

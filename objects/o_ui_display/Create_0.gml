@@ -1,1 +1,1 @@
-global.crystals = 0
+global.crystals = 999999

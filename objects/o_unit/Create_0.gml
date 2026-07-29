@@ -64,6 +64,7 @@ global.deployHighlight = noone
 //drawing
 isTree = false;
 isUnit = true;
+unitletsPerHp = 3;
 
 
 if(!noEyes){
@@ -262,7 +263,7 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			y -= drag_draw_offset;
 			drag_draw_offset = 0;
 			
-			tmp = hp;
+			tmp = hp * unitletsPerHp;
 			if(not noUnitlets){
 				repeat(tmp){
 					var placed_ok = false;
@@ -560,7 +561,7 @@ if(mous){drawCircle = true;}
 		drawCircle = true; // always sho circle on the unit being dragged
 	}
 	///////////////////////////////////////// on taking damage kill unitlets /////////////////////
-	if(array_length(unitlets) > hp){
+	if(array_length(unitlets) > hp * unitletsPerHp){
 		ulet = array_pop(unitlets);
 		instance_destroy(ulet);
 	}
