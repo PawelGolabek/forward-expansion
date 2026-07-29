@@ -4,19 +4,21 @@ randomise();
 // ---------------------------------------------------------------
 // CONFIG
 // ---------------------------------------------------------------
-rows            = 12;            // number of triangle levels
+rows            = 7;            // number of triangle levels
 flat_object     = o_flat_surface;
 cliff_object    = o_cliff;
 
-tile_width      = sprite_get_width(object_get_sprite(flat_object));  
-tile_height     = sprite_get_height(object_get_sprite(flat_object)); 
+scale = 5;
+
+tile_width      = sprite_get_width(object_get_sprite(flat_object)) * scale;  
+tile_height     = sprite_get_height(object_get_sprite(flat_object)) * scale; 
 
 height_min      = 1;      
 height_max      = 5;      
 max_rise        = 1;      
 
 depth_base      = 0;      
-depth_row_step  = 10;     
+depth_row_step  = 10 * scale;     
 depth_cliff_gap = 1000;   
 
 start_x = x; 
@@ -136,6 +138,8 @@ for (var r = 1; r < rows; r++) {
 // STEP 3 — Spawn Tiles + Cliffs
 // ---------------------------------------------------------------
 var f = instance_create_layer(x, y, layer, flat_object);
+f.image_xscale = scale
+f.image_yscale = scale
 var bottom_y = start_y + (rows - 1) * tile_height + (tile_height / 2) - f.sprite_height / 4;
 instance_destroy(f);
 
@@ -155,7 +159,8 @@ for (var r = 0; r < rows; r++) {
         f.level = levels[r][c];
         f.row   = r;
         f.col   = c;
-        f.image_yscale = 0.6;
+        f.image_yscale = 0.6 * scale;
+        f.image_xscale = scale;		
         flat_inst[r][c] = f;
 
         if (c == path_col[r]) {
@@ -169,7 +174,7 @@ for (var r = 0; r < rows; r++) {
 
             var cl = instance_create_layer(tile_x, cliff_top_y, layer, cliff_object);
             cl.depth        = cliff_depth;
-            cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index);
+            cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index) ;
             cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
             cl.level        = levels[r][c];
             cl.row          = r;
@@ -179,6 +184,9 @@ for (var r = 0; r < rows; r++) {
     }
 }
 
+// ---------------------------------------------------------------
+// STEP 4 — Spawn Paths (Equal Distribution Across All Tiles)
+// ---------------------------------------------------------------
 // ---------------------------------------------------------------
 // STEP 4 — Spawn Paths (Equal Distribution Across All Tiles)
 // ---------------------------------------------------------------
@@ -193,23 +201,37 @@ for (var r = 1; r < rows; r++) {
             var a = flat_inst[tr][tc]; // target neighbor tile
             var b = flat_inst[r][c];   // current tile
 
-            // Center path segments visually based on connection type
-            var is_horizontal = (tr == r);
-            var mid_x = (a.x + b.x) / 2;
-            var mid_y = (a.y + b.y) / 2 //+ (is_horizontal ? 0 : b.sprite_height / 2);
+            // 1. Calculate exact center points of both tiles
+            var ax = a.x;
+            var ay = a.y;
+            var bx = b.x;
+            var by = b.y;
 
+            // 2. Find midpoint and distance
+            var mid_x = (ax + bx) / 2;
+            var mid_y = (ay + by) / 2;
+            var dist  = point_distance(ax, ay, bx, by);
+            var angle = point_direction(bx, by, ax, ay);
+
+            // 3. Create path instance at the exact midpoint
             var seg = instance_create_layer(mid_x, mid_y, layer, o_path);
-            seg.depth = min(a.depth, b.depth) - 1;
-            seg.image_angle = point_direction(a.x, a.y, b.x, b.y);
+			
+			seg.y += f.sprite_height/2
+            
+            // 4. Scale length (xscale) to match distance, and thickness (yscale) to desired width
+            var path_base_width  = sprite_get_width(seg.sprite_index);  // 32px
+            var path_base_height = sprite_get_height(seg.sprite_index); // 32px
+            
+            var path_thickness = 4 * scale; // Adjust '4' to make paths thicker or thinner
 
-            // Flip sprites horizontally if target is to the right
-            if (a.x > b.x) {
-                seg.image_xscale = -1;
-				seg.y += b.sprite_height / 2
-            } else {
-                seg.image_xscale = 1;
-				seg.y += b.sprite_height / 2
-            }
+            seg.image_xscale = dist / path_base_width;
+            seg.image_yscale = path_thickness / path_base_height * scale * 1.8;
+
+            // 5. Rotate toward target tile
+            seg.image_angle = angle;
+
+            // 6. Set depth slightly above the highest tile
+            seg.depth = min(a.depth, b.depth) - 10;
 
             array_push(path_seg_inst, seg);
         }
