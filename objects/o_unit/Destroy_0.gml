@@ -20,3 +20,9 @@ with(o_expand_circle){
 		instance_destroy()
 	}
 }
+
+
+while(array_length(hearts) > 0){
+	heart = array_pop(hearts);
+	instance_destroy(heart);
+}

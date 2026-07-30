@@ -14,25 +14,7 @@ function resolve_combat(){
                     }
                 }
             }
-    
-            with(o_unit){
-                hp -= damageTaken;
-                if(damageTaken){
-                    hit_timer = 8; // flash for 8 frames
-                }
-                damageTaken = 0
-                if(hp <= 0){
-                    if(logDeath){
-                        // FIXED: this unit itself died, so log ITS OWN allegience/name, not target's
-                        o_combat_log.log(string(allegience) + "'s " + string(name) + " died");					
-                    }
-                    with(o_unit){
-                        if(target == other.id) target = noone;
-                    }
-                    instance_destroy();
-                }
-            }
-    
+        
             with(o_unit){
                 findNewTargetForSelf(); 
             }
@@ -91,8 +73,7 @@ function resolve_first_strike(){
         if(damageTaken){
             hit_timer = 8;
         }
-        hp -= damageTaken;
-        damageTaken = 0
+		getDamaged(damageTaken,self)
         if(hp <= 0){
             // OPTIONAL: you have no death log here at all, unlike resolve_combat.
             // If you want consistent death logging on first-strike kills too, add:

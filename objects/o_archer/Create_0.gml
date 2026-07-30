@@ -4,9 +4,9 @@ event_inherited()
 dragging = false;
 
 name = "archer"
-hp = 1
+hp = 2
 maxhp = hp
-damage = 2
+damage = 1
 allegience = "player"
 damageTaken = 0
 
