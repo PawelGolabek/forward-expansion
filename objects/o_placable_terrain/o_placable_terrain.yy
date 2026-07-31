@@ -1,18 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_path",
+  "%Name":"o_placable_terrain",
   "eventList":[],
   "managed":true,
-  "name":"o_path",
+  "name":"o_placable_terrain",
   "overriddenProperties":[],
   "parent":{
     "name":"terrain_gen",
     "path":"folders/objects/terrain_gen.yy",
   },
-  "parentObjectId":{
-    "name":"o_placable_terrain",
-    "path":"objects/o_placable_terrain/o_placable_terrain.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,10 +27,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"Sprite98",
-    "path":"sprites/Sprite98/Sprite98.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

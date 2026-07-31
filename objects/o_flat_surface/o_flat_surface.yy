@@ -9,7 +9,10 @@
     "name":"terrain_gen",
     "path":"folders/objects/terrain_gen.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_placable_terrain",
+    "path":"objects/o_placable_terrain/o_placable_terrain.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

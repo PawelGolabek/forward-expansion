@@ -137,7 +137,7 @@ for (var r = 1; r < rows; r++) {
 // ---------------------------------------------------------------
 // STEP 3 — Spawn Tiles + Cliffs
 // ---------------------------------------------------------------
-var f = instance_create_layer(x, y, layer, flat_object);
+var f = instance_create_depth(x, y, -y - 5000, flat_object);
 f.image_xscale = scale
 f.image_yscale = scale
 var bottom_y = start_y + (rows - 1) * tile_height + (tile_height / 2) - f.sprite_height / 4;
@@ -148,14 +148,15 @@ for (var r = 0; r < rows; r++) {
     var row_y      = start_y + r * tile_height;
 
     var flat_depth  = depth_base - r * depth_row_step;
-    var cliff_depth = depth_base + depth_cliff_gap - r * depth_row_step;
+  //  var cliff_depth = depth_base + depth_cliff_gap - r * depth_row_step;
+    var cliff_depth = y + 5000 + depth_cliff_gap - r * depth_row_step;
 
     for (var c = 0; c <= r; c++) {
         var tile_x = row_left_x + c * tile_width;
 
         // Flat Surface
-        f = instance_create_layer(tile_x, row_y, layer, flat_object);
-        f.depth = flat_depth;
+        f = instance_create_depth(tile_x, row_y, y + 5000, flat_object);
+     //   f.depth = flat_depth;
         f.level = levels[r][c];
         f.row   = r;
         f.col   = c;
@@ -172,7 +173,7 @@ for (var r = 0; r < rows; r++) {
             var cliff_top_y = row_y + f.sprite_height / 2;
             var cliff_span  = bottom_y - cliff_top_y;
 
-            var cl = instance_create_layer(tile_x, cliff_top_y, layer, cliff_object);
+            var cl = instance_create_depth(tile_x, cliff_top_y, y + 5000, cliff_object);
             cl.depth        = cliff_depth;
             cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index) ;
             cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
@@ -214,7 +215,7 @@ for (var r = 1; r < rows; r++) {
             var angle = point_direction(bx, by, ax, ay);
 
             // 3. Create path instance at the exact midpoint
-            var seg = instance_create_layer(mid_x, mid_y, layer, o_path);
+            var seg = instance_create_depth(mid_x, mid_y, y + 5000, o_path);
 			
 			seg.y += f.sprite_height/2
             
@@ -231,7 +232,7 @@ for (var r = 1; r < rows; r++) {
             seg.image_angle = angle;
 
             // 6. Set depth slightly above the highest tile
-            seg.depth = min(a.depth, b.depth) - 10;
+       //     seg.depth = min(a.depth, b.depth) - 10;
 
             array_push(path_seg_inst, seg);
         }

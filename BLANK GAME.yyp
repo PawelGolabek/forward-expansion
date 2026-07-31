@@ -122,6 +122,7 @@
     {"id":{"name":"o_outlinable","path":"objects/o_outlinable/o_outlinable.yy",},},
     {"id":{"name":"o_path","path":"objects/o_path/o_path.yy",},},
     {"id":{"name":"o_pickaxe","path":"objects/o_pickaxe/o_pickaxe.yy",},},
+    {"id":{"name":"o_placable_terrain","path":"objects/o_placable_terrain/o_placable_terrain.yy",},},
     {"id":{"name":"o_pupil","path":"objects/o_pupil/o_pupil.yy",},},
     {"id":{"name":"o_ram","path":"objects/o_ram/o_ram.yy",},},
     {"id":{"name":"o_s_b_e_gatherer","path":"objects/o_s_b_e_gatherer/o_s_b_e_gatherer.yy",},},

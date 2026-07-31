@@ -476,6 +476,7 @@ if(mous){drawCircle = true;}
 	    y = clamp(y, _halfTop, room_height - _halfBottom);
 	    // --------------------------------
 		var _checkTerrain = instance_place(x, y + sprite_height - drag_draw_offset, o_impassable);
+		var _placable_terrain = instance_place(x, y - drag_draw_offset, o_placable_terrain);
 		var _deployable = false
 		var _cx = x;
 		var _cy = y;
@@ -501,9 +502,10 @@ if(mous){drawCircle = true;}
 				}else{
 					continue;
 				}
+				
 		    }
 		}
-		valid = (_checkTerrain == noone) && _deployable && _lineClear;
+		valid = (_checkTerrain == noone) && _deployable && _lineClear && _placable_terrain != noone;
 
 		if (!valid)
 		{
