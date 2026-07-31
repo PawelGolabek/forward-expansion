@@ -8,6 +8,7 @@ maxhp = hp
 firstStrike = true;
 reactionStrike = true;
 crystalCost = 10
+deployAlly = true;
 // ulet spawning
 mySprite = sprite_index;
 og_image_xscale = image_xscale;
@@ -251,7 +252,7 @@ function place(){
 				        }
 				    }
 					// 3. Resolve global combat after the unit handles its drop actions
-					o_combat_resolver.resolve_combat();
+			//		o_combat_resolver.resolve_combat();
 					}
 				}); 
 				y -= drag_draw_offset;
@@ -495,7 +496,7 @@ if(mous){drawCircle = true;}
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range and not u.inCombat and not line_blocked(x,y - drag_draw_offset, u.x,u.y))
+		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range and not u.inCombat and u.deployAlly and not line_blocked(x,y - drag_draw_offset, u.x,u.y))
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;

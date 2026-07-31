@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"buildings",
-    "path":"folders/objects/spawners/player/buildings.yy",
+    "path":"folders/objects/unit_spawners/player/buildings.yy",
   },
   "parentObjectId":{
     "name":"o_spawner_parent",

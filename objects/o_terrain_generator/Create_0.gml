@@ -139,22 +139,22 @@ for (var r = 0; r < rows; r++) {
         f.image_xscale = scale;		
         flat_inst[r][c] = f;
 		
-		if(r < 7){
-			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
-		}
-		if(r < 5){
-			instance_create_depth(tile_x - 80, row_y + 120, y + 5000, o_enemy_inferna)
-		}
-		if(r < 5){
-			instance_create_depth(tile_x - 160, row_y + 120, y + 5000, o_enemy_inferna)
-		}
-		if(r < 5){
-			instance_create_depth(tile_x - 160, row_y + 60, y + 5000, o_enemy_inferna)
-		}
 		if(r < 4){
 			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
 		}
 		if(r < 3){
+			instance_create_depth(tile_x - 80, row_y + 120, y + 5000, o_enemy_inferna)
+		}
+		if(r < 3){
+			instance_create_depth(tile_x - 160, row_y + 120, y + 5000, o_enemy_inferna)
+		}
+		if(r < 2){
+			instance_create_depth(tile_x - 160, row_y + 60, y + 5000, o_enemy_inferna)
+		}
+		if(r < 1){
+			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
+		}
+		if(r < 1){
 			instance_create_depth(tile_x + 40, row_y + 120 - 40, y + 5000, o_enemy_cavalry)
 		}
 
@@ -171,6 +171,7 @@ for (var r = 0; r < rows; r++) {
             cl.depth        = cliff_depth;
             cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index) ;
             cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
+			cl.image_index = irandom(cl.image_number - 1);
             cl.level        = levels[r][c];
             cl.row          = r;
             cl.col          = c;
@@ -179,9 +180,6 @@ for (var r = 0; r < rows; r++) {
     }
 }
 
-// ---------------------------------------------------------------
-// STEP 4 — Spawn Paths (Equal Distribution Across All Tiles)
-// ---------------------------------------------------------------
 // ---------------------------------------------------------------
 // STEP 4 — Spawn Paths (Equal Distribution Across All Tiles)
 // ---------------------------------------------------------------

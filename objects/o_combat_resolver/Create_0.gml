@@ -46,18 +46,33 @@ function resolve_first_strike(){
             target.targetted = true;
     }
     
+    // SAFEGUARD: collect only the units actually involved in a first-strike
+    // exchange this call, so the final resolution block below doesn't
+    // touch/damage/kill-check every o_unit in existence.
+    var _involved = ds_list_create();
+    
+    var _add_involved = function(_id) {
+        var _list = argument[1];
+        if (ds_list_find_index(_list, _id) == -1) {
+            ds_list_add(_list, _id);
+        }
+    }
+    
     with(o_unit){
         if(point_distance_ellipse(x, y, global.dropped.x, global.dropped.y, 0.6) <= range and global.dropped.allegience != allegience and reactionStrike){
             if(global.dropped.parry){			
-                // FIXED: was using name/damage generically but attacker here is self, victim is global.dropped
                 o_combat_log.log(string(global.dropped.allegience) + "'s " + string(global.dropped.name) + " parried " + string(allegience) + "'s " + string(name) + " and hit it back by " + string(damage));
                 damageTaken += damage;
                 global.dropped.parried = true;
+                
+                // self (the striker) took the parry damage — mark involved
+                if (ds_list_find_index(_involved, id) == -1) ds_list_add(_involved, id);
             }else{		
-                // FIXED: was target.allegience/target.name/target.allegience/name — target isn't the actor here.
-                // The victim is global.dropped, the attacker is self (o_unit).
                 o_combat_log.log(string(global.dropped.allegience) + "'s " + string(global.dropped.name) + " got hit with the first strike by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
                 global.dropped.damageTaken += damage;
+                
+                // global.dropped took the damage — mark involved
+                if (ds_list_find_index(_involved, global.dropped.id) == -1) ds_list_add(_involved, global.dropped.id);
             }
         }
     }
@@ -65,25 +80,36 @@ function resolve_first_strike(){
     with(global.dropped){
         if(self.target != noone and firstStrike){
             target.damageTaken += damage;		
-            // FIXED: attacker here is global.dropped (self), victim is target
             o_combat_log.log(string(target.allegience) + "'s " + string(target.name) + " got hit with the first strike by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
-                
+            
+            // target of dropped took damage — mark involved
+            if (ds_list_find_index(_involved, target.id) == -1) ds_list_add(_involved, target.id);
         }
     }
     
-    with(o_unit){
-        if(damageTaken){
-            hit_timer = 8;
-        }
-		getDamaged(damageTaken,self)
-        if(hp <= 0){
-            // OPTIONAL: you have no death log here at all, unlike resolve_combat.
-            // If you want consistent death logging on first-strike kills too, add:
-            if(logDeath){ o_combat_log.log(string(allegience) + "'s " + string(name) + " died"); }
-            with(o_unit){
-                if(target == other.id) target = noone;
+    // SAFEGUARD: resolve damage/death only for units in _involved,
+    // instead of `with(o_unit)` over every unit that exists.
+    var _i = 0;
+    repeat(ds_list_size(_involved)){
+        var _inst = ds_list_find_value(_involved, _i);
+        
+        if(instance_exists(_inst)){
+            with(_inst){
+                if(damageTaken){
+                    hit_timer = 8;
+                }
+                getDamaged(damageTaken, self);
+                if(hp <= 0){
+                    if(logDeath){ o_combat_log.log(string(allegience) + "'s " + string(name) + " died"); }
+                    with(o_unit){
+                        if(target == other.id) target = noone;
+                    }
+                    instance_destroy();
+                }
             }
-            instance_destroy();
         }
+        _i++;
     }
+    
+    ds_list_destroy(_involved);
 }

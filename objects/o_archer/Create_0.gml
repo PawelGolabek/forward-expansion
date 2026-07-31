@@ -9,13 +9,13 @@ damage = 1
 allegience = "player"
 damageTaken = 0
 
-firstStrike = false;
+firstStrike = true;
 
 og_image_xscale = 2;
 og_image_yscale = 2;
 image_xscale = og_image_xscale;
 image_yscale = og_image_yscale;
-range = 140
+range = 240
 revealRange = range * 2
 
 aiType = "range"

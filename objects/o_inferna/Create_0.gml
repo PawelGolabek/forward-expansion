@@ -6,7 +6,7 @@ hp = 1
 maxhp = hp
 damage = 1
 allegience = "player"
-range = 350
+range = 150
 revealRange = range * 2
 
 myUnitlet = o_inferna_let;

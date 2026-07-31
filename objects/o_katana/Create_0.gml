@@ -7,7 +7,7 @@ maxhp = hp
 damage = 4
 allegience = "player"
 
-range = 400
+range = 180
 revealRange = range * 2
 
 

@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"enemy",
-    "path":"folders/objects/spawners/enemy.yy",
+    "path":"folders/objects/unit_spawners/enemy.yy",
   },
   "parentObjectId":{
     "name":"o_spawner_parent",
