@@ -44,7 +44,6 @@ if (expectedDamage > 0)
 expectedDamage = 0;
 
 
-_expected = calculateDamageExpectedDelayed()
 
 
 if (_expected > 0)

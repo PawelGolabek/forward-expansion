@@ -64,9 +64,6 @@ for (var r = 1; r < rows; r++) {
     }
 }
 
-// Store connections for EVERY tile:
-// conn_r[r][c] = row of target tile
-// conn_c[r][c] = col of target tile
 conn_r = array_create(rows);
 conn_c = array_create(rows);
 
@@ -113,28 +110,6 @@ for (var r = 1; r < rows; r++) {
 }
 
 // ---------------------------------------------------------------
-// STEP 2 — Assign Height Levels (1-5)
-// ---------------------------------------------------------------
-levels[0][0] = irandom_range(height_min, height_max);
-
-for (var r = 1; r < rows; r++) {
-    for (var c = 0; c <= r; c++) {
-        var tr = conn_r[r][c];
-        var tc = conn_c[r][c];
-        
-        var ref_height = (tr != -1 && tc != -1) ? levels[tr][tc] : height_min;
-
-        if (c == path_col[r]) {
-            // Trunk stays strictly within +/- 1 step
-            levels[r][c] = clamp(ref_height + irandom_range(-1, 1), height_min, height_max);
-        } else {
-            // Side/Edge tiles respect max_rise from their connected neighbor
-            levels[r][c] = irandom_range(height_min, min(height_max, ref_height + max_rise));
-        }
-    }
-}
-
-// ---------------------------------------------------------------
 // STEP 3 — Spawn Tiles + Cliffs
 // ---------------------------------------------------------------
 var f = instance_create_depth(x, y, -y - 5000, flat_object);
@@ -163,6 +138,25 @@ for (var r = 0; r < rows; r++) {
         f.image_yscale = 0.6 * scale;
         f.image_xscale = scale;		
         flat_inst[r][c] = f;
+		
+		if(r < 7){
+			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
+		}
+		if(r < 5){
+			instance_create_depth(tile_x - 80, row_y + 120, y + 5000, o_enemy_inferna)
+		}
+		if(r < 5){
+			instance_create_depth(tile_x - 160, row_y + 120, y + 5000, o_enemy_inferna)
+		}
+		if(r < 5){
+			instance_create_depth(tile_x - 160, row_y + 60, y + 5000, o_enemy_inferna)
+		}
+		if(r < 4){
+			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
+		}
+		if(r < 3){
+			instance_create_depth(tile_x + 40, row_y + 120 - 40, y + 5000, o_enemy_cavalry)
+		}
 
         if (c == path_col[r]) {
             path_inst[r] = f;

@@ -1,80 +1,49 @@
 global.deployHighlight = noone
 
-trees = [];
-with(o_trees){
-	array_push(other.trees,self);
-	visible = false;
+if(not checkedFoW){
+	fogOfWarCheck()
+	checkedFoW = true;
 }
 
+
+trees = [];
+unitsToDraw = [];
+uletsToDraw = [];
+
+with (o_trees) {
+    if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
+        array_push(other.trees, self);
+    }
+}
+
+
+with (o_unit) {
+    if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
+        array_push(other.unitsToDraw, self);
+		uletsNum = array_length(unitlets)
+		for(i = 0; i < uletsNum; i += 1){
+			array_push(other.uletsToDraw,unitlets[i]);
+		}
+    }
+}
+
+
 with(o_unit){
-	expectedDmg = 0;
 	drawCircle = false;
-	minDistToPlayer = 9999999
-	visible = false;
-	if(allegience != "player"){
-		for (var i = 0; i < array_length(unitlets); i++){
-			unitlets[i].visible = false;
-		}	
-	}
+	minDistToPlayer = 9999999;
 }
 
 with(o_unit){
 	if(allegience == "player"){
 		visible = true;
-	}
-	// fog of war
-	with(o_outlinable){
-		otherU = other
-		if(isUnit){
-			if(allegience != "player" and other.allegience == "player"){
-				distToPlayer = point_distance_ellipse(x, y - drag_draw_offset, otherU.x, otherU.y - otherU.drag_draw_offset, 0.6)
-				if(distToPlayer < range + otherU.revealRange){
-					fowVisible = true;
-					visible = true;
-					for (var i = 0; i < array_length(unitlets); i++){
-						udistToPlayer = point_distance_ellipse(unitlets[i].x, unitlets[i].y, otherU.x, otherU.y - otherU.drag_draw_offset, 0.6)
-						if(udistToPlayer < otherU.revealRange){
-							unitlets[i].visible = true;
-						}
-					}
-				}
-			}
-		}
-		if(isTree and other.allegience == "player"){						
-			udistToPlayer = point_distance_ellipse(x, y, otherU.x + (other.sprite_width/other.image_xscale)/2, 
-				otherU.y + (sprite_height/other.image_yscale) - otherU.drag_draw_offset, 0.6)
-			if(udistToPlayer < other.revealRange){
-				fowVisible = true;
-				visible = true;
-			}
-		}
-	}
-	
-	if (not o_fog_of_war.active){
-		with(o_object){
-			visible = true;
-			if(isUnit){
-				for (var i = 0; i < array_length(unitlets); ++i) {
-					unitlets[i].visible = true;
-				}
-			}
+		uletsLen = array_length(unitlets);
+		for(i=0; i < uletsLen; i += 1){
+			unitlets[i].visible = true;
 		}
 	}
 	executeStep();
 	if(inCombat){
 		alpha = 0.7
-	}
-}
-	// Active / Combat checks
-with(o_unit){
-	inCombat = false;
-}
-with(o_unit){
-	with(o_unit){
-		if (point_distance_ellipse(x, y - drag_draw_offset, other.x, other.y - other.drag_draw_offset, 0.6) <= range 
-		and allegience != other.allegience and not other.peaceful){
-			other.inCombat = true;
-		}
 	}
 }
 
@@ -88,6 +57,7 @@ array_sort(units, function(a, b) {
     return a.depth - b.depth;
 });
 
+	
 scr_draw_units_batch_trees(trees, 1);
-scr_draw_units_batch(ulets, 1, 2); // 2px glow ring, 3px black ring behind it
-scr_draw_units_batch(units, 1, 2); // 2px glow ring, 3px black ring behind it
+scr_draw_units_batch(uletsToDraw, 1, 2); // 2px glow ring, 3px black ring behind it
+scr_draw_units_batch(unitsToDraw, 1, 2); // 2px glow ring, 3px black ring behind it

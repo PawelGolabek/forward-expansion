@@ -29,6 +29,8 @@ inCombat = false;
 color= c_white;
 alpha = 1.0;
 timeElapsed = random(100000)
+// fog of war related
+isUnit = false;
 
 function initiate(){
 	if(not noEyes){

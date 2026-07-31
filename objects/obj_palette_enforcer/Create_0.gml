@@ -1,5 +1,3 @@
-
-
 // obj_palette_enforcer :: Create event
 //
 // Put this object in your very first room, make it persistent (or otherwise
@@ -42,12 +40,5 @@ global.palette_enforcer.set_palette(palette_from_hex_array([
     "#66333d", "#9c4f41", "#b3785d", "#d6a57a", "#e6cc8a", "#fafac3"
 ]));
 
-
-
-
 global.palette_enforcer.set_dither(0.03);
 global.palette_enforcer.set_perceptual(true);
-
-
-
-

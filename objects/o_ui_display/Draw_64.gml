@@ -7,4 +7,5 @@ if(global.deployHighlight != noone){
 }
 
 draw_text(0,180,o_clock.blocked)	
+draw_set_font(Font3)
 draw_text(0,360,string(fps_real))

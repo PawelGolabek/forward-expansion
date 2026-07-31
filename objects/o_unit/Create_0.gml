@@ -65,6 +65,7 @@ global.deployHighlight = noone
 isTree = false;
 isUnit = true;
 unitletsPerHp = 3;
+_expected = 0;
 
 
 if(!noEyes){
@@ -206,7 +207,7 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     return false;
 }
 function place(){
-if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
+	if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 		with(o_spawner_parent){
 			selected = false;
 		}
@@ -215,12 +216,11 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 			global.draggingUnit = noone;
 			instance_destroy();
 		}else{
+		
 			
 		mask_index = s_flag_hitbox;
 		// animation thingy
-		
-		instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);
-		
+		instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);		
 		//// first strike, ommit if spawned on room creation
 		if(bornOfSpawner){
 			o_clock.toNextEvent = o_clock.maxToNextEvent;
@@ -257,6 +257,8 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 				y -= drag_draw_offset;
 				drag_draw_offset = 0;
 				o_deck_holder.discard_card(parentSpawner);
+			}else{
+				fogOfWarCheck()
 			}
 			dragging = false;
 			placed = true;
@@ -311,6 +313,9 @@ if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 					array_push(unitlets,ulet);		
 				}
 			}
+			
+			checkInCombat()
+			
 		}
 	}
 	image_xscale = og_image_xscale;
@@ -438,7 +443,8 @@ if(mous){drawCircle = true;}
 	{
 		mask_index = s_minimal_hitbox
 		drag_draw_offset = - 5;
-		for (var i = 0; i < array_length(unitlets); i++)
+		uletsNum = array_length(unitlets)
+		for (var i = 0; i < uletsNum; i++)
 		{
 		    unitlets[i].drag_draw_offset = drag_draw_offset;
 		}
@@ -512,6 +518,14 @@ if(mous){drawCircle = true;}
 		    x = last_valid_x;
 		    y = last_valid_y;
 			global.deployHighlight = lastFriendly;	
+			with(o_unit){
+				if(point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range){
+					_expected = calculateDamageExpectedDelayed()
+				}
+			
+			}
+			
+			
 		}
 		else
 		{

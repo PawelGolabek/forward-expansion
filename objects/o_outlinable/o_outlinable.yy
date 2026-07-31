@@ -9,7 +9,10 @@
     "name":"units",
     "path":"folders/objects/units.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_object",
+    "path":"objects/o_object/o_object.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

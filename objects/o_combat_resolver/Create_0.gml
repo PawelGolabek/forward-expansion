@@ -32,6 +32,8 @@ function resolve_combat(){
             o_combat_log.log("Turn " + string(o_combat_log.turn));
                 
         }});
+		
+	checkInCombat()
 }
 
 function resolve_first_strike(){

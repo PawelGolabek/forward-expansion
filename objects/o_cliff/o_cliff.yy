@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite97",
-    "path":"sprites/Sprite97/Sprite97.yy",
+    "name":"s_cliff",
+    "path":"sprites/s_cliff/s_cliff.yy",
   },
   "spriteMaskId":null,
   "visible":true,

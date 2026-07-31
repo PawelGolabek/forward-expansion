@@ -53,6 +53,7 @@ var wantCircle = (mous or dragging or drawCircle);
 
 
 if(wantCircle){
+	_expected = calculateDamageExpectedDelayed();
 	for(i = 0; i < array_length(hearts); i+=1){
 		with(hearts[i]){
 			visible = true;

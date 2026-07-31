@@ -1,4 +1,3 @@
-
 if(active){
 	surface_set_target(fog_surface);
 	// Fill everything with black (unexplored/hidden)
@@ -7,7 +6,6 @@ if(active){
 	// Switch blend mode so anything drawn now "erases" the black instead of drawing on top
 	gpu_set_blendmode(bm_subtract); 
 	// Or use bm_dest_alpha tricks — see note below on which method suits you
-
 	// Draw a white circle (or sprite) at each entity that grants vision
 
 	with(o_unit){
@@ -25,7 +23,7 @@ if(active){
 	draw_surface(fog_surface, 0, 0);
 }else{
 	with(o_object){
+		// this is dangerous and should be rewritten probably?
 		visible = true;
 	}
-
 }

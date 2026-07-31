@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite96",
-    "path":"sprites/Sprite96/Sprite96.yy",
+    "name":"s_surface",
+    "path":"sprites/s_surface/s_surface.yy",
   },
   "spriteMaskId":null,
   "visible":true,

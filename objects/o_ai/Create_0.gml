@@ -312,26 +312,26 @@ function ai_evaluate_and_place() {
                     if (instance_exists(_unit)) {
                         _unit.dragging = false;
                         _unit.placed = true;
-                        _unit.visible = true; // Ensure the unit itself is visible!
+                    //    _unit.visible = true; // Ensure the unit itself is visible!
                     }
                     
                     // Safely set manager visibility back to true
                     if (instance_exists(_mgr)) {
-                        _mgr.visible = true;
+                //        _mgr.visible = true;
                     }
                 }
             });
     
-            visible = true;  
+     //       visible = true;  
         }
         else {
-            visible = false;   
+      //      visible = false;   
         }
     
 		if(_spawned == noone){
-			visible = false	
+	//		visible = false	
 			aiPassed = 1000000;
 		}
-	    }
+	}
 	
 }
