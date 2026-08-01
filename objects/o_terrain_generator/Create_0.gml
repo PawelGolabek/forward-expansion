@@ -115,7 +115,7 @@ for (var r = 1; r < rows; r++) {
 var f = instance_create_depth(x, y, -y - 5000, flat_object);
 f.image_xscale = scale
 f.image_yscale = scale
-var bottom_y = start_y + (rows - 1) * tile_height + (tile_height / 2) - f.sprite_height / 4;
+var bottom_y = start_y + (rows) * tile_height + (tile_height / 2) - f.sprite_height / 4;
 instance_destroy(f);
 
 for (var r = 0; r < rows; r++) {
@@ -163,13 +163,13 @@ for (var r = 0; r < rows; r++) {
         }
 
         // Cliff Underneath
-        if (r != rows - 1) {
+        if (r != rows) {
             var cliff_top_y = row_y + f.sprite_height / 2;
             var cliff_span  = bottom_y - cliff_top_y;
 
             var cl = instance_create_depth(tile_x, cliff_top_y, y + 5000, cliff_object);
             cl.depth        = cliff_depth;
-            cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index) ;
+            cl.image_yscale = (cliff_span) / sprite_get_height(cl.sprite_index) ;
             cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
 			cl.image_index = irandom(cl.image_number - 1);
             cl.level        = levels[r][c];

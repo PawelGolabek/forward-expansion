@@ -2,7 +2,7 @@
   "$GMSprite":"v2",
   "%Name":"s_cliff",
   "bboxMode":0,
-  "bbox_bottom":63,
+  "bbox_bottom":127,
   "bbox_left":0,
   "bbox_right":63,
   "bbox_top":0,
@@ -19,7 +19,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":64,
+  "height":128,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"aa55f27b-3719-4976-a4e4-6c2de323bcdb","blendMode":0,"displayName":"default","isLocked":false,"name":"aa55f27b-3719-4976-a4e4-6c2de323bcdb","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},

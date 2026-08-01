@@ -68,7 +68,7 @@
     {"$GMRInstanceLayer":"","%Name":"terrain","depth":99999,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_73E0C549","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_73E0C549","objectId":{"name":"o_terrain_generator","path":"objects/o_terrain_generator/o_terrain_generator.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":11.0,"scaleY":9.0,"x":640.0,"y":32.0,},
       ],"layers":[],"name":"terrain","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":true,"visible":true,},
-    {"$GMRTileLayer":"","%Name":"Tiles_1","depth":100099,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tiles_1","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":125,"SerialiseWidth":125,"TileCompressedData":[
+    {"$GMRTileLayer":"","%Name":"Tiles_1","depth":100099,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tiles_1","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":150,"SerialiseWidth":125,"TileCompressedData":[
           1,23,-124,15,1,9,-12,11,-112,3,1,9,-12,11,-112,3,1,9,-12,11,-112,3,1,9,-5,11,1,-2147483648,-6,11,-112,
           3,1,9,-12,11,-112,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,1,9,-11,
           11,-113,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,1,9,-11,11,-113,3,
@@ -84,7 +84,7 @@
           -124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,
           3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,
           1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,9,-124,3,1,
-          9,-124,3,1,9,-124,3,
+          9,-124,3,1,9,-124,3,-3125,-2147483648,
         ],"TileDataFormat":1,},"tilesetId":{"name":"TileSet2","path":"tilesets/TileSet2/TileSet2.yy",},"userdefinedDepth":false,"visible":false,"x":0,"y":0,},
     {"$GMRInstanceLayer":"","%Name":"dynamic_background","depth":100199,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_11F70EC8_1_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_11F70EC8_1_1","objectId":{"name":"o_dynamicbg_1","path":"objects/o_dynamicbg_1/o_dynamicbg_1.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":-1952.0,"y":-704.0,},
@@ -109,7 +109,7 @@
   "resourceType":"GMRoom",
   "resourceVersion":"2.0",
   "roomSettings":{
-    "Height":2000,
+    "Height":2400,
     "inheritRoomSettings":false,
     "persistent":false,
     "Width":2000,
