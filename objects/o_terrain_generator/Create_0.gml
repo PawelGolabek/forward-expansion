@@ -151,10 +151,10 @@ for (var r = 0; r < rows; r++) {
 		if(r < 2){
 			instance_create_depth(tile_x - 160, row_y + 60, y + 5000, o_enemy_inferna)
 		}
-		if(r < 1){
+		if(r < 2){
 			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
 		}
-		if(r < 1){
+		if(r < 2){
 			instance_create_depth(tile_x + 40, row_y + 120 - 40, y + 5000, o_enemy_cavalry)
 		}
 
@@ -163,20 +163,23 @@ for (var r = 0; r < rows; r++) {
         }
 
         // Cliff Underneath
-        if (r != rows) {
-            var cliff_top_y = row_y + f.sprite_height / 2;
-            var cliff_span  = bottom_y - cliff_top_y;
+			if (r != rows) {
+			    var cliff_top_y = row_y + f.sprite_height / 2;
+			    var is_last_row = (r == rows - 1);
+			    // last row reaches the true bottom; every other row stops at the next row's tile top
+			    var cliff_bottom = is_last_row ? bottom_y : (row_y + tile_height + f.sprite_height / 2);
+			    var cliff_span   = cliff_bottom - cliff_top_y;
 
-            var cl = instance_create_depth(tile_x, cliff_top_y, y + 5000, cliff_object);
-            cl.depth        = cliff_depth;
-            cl.image_yscale = (cliff_span) / sprite_get_height(cl.sprite_index) ;
-            cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
-			cl.image_index = irandom(cl.image_number - 1);
-            cl.level        = levels[r][c];
-            cl.row          = r;
-            cl.col          = c;
-            cliff_inst[r][c] = cl;
-        }
+			    var cl = instance_create_depth(tile_x, cliff_top_y, y + 5000, cliff_object);
+			    cl.depth = cliff_depth;
+			    cl.image_yscale = cliff_span / sprite_get_height(cl.sprite_index);
+			    cl.image_xscale = tile_width / sprite_get_width(cl.sprite_index);
+			    cl.image_index  = irandom(cl.image_number - 1);
+			    cl.level = levels[r][c];
+			    cl.row   = r;
+			    cl.col   = c;
+			    cliff_inst[r][c] = cl;
+			}
     }
 }
 
