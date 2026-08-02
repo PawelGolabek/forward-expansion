@@ -56,9 +56,10 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 				inst.alpha
 			);
 	        // 2) optional: coloured glow ring on top of the black one
-	        if (inst.redGlow || inst.glow)
+	        if (inst.redGlow || inst.glow || inst.blueGlow)
 	        {
 	            var _col = inst.redGlow ? c_red : c_yellow;
+				if(inst.blueGlow){_col = c_aqua}
 	            shader_set_uniform_f(_u_thick, _thickness);
 	            shader_set_uniform_f(_u_colour,
 	                color_get_red(_col)   / 255,
@@ -70,7 +71,8 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 
 
 	            inst.redGlow = false;
-	            inst.glow    = false;
+	            inst.glow = false;
+	            inst.blueGlow = false;
 	        }
 	        shader_reset();
 		}

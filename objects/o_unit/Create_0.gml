@@ -28,6 +28,7 @@ tmpTarget = noone;
 targetted = false;
 inCombat = false;
 peaceful = false;
+specialFriendly = false;
 // ui
 arrow = instance_create_depth(x,y,depth-10,o_arrow);
 arrow.owner = self;
@@ -59,6 +60,7 @@ bornOfSpawner = false;
 // shaders
 glow = false;
 redGlow = false;
+blueGlow = false;
 outline_surf = -2
 breatheDrawXOffset = 0
 global.deployHighlight = noone
@@ -144,14 +146,12 @@ function calculateDamageExpectedDelayed() {
 	// cache self's data since 'self' changes inside the with block
 	var myId = id;
 	var myAllegience = allegience;
-	var myX = x;
-	var myY = y;
 	var total = 0;
 	
 	with (o_unit) {
 		if (id == myId) continue;              // skip self
 		if (allegience == myAllegience) continue; // skip allies
-		var dist = point_distance(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset);
+		var dist = point_distance(x, y - drag_draw_offset, x, y - myId.drag_draw_offset);
 		if (dist <= range) {
 			total += damage;
 		}
@@ -392,29 +392,29 @@ function findNewTargetForSelf()
     // Loop through all units to find the closest enemy
     with (o_unit) 
     {
+        var dist = point_distance_ellipse(myX, myY, x, y, 0.6);
         // Skip yourself and skip teammates
-        if (id == myId || allegience == myAllegience) continue;
-        
-        // Calculate distance from the calling unit to this potential enemy
-        var dist = point_distance_ellipse(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
+        if (id == myId || allegience == myAllegience) continue;        
         
         // If this enemy is closer than the previous closest, update it
         if (dist < minDistance && myRange > dist)
         {
             minDistance = dist;
             closestEnemy = id;
-        }
+        }     
     }
     
     // Set ONLY this unit's target to the closest enemy found
     target = closestEnemy;
-	with(closestEnemy){
-		if(not closestEnemy.noUnitlets){
-			redGlow = true;
-			ulets = array_length(unitlets) - 1
-			while(ulets >= 0){
-				unitlets[ulets].redGlow = true;
-				ulets-=1;
+	if(target != noone){
+		with(target){
+			if(not noUnitlets){
+				redGlow = true;
+				ulets = array_length(unitlets) - 1
+				while(ulets >= 0){
+					unitlets[ulets].redGlow = true;
+					ulets-=1;
+				}
 			}
 		}
 	}
@@ -428,9 +428,12 @@ function onRoundEnd(){
 }
 
 function executeStep(){
-mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
-// i hate that it does not match the flag but will fix later brb
-if(mous){drawCircle = true;}
+	mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
+	// i hate that it does not match the flag but will fix later brb
+    var myX = x;
+    var myY = y;
+	var myID = id;
+	if(mous){drawCircle = true;}
 	alpha = 1.0;
 	depth = -y;
 	tmpTarget = noone;
@@ -441,6 +444,22 @@ if(mous){drawCircle = true;}
 	}
 	if (dragging)
 	{
+		if(specialFriendly){
+			with(o_unit){
+				if(myID == id){continue;}
+		        // Calculate distance from the calling unit to others
+		        var dist = point_distance_ellipse(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
+		        if (dist < other.range)
+		        {
+					blueGlow = true;
+					ulets = array_length(unitlets) - 1
+					while(ulets >= 0){
+						unitlets[ulets].blueGlow = true;
+						ulets-=1;
+					}
+		        }
+			}
+		}
 		mask_index = s_minimal_hitbox
 		drag_draw_offset = - 5;
 		uletsNum = array_length(unitlets)
