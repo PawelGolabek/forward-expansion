@@ -4,6 +4,10 @@ units = [];
 trees = [];
 checkedFoW = false;
 
+global.threatSurf = noone;
+if (!surface_exists(global.threatSurf)) {
+    global.threatSurf = surface_create(room_width, room_height);
+}
 
 function rect_in_draw_area(_left, _top, _right, _bottom) {
 	// ---------------------------------------------------------

@@ -67,7 +67,8 @@ isTree = false;
 isUnit = true;
 unitletsPerHp = 3;
 _expected = 0;
-
+wantCircle = false;
+onEnter = function(){}
 
 if(!noEyes){
 	eyeX = 20
@@ -217,104 +218,102 @@ function place(){
 			global.draggingUnit = noone;
 			instance_destroy();
 		}else{
-		
+			mask_index = s_flag_hitbox;
+			// animation thingy
+			instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);		
+			//// first strike, ommit if spawned on room creation
+			if(bornOfSpawner){
+				o_clock.toNextEvent = o_clock.maxToNextEvent;
+				ds_queue_enqueue(o_clock.action_queue, {
+					// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+					my_spawned_unit: id,
+					func: function() {
 			
-		mask_index = s_flag_hitbox;
-		// animation thingy
-		instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);		
-		//// first strike, ommit if spawned on room creation
-		if(bornOfSpawner){
-			o_clock.toNextEvent = o_clock.maxToNextEvent;
-			ds_queue_enqueue(o_clock.action_queue, {
-				// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
-				my_spawned_unit: id,
-				func: function() {
-			
-					o_combat_log.log("Player spawned " + my_spawned_unit.name);
-				    var _unit = self.my_spawned_unit;
-					my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
-					my_spawned_unit.drag_draw_offset = 0;
+						o_combat_log.log("Player spawned " + my_spawned_unit.name);
+					    var _unit = self.my_spawned_unit;
+						my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
+						my_spawned_unit.drag_draw_offset = 0;
 
-				    if (instance_exists(_unit)) {
-				        with (_unit) {
-				            resetTargets();
+					    if (instance_exists(_unit)) {
+					        with (_unit) {
+					            resetTargets();
                     
-				            global.dropped = id; 
-				            global.draggingUnit = id;
-				            o_combat_resolver.resolve_first_strike();
+					            global.dropped = id; 
+					            global.draggingUnit = id;
+					            o_combat_resolver.resolve_first_strike(global.dropped);
                     
-							global.dropped = noone;
-							global.draggingUnit = noone;
-							// 2. Clear state inside the unit context right as combat resolves
-				            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-				                lastFriendly = noone;
-				            }
-				        }
-				    }
-					// 3. Resolve global combat after the unit handles its drop actions
-			//		o_combat_resolver.resolve_combat();
-					}
-				}); 
+								global.dropped = noone;
+								global.draggingUnit = noone;
+								// 2. Clear state inside the unit context right as combat resolves
+					            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+					                lastFriendly = noone;
+					            }
+					        }
+					    }
+						// 3. Resolve global combat after the unit handles its drop actions
+				//		o_combat_resolver.resolve_combat();
+						}
+					}); 
+					y -= drag_draw_offset;
+					drag_draw_offset = 0;
+					o_deck_holder.discard_card(parentSpawner);
+				}else{
+				}
+				dragging = false;
+				placed = true;
 				y -= drag_draw_offset;
 				drag_draw_offset = 0;
-				o_deck_holder.discard_card(parentSpawner);
-			}else{
-				fogOfWarCheck()
-			}
-			dragging = false;
-			placed = true;
-			y -= drag_draw_offset;
-			drag_draw_offset = 0;
 			
-			tmp = hp * unitletsPerHp;
-			if(not noUnitlets){
-				repeat(tmp){
-					var placed_ok = false;
-					var tries = 0;
-					var angle;
-					var dist;
-					var px;
-					var py;
-					var best_dist = 999999;
-					var best_x = x;
-					var best_y = y;
-					ulet = instance_create_depth(-9999999, -999999, depth - 500, myUnitlet);		   
-					ulet.owner = self;
-					ulet.unit = self;
-					ulet.image_xscale = 0.3;
-					ulet.image_yscale = 0.3;
-					ulet.initiate();
-					ulet.initiate2();
+				tmp = hp * unitletsPerHp;
+				if(not noUnitlets){
+					repeat(tmp){
+						var placed_ok = false;
+						var tries = 0;
+						var angle;
+						var dist;
+						var px;
+						var py;
+						var best_dist = 999999;
+						var best_x = x;
+						var best_y = y;
+						ulet = instance_create_depth(-9999999, -999999, depth - 500, myUnitlet);		   
+						ulet.owner = self;
+						ulet.unit = self;
+						ulet.image_xscale = 0.3;
+						ulet.image_yscale = 0.3;
+						ulet.initiate();
+						ulet.initiate2();
 
-				for (var i = 0; i < 200; i++) {
-				    angle = random(360);
-				    dist = random(300);
-				    px = x + lengthdir_x(dist, angle);
-				    py = y + lengthdir_y(dist, angle);
+					for (var i = 0; i < 200; i++) {
+					    angle = random(360);
+					    dist = random(300);
+					    px = x + lengthdir_x(dist, angle);
+					    py = y + lengthdir_y(dist, angle);
 					
-				    var blocked = false;
-				    with (ulet) {
-				        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
-						var tilemap = layer_tilemap_get_id("Tiles_1");
-						if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
-							blocked = true;
-						}
-				    }
-				    if (!blocked) {
-				        if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
-				        if (dist < best_dist) {
-				            best_dist = dist;
-				            best_x = px;
-				            best_y = py + drag_draw_offset;
-				        }
-				    }
+					    var blocked = false;
+					    with (ulet) {
+					        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
+							var tilemap = layer_tilemap_get_id("Tiles_1");
+							if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
+								blocked = true;
+							}
+					    }
+					    if (!blocked) {
+					        if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
+					        if (dist < best_dist) {
+					            best_dist = dist;
+					            best_x = px;
+					            best_y = py + drag_draw_offset;
+					        }
+					    }
+					}
+						ulet.x = best_x;
+						ulet.y = best_y;
+						array_push(unitlets,ulet);		
+					}
 				}
-					ulet.x = best_x;
-					ulet.y = best_y;
-					array_push(unitlets,ulet);		
-				}
-			}
-			
+			fogOfWarCheck();
+			onEnter();
 			checkInCombat()
 			
 		}

@@ -303,7 +303,7 @@ function ai_evaluate_and_place() {
                     global.dropped = _unit;
                     global.draggingUnit = _unit;
     
-                    o_combat_resolver.resolve_first_strike();
+                    o_combat_resolver.resolve_first_strike(global.dropped);
     
                     global.draggingUnit = noone;
                     global.dropped = noone;

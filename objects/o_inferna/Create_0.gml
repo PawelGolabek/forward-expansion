@@ -2,7 +2,7 @@ event_inherited()
 dragging = false;
 
 name = "inferna";
-hp = 1
+hp = 2
 maxhp = hp
 damage = 1
 allegience = "player"
