@@ -26,6 +26,7 @@ animationOn = false;
 target = noone;
 tmpTarget = noone;
 targetted = false;
+targettedByDragging = false;
 inCombat = false;
 peaceful = false;
 specialFriendly = false;
@@ -404,70 +405,47 @@ function findNewTargetForSelf()
     
   target = closestEnemy;
 
-if(target != noone){
-	var distToTarget = point_distance_ellipse(myX, myY, target.x, target.y, 0.6);
-	var inRangeEitherWay = (distToTarget <= myRange) || (distToTarget <= target.range);
-
-	if(inRangeEitherWay){
+	if(target != noone){
 		with(target){
+			targettedByDragging = true;
 			if(not noUnitlets){
 				redGlow = true;
-				ulets = array_length(unitlets) - 1
+				ulets = array_length(unitlets) - 1;
 				while(ulets >= 0){
 					unitlets[ulets].redGlow = true;
 					ulets -= 1;
 				}
-				heartsMax = array_length(hearts) - 1
-				while(heartsMax >= 0){
-					hearts[heartsMax].visible = true;
-					hearts[heartsMax].beating = false; // reset before recalculating
-					heartsMax -= 1;
-				}
-
-				// --- TARGET's hearts: damage the dragged unit (other) deals to it ---
-				damageTmp = other.damage;
-				var heartIdx = hp - 1;
-				if(damageTmp >= hp){
-					// lethal - every current heart beats
-					while(heartIdx >= 0){
-						hearts[heartIdx].beating = true;
-						heartIdx -= 1;
-					}
-				}else{
-					// only the hearts that would actually be lost beat (top ones down to the amount)
-					var stopAt = hp - damageTmp;
-					while(heartIdx >= stopAt){
-						hearts[heartIdx].beating = true;
-						heartIdx -= 1;
-					}
-				}
 			}
-		}
-
-		// --- SELF (dragged unit)'s hearts: damage it might take back ---
-		if(not noUnitlets){
-			var selfHeartsMax = array_length(hearts) - 1;
-			while(selfHeartsMax >= 0){
-				hearts[selfHeartsMax].beating = false; // reset first
-				selfHeartsMax -= 1;
+			heartsMax = array_length(hearts) - 1;
+			while(heartsMax >= 0){
+				hearts[heartsMax].visible = true;
+				hearts[heartsMax].beating = false;
+				heartsMax -= 1;
 			}
 
-			var selfHeartIdx = hp - 1;
-			if(global.expectedDmg >= hp){
-				while(selfHeartIdx >= 0){
-					hearts[selfHeartIdx].beating = true;
-					selfHeartIdx -= 1;
+			// --- TARGET's hearts: damage the dragged unit (other) deals to it ---
+			damageTmp = other.damage;
+			var heartIdx = hp - 1;
+			if(damageTmp >= hp){
+				// lethal - every current heart beats
+				while(heartIdx >= 0){
+					hearts[heartIdx].visible = true
+					hearts[heartIdx].container.visible = true
+					hearts[heartIdx].beating = true;
+					heartIdx -= 1;
 				}
-			}else if(global.expectedDmg > 0){
-				var selfStopAt = hp - global.expectedDmg;
-				while(selfHeartIdx >= selfStopAt){
-					hearts[selfHeartIdx].beating = true;
-					selfHeartIdx -= 1;
+			}else{
+				// only the hearts that would actually be lost beat (top ones down to the amount)
+				var stopAt = hp - damageTmp;
+				while(heartIdx >= stopAt){
+					hearts[heartIdx].visible = true
+					hearts[heartIdx].container.visible = true
+					hearts[heartIdx].beating = true;
+					heartIdx -= 1;
 				}
 			}
 		}
 	}
-}
 }
 
 function onRoundEnd(){

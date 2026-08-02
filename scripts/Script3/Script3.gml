@@ -21,9 +21,11 @@ function getDamaged(damageTaken, unit){
 	unit.hp = max(0, unit.hp);
 	for (i = unit.maxhp - 1; i >= 0; i -= 1) {
 		if (i >= unit.hp) {
-			unit.hearts[i].image_index = 1; // Empty / damaged heart frame
+			unit.hearts[i].visible = false; // Empty / damaged heart frame
+			unit.hearts[i].container.visible = true; // Empty / damaged heart frame
 		} else {
-			unit.hearts[i].image_index = 0; // Full heart frame
+			unit.hearts[i].visible = true; // Full heart frame
+			unit.hearts[i].container.visible = true; // Empty / damaged heart frame
 		}
 	}
     if(unit.hp <= 0){

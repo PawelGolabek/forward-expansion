@@ -49,12 +49,18 @@ mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sp
 // Only cleared to false below while we still want it alive.
 killImmortal = true;
 
-wantCircle = (mous or dragging or drawCircle);
+wantCircle = (mous or dragging or drawCircle or targettedByDragging);
 
 
 if(wantCircle){
 	_expected = calculateDamageExpectedDelayed();
-	for(i = 0; i < array_length(hearts); i+=1){
+	for(i = 0; i < maxhp; i+=1){
+		with(hearts[i]){
+			visible = false;
+			container.visible = true;
+		}
+	}
+	for(i = 0; i < hp; i += 1){
 		with(hearts[i]){
 			visible = true;
 		}
@@ -63,11 +69,13 @@ if(wantCircle){
 	for(i = 0; i < array_length(hearts); i+=1){
 		with(hearts[i]){
 			visible = false;
+			container.visible = false;
 		}
 	}
 }
 
 
+targettedByDragging = false;
 
 
 // Resync our tracking flag in case the child already self-destructed.

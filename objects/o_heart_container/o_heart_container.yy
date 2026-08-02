@@ -1,13 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"o_heart",
+  "%Name":"o_heart_container",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":1,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_heart",
+  "name":"o_heart_container",
   "overriddenProperties":[],
   "parent":{
     "name":"units",
@@ -32,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_heart",
-    "path":"sprites/s_heart/s_heart.yy",
+    "name":"s_heart_container",
+    "path":"sprites/s_heart_container/s_heart_container.yy",
   },
   "spriteMaskId":null,
   "visible":false,
