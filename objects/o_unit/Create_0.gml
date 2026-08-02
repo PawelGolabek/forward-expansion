@@ -208,6 +208,9 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     }
     return false;
 }
+
+
+
 function place(){
 	if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 		with(o_spawner_parent){
@@ -377,26 +380,21 @@ function resetTargets()
     }
     droppedUnit.target = closestEnemy;
 }
-
 function findNewTargetForSelf() 
 {
-    // Store references to this unit's properties before entering the loop
     var myId = id; 
     var myAllegience = allegience;
     var myX = x;
     var myY = y;
-    
     var closestEnemy = noone;
     var minDistance = infinity; 
     var myRange = range;
-    // Loop through all units to find the closest enemy
+
     with (o_unit) 
     {
         var dist = point_distance_ellipse(myX, myY, x, y, 0.6);
-        // Skip yourself and skip teammates
         if (id == myId || allegience == myAllegience) continue;        
         
-        // If this enemy is closer than the previous closest, update it
         if (dist < minDistance && myRange > dist)
         {
             minDistance = dist;
@@ -404,22 +402,73 @@ function findNewTargetForSelf()
         }     
     }
     
-    // Set ONLY this unit's target to the closest enemy found
-    target = closestEnemy;
-	if(target != noone){
+  target = closestEnemy;
+
+if(target != noone){
+	var distToTarget = point_distance_ellipse(myX, myY, target.x, target.y, 0.6);
+	var inRangeEitherWay = (distToTarget <= myRange) || (distToTarget <= target.range);
+
+	if(inRangeEitherWay){
 		with(target){
 			if(not noUnitlets){
 				redGlow = true;
 				ulets = array_length(unitlets) - 1
 				while(ulets >= 0){
 					unitlets[ulets].redGlow = true;
-					ulets-=1;
+					ulets -= 1;
+				}
+				heartsMax = array_length(hearts) - 1
+				while(heartsMax >= 0){
+					hearts[heartsMax].visible = true;
+					hearts[heartsMax].beating = false; // reset before recalculating
+					heartsMax -= 1;
+				}
+
+				// --- TARGET's hearts: damage the dragged unit (other) deals to it ---
+				damageTmp = other.damage;
+				var heartIdx = hp - 1;
+				if(damageTmp >= hp){
+					// lethal - every current heart beats
+					while(heartIdx >= 0){
+						hearts[heartIdx].beating = true;
+						heartIdx -= 1;
+					}
+				}else{
+					// only the hearts that would actually be lost beat (top ones down to the amount)
+					var stopAt = hp - damageTmp;
+					while(heartIdx >= stopAt){
+						hearts[heartIdx].beating = true;
+						heartIdx -= 1;
+					}
+				}
+			}
+		}
+
+		// --- SELF (dragged unit)'s hearts: damage it might take back ---
+		if(not noUnitlets){
+			var selfHeartsMax = array_length(hearts) - 1;
+			while(selfHeartsMax >= 0){
+				hearts[selfHeartsMax].beating = false; // reset first
+				selfHeartsMax -= 1;
+			}
+
+			var selfHeartIdx = hp - 1;
+			if(global.expectedDmg >= hp){
+				while(selfHeartIdx >= 0){
+					hearts[selfHeartIdx].beating = true;
+					selfHeartIdx -= 1;
+				}
+			}else if(global.expectedDmg > 0){
+				var selfStopAt = hp - global.expectedDmg;
+				while(selfHeartIdx >= selfStopAt){
+					hearts[selfHeartIdx].beating = true;
+					selfHeartIdx -= 1;
 				}
 			}
 		}
 	}
 }
-
+}
 
 function onRoundEnd(){
 	if(not instance_exists(target) or target == noone){
@@ -541,10 +590,7 @@ function executeStep(){
 				if(point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range){
 					_expected = calculateDamageExpectedDelayed()
 				}
-			
 			}
-			
-			
 		}
 		else
 		{

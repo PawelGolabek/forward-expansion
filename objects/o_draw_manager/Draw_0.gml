@@ -1,5 +1,13 @@
 global.deployHighlight = noone;
 
+with(o_unit){
+	// lethal - every current heart beats
+	heartIdx = array_length(hearts) - 1
+	while(heartIdx >= 0){
+		hearts[heartIdx].beating = false;
+		heartIdx -= 1;
+	}
+}
 if(not checkedFoW){
     fogOfWarCheck();
     checkedFoW = true;
@@ -85,3 +93,4 @@ draw_set_alpha(1); // Reset alpha
 scr_draw_units_batch_trees(trees, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
 scr_draw_units_batch(unitsToDraw, 1, 2);
+

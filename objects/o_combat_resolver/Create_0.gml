@@ -97,7 +97,11 @@ function resolve_first_strike(firstStrikeUnit){
     }
     
     ds_list_destroy(_involved);
-    checkInCombat();
+    
+    with(o_unit){
+        findNewTargetForSelf();
+        checkInCombat();
+    }
 }
 
 function resolve_first_strike_without_retaliation(firstStrikeUnit){    
@@ -145,5 +149,9 @@ function resolve_first_strike_without_retaliation(firstStrikeUnit){
     }
     
     ds_list_destroy(_involved);
-    checkInCombat();
+	
+    with(o_unit){
+        findNewTargetForSelf();
+        checkInCombat();
+    }
 }
