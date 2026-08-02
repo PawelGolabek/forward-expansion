@@ -17,6 +17,7 @@ function resolve_combat(){
         
             with(o_unit){
                 findNewTargetForSelf(); 
+				checkInCombat()
             }
     
         //    o_ai.ai_evaluate_and_place() 
@@ -33,7 +34,6 @@ function resolve_combat(){
                 
         }});
 		
-	checkInCombat()
 }
 
 function resolve_first_strike(){
@@ -112,4 +112,5 @@ function resolve_first_strike(){
     }
     
     ds_list_destroy(_involved);
+	checkInCombat()
 }
