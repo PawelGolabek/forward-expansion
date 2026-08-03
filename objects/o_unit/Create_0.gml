@@ -390,20 +390,46 @@ function findNewTargetForSelf()
     var closestEnemy = noone;
     var minDistance = infinity; 
     var myRange = range;
-
+	var dist;
+	var expectedDamageFrame = 0;
     with (o_unit) 
     {
-        var dist = point_distance_ellipse(myX, myY, x, y, 0.6);
+        dist = point_distance_ellipse(myX, myY, x, y, 0.6);
         if (id == myId || allegience == myAllegience) continue;        
         
         if (dist < minDistance && myRange > dist)
         {
             minDistance = dist;
             closestEnemy = id;
-        }     
+        }
+		if(dist < range){
+			expectedDamageFrame += damage;
+		}
     }
-    
-  target = closestEnemy;
+    // my dmg
+	damageTmp = expectedDamageFrame
+	var heartIdx = hp - 1;
+	if(damageTmp >= hp){
+		// lethal - every current heart beats
+		while(heartIdx >= 0){
+			hearts[heartIdx].visible = true
+			hearts[heartIdx].container.visible = true
+			hearts[heartIdx].beating = true;
+			heartIdx -= 1;
+		}
+	}else{
+		// only the hearts that would actually be lost beat (top ones down to the amount)
+		var stopAt = hp - damageTmp;
+		while(heartIdx >= stopAt){
+			hearts[heartIdx].visible = true
+			hearts[heartIdx].container.visible = true
+			hearts[heartIdx].beating = true;
+			heartIdx -= 1;
+		}
+	}
+	///// targets dmg
+
+	target = closestEnemy; 
 
 	if(target != noone){
 		with(target){
