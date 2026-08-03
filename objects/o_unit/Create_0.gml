@@ -152,7 +152,7 @@ function calculateDamageExpectedDelayed() {
 	with (o_unit) {
 		if (id == myId) continue;              // skip self
 		if (allegience == myAllegience) continue; // skip allies
-		var dist = point_distance(x, y - drag_draw_offset, x, y - myId.drag_draw_offset);
+		var dist = point_distance_ellipse(x, y - drag_draw_offset, x, y - myId.drag_draw_offset,0.6);
 		if (dist <= range) {
 			total += damage;
 		}
@@ -293,9 +293,13 @@ function place(){
 					    dist = random(300);
 					    px = x + lengthdir_x(dist, angle);
 					    py = y + lengthdir_y(dist, angle);
+						
+
 					
 					    var blocked = false;
 					    with (ulet) {
+							_placable_terrain = instance_place(px, py, o_placable_terrain);
+							if(_placable_terrain == noone){ continue;}
 					        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
 							var tilemap = layer_tilemap_get_id("Tiles_1");
 							if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
@@ -451,7 +455,7 @@ function findNewTargetForSelf()
 
 			// --- TARGET's hearts: damage the dragged unit (other) deals to it ---
 			damageTmp = other.damage;
-			var heartIdx = hp - 1;
+			heartIdx = hp - 1;
 			if(damageTmp >= hp){
 				// lethal - every current heart beats
 				while(heartIdx >= 0){

@@ -1,4 +1,4 @@
-depth = y -900
+depth = y + 100
 
 
 var cam = view_camera[0];

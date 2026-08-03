@@ -152,7 +152,7 @@ if (expectedDamage >= hp){
 } else {
     skull.visible = false;
 }
-
+/*
 if (inst != noone && inst != id)
 {
     draw_text_colour(

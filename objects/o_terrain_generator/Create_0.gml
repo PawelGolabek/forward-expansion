@@ -143,19 +143,19 @@ for (var r = 0; r < rows; r++) {
 			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
 		}
 		if(r < 3){
-			instance_create_depth(tile_x - 80, row_y + 120, y + 5000, o_enemy_inferna)
+			instance_create_depth(tile_x - 80, row_y + 100, y + 5000, o_enemy_inferna)
 		}
 		if(r < 3){
-			instance_create_depth(tile_x - 160, row_y + 120, y + 5000, o_enemy_inferna)
+			instance_create_depth(tile_x + 30, row_y + 80, y + 5000, o_enemy_inferna)
 		}
 		if(r < 2){
-			instance_create_depth(tile_x - 160, row_y + 60, y + 5000, o_enemy_inferna)
+			instance_create_depth(tile_x + 30, row_y + 60, y + 5000, o_enemy_inferna)
 		}
 		if(r < 2){
-			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
+			instance_create_depth(tile_x, row_y + 80, y + 5000, o_enemy_archer)
 		}
 		if(r < 2){
-			instance_create_depth(tile_x + 40, row_y + 120 - 40, y + 5000, o_enemy_cavalry)
+			instance_create_depth(tile_x + 50, row_y + 80 - 40, y + 5000, o_enemy_cavalry)
 		}
 
         if (c == path_col[r]) {
