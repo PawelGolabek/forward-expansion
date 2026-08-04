@@ -191,6 +191,7 @@
     {"id":{"name":"s_archer_flag_1","path":"sprites/s_archer_flag_1/s_archer_flag_1.yy",},},
     {"id":{"name":"s_archer_flag_3","path":"sprites/s_archer_flag_3/s_archer_flag_3.yy",},},
     {"id":{"name":"s_archer_flag","path":"sprites/s_archer_flag/s_archer_flag.yy",},},
+    {"id":{"name":"s_archer_let","path":"sprites/s_archer_let/s_archer_let.yy",},},
     {"id":{"name":"s_archer","path":"sprites/s_archer/s_archer.yy",},},
     {"id":{"name":"s_artillery_flag","path":"sprites/s_artillery_flag/s_artillery_flag.yy",},},
     {"id":{"name":"s_background","path":"sprites/s_background/s_background.yy",},},

@@ -74,9 +74,10 @@ _expected = 0;
 wantCircle = false;
 onEnter = function(){}
 //effects
-damageBoost = 0;
 aura = false;
-
+applyingAura = false;
+damageBoost = 0;
+activeAuras = []; // list of structs: { source, boost, effect } currently applied to this unit
 
 if(!noEyes){
 	eyeX = 20
@@ -146,6 +147,65 @@ u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
 shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's feet
 shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
 shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
+
+// aura related
+function hasAuraFromSource(_source){
+	for(var i = 0; i < array_length(activeAuras); i++){
+		if(activeAuras[i].source == _source){
+			return true;
+		}
+	}
+	return false;
+}
+
+function applyAura(_source, _boost, _effectObj){
+	if(_source == id || hasAuraFromSource(_source)){
+		return false;
+	}
+
+	damageBoost += _boost;
+	damage += _boost;
+
+	var _effectInst = instance_create_depth(x, y, depth, _effectObj);
+	_effectInst.owner = id;
+
+	array_push(activeAuras, { source: _source, boost: _boost, effect: _effectInst });
+	return true;
+}
+
+
+// Optional but recommended: call this if an aura source dies/leaves so the
+// buff and its visual effect are cleanly removed instead of lingering.
+function removeAura(_source){
+	for(var i = 0; i < array_length(activeAuras); i++){
+		if(activeAuras[i].source == _source){
+			var _entry = activeAuras[i];
+			damage -= _entry.boost;
+			damageBoost -= _entry.boost;
+			if(instance_exists(_entry.effect)){
+				instance_destroy(_entry.effect);
+			}
+			array_delete(activeAuras, i, 1);
+			return true;
+		}
+	}
+	return false;
+}
+
+// Strips every aura currently applied to THIS unit (from any/all sources).
+// Reverses each boost individually so `damage`/`damageBoost` stay correct,
+// and destroys each aura's visual effect instance instead of leaking it.
+function resetAuras(){
+	for(var i = array_length(activeAuras) - 1; i >= 0; i--){
+		var _entry = activeAuras[i];
+		damage -= _entry.boost;
+		damageBoost -= _entry.boost;
+		if(instance_exists(_entry.effect)){
+			instance_destroy(_entry.effect);
+		}
+	}
+	activeAuras = [];
+}
 
 
 function calculateDamageExpectedDelayed() {
@@ -219,10 +279,13 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
 function checkForAuras(){
 	var myX = x;
 	var myY = y;
+	var myId = id;
 	with(o_unit){
+		if(id == myId) continue; // don't let the placed unit buff itself
 		if(aura){
-			if(point_distance_ellipse(x,y,myX,myY,0.6)){
-				self.inflictAura(other) // aura source inflicts on the newly placed unit
+			var dist = point_distance_ellipse(x, y, myX, myY, 0.6);
+			if(dist <= range){
+				self.inflictAura(other); // source's own inflictAura decides boost/effect, applyAura enforces the guards
 			}
 		}
 	}
@@ -510,12 +573,15 @@ function executeStep(){
 	}
 	if (dragging)
 	{
+		resetAuras()
+		checkForAuras()
+		
 		if(specialFriendly){
 			with(o_unit){
 				if(myID == id){continue;}
 		        // Calculate distance from the calling unit to others
 		        var dist = point_distance_ellipse(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
-		        if (dist < other.range)
+		        if (dist < other.range and allegience == other.allegience)
 		        {
 					blueGlow = true;
 					ulets = array_length(unitlets) - 1

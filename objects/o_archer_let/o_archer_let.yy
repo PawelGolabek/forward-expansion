@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_new_unit",
-    "path":"sprites/s_new_unit/s_new_unit.yy",
+    "name":"s_archer_let",
+    "path":"sprites/s_archer_let/s_archer_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

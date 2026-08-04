@@ -47,7 +47,8 @@ mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sp
 // Default: child circle is allowed to die once it's invisible.
 // Only cleared to false below while we still want it alive.
 killImmortal = true;
-wantCircle = (mous or dragging or drawCircle or targettedByDragging);
+wantCircle = (mous or dragging or drawCircle or targettedByDragging or applyingAura);
+applyingAura = false;
 
 
 if(wantCircle){

@@ -1,5 +1,5 @@
 if(owner != noone){
-	visible = owner.mousVisible
+	visible = owner.wantCircle or owner.mousVisible
 }
 
 var t = clamp(timer / life, 0, 1);

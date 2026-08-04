@@ -28,7 +28,7 @@ handleHeartsCreation(self);
 
 onEnter = function(){
 	with(o_unit){
-		if(point_distance_ellipse(x,y,other.x,other.y,0.6) <= other.range){
+		if(point_distance_ellipse(x,y + drag_draw_offset,other.x,other.y + other.drag_draw_offset,0.6) <= other.range){
 			o_combat_resolver.resolve_first_strike_without_retaliation(self);
 		}
 	}
