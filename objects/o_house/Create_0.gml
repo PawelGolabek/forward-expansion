@@ -5,11 +5,12 @@ name = "inferna";
 hp = 3
 maxhp = hp
 damage = 0
+baseDamage = damage
 allegience = "player"
 range = 300
 revealRange = range * 2
 
-peaceful = true;
+//peaceful = true;
 
 myUnitlet = o_inferna_let;
 unit_collisions = mask_index

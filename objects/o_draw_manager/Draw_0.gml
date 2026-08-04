@@ -86,11 +86,10 @@ with (o_unit) {
 surface_reset_target();
 
 // Apply the translucency here ONCE for the entire combined surface
-draw_set_alpha(0.15);
+draw_set_alpha(0.1);
 draw_surface(global.threatSurf, 0, 0);
 draw_set_alpha(1); // Reset alpha
 // 4. DRAW BATCHES
 scr_draw_units_batch_trees(trees, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
 scr_draw_units_batch(unitsToDraw, 1, 2);
-

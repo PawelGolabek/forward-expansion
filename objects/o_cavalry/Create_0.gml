@@ -6,6 +6,7 @@ hp = 2
 maxhp = hp
 crystalCost = 60
 damage = 10
+baseDamage = damage
 allegience = "player"
 damageTaken = 0
 reactionStrike = false;

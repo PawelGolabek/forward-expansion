@@ -50,8 +50,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"units",
-    "path":"folders/sprites/units.yy",
+    "name":"lets",
+    "path":"folders/sprites/units/lets.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

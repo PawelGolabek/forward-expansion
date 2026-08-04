@@ -5,6 +5,7 @@ name = "katana";
 hp = 1
 maxhp = hp
 damage = 4
+baseDamage = damage
 allegience = "player"
 
 range = 180

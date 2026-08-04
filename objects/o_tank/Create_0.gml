@@ -2,12 +2,13 @@ event_inherited()
 dragging = false;
 
 name = "tank";
-hp = 5
-maxhp = hp
-damage = 1
-allegience = "player"
-range = 400
-revealRange = range * 2
+hp = 5;
+maxhp = hp;
+damage = 1;
+baseDamage = damage;
+allegience = "player";
+range = 400;
+revealRange = range * 2;
 noEyes = true;
 
 mySprite = sprite_index;

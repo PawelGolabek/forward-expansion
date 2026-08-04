@@ -6,6 +6,7 @@ name = "archer"
 hp = 2
 maxhp = hp
 damage = 1
+baseDamage = damage
 allegience = "player"
 damageTaken = 0
 

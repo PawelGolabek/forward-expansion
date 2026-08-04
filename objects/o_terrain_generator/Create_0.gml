@@ -4,7 +4,7 @@ randomise();
 // ---------------------------------------------------------------
 // CONFIG
 // ---------------------------------------------------------------
-rows            = 7;            // number of triangle levels
+rows            = 5;            // number of triangle levels
 flat_object     = o_flat_surface;
 cliff_object    = o_cliff;
 

@@ -5,6 +5,7 @@ name = "inferna";
 hp = 2
 maxhp = hp
 damage = 12
+baseDamage = damage
 allegience = "player"
 range = 210
 revealRange = range * 2

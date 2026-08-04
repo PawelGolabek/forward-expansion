@@ -3,6 +3,7 @@ name = "NO NAME ASSIGNED";
 range = 10;
 revealRange = 10
 damage = 100
+baseDamage = damage
 hp = 10
 maxhp = hp
 firstStrike = true;
@@ -72,6 +73,10 @@ unitletsPerHp = 3;
 _expected = 0;
 wantCircle = false;
 onEnter = function(){}
+//effects
+damageBoost = 0;
+aura = false;
+
 
 if(!noEyes){
 	eyeX = 20
@@ -205,11 +210,23 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     {
         xx1 = _x1 + lengthdir_x(d, dir);
         yy1 = _y1 + lengthdir_y(d, dir);
-        if (position_meeting(xx1, yy1 + drag_draw_offset, o_impassable)) return true;
+        if (position_meeting(xx1, yy1 + drag_draw_offset, o_impassable)){
+			return true;
+		}
     }
     return false;
 }
-
+function checkForAuras(){
+	var myX = x;
+	var myY = y;
+	with(o_unit){
+		if(aura){
+			if(point_distance_ellipse(x,y,myX,myY,0.6)){
+				self.inflictAura(other) // aura source inflicts on the newly placed unit
+			}
+		}
+	}
+}
 
 
 function place(){
@@ -227,6 +244,7 @@ function place(){
 			instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);		
 			//// first strike, ommit if spawned on room creation
 			if(bornOfSpawner){
+				checkForAuras();
 				o_clock.toNextEvent = o_clock.maxToNextEvent;
 				ds_queue_enqueue(o_clock.action_queue, {
 					// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
@@ -261,7 +279,6 @@ function place(){
 					y -= drag_draw_offset;
 					drag_draw_offset = 0;
 					o_deck_holder.discard_card(parentSpawner);
-				}else{
 				}
 				dragging = false;
 				placed = true;
@@ -293,18 +310,11 @@ function place(){
 					    dist = random(300);
 					    px = x + lengthdir_x(dist, angle);
 					    py = y + lengthdir_y(dist, angle);
-						
-
-					
 					    var blocked = false;
 					    with (ulet) {
 							_placable_terrain = instance_place(px, py, o_placable_terrain);
 							if(_placable_terrain == noone){ continue;}
 					        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
-							var tilemap = layer_tilemap_get_id("Tiles_1");
-							if(tilemap_get_at_pixel(tilemap,px,py) == 9 or tilemap_get_at_pixel(tilemap,px,py) == -1 ){
-								blocked = true;
-							}
 					    }
 					    if (!blocked) {
 					        if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
@@ -323,7 +333,6 @@ function place(){
 			fogOfWarCheck();
 			onEnter();
 			checkInCombat()
-			
 		}
 	}
 	image_xscale = og_image_xscale;
@@ -349,7 +358,7 @@ function resetTargets()
         // If this unit is an enemy to the dropped unit
         if (allegience != droppedAllegience) 
         {
-            var distanceToDropped = point_distance_ellipse(x, y, droppedX, droppedY,0.6);
+            var distanceToDropped = point_distance_ellipse(x, y, droppedX, droppedY, 0.6);
             
             if (distanceToDropped <= range) 
             {

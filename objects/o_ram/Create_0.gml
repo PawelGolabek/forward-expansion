@@ -6,6 +6,7 @@ name = "ram";
 hp = 4
 maxhp = hp
 damage = 80
+baseDamage = damage
 allegience = "player"
 damageTaken = 0
 mySprite = sprite_index;

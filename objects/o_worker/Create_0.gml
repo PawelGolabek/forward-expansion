@@ -4,6 +4,7 @@ name = "worker";
 hp = 1;
 maxhp = hp;
 damage = 7;
+baseDamage = damage
 allegience = "player";
 crystalCost = 0;
 range = 200;

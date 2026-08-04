@@ -44,11 +44,9 @@ function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, 
 }
 
 mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y);
-
 // Default: child circle is allowed to die once it's invisible.
 // Only cleared to false below while we still want it alive.
 killImmortal = true;
-
 wantCircle = (mous or dragging or drawCircle or targettedByDragging);
 
 
@@ -76,8 +74,6 @@ if(wantCircle){
 
 
 targettedByDragging = false;
-
-
 // Resync our tracking flag in case the child already self-destructed.
 if (immortalExists and not instance_exists(circleInst)) {
     immortalExists = false;
@@ -149,7 +145,7 @@ var inst = instance_position(x, y, o_unit);
 if (expectedDamage >= hp){
   //  skull.visible = true;
   //skull is weirdly bugged so lets disable for now.
-} else {
+}else{
     skull.visible = false;
 }
 /*

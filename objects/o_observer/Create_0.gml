@@ -4,6 +4,7 @@ name = "archer";
 hp = 2;
 maxhp = hp;
 damage = 0;
+baseDamage = damage
 allegience = "player";
 damageTaken = 0;
 firstStrike = true;
@@ -16,8 +17,8 @@ range = 240;
 revealRange = range * 2;
 aiType = "range";
 
-mySprite = s_archer_flag_3;
-myUnitlet = o_archer_let;
+mySprite = s_observer_flag;
+myUnitlet = o_observer_let;
 uletSize = s_new_unit;
 specialFriendly = true;
 

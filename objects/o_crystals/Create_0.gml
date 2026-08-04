@@ -7,6 +7,7 @@ hp = 1;
 maxhp = hp;
 //firstStrike = false;
 damage = 0;
+baseDamage = damage
 //noEyes = true;
 //allegience = "none";
 //logDeath = false;
