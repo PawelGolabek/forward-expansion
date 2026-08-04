@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite101",
-    "path":"sprites/Sprite101/Sprite101.yy",
+    "name":"s_artillery_let",
+    "path":"sprites/s_artillery_let/s_artillery_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -13,7 +13,7 @@ noEyes = true;
 
 mySprite = sprite_index;
 myUnitlet = o_tank_let;
-uletSize = Sprite67;
+uletSize = s_tank_let;
 
 og_image_xscale = 2;
 og_image_yscale = 2;

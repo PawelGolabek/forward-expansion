@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite67",
-    "path":"sprites/Sprite67/Sprite67.yy",
+    "name":"s_tank_let",
+    "path":"sprites/s_tank_let/s_tank_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

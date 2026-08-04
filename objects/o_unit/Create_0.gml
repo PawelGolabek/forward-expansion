@@ -166,7 +166,7 @@ function applyAura(_source, _boost, _effectObj){
 	damageBoost += _boost;
 	damage += _boost;
 
-	var _effectInst = instance_create_depth(x, y, depth, _effectObj);
+	var _effectInst = instance_create_depth(x, y + drag_draw_offset, depth, _effectObj);
 	_effectInst.owner = id;
 
 	array_push(activeAuras, { source: _source, boost: _boost, effect: _effectInst });

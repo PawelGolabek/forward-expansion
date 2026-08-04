@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"sprites",
-    "path":"folders/sprites.yy",
+    "name":"dynamic_bg",
+    "path":"folders/sprites/dynamic_bg.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

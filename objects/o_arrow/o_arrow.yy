@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite16",
-    "path":"sprites/Sprite16/Sprite16.yy",
+    "name":"s_arrow",
+    "path":"sprites/s_arrow/s_arrow.yy",
   },
   "spriteMaskId":null,
   "visible":true,

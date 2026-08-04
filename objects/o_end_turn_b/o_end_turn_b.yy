@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite5",
-    "path":"sprites/Sprite5/Sprite5.yy",
+    "name":"s_end_turn_button",
+    "path":"sprites/s_end_turn_button/s_end_turn_button.yy",
   },
   "spriteMaskId":null,
   "visible":true,

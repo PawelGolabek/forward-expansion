@@ -1,4 +1,3 @@
-/// @description Create Event — o_terrain_generator
 randomise();
 
 // ---------------------------------------------------------------
@@ -6,7 +5,11 @@ randomise();
 // ---------------------------------------------------------------
 rows            = 5;            // number of triangle levels
 flat_object     = o_flat_surface;
+flat_object_top = o_flat_surface_top;
+flat_object_bot = o_flat_surface_bot;
 cliff_object    = o_cliff;
+
+path_object_top = o_path_top;
 
 scale = 5;
 
@@ -123,21 +126,25 @@ for (var r = 0; r < rows; r++) {
     var row_y      = start_y + r * tile_height;
 
     var flat_depth  = depth_base - r * depth_row_step;
-  //  var cliff_depth = depth_base + depth_cliff_gap - r * depth_row_step;
     var cliff_depth = y + 5000 + depth_cliff_gap - r * depth_row_step;
 
     for (var c = 0; c <= r; c++) {
         var tile_x = row_left_x + c * tile_width;
 
         // Flat Surface
-        f = instance_create_depth(tile_x, row_y, y + 5000, flat_object);
+    //    f = instance_create_depth(tile_x, row_y, y + 5000, flat_object);
+        f1 = instance_create_depth(tile_x, row_y, y + 5000, flat_object_top);
+        f2 = instance_create_depth(tile_x, row_y, y + 5100, flat_object_bot);
+		f = f1;
      //   f.depth = flat_depth;
         f.level = levels[r][c];
         f.row   = r;
         f.col   = c;
-        f.image_yscale = 0.6 * scale;
-        f.image_xscale = scale;		
-        flat_inst[r][c] = f;
+        f1.image_yscale = 0.6 * scale;
+        f1.image_xscale = scale;	
+        f2.image_yscale = 0.6 * scale;
+        f2.image_xscale = scale;		
+        flat_inst[r][c] = f1;
 		
 		if(r < 4){
 			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
@@ -211,8 +218,10 @@ for (var r = 1; r < rows; r++) {
 
             // 3. Create path instance at the exact midpoint
             var seg = instance_create_depth(mid_x, mid_y, y + 5000, o_path);
+            var seg2 = instance_create_depth(mid_x, mid_y, y + 5050, o_path_top);
 			
 			seg.y += f.sprite_height/2
+			seg2.y += f.sprite_height/2
             
             // 4. Scale length (xscale) to match distance, and thickness (yscale) to desired width
             var path_base_width  = sprite_get_width(seg.sprite_index);  // 32px
@@ -222,9 +231,12 @@ for (var r = 1; r < rows; r++) {
 
             seg.image_xscale = dist / path_base_width;
             seg.image_yscale = path_thickness / path_base_height * scale * 1.8;
+            seg2.image_xscale = dist / path_base_width;
+            seg2.image_yscale = path_thickness / path_base_height * scale * 1.8;
 
             // 5. Rotate toward target tile
             seg.image_angle = angle;
+            seg2.image_angle = angle;
 
             // 6. Set depth slightly above the highest tile
        //     seg.depth = min(a.depth, b.depth) - 10;

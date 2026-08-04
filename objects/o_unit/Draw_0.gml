@@ -82,7 +82,7 @@ if (immortalExists and not instance_exists(circleInst)) {
 
 if (wantCircle or keyboard_check(vk_tab)) {
     if (not immortalExists) {
-        circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle);
+        circleInst = instance_create_depth(x, y - drag_draw_offset, 5050, o_expand_circle);
         circleInst.life = 1;
         circleInst.end_scale = (range / circleInst.sprite_width) * 2;
         circleInst.owner = self;
