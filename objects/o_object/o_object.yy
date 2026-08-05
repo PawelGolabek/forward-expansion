@@ -6,8 +6,8 @@
   "name":"o_object",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"category_objects",
+    "path":"folders/objects/category_objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

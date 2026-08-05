@@ -110,6 +110,7 @@ if (wantCircle or keyboard_check(vk_tab)) {
 }
 
 // --- 3. PERIODIC PULSE CIRCLES (self-destructing, unrelated to immortal one) ---
+
 if (mousCooldown == 0){
     u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle);
     u.life = random(150) + 150;

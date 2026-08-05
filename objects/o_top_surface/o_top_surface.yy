@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_tree_test_spawner",
+  "%Name":"o_top_surface",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_tree_test_spawner",
+  "name":"o_top_surface",
   "overriddenProperties":[],
   "parent":{
-    "name":"terrain",
-    "path":"folders/objects/terrain.yy",
+    "name":"terrain_gen",
+    "path":"folders/objects/terrain_gen.yy",
   },
   "parentObjectId":null,
   "persistent":false,

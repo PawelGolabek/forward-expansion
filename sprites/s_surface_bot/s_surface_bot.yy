@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":1,
   "parent":{
-    "name":"BLANK GAME",
-    "path":"BLANK GAME.yyp",
+    "name":"terrain",
+    "path":"folders/sprites/terrain.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

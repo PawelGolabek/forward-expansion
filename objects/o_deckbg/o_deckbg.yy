@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite86",
-    "path":"sprites/Sprite86/Sprite86.yy",
+    "name":"s_deck_holder",
+    "path":"sprites/s_deck_holder/s_deck_holder.yy",
   },
   "spriteMaskId":null,
   "visible":true,

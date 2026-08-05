@@ -12,8 +12,8 @@
     "path":"folders/objects/terrain_gen.yy",
   },
   "parentObjectId":{
-    "name":"o_placable_terrain",
-    "path":"objects/o_placable_terrain/o_placable_terrain.yy",
+    "name":"o_top_surface",
+    "path":"objects/o_top_surface/o_top_surface.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

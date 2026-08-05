@@ -8,6 +8,11 @@ global.threatSurf = noone;
 if (!surface_exists(global.threatSurf)) {
     global.threatSurf = surface_create(room_width, room_height);
 }
+mask_surface = surface_create(room_width, room_height);
+// Initialize or recover surface
+if (!surface_exists(mask_surface)) {
+    mask_surface = surface_create(sprite_width, sprite_height);
+}
 
 function rect_in_draw_area(_left, _top, _right, _bottom) {
 	// ---------------------------------------------------------

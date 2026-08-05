@@ -9,8 +9,8 @@
   "name":"o_fire_wall",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"terrain",
+    "path":"folders/objects/terrain.yy",
   },
   "parentObjectId":null,
   "persistent":false,
