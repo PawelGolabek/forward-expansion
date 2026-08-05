@@ -82,9 +82,11 @@ with (o_expand_circle_1) {
 with (o_expand_circle) {
 	draw();
 }
+
 with (o_expand_circle_3) {
 	draw();
 }
+
 surface_reset_target();
 
 // 3. Prepare main mask surface
@@ -118,10 +120,11 @@ uletsToDraw = [];
 
 gpu_set_blendmode(bm_normal);
 
+/*
 with (o_top_surface) {
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
-
+*/
 with (o_trees) {
     if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
         array_push(other.trees, self);
