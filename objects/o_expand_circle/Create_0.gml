@@ -24,4 +24,42 @@ function draw(){
         image_alpha
     );
 
+			draw_text(x,y,immortal)
+}
+
+function executeStep(){
+
+	if(owner != noone){
+		visible = owner.wantCircle or owner.mousVisible
+	}
+
+	var t = clamp(timer / life, 0, 1);
+	var e = sin(t * pi * 0.5);
+	var scale = lerp(start_scale, end_scale, e);
+	image_xscale = scale;
+	image_yscale = scale*3/5;
+	image_alpha = clamp(0.5 - t*0.5, 0.01, 1);
+	image_angle = ((life % 4) * angleShift ) % 4
+
+	x = owner.x
+	y = owner.y
+
+
+	if(not immortal){
+		timer++;
+	}else{
+		image_alpha = 1.0;
+		visible = true;
+	}
+
+
+	if (t >= 1 and not immortal)
+	    instance_destroy();
+
+
+	if(immortal and not visible and owner.killImmortal){
+		owner.immortalExists = false;
+	    instance_destroy();
+		show_debug_message("killed immortal");
+	}
 }

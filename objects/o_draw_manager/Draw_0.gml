@@ -19,7 +19,6 @@ if(not checkedFoW){
 with(o_unit){
     drawCircle = false;
     minDistToPlayer = 9999999;
-    
     if(allegience == "player"){
         visible = true;
         var _uletsLen = array_length(unitlets);
@@ -33,6 +32,9 @@ with(o_unit){
     if(inCombat){
         alpha = 0.7;
     }
+}
+with(o_expand_circle){
+	executeStep()
 }
 
 ///////////////////////////////
@@ -72,20 +74,21 @@ with (o_placable_terrain) {
 
 // 2. Render all circles onto intermediate surface first
 surface_set_target(circle_surface);
-draw_clear_alpha(c_black, 0);
+draw_clear_alpha(c_lime, 0);
 gpu_set_blendmode(bm_normal);
 
-with (o_expand_circle_1) {
-	draw();
-
-}
 with (o_expand_circle) {
 	draw();
+	if(immortal){
+		draw_text(x,y,y)
+	}
 }
 
-with (o_expand_circle_3) {
-	draw();
+var bloodstains = [];
+with(o_bloodstain){
+	array_push(bloodstains,self)
 }
+scr_draw_units_batch_trees(bloodstains, 1);
 
 surface_reset_target();
 
@@ -130,6 +133,7 @@ with (o_trees) {
         array_push(other.trees, self);
     }
 }
+
 
 with (o_unit) {
     if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {

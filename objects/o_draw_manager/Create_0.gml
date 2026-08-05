@@ -4,9 +4,9 @@ units = [];
 trees = [];
 checkedFoW = false;
 
-    circle_surface = surface_create(room_width, room_height);
-	
-	
+circle_surface = surface_create(room_width, room_height);
+
+
 global.threatSurf = noone;
 if (!surface_exists(global.threatSurf)) {
     global.threatSurf = surface_create(room_width, room_height);

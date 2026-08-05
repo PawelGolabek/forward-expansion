@@ -72,7 +72,8 @@ isUnit = true;
 unitletsPerHp = 3;
 _expected = 0;
 wantCircle = false;
-circleOverride = true; // workaround to probably delete later
+circleInst = noone;
+circleOverride = false ///true; // workaround to probably delete later
 onEnter = function(){}
 //effects
 aura = false;
@@ -209,6 +210,39 @@ function resetAuras(){
 }
 
 
+function draw_half_circle(cx, cy, radius, start_angle, end_angle)
+{
+    var segments = 32;
+    draw_primitive_begin(pr_trianglefan);
+    draw_vertex(cx, cy);
+    for (var i = 0; i <= segments; i++)
+    {
+        var ang = lerp(start_angle, end_angle, i / segments);
+        draw_vertex(
+            cx + lengthdir_x(radius, ang),
+            cy + lengthdir_y(radius, ang)
+        );
+    }
+    draw_primitive_end();
+}
+
+function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, yscale)
+{
+    var segments = 32;
+    draw_primitive_begin(pr_trianglefan);
+    draw_vertex(cx, cy);
+    for (var i = 0; i <= segments; i++)
+    {
+        var ang = lerp(start_angle, end_angle, i / segments);
+        draw_vertex(
+            cx + lengthdir_x(radius, ang) * xscale,
+            cy + lengthdir_y(radius, ang) * yscale
+        );
+    }
+    draw_primitive_end();
+}
+
+
 function calculateDamageExpectedDelayed() {
 	// cache self's data since 'self' changes inside the with block
 	var myId = id;
@@ -305,7 +339,8 @@ function place(){
 		}else{
 			mask_index = s_flag_hitbox;
 			// animation thingy
-			instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);		
+			u = instance_create_layer(x - sprite_width/4, y, "units", o_expand_circle);		
+			u.owner = self;
 			//// first strike, ommit if spawned on room creation
 			if(bornOfSpawner){
 				checkForAuras();
@@ -314,7 +349,6 @@ function place(){
 					// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
 					my_spawned_unit: id,
 					func: function() {
-			
 						o_combat_log.log("Player spawned " + my_spawned_unit.name);
 					    var _unit = self.my_spawned_unit;
 						my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
@@ -327,7 +361,6 @@ function place(){
 					            global.dropped = id; 
 					            global.draggingUnit = id;
 					            o_combat_resolver.resolve_first_strike(global.dropped);
-                    
 								global.dropped = noone;
 								global.draggingUnit = noone;
 								// 2. Clear state inside the unit context right as combat resolves
@@ -336,67 +369,63 @@ function place(){
 					            }
 					        }
 					    }
-						// 3. Resolve global combat after the unit handles its drop actions
-				//		o_combat_resolver.resolve_combat();
-						}
-					}); 
-					y -= drag_draw_offset;
-					drag_draw_offset = 0;
-					o_deck_holder.discard_card(parentSpawner);
-				}
-				dragging = false;
-				placed = true;
-				y -= drag_draw_offset;
-				drag_draw_offset = 0;
+					}
+				}); 
+				o_deck_holder.discard_card(parentSpawner);
+			}
+			dragging = false;
+			placed = true;
+			y -= drag_draw_offset;
+			drag_draw_offset = 0;
 			
-				tmp = hp * unitletsPerHp;
-				if(not noUnitlets){
-					repeat(tmp){
-						var placed_ok = false;
-						var tries = 0;
-						var angle;
-						var dist;
-						var px;
-						var py;
-						var best_dist = 999999;
-						var best_x = x;
-						var best_y = y;
-						ulet = instance_create_depth(-9999999, -999999, depth - 500, myUnitlet);		   
-						ulet.owner = self;
-						ulet.unit = self;
-						ulet.image_xscale = 0.3;
-						ulet.image_yscale = 0.3;
-						ulet.initiate();
-						ulet.initiate2();
+			tmp = hp * unitletsPerHp;
+			if(not noUnitlets){
+				repeat(tmp){
+					var placed_ok = false;
+					var tries = 0;
+					var angle;
+					var dist;
+					var px;
+					var py;
+					var best_dist = 999999;
+					var best_x = x;
+					var best_y = y;
+					ulet = instance_create_depth(-9999999, -999999, depth - 500, myUnitlet);		   
+					ulet.owner = self;
+					ulet.unit = self;
+					ulet.image_xscale = 0.3;
+					ulet.image_yscale = 0.3;
+					ulet.initiate();
+					ulet.initiate2();
 
-					for (var i = 0; i < 200; i++) {
-					    angle = random(360);
-					    dist = random(300);
-					    px = x + lengthdir_x(dist, angle);
-					    py = y + lengthdir_y(dist, angle);
-					    var blocked = false;
-					    with (ulet) {
-							_placable_terrain = instance_place(px, py, o_placable_terrain);
-							if(_placable_terrain == noone){ continue;}
-					        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
-					    }
-					    if (!blocked) {
-					        if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
-					        if (dist < best_dist) {
-					            best_dist = dist;
-					            best_x = px;
-					            best_y = py + drag_draw_offset;
-					        }
-					    }
+				for (var i = 0; i < 200; i++) {
+					angle = random(360);
+					dist = random(300);
+					px = x + lengthdir_x(dist, angle);
+					py = y + lengthdir_y(dist, angle);
+					var blocked = false;
+					with (ulet) {
+						_placable_terrain = instance_place(px, py, o_placable_terrain);
+						if(_placable_terrain == noone){ continue;}
+					    blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
 					}
-						ulet.x = best_x;
-						ulet.y = best_y;
-						array_push(unitlets,ulet);		
+					if (!blocked) {
+					    if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
+					    if (dist < best_dist) {
+					        best_dist = dist;
+					        best_x = px;
+					        best_y = py + drag_draw_offset;
+					    }
 					}
 				}
-			fogOfWarCheck();
-			onEnter();
-			checkInCombat()
+				ulet.x = best_x;
+				ulet.y = best_y;
+				array_push(unitlets,ulet);		
+				}
+			}
+		fogOfWarCheck();
+		onEnter();
+		checkInCombat()
 		}
 	}
 	image_xscale = og_image_xscale;
@@ -471,7 +500,7 @@ function findNewTargetForSelf()
 	var expectedDamageFrame = 0;
     with (o_unit) 
     {
-        dist = point_distance_ellipse(myX, myY, x, y, 0.6);
+        dist = point_distance_ellipse(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
         if (id == myId || allegience == myAllegience) continue;        
         
         if (dist < minDistance && myRange > dist)
@@ -647,7 +676,7 @@ function executeStep(){
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range and not u.inCombat and u.deployAlly and not line_blocked(x,y - drag_draw_offset, u.x,u.y))
+		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y, 0.6) <= u.range and not u.inCombat and u.deployAlly and not line_blocked(x, y - drag_draw_offset, u.x, u.y))
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;
