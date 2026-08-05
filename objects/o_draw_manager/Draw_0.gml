@@ -57,12 +57,6 @@ with (o_surface) {
     array_push(surfaces, self);
 }
 
-var surfaces = [];
-var i = 0;
-with (o_surface) {
-    array_push(surfaces, self);
-}
-
 // 1. Ensure required surfaces exist
 if (!surface_exists(mask_surface)) {
     mask_surface = surface_create(room_width, room_height);
@@ -78,10 +72,16 @@ with (o_placable_terrain) {
 
 // 2. Render all circles onto intermediate surface first
 surface_set_target(circle_surface);
+draw_clear_alpha(c_black, 0);
 gpu_set_blendmode(bm_normal);
 
+with (o_expand_circle_1) {
+	draw();
+
+}
 with (o_expand_circle) {
-    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale*0.1, image_yscale, image_angle, image_blend, image_alpha);
+	draw();
+
 }
 surface_reset_target();
 
@@ -91,10 +91,6 @@ draw_clear_alpha(c_black, 0);
 gpu_set_blendmode(bm_normal);
 
 with (o_placable_terrain) {
-    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
-}
-
-with (o_top_surface) {
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 
@@ -119,6 +115,10 @@ unitsToDraw = [];
 uletsToDraw = [];
 
 gpu_set_blendmode(bm_normal);
+
+with (o_top_surface) {
+    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
 
 with (o_trees) {
     if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
