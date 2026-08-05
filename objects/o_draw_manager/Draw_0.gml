@@ -51,103 +51,65 @@ with (o_cliff) {
         image_alpha
     );
 }
+var surfaces = [];
+var i = 0;
+with (o_surface) {
+    array_push(surfaces, self);
+}
 
 var surfaces = [];
 var i = 0;
-with(o_surface){
-	array_push(surfaces, self);
+with (o_surface) {
+    array_push(surfaces, self);
 }
 
-// 1. Ensure mask surface exists before drawing
+// 1. Ensure required surfaces exist
 if (!surface_exists(mask_surface)) {
     mask_surface = surface_create(room_width, room_height);
 }
-
-with (o_placable_terrain) {
-    draw_sprite_ext(
-        sprite_index, 
-        image_index, 
-        x, 
-        y, 
-        image_xscale, 
-        image_yscale, 
-        image_angle, 
-        image_blend, 
-        image_alpha
-    );
+if (!surface_exists(circle_surface)) {
+    circle_surface = surface_create(room_width, room_height);
 }
 
-surface_set_target(mask_surface);
+// Draw base terrain outside of surface
+with (o_placable_terrain) {
+    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
 
+// 2. Render all circles onto intermediate surface first
+surface_set_target(circle_surface);
+gpu_set_blendmode(bm_normal);
+
+with (o_expand_circle) {
+    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale*0.1, image_yscale, image_angle, image_blend, image_alpha);
+}
+surface_reset_target();
+
+// 3. Prepare main mask surface
+surface_set_target(mask_surface);
+draw_clear_alpha(c_black, 0);
 gpu_set_blendmode(bm_normal);
 
 with (o_placable_terrain) {
-    draw_sprite_ext(
-        sprite_index, 
-        image_index, 
-        x, 
-        y, 
-        image_xscale, 
-        image_yscale, 
-        image_angle, 
-        image_blend, 
-        image_alpha
-    );
+    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 
 with (o_top_surface) {
-    draw_sprite_ext(
-        sprite_index, 
-        image_index, 
-        x, 
-        y, 
-        image_xscale, 
-        image_yscale, 
-        image_angle, 
-        image_blend, 
-        image_alpha
-    );
+    draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 
-// 3. Limit draw area to the base surfaces' alpha channel
-gpu_set_blendmode_ext(bm_dest_alpha, bm_zero);
-with(o_expand_circle){
-    draw_sprite_ext(
-        sprite_index, 
-        image_index, 
-        x, 
-        y, 
-        image_xscale, 
-        image_yscale, 
-        image_angle, 
-        image_blend, 
-        image_alpha
-    );
+// 4. Apply circles using separate alpha logic
+// Parameters: (src_color, dest_color, src_alpha, dest_alpha)
+gpu_set_blendmode_ext_sepalpha(bm_dest_alpha, bm_zero, bm_zero, bm_one);
 
-}
+draw_surface(circle_surface, 0, 0);
 
-// 4. Always reset GPU state immediately after drawing
+// Reset GPU blend mode and target
 gpu_set_blendmode(bm_normal);
 surface_reset_target();
 
-// 5. Render the result at origin (since room dimensions were used)
-gpu_set_blendmode(bm_normal); // straight alpha blend: src_alpha, inv_src_alpha
+// 5. Render final result to room
 draw_surface(mask_surface, 0, 0);
-
-with (o_top_surface) {
-    draw_sprite_ext(
-        sprite_index, 
-        image_index, 
-        x, 
-        y, 
-        image_xscale, 
-        image_yscale, 
-        image_angle, 
-        image_blend, 
-        image_alpha
-    );
-}
-
 ///////////////////////////////
 /////// UNITS
 ///////////////////////////////
@@ -197,10 +159,12 @@ array_sort(unitsToDraw, function(a, b) {
 if (!surface_exists(global.threatSurf)) {
     global.threatSurf = surface_create(room_width, room_height);
 }
-
 surface_set_target(global.threatSurf);
 draw_clear_alpha(c_black, 0);
 
+///////////////////////////
+////////////// UNITS
+/////////////////////////
 // Use normal blend mode, and make sure the circles themselves draw at alpha = 1
 gpu_set_blendmode(bm_normal);
 draw_set_alpha(1);

@@ -82,7 +82,7 @@ if (immortalExists and not instance_exists(circleInst)) {
 
 if (wantCircle or keyboard_check(vk_tab)) {
     if (not immortalExists) {
-        circleInst = instance_create_depth(x, y - drag_draw_offset, 5050, o_expand_circle);
+        circleInst = instance_create_depth(x, y - drag_draw_offset, 5050, o_expand_circle_1);
         circleInst.life = 1;
         circleInst.end_scale = (range / circleInst.sprite_width) * 2;
         circleInst.owner = self;
@@ -110,7 +110,7 @@ if (wantCircle or keyboard_check(vk_tab)) {
 }
 
 // --- 3. PERIODIC PULSE CIRCLES (self-destructing, unrelated to immortal one) ---
-
+/*
 if (mousCooldown == 0){
     u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle);
     u.life = random(150) + 150;
@@ -125,7 +125,7 @@ if (mousCooldown != 0){
 if (mousCooldown < 0){
     mousCooldown = 0;
 }
-
+*/
 // --- 4. TILEMAP & ALPHA STATE ---
 color = c_white;
 var tilemap = layer_tilemap_get_id("Tiles_1");
