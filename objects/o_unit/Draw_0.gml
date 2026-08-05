@@ -73,14 +73,13 @@ if(wantCircle){
 	}
 }
 
-
 targettedByDragging = false;
 // Resync our tracking flag in case the child already self-destructed.
 if (immortalExists and not instance_exists(circleInst)) {
     immortalExists = false;
 }
 
-if (wantCircle or keyboard_check(vk_tab)) {
+if (wantCircle or keyboard_check(vk_tab) or circleOverride) {
     if (not immortalExists) {
 	if(allegience == "enemy"){
 		circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_enemy);
@@ -99,6 +98,7 @@ if (wantCircle or keyboard_check(vk_tab)) {
     circleInst.y = y - drag_draw_offset;
     killImmortal = false;
     mousVisible = true;
+	circleOverride = false;
 
 /*
 	draw_surface(global.threatSurf, 0, 0); // no draw_set_alpha needed, it's baked in
@@ -110,6 +110,7 @@ if (wantCircle or keyboard_check(vk_tab)) {
     draw_set_alpha(1.0);
 	
 	*/
+	
 } else {
     mousVisible = false;
 }
@@ -118,12 +119,11 @@ if (wantCircle or keyboard_check(vk_tab)) {
 
 if (mousCooldown == 0){
 	if(allegience == "enemy"){
-		u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_enemy);
+		u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_enemy_top);
 	
 	}else{
-		u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_1);
+		u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_3);
 	}
-    u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_1);
     u.life = random(150) + 150;
     u.end_scale = (range / u.sprite_width) * 2;
     u.owner = self;

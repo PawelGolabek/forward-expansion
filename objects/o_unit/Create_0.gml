@@ -72,6 +72,7 @@ isUnit = true;
 unitletsPerHp = 3;
 _expected = 0;
 wantCircle = false;
+circleOverride = true; // workaround to probably delete later
 onEnter = function(){}
 //effects
 aura = false;

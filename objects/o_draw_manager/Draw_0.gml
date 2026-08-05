@@ -81,7 +81,9 @@ with (o_expand_circle_1) {
 }
 with (o_expand_circle) {
 	draw();
-
+}
+with (o_expand_circle_3) {
+	draw();
 }
 surface_reset_target();
 
