@@ -24,15 +24,7 @@ specialFriendly = true;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
 handleHeartsCreation(self)
-aura = true;
 recall = 3;
-
-inflictAura = function(targetUnit){
-	applyAura(targetUnit, id, recall, o_blue_carpet);
-	recalling = true;
-	mousVisible = true;
-	applyingAura = true;
-}
 
 function onEnter(){
 	var me = id;
@@ -44,9 +36,6 @@ function onEnter(){
 			if(not noUnitlets){
 				scr_recall(id,600000)
 				maxUnitlets = array_length(unitlets);
-				for(i = 0; i < maxUnitlets; i += 1){					
-					me.inflictAura(unitlets[i]);
-				}
 			}
 		}
 	}
