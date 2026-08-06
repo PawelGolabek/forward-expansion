@@ -80,6 +80,7 @@ aura = false;
 applyingAura = false;
 damageBoost = 0;
 activeAuras = []; // list of structs: { source, boost, effect } currently applied to this unit
+toDestroy = false;
 
 if(!noEyes){
 	eyeX = 20
@@ -149,66 +150,6 @@ shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's fe
 shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
 shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
 
-// aura related
-function hasAuraFromSource(_source){
-	for(var i = 0; i < array_length(activeAuras); i++){
-		if(activeAuras[i].source == _source){
-			return true;
-		}
-	}
-	return false;
-}
-
-
-function applyAura(_source, _boost, _effectObj){
-	if(_source == id || hasAuraFromSource(_source)){
-		return false;
-	}
-
-	damageBoost += _boost;
-	damage += _boost;
-
-	var _effectInst = instance_create_depth(x, y + drag_draw_offset, depth, _effectObj);
-	_effectInst.owner = id;
-
-	array_push(activeAuras, { source: _source, boost: _boost, effect: _effectInst });
-	return true;
-}
-
-
-// Optional but recommended: call this if an aura source dies/leaves so the
-// buff and its visual effect are cleanly removed instead of lingering.
-function removeAura(_source){
-	for(var i = 0; i < array_length(activeAuras); i++){
-		if(activeAuras[i].source == _source){
-			var _entry = activeAuras[i];
-			damage -= _entry.boost;
-			damageBoost -= _entry.boost;
-			if(instance_exists(_entry.effect)){
-				instance_destroy(_entry.effect);
-			}
-			array_delete(activeAuras, i, 1);
-			return true;
-		}
-	}
-	return false;
-}
-
-// Strips every aura currently applied to THIS unit (from any/all sources).
-// Reverses each boost individually so `damage`/`damageBoost` stay correct,
-// and destroys each aura's visual effect instance instead of leaking it.
-function resetAuras(){
-	for(var i = array_length(activeAuras) - 1; i >= 0; i--){
-		var _entry = activeAuras[i];
-		damage -= _entry.boost;
-		damageBoost -= _entry.boost;
-		if(instance_exists(_entry.effect)){
-			instance_destroy(_entry.effect);
-		}
-	}
-	activeAuras = [];
-}
-
 
 function draw_half_circle(cx, cy, radius, start_angle, end_angle)
 {
@@ -225,7 +166,6 @@ function draw_half_circle(cx, cy, radius, start_angle, end_angle)
     }
     draw_primitive_end();
 }
-
 
 function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, yscale)
 {
@@ -316,22 +256,6 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
 }
 
 
-function checkForAuras(){
-	var myX = x;
-	var myY = y;
-	var myId = id;
-	with(o_unit){
-		if(id == myId) continue; // don't let the placed unit buff itself
-		if(aura){
-			var dist = point_distance_ellipse(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset, 0.6);
-			if(dist <= range and other.allegience == self.allegience){
-				self.inflictAura(other);
-				o_combat_log.log(self.name + " inflicts aura upon " + other.name);
-			}
-		}
-	}
-}
-
 
 function place(){
 	if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
@@ -349,30 +273,32 @@ function place(){
 			u.owner = self;
 			//// first strike, ommit if spawned on room creation
 			if(bornOfSpawner){
-				checkForAuras();
+				checkForAuras(self);
 				o_clock.toNextEvent = o_clock.maxToNextEvent;
 				ds_queue_enqueue(o_clock.action_queue, {
 					// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
 					my_spawned_unit: id,
 					func: function() {
-						o_combat_log.log("Player spawned " + my_spawned_unit.name);
-					    var _unit = self.my_spawned_unit;
-						my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
-						my_spawned_unit.drag_draw_offset = 0;
+						if(instance_exists(my_spawned_unit)){
+							o_combat_log.log("Player spawned " + my_spawned_unit.name);
+						    var _unit = self.my_spawned_unit;
+							my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
+							my_spawned_unit.drag_draw_offset = 0;
 
-					    if (instance_exists(_unit)) {
-					        with (_unit) {
-					            resetTargets();
-					            global.dropped = id; 
-					            global.draggingUnit = id;
-					            o_combat_resolver.resolve_first_strike(global.dropped);
-								global.dropped = noone;
-								global.draggingUnit = noone;
-								// 2. Clear state inside the unit context right as combat resolves
-					            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-					                lastFriendly = noone;
-					            }
-					        }
+						    if (instance_exists(_unit)) {
+						        with (_unit) {
+						            resetTargets();
+						            global.dropped = id; 
+						            global.draggingUnit = id;
+						            o_combat_resolver.resolve_first_strike(global.dropped);
+									global.dropped = noone;
+									global.draggingUnit = noone;
+									// 2. Clear state inside the unit context right as combat resolves
+						            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+						                lastFriendly = noone;
+						            }
+						        }
+							}
 					    }
 					}
 				}); 
@@ -603,8 +529,8 @@ function executeStep(){
 	}
 	if (dragging)
 	{
-		resetAuras()
-		checkForAuras()
+		resetAuras(self)
+		checkForAuras(self)
 		
 		if(specialFriendly){
 			with(o_unit){
@@ -714,7 +640,7 @@ function executeStep(){
 			}
 		}
 	    findNewTargetForSelf();
-		place()
+		place();
 	}
 	breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
 	image_xscaleToSend = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
@@ -812,4 +738,8 @@ function executeStep(){
 	    alpha = 1.0;
 	}
 	array_push(o_draw_manager.units,id)
+	if(toDestroy){
+		instance_destroy()
+	}
+	
 }
