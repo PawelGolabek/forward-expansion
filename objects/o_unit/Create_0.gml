@@ -81,6 +81,7 @@ applyingAura = false;
 damageBoost = 0;
 activeAuras = []; // list of structs: { source, boost, effect } currently applied to this unit
 toDestroy = false;
+recalled = false;
 
 if(!noEyes){
 	eyeX = 20
@@ -258,6 +259,8 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
 
 
 function place(){
+	
+	checkForAuras(self);
 	if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
 		with(o_spawner_parent){
 			selected = false;
@@ -529,9 +532,8 @@ function executeStep(){
 	}
 	if (dragging)
 	{
-		resetAuras(self)
-		checkForAuras(self)
-		
+		resetAuras(self);
+		checkForAuras(self);
 		if(specialFriendly){
 			with(o_unit){
 				if(myID == id){continue;}
@@ -644,7 +646,7 @@ function executeStep(){
 	}
 	breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
 	image_xscaleToSend = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
-
+	
 	// "true" position is whatever x was before we started nudging it
 
 	breatheDrawXOffset = ((image_xscaleToSend - og_image_xscale) * sprite_center_offset);

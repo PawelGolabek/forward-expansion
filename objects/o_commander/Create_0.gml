@@ -25,8 +25,8 @@ handleHeartsCreation(self);
 
 damageBoostAbility = 3; // plain instance var — must persist past Create, so no `var`
 
-inflictAura = function(targetUnit){
-	targetUnit.applyAura(self, id, damageBoostAbility, o_red_aura);
+function inflictAura(targetUnit){
+	applyAura(targetUnit, self, damageBoostAbility, o_red_aura);
 	mousVisible = true;
 	applyingAura = true;
 }

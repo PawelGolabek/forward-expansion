@@ -6,9 +6,9 @@ function checkForAuras(unit){
 		if(id == myId) continue; // don't let the placed unit buff itself
 		if(aura){
 			var dist = point_distance_ellipse(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset, 0.6);
-			if(dist <= range and other.allegience == self.allegience){
-				self.inflictAura(other);
-				o_combat_log.log(self.name + " inflicts aura upon " + other.name);
+			if(dist <= range and other.allegience == unit.allegience){
+				inflictAura(other);
+				o_combat_log.log(unit.name + " inflicts aura upon " + other.name);
 			}
 		}
 	}
@@ -30,8 +30,8 @@ function applyAura(unit,_source, _boost, _effectObj){
 		return false;
 	}
 
-	damageBoost += _boost;
-	damage += _boost;
+	unit.damageBoost += _boost;
+	unit.damage += _boost;
 
 	var _effectInst = instance_create_depth(unit.x, unit.y + drag_draw_offset, unit.depth, _effectObj);
 	_effectInst.owner = unit.id;

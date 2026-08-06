@@ -1,18 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"o_blue_carpet",
+  "%Name":"o_hostile_recall",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_blue_carpet",
+  "name":"o_hostile_recall",
   "overriddenProperties":[],
   "parent":{
-    "name":"units_cosmetics",
-    "path":"folders/sprites/units_cosmetics.yy",
+    "name":"spells",
+    "path":"folders/objects/units/spells.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_unit",
+    "path":"objects/o_unit/o_unit.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,9 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_blue_carpet",
-    "path":"sprites/s_blue_carpet/s_blue_carpet.yy",
+    "name":"s_recall_flag",
+    "path":"sprites/s_recall_flag/s_recall_flag.yy",
   },
   "spriteMaskId":null,
+  "tags":[
+    "unit",
+  ],
   "visible":true,
 }

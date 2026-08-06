@@ -1,16 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_blue_carpet",
+  "%Name":"o_status",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_blue_carpet",
+  "name":"o_status",
   "overriddenProperties":[],
   "parent":{
-    "name":"units_cosmetics",
-    "path":"folders/sprites/units_cosmetics.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,10 +29,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"s_blue_carpet",
-    "path":"sprites/s_blue_carpet/s_blue_carpet.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

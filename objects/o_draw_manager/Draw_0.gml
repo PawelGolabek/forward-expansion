@@ -161,6 +161,12 @@ with (o_unit) {
     }
 }
 
+with (o_status) {
+
+
+}
+	
+	
 draw_set_alpha(1.0);
 // 3. SAFE SORTING WITH INSTANCE_EXISTS CHECKS
 array_sort(trees, function(a, b) {

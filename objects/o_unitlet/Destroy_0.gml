@@ -1,4 +1,6 @@
-instance_create_depth(x,y,depth-20,o_blood_droplet)
+if(not owner.recalled){
+	instance_create_depth(x,y,depth-20,o_blood_droplet)
+}
 
 	
 if(not noEyes){
