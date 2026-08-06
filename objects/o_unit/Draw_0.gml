@@ -50,6 +50,7 @@ if (wantCircle or keyboard_check(vk_tab) or circleOverride) {
 				show_debug_message("created immortal")
 	
 			}
+			
 			immortal = circleInst
 	        circleInst.life = 1;
 	        circleInst.owner = id;
@@ -62,8 +63,6 @@ if (wantCircle or keyboard_check(vk_tab) or circleOverride) {
 		    circleInst.y = y - drag_draw_offset;
 		}
     }
-	draw_text(x,y,immortalExists)
-	draw_text(x,y+57,immortal.x)
     killImmortal = false;
     mousVisible = true;
 	circleOverride = false;

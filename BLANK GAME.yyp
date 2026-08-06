@@ -199,6 +199,7 @@
     {"id":{"name":"Script6","path":"scripts/Script6/Script6.yy",},},
     {"id":{"name":"sh_palette_enforcer","path":"shaders/sh_palette_enforcer/sh_palette_enforcer.yy",},},
     {"id":{"name":"Shader3","path":"shaders/Shader3/Shader3.yy",},},
+    {"id":{"name":"shd_light","path":"shaders/shd_light/shd_light.yy",},},
     {"id":{"name":"shd_outline","path":"shaders/shd_outline/shd_outline.yy",},},
     {"id":{"name":"shd_shadow","path":"shaders/shd_shadow/shd_shadow.yy",},},
     {"id":{"name":"s_ai","path":"sprites/s_ai/s_ai.yy",},},

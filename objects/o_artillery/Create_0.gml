@@ -2,7 +2,7 @@ event_inherited()
 
 dragging = false;
 
-name = "archer"
+name = "artillery"
 hp = 2
 maxhp = hp
 damage = 1

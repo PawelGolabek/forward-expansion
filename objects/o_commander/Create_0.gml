@@ -31,14 +31,14 @@ inflictAura = function(targetUnit){
 	applyingAura = true;
 }
 
-
+/*
 onEnter = function(){
 	var myX = x;
 	var myY = y;
 	var myRange = range;
 	var commanderObj = id;
 	with(o_unit){
-		if (id != commanderObj && point_distance_ellipse(x, y + drag_draw_offset, myX, myY + drag_draw_offset, 0.6) <= myRange){
+		if (id != commanderObj && point_distance_ellipse(x, y + drag_draw_offset, myX, myY + drag_draw_offset, 0.6) <= myRange and ){
 			commanderObj.inflictAura(id);
 		}
 	}

@@ -9,7 +9,7 @@ dragging = false;
 
 zoom = 1;
 zoom_min = 0.8;
-zoom_max = 5;
+zoom_max = 3;
 zoom_speed = 1;
 
 prev_mouse_x = mouse_x;

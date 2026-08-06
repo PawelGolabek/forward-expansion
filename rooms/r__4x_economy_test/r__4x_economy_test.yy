@@ -7,7 +7,6 @@
   "inheritLayers":false,
   "instanceCreationOrder":[
     {"name":"inst_7E9C7806_1_1_1_1_1","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
-    {"name":"inst_3732AA1_1_1_1_1","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
     {"name":"inst_6A83FDB9_1_1_1_1","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
     {"name":"inst_40EEBD1F1_1_1","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
     {"name":"inst_7BA8B103_1_1_1","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
@@ -33,6 +32,7 @@
     {"name":"inst_277996A","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
     {"name":"inst_6C87936F","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
     {"name":"inst_15B5164A","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
+    {"name":"inst_3732AA1_1_1_1_1","path":"rooms/r__4x_economy_test/r__4x_economy_test.yy",},
   ],
   "isDnd":false,
   "layers":[

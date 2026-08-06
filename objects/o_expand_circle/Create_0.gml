@@ -23,8 +23,6 @@ function draw(){
         image_blend, 
         image_alpha
     );
-
-			draw_text(x,y,immortal)
 }
 
 function executeStep(){

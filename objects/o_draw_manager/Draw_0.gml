@@ -16,6 +16,7 @@ if(not checkedFoW){
 
 // 1. EXECUTE LOGIC FIRST
 // Run unit logic before gathering draw arrays so destroyed units are removed before drawing.
+draw_set_alpha(1.0);
 with(o_unit){
     drawCircle = false;
     minDistToPlayer = 9999999;
@@ -40,6 +41,7 @@ with(o_expand_circle){
 ///////////////////////////////
 /// TERRAIN
 /////////////////////////////
+draw_set_alpha(1.0);
 with (o_cliff) {
     draw_sprite_ext(
         sprite_index, 
@@ -68,26 +70,27 @@ if (!surface_exists(circle_surface)) {
 }
 
 // Draw base terrain outside of surface
+draw_set_alpha(1.0);
 with (o_placable_terrain) {
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 
 // 2. Render all circles onto intermediate surface first
+draw_set_alpha(1.0);
 surface_set_target(circle_surface);
 draw_clear_alpha(c_lime, 0);
 gpu_set_blendmode(bm_normal);
 
+draw_set_alpha(1.0);
 with (o_expand_circle) {
 	draw();
-	if(immortal){
-		draw_text(x,y,y)
-	}
 }
 
 var bloodstains = [];
 with(o_bloodstain){
 	array_push(bloodstains,self)
 }
+draw_set_alpha(0.3);
 scr_draw_units_batch_trees(bloodstains, 1);
 
 surface_reset_target();
@@ -97,6 +100,7 @@ surface_set_target(mask_surface);
 draw_clear_alpha(c_black, 0);
 gpu_set_blendmode(bm_normal);
 
+draw_set_alpha(1.0);
 with (o_placable_terrain) {
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
@@ -105,6 +109,8 @@ with (o_placable_terrain) {
 // Parameters: (src_color, dest_color, src_alpha, dest_alpha)
 gpu_set_blendmode_ext_sepalpha(bm_dest_alpha, bm_zero, bm_zero, bm_one);
 
+
+
 draw_surface(circle_surface, 0, 0);
 
 // Reset GPU blend mode and target
@@ -112,7 +118,12 @@ gpu_set_blendmode(bm_normal);
 surface_reset_target();
 
 // 5. Render final result to room
+
+
 draw_surface(mask_surface, 0, 0);
+
+
+
 ///////////////////////////////
 /////// UNITS
 ///////////////////////////////
@@ -128,6 +139,7 @@ with (o_top_surface) {
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 */
+draw_set_alpha(1.0);
 with (o_trees) {
     if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
         array_push(other.trees, self);
@@ -135,6 +147,7 @@ with (o_trees) {
 }
 
 
+draw_set_alpha(1.0);
 with (o_unit) {
     if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
         array_push(other.unitsToDraw, self);
@@ -148,6 +161,7 @@ with (o_unit) {
     }
 }
 
+draw_set_alpha(1.0);
 // 3. SAFE SORTING WITH INSTANCE_EXISTS CHECKS
 array_sort(trees, function(a, b) {
     if (!instance_exists(a) || !instance_exists(b)) return 0;
@@ -165,6 +179,7 @@ array_sort(unitsToDraw, function(a, b) {
 // --- THREAT CIRCLE SURFACE ---
 // Ensure threatSurf exists before targeting it (this was missing, causing
 // the surface_set_target call to silently fail / draw nothing)
+draw_set_alpha(1.0);
 if (!surface_exists(global.threatSurf)) {
     global.threatSurf = surface_create(room_width, room_height);
 }
@@ -175,8 +190,8 @@ draw_clear_alpha(c_black, 0);
 ////////////// UNITS
 /////////////////////////
 // Use normal blend mode, and make sure the circles themselves draw at alpha = 1
+draw_set_alpha(1.0)
 gpu_set_blendmode(bm_normal);
-draw_set_alpha(1);
 with (o_unit) {
     // Inside draw_threat_circle(), ensure draw_set_alpha(1) or c_white with 1.0 alpha is used
     draw_threat_circle(); 
@@ -184,13 +199,19 @@ with (o_unit) {
 
 // Reset target BEFORE drawing the surface back to screen
 surface_reset_target();
-
+draw_set_alpha(0.1);
+with (o_unit) {
+	if(wantCircle or keyboard_check(vk_tab)){
+		draw_half_circle_scale(x, y, range, 0, 180, 1.0, 0.6);
+		draw_half_circle_scale(x, y, range, 180, 360, 1.0, 0.6);
+	}
+}
 // Apply the translucency here ONCE for the entire combined surface
-draw_set_alpha(0.7);
+draw_set_alpha(0.2);
 draw_surface(global.threatSurf, 0, 0);
-draw_set_alpha(1); // Reset alpha
 
 // 4. DRAW BATCHES
+draw_set_alpha(1); // Reset alpha
 scr_draw_units_batch_trees(trees, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
 scr_draw_units_batch(unitsToDraw, 1, 2);

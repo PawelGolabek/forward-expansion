@@ -144,7 +144,6 @@ unitlets = []
 expectedDamage = 0;
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
-
 // Shadow settings: Adjust these to change how the shadow looks
 shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's feet
 shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
@@ -159,6 +158,7 @@ function hasAuraFromSource(_source){
 	}
 	return false;
 }
+
 
 function applyAura(_source, _boost, _effectObj){
 	if(_source == id || hasAuraFromSource(_source)){
@@ -226,6 +226,7 @@ function draw_half_circle(cx, cy, radius, start_angle, end_angle)
     draw_primitive_end();
 }
 
+
 function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, yscale)
 {
     var segments = 32;
@@ -265,6 +266,7 @@ function mouseEvent(){
 	mouseClicked = true;
 }
 
+
 function line_blocked(_x1, _y1, _x2, _y2)
 {
     var dist = point_distance(_x1, _y1, _x2, _y2);
@@ -295,6 +297,7 @@ function line_blocked(_x1, _y1, _x2, _y2)
     return false;
 }
 
+
 function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
 {
     var dist = point_distance(_x1, _y1, _x2, _y2);
@@ -311,6 +314,8 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     }
     return false;
 }
+
+
 function checkForAuras(){
 	var myX = x;
 	var myY = y;
@@ -318,9 +323,10 @@ function checkForAuras(){
 	with(o_unit){
 		if(id == myId) continue; // don't let the placed unit buff itself
 		if(aura){
-			var dist = point_distance_ellipse(x, y, myX, myY, 0.6);
-			if(dist <= range){
-				self.inflictAura(other); // source's own inflictAura decides boost/effect, applyAura enforces the guards
+			var dist = point_distance_ellipse(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset, 0.6);
+			if(dist <= range and other.allegience == self.allegience){
+				self.inflictAura(other);
+				o_combat_log.log(self.name + " inflicts aura upon " + other.name);
 			}
 		}
 	}
@@ -357,7 +363,6 @@ function place(){
 					    if (instance_exists(_unit)) {
 					        with (_unit) {
 					            resetTargets();
-                    
 					            global.dropped = id; 
 					            global.draggingUnit = id;
 					            o_combat_resolver.resolve_first_strike(global.dropped);
@@ -445,17 +450,12 @@ function resetTargets()
     // 1. OTHER UNITS: Update their targets based on the dropped unit's new position
     with (o_unit) 
     {
-        // Don't check yourself
-        if (id == droppedUnit) continue; 
-        
-        // If this unit is an enemy to the dropped unit
+        if (id == droppedUnit) continue;
         if (allegience != droppedAllegience) 
         {
             var distanceToDropped = point_distance_ellipse(x, y, droppedX, droppedY, 0.6);
-            
             if (distanceToDropped <= range) 
             {
-                // The dropped unit is in range! Target it.
                 target = droppedUnit; 
             }
             else if (target == droppedUnit) 

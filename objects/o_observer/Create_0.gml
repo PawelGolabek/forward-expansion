@@ -1,6 +1,6 @@
 event_inherited();
 dragging = false;
-name = "archer";
+name = "observer";
 hp = 2;
 maxhp = hp;
 damage = 0;
