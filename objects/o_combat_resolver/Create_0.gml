@@ -47,7 +47,7 @@ function resolve_first_strike(firstStrikeUnit){
     var _involved = ds_list_create();
     
     with(o_unit){
-        if(point_distance_ellipse(x, y, firstStrikeUnit.x, firstStrikeUnit.y, 0.6) <= range and firstStrikeUnit.allegience != allegience and reactionStrike){
+		if(point_distance_ellipse_sq(x, y, firstStrikeUnit.x, firstStrikeUnit.y, 0.6) <= range * range and firstStrikeUnit.allegience != allegience and reactionStrike){
             if(firstStrikeUnit.parry){
                 o_combat_log.log(string(firstStrikeUnit.allegience) + "'s " + string(firstStrikeUnit.name) + " parried " + string(allegience) + "'s " + string(name) + " and hit it back by " + string(damage));
                 damageTaken += damage;

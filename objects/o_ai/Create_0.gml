@@ -76,7 +76,7 @@ function ai_evaluate_and_place() {
 			for (var f = 0; f < array_length(_friendlies); f++) {
 			    var _fr = _friendlies[f];
 			    if (!instance_exists(_fr)) continue;
-			    if (point_distance_ellipse(cx, cy, _fr.x, _fr.y,0.6) <= _fr.range) {
+			    if (point_distance_ellipse_sq(cx, cy, _fr.x, _fr.y,0.6) <= _fr.range * _fr.range) {
 			        _cellDeployable = true;
 			        if (!o_unit.line_blocked(cx, cy, _fr.x, _fr.y)) {
 			            _cellLineClear = true;

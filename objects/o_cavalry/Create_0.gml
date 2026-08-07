@@ -10,10 +10,10 @@ baseDamage = damage
 allegience = "player"
 damageTaken = 0
 reactionStrike = false;
-range = 120
+range = 220
 revealRange = range * 2
 dragging = false;
-mySprite = s_calvalry_flag_3;
+mySprite = s_cavalry_flag_3;
 
 
 og_image_xscale = 2;

@@ -27,8 +27,11 @@ damageBoostAbility = 3; // plain instance var — must persist past Create, so n
 
 function inflictAura(targetUnit){
 	applyAura(targetUnit, self, damageBoostAbility, o_red_aura);
-	mousVisible = true;
-	applyingAura = true;
+	if(targetUnit.dragging){
+		mousVisible = true;
+		applyingAura = true;
+		blueGlow = true;
+	}
 }
 
 /*

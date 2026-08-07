@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_calvalry_flag_3",
-    "path":"sprites/s_calvalry_flag_3/s_calvalry_flag_3.yy",
+    "name":"s_cavalry_flag_3",
+    "path":"sprites/s_cavalry_flag_3/s_cavalry_flag_3.yy",
   },
   "spriteMaskId":null,
   "visible":true,

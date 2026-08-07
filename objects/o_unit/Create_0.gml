@@ -194,8 +194,8 @@ function calculateDamageExpectedDelayed() {
 	with (o_unit) {
 		if (id == myId) continue;              // skip self
 		if (allegience == myAllegience) continue; // skip allies
-		var dist = point_distance_ellipse(x, y - drag_draw_offset, x, y - myId.drag_draw_offset,0.6);
-		if (dist <= range) {
+		var dist = point_distance_ellipse_sq(x, y - drag_draw_offset, x, y - myId.drag_draw_offset,0.6);
+		if (dist <= range * range) {
 			total += damage;
 		}
 	}
@@ -382,8 +382,8 @@ function resetTargets()
         if (id == droppedUnit) continue;
         if (allegience != droppedAllegience) 
         {
-            var distanceToDropped = point_distance_ellipse(x, y, droppedX, droppedY, 0.6);
-            if (distanceToDropped <= range) 
+            var distanceToDropped2 = point_distance_ellipse_sq(x, y, droppedX, droppedY, 0.6);
+            if (distanceToDropped2 <= range * range) 
             {
                 target = droppedUnit; 
             }
@@ -405,14 +405,15 @@ function resetTargets()
         if (id == droppedUnit || allegience == droppedAllegience) continue;
         
         // Calculate distance to this potential enemy
-        var dist = point_distance_ellipse(droppedX, droppedY, x, y, 0.6);
+        var dist2 = point_distance_ellipse_sq(droppedX, droppedY, x, y, 0.6);
         
         // If this one is closer than the previous closest, update it
-        if (dist < minDistance and dist <= droppedUnit.range) 
-        {
-            minDistance = dist;
-            closestEnemy = id;
-        }
+		// resetTargets
+		if (dist2 < minDistance and dist2 <= droppedUnit.range * droppedUnit.range) 
+		{
+		    minDistance = dist2;
+		    closestEnemy = id;
+		}
     }
     droppedUnit.target = closestEnemy;
 }
@@ -429,15 +430,16 @@ function findNewTargetForSelf()
 	var expectedDamageFrame = 0;
     with (o_unit) 
     {
-        dist = point_distance_ellipse(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
+        dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
         if (id == myId || allegience == myAllegience) continue;        
         
-        if (dist < minDistance && myRange > dist)
-        {
-            minDistance = dist;
-            closestEnemy = id;
-        }
-		if(dist < range){
+		// findNewTargetForSelf
+		if (dist2 < minDistance && myRange * myRange > dist2)
+		{
+		    minDistance = dist2;
+		    closestEnemy = id;
+		}
+		if(dist2 < range * range){
 			expectedDamageFrame += damage;
 		}
     }
@@ -532,14 +534,13 @@ function executeStep(){
 	}
 	if (dragging)
 	{
-		resetAuras(self);
 		checkForAuras(self);
 		if(specialFriendly){
 			with(o_unit){
 				if(myID == id){continue;}
 		        // Calculate distance from the calling unit to others
-		        var dist = point_distance_ellipse(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
-		        if (dist < other.range and allegience == other.allegience)
+		        var dist2 = point_distance_ellipse_sq(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
+		        if (dist2 < other.range * other.range and allegience == other.allegience)
 		        {
 					blueGlow = true;
 					ulets = array_length(unitlets) - 1
@@ -604,7 +605,7 @@ function executeStep(){
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
 		    if (u.allegience != "player") continue;
-		    if (point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y, 0.6) <= u.range and not u.inCombat and u.deployAlly and not line_blocked(x, y - drag_draw_offset, u.x, u.y))
+		    if (point_distance_ellipse_sq(x, y - drag_draw_offset, u.x, u.y, 0.6) <= u.range * u.range and not u.inCombat and u.deployAlly and not line_blocked(x, y - drag_draw_offset, u.x, u.y))
 		    {
 				 u.drawCircle = true;
 				 lastFriendly = u;
@@ -628,7 +629,7 @@ function executeStep(){
 		    y = last_valid_y;
 			global.deployHighlight = lastFriendly;	
 			with(o_unit){
-				if(point_distance_ellipse(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range){
+				if(point_distance_ellipse_sq(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range * u.range){
 					_expected = calculateDamageExpectedDelayed()
 				}
 			}
@@ -655,10 +656,10 @@ function executeStep(){
 		global.expectedDmg = 0;
 		with(o_unit){
 		    // 4. Check if that dragged enemy is within THIS unit's range
-		    var dist = point_distance_ellipse(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
+		    var dist = point_distance_ellipse_sq(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 		    if(global.draggingUnit == self){
 				drawCircle = true
-			}else if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike
+			}else if (dist <= range * range and global.draggingUnit.allegience != allegience and reactionStrike
 			){
 				drawCircle = true
 				tmpTarget = global.draggingUnit;
@@ -672,9 +673,9 @@ function executeStep(){
 	// will run for every unit which is bad but eh
 	// 4. Check if that dragged enemy is within THIS unit's range
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
-	    var dist = point_distance_ellipse(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
+	    var dist2 = point_distance_ellipse_sq(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 
-	    if (dist <= range and global.draggingUnit.allegience != allegience and reactionStrike) {
+	    if (dist2 <= range * range and global.draggingUnit.allegience != allegience and reactionStrike) {
 	        drawCircle = true;
 	        tmpTarget = global.draggingUnit;
 	        global.expectedDmg += damage;

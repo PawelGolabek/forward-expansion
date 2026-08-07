@@ -86,12 +86,14 @@ with (o_expand_circle) {
 	draw();
 }
 
-var bloodstains = [];
-with(o_bloodstain){
-	array_push(bloodstains,self)
+if(not keyboard_check(vk_tab)){
+	var bloodstains = [];
+	with(o_bloodstain){
+		array_push(bloodstains,self)
+	}
+	draw_set_alpha(0.3);
+	scr_draw_units_batch_trees(bloodstains, 1);
 }
-draw_set_alpha(0.3);
-scr_draw_units_batch_trees(bloodstains, 1);
 
 surface_reset_target();
 
@@ -162,7 +164,7 @@ with (o_unit) {
 }
 
 with (o_status) {
-
+	//	 if statuses get outlines
 
 }
 	

@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite93",
-    "path":"sprites/Sprite93/Sprite93.yy",
+    "name":"s_house_flag",
+    "path":"sprites/s_house_flag/s_house_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

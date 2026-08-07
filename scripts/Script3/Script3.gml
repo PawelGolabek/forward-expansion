@@ -1,13 +1,21 @@
-function handleHeartsCreation(unit){
-	unit.hearts = []
-	for(i=0;i < unit.maxhp; i+=1){
-		heart = instance_create_depth(x + i * 48,y-128,depth,o_heart);
-		heart.owner = unit;
-		heart.i = i;
-		array_push(unit.hearts,heart);
-	}
+function handleHeartsCreation(unit) {
+    unit.hearts = [];
+    var heartsPerRow = 5;
+    var spacing = 48;
+    for (var i = 0; i < unit.maxhp; i++) {
+        var col = i mod heartsPerRow;
+        var row = i div heartsPerRow;
+        var heart = instance_create_depth(
+            x + col * spacing,
+            y - 128 + row * spacing,
+            depth,
+            o_heart
+        );
+        heart.owner = unit;
+        heart.i = i;
+        array_push(unit.hearts, heart);
+    }
 }
-
 
 function getDamaged(damageTaken, unit){
     unit.hp -= damageTaken;

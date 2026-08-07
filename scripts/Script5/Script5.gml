@@ -26,8 +26,8 @@ function fogOfWarCheck(){
 						visible = true;
 						uletsNum = array_length(unitlets)
 						for (var i = 0; i < uletsNum; i++){
-							udistToPlayer = point_distance_ellipse(unitlets[i].x, unitlets[i].y, otherU.x, otherU.y - otherU.drag_draw_offset, 0.6)
-							if(udistToPlayer < otherU.revealRange){
+							udistToPlayer2 = point_distance_ellipse_sq(unitlets[i].x, unitlets[i].y, otherU.x, otherU.y - otherU.drag_draw_offset, 0.6)
+							if(udistToPlayer2 < otherU.revealRange * otherU.revealRange){
 								unitlets[i].visible = true;
 							}
 						}

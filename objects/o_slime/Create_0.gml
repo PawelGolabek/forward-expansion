@@ -1,7 +1,7 @@
 event_inherited()
 dragging = false;
 
-name = "inferna";
+name = "slime";
 hp = 2
 maxhp = hp
 damage = 12

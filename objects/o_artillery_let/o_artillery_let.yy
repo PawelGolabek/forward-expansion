@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_artillery_let",
-    "path":"sprites/s_artillery_let/s_artillery_let.yy",
+    "name":"s_armored_drone_let",
+    "path":"sprites/s_armored_drone_let/s_armored_drone_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -40,7 +40,7 @@ function executeStep(){
 	image_angle = ((life % 4) * angleShift ) % 4
 
 	x = owner.x
-	y = owner.y
+	y = owner.y //+ owner.drag_draw_offset
 
 
 	if(not immortal){

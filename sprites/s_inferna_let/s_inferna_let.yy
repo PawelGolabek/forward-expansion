@@ -51,7 +51,7 @@
   "origin":0,
   "parent":{
     "name":"lets",
-    "path":"folders/sprites/units/lets.yy",
+    "path":"folders/sprites/lets.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
