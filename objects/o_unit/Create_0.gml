@@ -82,6 +82,9 @@ damageBoost = 0;
 activeAuras = []; // list of structs: { source, boost, effect } currently applied to this unit
 toDestroy = false;
 recalled = false;
+flying = false;
+destroyOnAttack = false;
+explosionOnDeath = false;
 
 if(!noEyes){
 	eyeX = 20
@@ -333,24 +336,33 @@ function place(){
 					ulet.initiate2();
 
 				for (var i = 0; i < 200; i++) {
-					angle = random(360);
-					dist = random(300);
-					px = x + lengthdir_x(dist, angle);
-					py = y + lengthdir_y(dist, angle);
-					var blocked = false;
-					with (ulet) {
-						_placable_terrain = instance_place(px, py, o_placable_terrain);
-						if(_placable_terrain == noone){ continue;}
-					    blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || place_meeting(px, py + drag_draw_offset, o_unit);
-					}
-					if (!blocked) {
-					    if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
-					    if (dist < best_dist) {
-					        best_dist = dist;
-					        best_x = px;
-					        best_y = py + drag_draw_offset;
-					    }
-					}
+				    angle = random(360);
+				    dist = random(300);
+				    px = x + lengthdir_x(dist, angle);
+				    py = y + lengthdir_y(dist, angle);
+    
+				    // 1. Terrain Check: If not flying, must be on placeable terrain
+				    if (!flying) {
+				        var _placable_terrain = instance_position(px, py, o_placable_terrain);
+				        if (_placable_terrain == noone) continue; // Properly skips to next for-loop iteration
+				    }
+
+				    // 2. Collision Check: Check for overlapping unitlets or units
+				    var blocked = false;
+				    with (ulet) {
+				        blocked = place_meeting(px, py + drag_draw_offset, o_unitlet) || 
+				                  place_meeting(px, py + drag_draw_offset, o_unit);
+				    }
+
+				    // 3. Line of Sight / Final Placement Evaluation
+				    if (!blocked) {
+				        if (line_blocked_terrain_only(x, y, px, py + drag_draw_offset)) continue;
+				        if (dist < best_dist) {
+				            best_dist = dist;
+				            best_x = px;
+				            best_y = py + drag_draw_offset;
+				        }
+				    }
 				}
 				ulet.x = best_x;
 				ulet.y = best_y;
@@ -621,7 +633,7 @@ function executeStep(){
 				
 		    }
 		}
-		valid = (_checkTerrain == noone) && _deployable && _lineClear && _placable_terrain != noone;
+		valid = (_checkTerrain == noone) && _deployable && _lineClear && (_placable_terrain != noone or flying);
 
 		if (!valid)
 		{

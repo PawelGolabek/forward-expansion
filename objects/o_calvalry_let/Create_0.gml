@@ -2,6 +2,7 @@
 event_inherited();
 
 noEyes = true;
+image_index = random(image_number)
 
 function initiate2(){
 

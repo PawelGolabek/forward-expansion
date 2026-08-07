@@ -33,6 +33,8 @@ timeElapsed = random(100000)
 // fog of war related
 isUnit = false;
 activeAuras = []; // list of structs: { source, boost, effect } currently applied to this unit
+bloodOnDeath = true;
+explosionOnDeath = false;
 
 
 function initiate(){

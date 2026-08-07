@@ -1,5 +1,5 @@
 var heartsPerRow = 5;
-var spacing = 48;
+var spacing = sprite_width + 4;
 
 var col = i mod heartsPerRow;
 var row = i div heartsPerRow;

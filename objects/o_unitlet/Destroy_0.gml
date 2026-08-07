@@ -1,5 +1,9 @@
-if(not owner.recalled){
+if(not owner.recalled and bloodOnDeath){
 	instance_create_depth(x,y,depth-20,o_blood_droplet)
+}
+
+if(explosionOnDeath){
+	instance_create_depth(x,y,depth-20,o_explosion)
 }
 
 	

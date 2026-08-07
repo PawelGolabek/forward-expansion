@@ -44,8 +44,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"flags",
-    "path":"folders/sprites/flags.yy",
+    "name":"legacy",
+    "path":"folders/sprites/legacy.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

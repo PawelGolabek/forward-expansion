@@ -1,5 +1,6 @@
 // Inherit the parent event
 event_inherited();
+image_index = random(image_number)
 
 
 function initiate2(){
