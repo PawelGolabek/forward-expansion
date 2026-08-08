@@ -315,7 +315,6 @@
     {"id":{"name":"s_master_flag","path":"sprites/s_master_flag/s_master_flag.yy",},},
     {"id":{"name":"s_master","path":"sprites/s_master/s_master.yy",},},
     {"id":{"name":"s_minimal_hitbox","path":"sprites/s_minimal_hitbox/s_minimal_hitbox.yy",},},
-    {"id":{"name":"s_new_unit","path":"sprites/s_new_unit/s_new_unit.yy",},},
     {"id":{"name":"s_observer_flag","path":"sprites/s_observer_flag/s_observer_flag.yy",},},
     {"id":{"name":"s_observer_let","path":"sprites/s_observer_let/s_observer_let.yy",},},
     {"id":{"name":"s_path_top_1","path":"sprites/s_path_top_1/s_path_top_1.yy",},},

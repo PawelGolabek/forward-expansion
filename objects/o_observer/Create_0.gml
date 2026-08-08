@@ -19,13 +19,11 @@ aiType = "range";
 
 mySprite = s_observer_flag;
 myUnitlet = o_observer_let;
-uletSize = s_new_unit;
+uletSize = s_observer_let;
 specialFriendly = true;
 
 unitletsPerHp = 2;
-
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
-
 handleHeartsCreation(self);
 
 onEnter = function(){

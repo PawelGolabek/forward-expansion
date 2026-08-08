@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_recall_flag",
-    "path":"sprites/s_recall_flag/s_recall_flag.yy",
+    "name":"s_hostile_recall_flag",
+    "path":"sprites/s_hostile_recall_flag/s_hostile_recall_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[
