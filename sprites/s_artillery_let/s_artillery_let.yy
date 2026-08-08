@@ -1,11 +1,11 @@
 {
   "$GMSprite":"v2",
   "%Name":"s_artillery_let",
-  "bboxMode":0,
-  "bbox_bottom":24,
-  "bbox_left":0,
-  "bbox_right":31,
-  "bbox_top":0,
+  "bboxMode":2,
+  "bbox_bottom":38,
+  "bbox_left":7,
+  "bbox_right":40,
+  "bbox_top":30,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
@@ -16,7 +16,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":32,
+  "height":48,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"4c62503e-9741-4fda-8706-8207d49f5483","blendMode":0,"displayName":"default","isLocked":false,"name":"4c62503e-9741-4fda-8706-8207d49f5483","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":32,
+  "width":48,
 }

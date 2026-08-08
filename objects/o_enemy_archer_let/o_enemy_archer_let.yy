@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_enemy_archer_let",
-    "path":"sprites/s_enemy_archer_let/s_enemy_archer_let.yy",
+    "name":"s_enemy_archer_let_1",
+    "path":"sprites/s_enemy_archer_let_1/s_enemy_archer_let_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

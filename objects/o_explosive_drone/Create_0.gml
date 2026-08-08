@@ -7,7 +7,7 @@ maxhp = hp
 damage = 5;
 baseDamage = damage
 allegience = "player"
-range = 450
+range = 250
 revealRange = range * 2
 
 myUnitlet = o_explosive_drone_let;

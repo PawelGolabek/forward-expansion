@@ -372,6 +372,7 @@ function place(){
 		fogOfWarCheck();
 		onEnter();
 		checkInCombat()
+		mask_index = s_placed_hitbox;
 		}
 	}
 	image_xscale = og_image_xscale;
@@ -546,6 +547,8 @@ function executeStep(){
 	}
 	if (dragging)
 	{
+		
+		mask_index = s_placed_hitbox;
 		checkForAuras(self);
 		if(specialFriendly){
 			with(o_unit){
@@ -563,7 +566,6 @@ function executeStep(){
 		        }
 			}
 		}
-		mask_index = s_minimal_hitbox
 		drag_draw_offset = - 5;
 		uletsNum = array_length(unitlets)
 		for (var i = 0; i < uletsNum; i++)

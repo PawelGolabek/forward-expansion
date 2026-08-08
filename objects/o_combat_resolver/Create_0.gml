@@ -14,14 +14,11 @@ function resolve_combat(){
                     }
                 }
             }
-        
             with(o_unit){
                 findNewTargetForSelf(); 
 				checkInCombat()
             }
-    
         //    o_ai.ai_evaluate_and_place() 
-        
             with (o_unit)
                 targetted = false;
             with (o_unit)
@@ -33,7 +30,6 @@ function resolve_combat(){
             o_combat_log.log("Turn " + string(o_combat_log.turn));
                 
         }});
-		
 }
 function resolve_first_strike(firstStrikeUnit){    
     with (o_unit)
