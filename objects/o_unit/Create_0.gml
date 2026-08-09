@@ -586,8 +586,9 @@ function executeStep(){
 		}
 	    global.draggingUnit = self;
 	    x = mouse_x;
-	    y = mouse_y + drag_draw_offset;
+	    y = mouse_y;
 	    // --- COLLISION RESOLUTION ---
+		/*
 	    var _iterations = 300;
 	    repeat (_iterations)
 	    {
@@ -606,7 +607,7 @@ function executeStep(){
 	        }
 	        ds_list_destroy(_list);
 	        if (!_moved) break;
-	    }
+	    }*/
 	    // -----------------------------
 	    // --- KEEP INSIDE ROOM BOUNDS ---
 	    // Use the sprite's bounding box (relative to origin) so the unit's
@@ -614,11 +615,13 @@ function executeStep(){
 		var _halfLeft   = sprite_index != -1 ? sprite_get_xoffset(sprite_index) * image_xscale : 0;
 		var _halfRight  = sprite_index != -1 ? (sprite_get_width(sprite_index) - sprite_get_xoffset(sprite_index)) * image_xscale : 0;
 		var _halfTop    = sprite_index != -1 ? sprite_get_yoffset(sprite_index) * image_yscale : 0;
-		var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale : 0;	    x = clamp(x, _halfLeft, room_width - _halfRight);
+		var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale : 0;	    
+		
+		x = clamp(x, _halfLeft, room_width - _halfRight);
 	    y = clamp(y, _halfTop, room_height - _halfBottom);
 	    // --------------------------------
-		var _checkTerrain = instance_place(x, y + sprite_height - drag_draw_offset, o_impassable);
-		var _placable_terrain = instance_place(x, y - drag_draw_offset, o_placable_terrain);
+		var _checkTerrain = instance_place(x - sprite_width/2, y - sprite_height - drag_draw_offset, o_impassable);
+		var _placable_terrain = instance_place(x - sprite_width/2, y - sprite_height - drag_draw_offset, o_placable_terrain);
 		var _deployable = false
 		var _cx = x;
 		var _cy = y;

@@ -129,3 +129,46 @@ function scr_draw_units_batch_trees(_instances, _thickness)
 		}
 	}
 }
+
+
+function draw_instance_outline(inst, thickness, outline_colour)
+{
+    if (!instance_exists(inst) || !inst.visible) exit;
+
+    static _u_texel   = shader_get_uniform(shd_outline, "u_texel");
+    static _u_thick   = shader_get_uniform(shd_outline, "u_thickness");
+    static _u_colour  = shader_get_uniform(shd_outline, "u_outlineColour");
+    static _u_uvclamp = shader_get_uniform(shd_outline, "u_uvClamp");
+
+    var _spr = inst.sprite_index;
+    var _idx = inst.image_index;
+    var _tex = sprite_get_texture(_spr, _idx);
+    var _uv  = texture_get_uvs(_tex);
+
+    // Calculate position maintaining your original origin offsets
+    var sx = inst.x - inst.sprite_width / 2;
+    var sy = inst.y - inst.sprite_height;
+
+    shader_set(shd_outline);
+    shader_set_uniform_f(_u_texel, texture_get_texel_width(_tex), texture_get_texel_height(_tex));
+    shader_set_uniform_f(_u_uvclamp, _uv[0], _uv[1], _uv[2], _uv[3]);
+    shader_set_uniform_f(_u_thick, thickness);
+    shader_set_uniform_f(_u_colour, 
+        color_get_red(outline_colour) / 255, 
+        color_get_green(outline_colour) / 255, 
+        color_get_blue(outline_colour) / 255, 
+        1
+    );
+
+    draw_sprite_ext(
+        _spr, _idx,
+        sx, sy,
+        inst.image_xscaleToSend,
+        inst.image_yscale,
+        inst.image_angle,
+        c_white,
+        inst.alpha
+    );
+
+    shader_reset();
+}

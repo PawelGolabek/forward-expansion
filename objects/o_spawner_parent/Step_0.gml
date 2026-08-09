@@ -13,6 +13,7 @@ if(mousePressed){
 		}
 		with(o_unit){
 			if(dragging){
+				global.crystals += crystalCost
 				instance_destroy()
 			}
 		}

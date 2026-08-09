@@ -66,17 +66,6 @@ if (wantCircle or keyboard_check(vk_tab) or circleOverride) {
     killImmortal = false;
     mousVisible = true;
 	circleOverride = false;
-
-/*
-	draw_surface(global.threatSurf, 0, 0); // no draw_set_alpha needed, it's baked in
-    // Draw the threat-radius half circle whenever the persistent circle is active
-    draw_set_alpha(0.15);
-    draw_set_color(c_blue);
-    draw_half_circle(x, y - drag_draw_offset, range, 0, 180);              // bottom half
-    draw_half_circle_scale(x, y, range, 180, 360, 1.0, 0.6); // top half (squashed)
-    draw_set_alpha(1.0);
-	
-	*/
 	
 } else {
     mousVisible = false;

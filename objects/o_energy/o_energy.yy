@@ -1,16 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"o_explosion",
+  "%Name":"o_energy",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_explosion",
+  "name":"o_energy",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"ui",
+    "path":"folders/objects/ui.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_explosion",
-    "path":"sprites/s_explosion/s_explosion.yy",
+    "name":"Sprite142",
+    "path":"sprites/Sprite142/Sprite142.yy",
   },
   "spriteMaskId":null,
   "visible":true,
