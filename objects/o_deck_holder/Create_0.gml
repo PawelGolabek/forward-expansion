@@ -6,18 +6,19 @@ deck = [
     instance_create_layer(0, -9999900, "Cards", o_house_spawner),
     instance_create_layer(0, -9999900, "Cards", o_house_spawner),
     instance_create_layer(0, -9999900, "Cards", o_house_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_house_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_house_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_house_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_house_spawner),
     instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
+    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
@@ -106,7 +107,6 @@ function organize_hand()
 function shuffle_deck()
 {
     var count = array_length(deck);
-
     for (var i = count - 1; i > 0; i--)
     {
         var j = irandom(i);

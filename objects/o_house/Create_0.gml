@@ -1,4 +1,6 @@
 event_inherited()
+
+function initiate(){
 dragging = false;
 
 name = "Forward Expansion";
@@ -26,5 +28,8 @@ unitletsPerHp = 0.5;
 
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
+	createUnitlets()
+}
+initiate()
 
 handleHeartsCreation(self)

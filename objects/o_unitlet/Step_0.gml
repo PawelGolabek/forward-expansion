@@ -31,7 +31,7 @@ timeElapsed += delta_time
 
 
 if(owner.dragging){
-	if(point_distance_ellipse_sq(x, y, owner.x, owner.y, 0.6) > owner.range * owner.range){
+	if(point_distance_ellipse_sq(x, y, owner.x, owner.y, 0.6) > owner.range/2 * owner.range/2){
 		var placed_ok = false;
 		var tries = 0;
 		var angle;

@@ -1,18 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_red_aura",
+  "%Name":"o_relic",
   "eventList":[],
   "managed":true,
-  "name":"o_red_aura",
+  "name":"o_relic",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"relics",
+    "path":"folders/objects/relics.yy",
   },
-  "parentObjectId":{
-    "name":"o_status",
-    "path":"objects/o_status/o_status.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,10 +27,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"Sprite108",
-    "path":"sprites/Sprite108/Sprite108.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

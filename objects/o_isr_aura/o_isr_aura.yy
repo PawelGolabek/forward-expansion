@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"o_red_aura",
+  "%Name":"o_isr_aura",
   "eventList":[],
   "managed":true,
-  "name":"o_red_aura",
+  "name":"o_isr_aura",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"terrain_cosmetics",
+    "path":"folders/objects/terrain_cosmetics.yy",
   },
   "parentObjectId":{
     "name":"o_status",
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite108",
-    "path":"sprites/Sprite108/Sprite108.yy",
+    "name":"Sprite141",
+    "path":"sprites/Sprite141/Sprite141.yy",
   },
   "spriteMaskId":null,
   "visible":true,

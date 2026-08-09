@@ -21,6 +21,9 @@ if(mousePressed){
 	    var inst = instance_create_layer(mouse_x, mouse_y, units, spawn_object);
 		inst.bornOfSpawner = true;
 	    inst.dragging = true;
+		with(o_relic){
+			onUnitCreation(inst);	// for relics
+		}
 		global.draggingUnit = inst;
 		global.crystals -= crystalCost
 		inst.x = -9999;

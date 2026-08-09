@@ -1,20 +1,17 @@
 event_inherited()
-dragging = false;
-
-name = "Scout Drone";
-hp = 1
-maxhp = hp
-damage = 0
-baseDamage = damage
-allegience = "player"
-range = 450
-revealRange = range * 2
 
 handleHeartsCreation(self)
-
-
-
 function initiate(){
+	dragging = false;
+
+	name = "Scout Drone";
+	hp = 1
+	maxhp = hp
+	damage = 0
+	baseDamage = damage
+	allegience = "player"
+	range = 450
+	revealRange = range * 2
 	myUnitlet = o_scout_drone_let;
 	unitletsPerHp = 20;
 	unit_collisions = mask_index;

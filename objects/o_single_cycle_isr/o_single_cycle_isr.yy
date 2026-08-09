@@ -1,17 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"o_red_aura",
-  "eventList":[],
+  "%Name":"o_single_cycle_isr",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"o_red_aura",
+  "name":"o_single_cycle_isr",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"relics",
+    "path":"folders/objects/relics.yy",
   },
   "parentObjectId":{
-    "name":"o_status",
-    "path":"objects/o_status/o_status.yy",
+    "name":"o_relic",
+    "path":"objects/o_relic/o_relic.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -31,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite108",
-    "path":"sprites/Sprite108/Sprite108.yy",
+    "name":"Sprite140",
+    "path":"sprites/Sprite140/Sprite140.yy",
   },
   "spriteMaskId":null,
   "visible":true,

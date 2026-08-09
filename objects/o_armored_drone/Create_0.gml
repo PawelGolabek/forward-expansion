@@ -24,10 +24,19 @@ aiType = "range";
 unitletsPerHp = 1;
 
 
-mySprite = s_armored_drone_flag
-myUnitlet = o_armored_drone_let;
-uletSize = s_armored_drone_let;
-
-sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
 handleHeartsCreation(self)
+
+
+
+function initiate(){
+
+	mySprite = s_armored_drone_flag
+	myUnitlet = o_armored_drone_let;
+	uletSize = s_armored_drone_let;
+
+	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
+	createUnitlets()
+}
+
+initiate()
