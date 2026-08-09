@@ -6,8 +6,8 @@
   "name":"o_expand_circle_3",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/objects/units.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
   "parentObjectId":{
     "name":"o_expand_circle",

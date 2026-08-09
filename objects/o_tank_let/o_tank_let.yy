@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"lets",
-    "path":"folders/objects/units/player/lets.yy",
+    "path":"folders/objects/units/lets.yy",
   },
   "parentObjectId":{
     "name":"o_unitlet",

@@ -11,6 +11,13 @@ range = 400;
 revealRange = range * 2;
 noEyes = true;
 
+
+handleHeartsCreation(self)
+
+
+function initiate(){
+
+
 mySprite = sprite_index;
 myUnitlet = o_tank_let;
 uletSize = s_tank_let;
@@ -23,5 +30,4 @@ mySprite = sprite_index;
 
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
-
-handleHeartsCreation(self)
+}

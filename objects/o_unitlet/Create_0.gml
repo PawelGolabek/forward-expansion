@@ -1,6 +1,5 @@
 // Create event or a persistent spot
 //Outline shader
-//Outline shader
 sprite_scale = shader_get_uniform(shd_outline, "sprite_size");
 outline_surf = -1
 tex = sprite_get_texture(sprite_index,image_index);
@@ -35,7 +34,7 @@ isUnit = false;
 activeAuras = []; // list of structs: { source, boost, effect } currently applied to this unit
 bloodOnDeath = true;
 explosionOnDeath = false;
-
+sprite_center_offset = sprite_width/2
 
 function initiate(){
 	if(not noEyes){

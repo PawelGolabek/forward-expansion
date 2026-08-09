@@ -1,5 +1,4 @@
 // Create
-ulets = [];
 units = [];
 trees = [];
 checkedFoW = false;
