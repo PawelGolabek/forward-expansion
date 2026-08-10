@@ -11,7 +11,7 @@ if (!ds_queue_empty(action_queue)) {
 		toNextEvent = 0;
 	}
     
-    if (toNextEvent = 0 and not animationBlocked) {
+    if (toNextEvent == 0 and not animationBlocked) {
         // Pull the oldest item out of the FIFO queue
         var _next_action = ds_queue_dequeue(action_queue);
         

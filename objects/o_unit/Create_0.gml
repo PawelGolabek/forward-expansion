@@ -269,6 +269,17 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
 function performAttacks(retaliation){
 	self.retaliation = retaliation
 	global.unitActing = self;
+	o_clock.animationBlocked = true;
+	o_clock.toNextEvent = o_clock.maxToNextEvent;
+	
+	if(instance_exists(target)){
+		uletsNumber = array_length(unitlets);
+		for(i = 0; i < uletsNumber; i += 1){
+		    unitlets[i].attacks = attacks; // no hardcoded 2, no +/-1 needed once step logic is fixed
+		    unitlets[i].sprite_index = unitlets[i].attackingSprite;
+		    unitlets[i].image_index = 0;
+		}
+	}
 	repeat(attacks){
 		ds_queue_enqueue(o_clock.action_queue, {
 			// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
@@ -280,15 +291,12 @@ function performAttacks(retaliation){
 					var _unit = self.my_spawned_unit;
 					my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
 					my_spawned_unit.drag_draw_offset = 0;
-
 					if (instance_exists(_unit)) {
 						with (_unit) {
-
 							resetTargets();
 							global.dropped = id; 
 							global.draggingUnit = id;
-							// animation lock
-							o_clock.animationBlocked = true;
+							
 							// resolve logically
 							if(not retaliation or attacks > 1){
 								o_combat_resolver.resolve_first_strike(global.dropped);
@@ -307,8 +315,6 @@ function performAttacks(retaliation){
 			}
 		});
 	}
-
-
 }
 
 function place(){
@@ -331,12 +337,6 @@ function place(){
 			if(bornOfSpawner){
 				checkForAuras(self);
 				performAttacks(true);	
-				uletsNumber = array_length(unitlets);
-				for(i = 0; i < uletsNumber; i += 1){
-					unitlets[i].attacks = attacks;
-					unitlets[i].sprite_index = unitlets[i].attackingSprite;
-					unitlets[i].image_index = 0;
-				}
 				o_deck_holder.discard_card(parentSpawner);
 			}
 			dragging = false;
