@@ -1,1 +1,7 @@
 crystals spawn skull that randomly flies around. Idk how to fix it, I just deleted crystals for now lol.
+^^ this is probably outdated unless i add crystal like things to get in the middle of combat.
+
+
+note: with current design enemies should never have more than 1 attack unless i want to rewrite retaliation mechanics.
+
+

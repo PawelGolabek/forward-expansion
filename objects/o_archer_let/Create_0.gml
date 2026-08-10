@@ -4,6 +4,8 @@ event_inherited();
 noEyes = true;
 image_index = random(image_number)
 
+defaultSprite = sprite_index;
+
 function initiate2(){
 	image_xscale = 1;
 	image_yscale = 1;

@@ -1,6 +1,7 @@
 // Inherit the parent event
 event_inherited();
 image_index = random(image_number)
+defaultSprite = sprite_index;
 
 
 function initiate2(){

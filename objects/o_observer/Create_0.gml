@@ -1,7 +1,7 @@
 event_inherited();
 function initiate(){
 	dragging = false;
-	name = "observer";
+	name = "Observer";
 	hp = 2;
 	maxhp = hp;
 	damage = 0;
@@ -33,9 +33,7 @@ initiate();
 onEnter = function(){
 	with(o_unit){
 		if(point_distance_ellipse_sq(x,y + drag_draw_offset,other.x,other.y + other.drag_draw_offset,0.6) <= other.range * other.range){
-			o_combat_resolver.resolve_first_strike_without_retaliation(self);
+			performAttacks(false)	// true for retaliation
 		}
 	}
-
-
 }

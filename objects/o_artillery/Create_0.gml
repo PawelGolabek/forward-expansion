@@ -24,6 +24,7 @@ function initiate(){
 	image_yscale = og_image_yscale;
 	range = 1200;
 	revealRange = range * 2;
+	uletDeployMaxRange = 100;
 
 	aiType = "range";
 	unitletsPerHp = 1;

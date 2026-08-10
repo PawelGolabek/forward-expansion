@@ -16,7 +16,7 @@ function initiate(){
 	revealRange = range * 2
 	dragging = false;
 	mySprite = s_cavalry_flag_3;
-
+	uletDeployMaxRange = 200;
 
 	og_image_xscale = 2;
 	og_image_yscale = 2;

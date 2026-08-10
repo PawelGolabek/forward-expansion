@@ -5,6 +5,7 @@ noEyes = true;
 image_index = random(image_number)
 bloodOnDeath = false;
 explosionOnDeath = true;
+defaultSprite = sprite_index;
 
 function initiate2(){
 	/*

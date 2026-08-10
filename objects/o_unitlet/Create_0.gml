@@ -35,6 +35,9 @@ activeAuras = []; // list of structs: { source, boost, effect } currently applie
 bloodOnDeath = true;
 explosionOnDeath = false;
 sprite_center_offset = sprite_width/2
+defaultSprite = sprite_index;
+attacks = 0;
+attackingSprite = s_attacking_placeholder
 
 function initiate(){
 	if(not noEyes){

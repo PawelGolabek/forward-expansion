@@ -1,9 +1,11 @@
 allegience = "enemy"
 name = "NO NAME ASSIGNED";
 range = 10;
+uletDeployMaxRange = 300;
 revealRange = 10
 damage = 100
 baseDamage = damage
+attacks = 1;
 hp = 10
 maxhp = hp
 firstStrike = true;
@@ -264,7 +266,50 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     return false;
 }
 
+function performAttacks(retaliation){
+	self.retaliation = retaliation
+	global.unitActing = self;
+	repeat(attacks){
+		ds_queue_enqueue(o_clock.action_queue, {
+			// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+			my_spawned_unit: id,
+			func: function() {
+				toNextEvent = o_clock.maxToNextEvent;
+				if(instance_exists(my_spawned_unit)){
+					o_combat_log.log("Player spawned " + my_spawned_unit.name);
+					var _unit = self.my_spawned_unit;
+					my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
+					my_spawned_unit.drag_draw_offset = 0;
 
+					if (instance_exists(_unit)) {
+						with (_unit) {
+
+							resetTargets();
+							global.dropped = id; 
+							global.draggingUnit = id;
+							// animation lock
+							o_clock.animationBlocked = true;
+							// resolve logically
+							if(not retaliation or attacks > 1){
+								o_combat_resolver.resolve_first_strike(global.dropped);
+							}else{
+								o_combat_resolver.resolve_first_strike_without_retaliation(global.dropped);	
+							}
+							global.dropped = noone;
+							global.draggingUnit = noone;
+							// 2. Clear state inside the unit context right as combat resolves
+							if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+							    lastFriendly = noone;
+							}
+						}
+					}
+				}
+			}
+		});
+	}
+
+
+}
 
 function place(){
 	
@@ -285,34 +330,13 @@ function place(){
 			//// first strike, ommit if spawned on room creation
 			if(bornOfSpawner){
 				checkForAuras(self);
-				o_clock.toNextEvent = o_clock.maxToNextEvent;
-				ds_queue_enqueue(o_clock.action_queue, {
-					// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
-					my_spawned_unit: id,
-					func: function() {
-						if(instance_exists(my_spawned_unit)){
-							o_combat_log.log("Player spawned " + my_spawned_unit.name);
-						    var _unit = self.my_spawned_unit;
-							my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
-							my_spawned_unit.drag_draw_offset = 0;
-
-						    if (instance_exists(_unit)) {
-						        with (_unit) {
-						            resetTargets();
-						            global.dropped = id; 
-						            global.draggingUnit = id;
-						            o_combat_resolver.resolve_first_strike(global.dropped);
-									global.dropped = noone;
-									global.draggingUnit = noone;
-									// 2. Clear state inside the unit context right as combat resolves
-						            if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-						                lastFriendly = noone;
-						            }
-						        }
-							}
-					    }
-					}
-				}); 
+				performAttacks(true);	
+				uletsNumber = array_length(unitlets);
+				for(i = 0; i < uletsNumber; i += 1){
+					unitlets[i].attacks = attacks;
+					unitlets[i].sprite_index = unitlets[i].attackingSprite;
+					unitlets[i].image_index = 0;
+				}
 				o_deck_holder.discard_card(parentSpawner);
 			}
 			dragging = false;
@@ -543,6 +567,9 @@ function onRoundEnd(){
 }
 
 function executeStep(){
+	if (global.unitActing == self && unitlets[0].image_index >= unitlets[0].image_number - 1) {
+		uletsNumber = array_length(unitlets);
+	}
 	mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
 	// i hate that it does not match the flag but will fix later brb
     var myX = x;
@@ -713,7 +740,7 @@ function executeStep(){
 		drawCircle = true; // always sho circle on the unit being dragged
 	}
 	///////////////////////////////////////// on taking damage kill unitlets /////////////////////
-	if(array_length(unitlets) > hp * unitletsPerHp){
+	if(array_length(unitlets) > ceil(hp * unitletsPerHp)){
 		ulet = array_pop(unitlets);
 		instance_destroy(ulet);
 	}
@@ -769,9 +796,11 @@ function executeStep(){
 		color = c_white
 	    alpha = 1.0;
 	}
+	  
+  
+	
 	array_push(o_draw_manager.units,id)
 	if(toDestroy){
 		instance_destroy()
 	}
-	
 }

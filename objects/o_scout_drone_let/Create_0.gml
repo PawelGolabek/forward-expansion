@@ -4,6 +4,7 @@ noEyes = true;
 
 image_index = random(image_number)
 
+defaultSprite = sprite_index;
 
 function initiate2(){
 	/*

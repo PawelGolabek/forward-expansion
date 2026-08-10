@@ -289,39 +289,39 @@ function ai_evaluate_and_place() {
 				}
 				visible = true;
 			}
-			
-            ds_queue_enqueue(o_clock.action_queue, {
-                my_spawned_unit: _spawned, 
-                my_manager: _manager_id,
+			repeat(attacks){
+	            ds_queue_enqueue(o_clock.action_queue, {
+	                my_spawned_unit: _spawned, 
+	                my_manager: _manager_id,
         
-                func: function() {
+	                func: function() {
     
-                    var _unit = my_spawned_unit;
-                    var _mgr  = my_manager;
+	                    var _unit = my_spawned_unit;
+	                    var _mgr  = my_manager;
 					
     
-                    global.dropped = _unit;
-                    global.draggingUnit = _unit;
+	                    global.dropped = _unit;
+	                    global.draggingUnit = _unit;
     
-                    o_combat_resolver.resolve_first_strike(global.dropped);
+	                    o_combat_resolver.resolve_first_strike(global.dropped);
     
-                    global.draggingUnit = noone;
-                    global.dropped = noone;
+	                    global.draggingUnit = noone;
+	                    global.dropped = noone;
 
 
-                    if (instance_exists(_unit)) {
-                        _unit.dragging = false;
-                        _unit.placed = true;
-                    //    _unit.visible = true; // Ensure the unit itself is visible!
-                    }
+	                    if (instance_exists(_unit)) {
+	                        _unit.dragging = false;
+	                        _unit.placed = true;
+	                    //    _unit.visible = true; // Ensure the unit itself is visible!
+	                    }
                     
-                    // Safely set manager visibility back to true
-                    if (instance_exists(_mgr)) {
-                //        _mgr.visible = true;
-                    }
-                }
-            });
-    
+	                    // Safely set manager visibility back to true
+	                    if (instance_exists(_mgr)) {
+	                //        _mgr.visible = true;
+	                    }
+	                }
+	            });
+			}
      //       visible = true;  
         }
         else {

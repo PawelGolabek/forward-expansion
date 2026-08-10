@@ -2,6 +2,7 @@
 event_inherited();
 
 
+defaultSprite = sprite_index;
 noEyes = true;
 function initiate2(){
 	

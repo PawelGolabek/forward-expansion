@@ -3,7 +3,7 @@ event_inherited()
 function initiate(){
 	dragging = false;
 
-	name = "katana";
+	name = "Katana";
 	hp = 1
 	maxhp = hp
 	damage = 4

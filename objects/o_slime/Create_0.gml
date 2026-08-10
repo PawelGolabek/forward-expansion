@@ -3,7 +3,7 @@ event_inherited()
 function initiate(){
 	dragging = false;
 
-	name = "slime";
+	name = "Slime";
 	hp = 2
 	maxhp = hp
 	damage = 12

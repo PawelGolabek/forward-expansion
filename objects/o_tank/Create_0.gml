@@ -4,7 +4,7 @@ handleHeartsCreation(self)
 
 function initiate(){
 	dragging = false;
-	name = "tank";
+	name = "Mass Infrantry";
 	hp = 5;
 	maxhp = hp;
 	damage = 1;
