@@ -56,12 +56,36 @@ global.deployHighlight = noone;
 // was targeted, so they landed on the default application_surface instead of
 // app_surface -- meaning they'd be missing from (or inconsistent with) the
 // surface that actually goes through the CRT shader.
+
+
+/*
 if (!surface_exists(app_surface)) {
+	
     app_surface = surface_create(room_width, room_height);
 }
-crt_gui_begin();
-surface_set_target(app_surface);
+
+//crt_gui_begin();
+//surface_set_target(app_surface);
+
+
+*/
 draw_clear_alpha(c_black, 0);
+
+var dynamicBG = []
+with(o_dynamicbg){
+	array_push(dynamicBG,self);
+}
+array_sort(dynamicBG, function(a, b) {
+    if (!instance_exists(a) || !instance_exists(b)) return 0;
+    return b.depth - a.depth;
+});
+
+maxBG = array_length(dynamicBG);
+for(i = 0; i < maxBG; i+= 1){
+	with(dynamicBG[i]){
+		draw_self();
+	}
+}
 
 draw_set_alpha(1.0);
 with (o_cliff) {
@@ -229,6 +253,8 @@ with (o_unit) {
 // (pops back to app_surface, which is still the active target underneath)
 surface_reset_target();
 draw_set_alpha(0.1);
+
+
 with (o_unit) {
 	if(wantCircle or keyboard_check(vk_tab)){
 		draw_half_circle_scale(x, y, range, 0, 180, 1.0, 0.6);
@@ -253,14 +279,14 @@ with(o_unitlet){
 }
 
 
-draw_text(mouse_x, mouse_y, "\n\nTest GUI");
+//draw_text(mouse_x, mouse_y, "\n\nTest GUI");
 
 // --- FIX: release app_surface as the render target BEFORE feeding it into
 // the shader as a source texture. Previously app_surface was still the
 // active target when my_crt.draw(app_surface, ...) ran, meaning the surface
 // was being read from and written to at the same time (undefined / blank /
 // corrupted result depending on platform).
-surface_reset_target();
-my_crt.draw(app_surface, 0, 0, room_width, room_height);
+//surface_reset_target();
+//my_crt.draw(app_surface, 0, 0, room_width, room_height);
 
-crt_gui_end();
+//crt_gui_end();

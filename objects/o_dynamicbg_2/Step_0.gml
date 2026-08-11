@@ -1,8 +1,7 @@
 x = o_camera_controller.cam_x
 y = o_camera_controller.cam_y - y/20
 
-
-depth  = 9999996 + y
+depth  = 999
 
 
 image_xscale = 1 + 8 * 1/o_camera_controller.zoom

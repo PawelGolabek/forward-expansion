@@ -11,7 +11,10 @@
     "name":"dynamic_bg",
     "path":"folders/objects/dynamic_bg.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_dynamicbg",
+    "path":"objects/o_dynamicbg/o_dynamicbg.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

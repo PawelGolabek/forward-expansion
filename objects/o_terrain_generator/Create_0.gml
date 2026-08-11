@@ -155,6 +155,7 @@ for (var r = 0; r < rows; r++) {
 		}
 		if(r < 3){
 			instance_create_depth(tile_x + 30, row_y + 80, y + 5000, o_enemy_inferna)
+			instance_create_depth(tile_x + 10, row_y + 110, y + 5000, o_enemy_harpoon)
 		}
 		if(r < 2){
 			instance_create_depth(tile_x + 30, row_y + 60, y + 5000, o_enemy_inferna)

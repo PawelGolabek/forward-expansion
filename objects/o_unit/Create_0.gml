@@ -12,6 +12,7 @@ firstStrike = true;
 reactionStrike = true;
 crystalCost = 10
 deployAlly = true;
+antiAir = 0;
 // ulet spawning
 mySprite = sprite_index;
 og_image_xscale = image_xscale;
@@ -92,6 +93,8 @@ deployedAnywhere = false;
 damagedUlets = 0;
 realHpTriggerTime = -1;
 realHpTriggerOn = false;
+hasTurnCounter = false;
+isAirStrike = false;
 
 if(!noEyes){
 	eyeX = 20
@@ -284,9 +287,7 @@ function enemyInRange(){
 		}
 	}
 	return false;
-
 }
-
 
 
 function performAttacks(retaliation){
@@ -365,10 +366,51 @@ function performAttacks(retaliation){
 	
 }
 
+
+function turnCounterTrigger(){
+	with(o_unit){
+		if(hasTurnCounter){
+			if(turnCounterOn){
+				turnCounter -= 1;
+				if(turnCounter == 0){
+					triggerTurnCounter();
+				}
+			}
+		}
+	}
+}
+
+
+function onAntiAir(){}
+function onIntercepted(){}
+
+function interceptionsCheck(unit){
+	with(o_unit){
+		if(antiAir and point_distance_ellipse_sq(x, y, unit.x, unit.y, 0.6) < range * range){
+			antiAir -= 1;
+			self.onAntiAir();
+			unit.onIntercepted();
+			return true;
+		}else{
+			continue;
+		}
+	}
+	return false;
+}
+
+
 function place(){
-	
 	checkForAuras(self);
 	if ((mouseClicked and valid) || (not bornOfSpawner && !placed)){
+		if(isAirStrike){
+			intercepted = interceptionsCheck(self);
+			if(intercepted){
+				instance_destroy();
+				o_deck_holder.discard_card(parentSpawner);
+				turnCounterTrigger()
+				exit;
+			}
+		}		
 		with(o_spawner_parent){
 			selected = false;
 		}
@@ -386,6 +428,7 @@ function place(){
 				checkForAuras(self);
 				performAttacks(true);	
 				o_deck_holder.discard_card(parentSpawner);
+
 			}
 			dragging = false;
 			placed = true;
@@ -658,6 +701,7 @@ function executeStep(){
 		last_valid_x = x;
 		last_valid_y = y;
 		place();
+		
 	}
 	if (dragging){
 		/////////////////////////////////////////////////////////

@@ -21,6 +21,7 @@ highlightEnemy = true;
 deployedAnywhere = true;
 noTargetting = true;
 untargetable = true;
+isAirStrike = true;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 handleHeartsCreation(self);
 
@@ -67,7 +68,6 @@ function onEnter(){
 	repeat(20){
 		spread = 100;
 		a = instance_create_depth(x - spread + random(spread*2),y - (spread * 0.6) + random(spread * 2 * 0.6), 0, o_airstrike_effect);
-		a.image_index = random(10);
 	}
 	instance_destroy()
 }
@@ -85,5 +85,9 @@ function onDragging(){
 	}
 }
 
+function onIntercepted(){		
+
+	instance_create_depth(room_width,y,-999999,o_plane_shadow);
+}
 
 function onPlace(){}
