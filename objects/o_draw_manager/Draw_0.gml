@@ -1,5 +1,3 @@
-global.deployHighlight = noone;
-
 with(o_unit){
 	// lethal - every current heart beats
 	heartIdx = array_length(hearts) - 1
@@ -49,6 +47,22 @@ with(o_expand_circle){
 ///////////////////////////////
 /// TERRAIN
 /////////////////////////////
+
+global.deployHighlight = noone;
+
+// --- FIX: ensure app_surface exists and is the active target BEFORE anything
+// that's meant to end up on screen (cliffs, base terrain) is drawn. Previously
+// o_cliff and the first o_placable_terrain pass were drawn before app_surface
+// was targeted, so they landed on the default application_surface instead of
+// app_surface -- meaning they'd be missing from (or inconsistent with) the
+// surface that actually goes through the CRT shader.
+if (!surface_exists(app_surface)) {
+    app_surface = surface_create(room_width, room_height);
+}
+crt_gui_begin();
+surface_set_target(app_surface);
+draw_clear_alpha(c_black, 0);
+
 draw_set_alpha(1.0);
 with (o_cliff) {
     draw_sprite_ext(
@@ -77,7 +91,7 @@ if (!surface_exists(circle_surface)) {
     circle_surface = surface_create(room_width, room_height);
 }
 
-// Draw base terrain outside of surface
+// Draw base terrain directly onto app_surface (full-opacity base layer)
 draw_set_alpha(1.0);
 with (o_placable_terrain) {
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
@@ -127,9 +141,7 @@ draw_surface(circle_surface, 0, 0);
 gpu_set_blendmode(bm_normal);
 surface_reset_target();
 
-// 5. Render final result to room
-
-
+// 5. Composite the terrain+circle mask onto app_surface (still the active target)
 draw_surface(mask_surface, 0, 0);
 
 
@@ -214,6 +226,7 @@ with (o_unit) {
 }
 
 // Reset target BEFORE drawing the surface back to screen
+// (pops back to app_surface, which is still the active target underneath)
 surface_reset_target();
 draw_set_alpha(0.1);
 with (o_unit) {
@@ -238,3 +251,16 @@ scr_draw_units_batch(unitsToDraw, 1, 2);
 with(o_unitlet){
 	targettedBySpell = false;
 }
+
+
+draw_text(mouse_x, mouse_y, "\n\nTest GUI");
+
+// --- FIX: release app_surface as the render target BEFORE feeding it into
+// the shader as a source texture. Previously app_surface was still the
+// active target when my_crt.draw(app_surface, ...) ran, meaning the surface
+// was being read from and written to at the same time (undefined / blank /
+// corrupted result depending on platform).
+surface_reset_target();
+my_crt.draw(app_surface, 0, 0, room_width, room_height);
+
+crt_gui_end();

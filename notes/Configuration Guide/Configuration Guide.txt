@@ -1,0 +1,210 @@
+======== SittingDuck's Advanced CRT Shader for GameMaker v3.0 ========
+
+======== How to setup ========
+
+// You can init from defaults
+	/*
+	my_crt = new CRT();
+	*/
+
+// You can init with some custom settings
+	/*
+	var overrides = {
+		ntsc: {
+			color_temperature: 0.5
+		}
+	}
+	my_crt = new CRT(overrides);
+	*/
+
+// You can init and change things later on-the-fly
+	/*
+	my_crt = new CRT().configure_ntsc(false).configure_lines({max_sigma:0.5}).update_uniforms();
+	*/
+
+// You can init from JSON
+	/*
+	var json = "{ntsc:{color_saturation:2.0}}"
+	my_crt = new CRT(json);
+	*/
+
+// You can init from an object's variable definitions (like in earlier versions)
+	/*
+	my_crt = new CRT(ExamplePresetAsAnObject);
+	*/
+	
+	
+======== How to cleanup ========
+
+// You should call .cleanup() before de-referencing to avoid memory leaks
+my_crt.cleanup()
+delete my_crt;
+
+
+======== How to use the mouse ========
+
+// Try to cache the return of .get_mouse() as much as you can
+var mouse = my_crt.get_mouse();
+if mouse.valid {
+	draw_circle_color(mouse.x, mouse.y, 16, c_blue, c_lime, false);
+	draw_text(mouse.x, mouse.y, string(mouse.view_index));
+}
+
+
+======== How to draw to the screen ========
+
+// If you want GUI elements to be a part of the CRT, do this in any object's Post-Draw event
+crt_gui_begin();
+draw_text(mouse_x, mouse_y, "\n\nTest GUI");
+crt_gui_end();
+
+// For most projects, you'll find it easiest to apply the effect to the application surface in the post-draw event
+// Just be sure to do so after any GUI you want included in the screen
+my_crt.draw_to_backbuffer();
+
+// You can also draw manually wherever you'd like
+	/*
+	surface_set_target(wherever);
+	my_crt.draw(application_surface, 200, 200, 1280, 720);
+	surface_reset_target();
+	*/
+	
+	
+======== Parameter Guide ========
+
+======== NTSC (Signal Artifacts) ========
+
+ntsc.quality | min 2.0 | max 8.0 | default 4.0
+Resolution of NTSC carrier wave sampling (lower = blurrier/more artifacts).
+
+ntsc.phase_offset_per_line | min 0.3333 | max 0.5 | default 0.5
+How much to offset the carrier wave phase from line to line.
+
+ntsc.phase_offset_per_frame | min 0.1667 | max 0.3333 | default 0.25
+How much to offset the carrier wave phase per frame.
+
+ntsc.notch_filter_scale | min 0.0001 | max 2.0 | default 1.0
+Amplifies or attenuates rainbow artifacts and dot crawl.
+
+ntsc.cable_noise | min 0.0 | max 1.0 | default 0.01
+How much signal noise to simulate on the video cable.
+
+ntsc.temporal_aa | min 0.0 | max 1.0 | default 1.0
+How much to deflicker by blending samples between consecutive frames.
+
+ntsc.hsync_failure | min 0.0 | max 1.0 | default 0.0
+Strength of random horizontal line jitter/instability.
+
+ntsc.vsync_failure | min -1.0 | max 1.0 | default 0.0
+Vertical rolling offset of the picture.
+
+ntsc.chroma_smear | min 0.0 | max 16.0 | default 4.0
+How much color bleeds horizontally (bandwidth limitation).
+
+ntsc.chroma_delay | min -16.0 | max 16.0 | default 0.0
+Horizontal offset of the color signal relative to brightness (luma).
+
+ntsc.color_saturation | min 0.0 | max 2.0 | default 1.0
+Global color intensity multiplier.
+
+ntsc.color_temperature | min -1.0 | max 1.0 | default 0.0
+Global color temperature multiplier (warm/cool).
+
+ntsc.sim_hz | min 24 | max 120 | default 60
+Refresh rate of the simulated signal (60 = NTSC, 50 = PAL-like). Paces dot crawl, interlace fields, and noise.
+
+ntsc.enabled | bool | default true
+Toggles the NTSC pre-pass entirely.
+
+======== Bloom (Glow) ========
+
+bloom.strength | min 0.0 | max 2.0 | default 1.0
+Intensity of the lighting bloom effect.
+
+bloom.passes | min 1 | max 8 | default 3
+Number of blur iterations. Higher = wider, softer glow but more GPU cost.
+
+bloom.enabled | bool | default true
+Toggles the Bloom pre-pass.
+
+======== Mask (Phosphor/Grille) ========
+
+mask.strength | min 0.0 | max 1.0 | default 1.0
+Opacity of the phosphor mask pattern.
+
+mask.scale | min 1.0 | max 4.0 | default 1.0
+Scale of the mask texture relative to the output pixels.
+
+mask.slot_strength | min 0.0 | max 1.0 | default 1.0
+Opacity of the "slot" mask (vertical phosphor triad separation).
+
+mask.sprite | asset | default spr_mask_rgbx
+The sprite resource used for the phosphor pattern.
+
+mask.do_mirror | bool | default false
+If true, flips the mask pattern.
+
+mask.do_shadow | bool | default false
+If true, offsets the mask pattern on alternate rows (Shadow Mask vs Aperture Grille).
+
+mask.rgbx_repeat_on_threes | bool | default false
+Changes texture repeat behavior (for specific RGBX mask sprites).
+
+mask.slot_height | int | default 1
+Subimage index of the slot sprite to use (controls slot pattern height).
+
+mask.bright_fade | min 0.0 | max 1.0 | default 1.0
+How much the mask pattern fades out on very bright pixels (simulates phosphor over-saturation).
+
+======== Geometry (Screen Shape) ========
+
+geometry.content_width / height | int
+The native resolution of the game content being displayed.
+
+geometry.aspect_ratio | float | default 4/3
+The target aspect ratio of the "tube".
+
+geometry.zoom | min 0.5 | max 2.0 | default 1.0
+Scales the image size inside the CRT bezel.
+
+geometry.curvature | min 0.0 | max 0.5 | default 0.1
+Amount of barrel distortion (fish-eye effect) at the corners.
+
+geometry.offset_x / y | min -1.0 | max 1.0 | default 0.0
+Shifts the screen image horizontally or vertically.
+
+geometry.do_int_scale | bool | default false
+Forces the vertical scaling to snap to the nearest integer multiple to reduce shimmer.
+
+geometry.border_width | min 0.0 | max 0.5 | default 0.15
+Width of the border reflection area.
+
+geometry.border_brightness | min 0.0 | max 1.0 | default 0.2
+Brightness of the reflection in the border area.
+
+======== Lines (Scanlines & Beam) ========
+
+lines.image_softness | min 0.0 | max 1.0 | default 1.0
+Interpolation: 0.0 = Nearest Neighbor (sharp pixels), 1.0 = Bilinear (smooth).
+
+lines.do_tate | bool | default false
+Rotates scanline simulation 90 degrees for vertical screens.
+
+lines.min_sigma | min 0.1 | max 1.0 | default 0.225
+Beam width for dark pixels.
+
+lines.max_sigma | min 0.1 | max 1.0 | default 0.5
+Beam width for bright pixels.
+
+lines.brightness | min 1.0 | max 4.0 | default 2.0
+Multiplier to compensate for loss of brightness due to scanline gaps and masks.
+
+lines.deconvergence | min 0.0 | max 1.0 | default 0.25
+Distance (in pixels) to separate R, G, and B channels.
+
+lines.gamma | min -1 | max 3.0 | default -1
+Output gamma curve. -1 uses default sRGB (for PC screens).
+
+lines.do_interlace | bool | default false
+Whether to render alternating fields at 60hz
+-> MUST HAVE "Clear Display Buffer" DISABLED TO WORK IF DRAWING TO BACKBUFFER

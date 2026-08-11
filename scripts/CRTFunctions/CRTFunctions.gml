@@ -1,0 +1,773 @@
+/*
+
+SittingDuck's Advanced CRT Shader for GameMaker v3.1
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+/// @function crt_preset_object_to_struct(object_asset)
+/// @description Instantiates a preset object, maps its properties to a nested struct, and destroys it.
+/// @param {Asset.GMObject} _object_asset The object to read properties from.
+function crt_preset_object_to_struct(_object_asset) {
+    
+    var _inst = instance_create_depth(0, 0, 0, _object_asset);
+    
+    var _preset_struct = {
+        
+        ntsc: {
+            bandwidth:              _inst.ntsc_bandwidth, 
+            phase_offset_per_line:  _inst.ntsc_phase_offset_per_line,
+            phase_offset_per_frame: _inst.ntsc_phase_offset_per_frame,
+            cable_noise:            _inst.ntsc_cable_noise,
+            temporal_aa:            _inst.ntsc_temporal_aa,
+            hsync_failure:          _inst.ntsc_hsync_failure,
+            vsync_offset:           _inst.ntsc_vsync_offset, 
+            chroma_smear:           _inst.ntsc_chroma_smear,
+            chroma_delay:           _inst.ntsc_chroma_delay,
+            color_saturation:       _inst.ntsc_color_saturation,
+            notch_filter_scale:     _inst.ntsc_notch_filter_scale,
+            enabled:                _inst.ntsc_enabled,
+			color_temperature:      _inst.ntsc_color_temperature,
+			// Accessor form so that v3.1 is non-breaking
+			sim_hz:                 _inst[$ "ntsc_sim_hz"] ?? 60
+        },
+
+        bloom: {
+            strength: _inst.bloom_strength,
+            enabled:  _inst.bloom_enabled,
+            passes:   _inst.bloom_passes
+        },
+
+        mask: {
+            strength:              _inst.mask_strength,
+            scale:                 _inst.mask_scale,
+            slot_strength:         _inst.mask_slot_strength,
+            sprite:                _inst.mask_sprite,
+            do_mirror:             _inst.mask_do_mirror,
+            do_shadow:             _inst.mask_do_shadow,
+            rgbx_repeat_on_threes: _inst.mask_rgbx_repeat_on_threes,
+            slot_height:           _inst.mask_slot_height,
+            bright_fade:           _inst.mask_bright_fade
+        },
+
+        geometry: {
+            content_width:      _inst.geometry_content_width,
+            content_height:     _inst.geometry_content_height,
+            aspect_ratio:       _inst.geometry_aspect_ratio,
+            zoom:               _inst.geometry_zoom,
+            curvature:          _inst.geometry_curvature,
+            offset_x:           _inst.geometry_offset_x,
+            offset_y:           _inst.geometry_offset_y,
+            do_int_scale:       _inst.geometry_do_int_scale,
+            border_width:       _inst.geometry_border_width,
+            border_brightness:  _inst.geometry_border_brightness
+        },
+
+        lines: {
+            image_softness: _inst.lines_image_softness,
+            do_tate:        _inst.lines_do_tate,
+            min_sigma:      _inst.lines_min_sigma,
+            max_sigma:      _inst.lines_max_sigma,
+            brightness:     _inst.lines_brightness,
+            deconvergence:  _inst.lines_deconvergence,
+            gamma:          _inst.lines_gamma,
+			do_interlace:   _inst.lines_do_interlace
+        }
+    };
+
+    instance_destroy(_inst);
+
+    return _preset_struct;
+}
+
+/// @function crt_gui_begin([surface])
+/// @description Targets a surface for manual GUI drawing
+function crt_gui_begin(_surface=application_surface) {
+
+    if (surface_exists(_surface)) {
+
+        surface_set_target(_surface);
+    }
+}
+
+/// @function crt_gui_end()
+/// @description Restores the previous render state
+function crt_gui_end() {
+    surface_reset_target();
+}
+
+
+function CRT(config_struct=undefined) constructor {
+	
+	// Coerce visual config object reference to struct
+	if object_exists(config_struct) {
+		config_struct = crt_preset_object_to_struct(config_struct);
+	}
+	
+	// Coerce config json to struct
+	if not is_struct(config_struct) {
+		var _json_success = false;
+		
+		if (is_string(config_struct)) {
+			try {
+				var _parsed = json_parse(config_struct);
+				if (is_struct(_parsed)) {
+					config_struct = _parsed;
+					_json_success = true;
+				}
+			} catch(_e) {
+				// JSON parse failed, proceed to default
+			}
+		}
+		
+		if (not _json_success) {
+			config_struct = {};
+		}
+	}
+	
+	// Prevent errors by creating blank categories where undefined
+	if not variable_struct_exists(config_struct, "ntsc") {
+		config_struct[$ "ntsc"] = {};
+	}
+	if not variable_struct_exists(config_struct, "bloom") {
+		config_struct[$ "bloom"] = {};
+	}
+	if not variable_struct_exists(config_struct, "mask") {
+		config_struct[$ "mask"] = {};
+	}
+	if not variable_struct_exists(config_struct, "geometry") {
+		config_struct[$ "geometry"] = {};
+	}
+	if not variable_struct_exists(config_struct, "lines") {
+		config_struct[$ "lines"] = {};
+	}
+	
+	// Copy all existing data, with defaults
+	ntsc = {
+		bandwidth: config_struct[$ "ntsc"][$ "bandwidth"] ?? 4,
+		phase_offset_per_line: config_struct[$ "ntsc"][$ "phase_offset_per_line"] ?? 0.5,
+		phase_offset_per_frame: config_struct[$ "ntsc"][$ "phase_offset_per_frame"] ?? 0.25,
+		cable_noise: config_struct[$ "ntsc"][$ "cable_noise"] ?? 0.01,
+		temporal_aa: config_struct[$ "ntsc"][$ "temporal_aa"] ?? 1.0,
+		hsync_failure: config_struct[$ "ntsc"][$ "hsync_failure"] ?? 0.0,
+		vsync_offset: config_struct[$ "ntsc"][$ "vsync_failure"] ?? 0.0,
+		chroma_smear: config_struct[$ "ntsc"][$ "chroma_smear"] ?? 8,
+		chroma_delay: config_struct[$ "ntsc"][$ "chroma_delay"] ?? 0.0,
+		color_saturation: config_struct[$ "ntsc"][$ "color_saturation"] ?? 1.0,
+		notch_filter_scale: config_struct[$ "ntsc"][$ "notch_filter_scale"] ?? 1.0,
+		enabled: config_struct[$ "ntsc"][$ "enabled"] ?? true,
+		color_temperature: config_struct[$ "ntsc"][$ "color_temperature"] ?? 0.0,
+		sim_hz: config_struct[$ "ntsc"][$ "sim_hz"] ?? 60,
+	}
+	
+	bloom = {
+		strength: config_struct[$ "bloom"][$ "strength"] ?? 1,
+		enabled: config_struct[$ "bloom"][$ "enabled"] ?? true,
+		passes: config_struct[$ "bloom"][$ "passes"] ?? 3,
+	}
+	
+	mask = {
+		strength: config_struct[$ "mask"][$ "strength"] ?? 1.0,
+		scale: config_struct[$ "mask"][$ "scale"] ?? 1.0,
+		slot_strength : config_struct[$ "mask"][$ "slot_strength"] ?? 1.0,
+		sprite: config_struct[$ "mask"][$ "sprite"] ?? spr_mask_rgbx,
+		do_mirror: config_struct[$ "mask"][$ "do_mirror"] ?? false,
+		do_shadow: config_struct[$ "mask"][$ "do_shadow"] ?? false,
+		rgbx_repeat_on_threes: config_struct[$ "mask"][$ "rgbx_repeat_on_threes"] ?? false,
+		slot_height: config_struct[$ "mask"][$ "slot_height"] ?? 1,
+		bright_fade: config_struct[$ "mask"][$ "bright_fade"] ?? 0.75,
+	}
+	
+	geometry = {
+		content_width: config_struct[$ "geometry"][$ "content_width"] ?? 320,
+		content_height: config_struct[$ "geometry"][$ "content_height"] ?? 240,
+		aspect_ratio: config_struct[$ "geometry"][$ "aspect_ratio"] ?? 4/3,
+		zoom: config_struct[$ "geometry"][$ "zoom"] ?? 1.0,
+		curvature: config_struct[$ "geometry"][$ "curvature"] ?? 0.1,
+		offset_x: config_struct[$ "geometry"][$ "offset_x"] ?? 0.0,
+		offset_y: config_struct[$ "geometry"][$ "offset_y"] ?? 0.0,
+		do_int_scale: config_struct[$ "geometry"][$ "do_int_scale"] ?? false,
+		border_width: config_struct[$ "geometry"][$ "border_width"] ?? 0.15,
+		border_brightness: config_struct[$ "geometry"][$ "border_brightness"] ?? 0.5,
+	}
+	
+	lines = {
+		image_softness: config_struct[$ "lines"][$ "image_softness"] ?? 1.0,
+		do_tate: config_struct[$ "lines"][$ "do_tate"] ?? false,
+		min_sigma: config_struct[$ "lines"][$ "min_sigma"] ?? 0.225,
+		max_sigma: config_struct[$ "lines"][$ "max_sigma"] ?? 0.5,
+		brightness: config_struct[$ "lines"][$ "brightness"] ?? 2.0,
+		deconvergence: config_struct[$ "lines"][$ "deconvergence"] ?? 0.25,
+		gamma: config_struct[$ "lines"][$ "gamma"] ?? -1,
+		do_interlace: config_struct[$ "lines"][$ "do_interlace"] ?? false,
+	}
+	
+	// Not strictly necessary afaik, but feels right
+	delete config_struct;
+	
+	// Persistent handles for internal rendering surfaces
+	ntsc_pass_result = undefined;
+	bloom_pass_result = array_create(bloom.passes, undefined);
+	
+	// To keep track of the current frame
+	_frame_counter = 0;
+	_frame_acc = 0;
+	
+	// For internal use, just holds uniform IDs
+	final_pass_shader = shd_pass_crt;
+	_u = {};
+	
+	/// @func set_shader()
+	/// @desc Assigns a custom final pass shader and retrieves uniform IDs
+	/// @return {Struct.CRT} Returns self for method chaining
+	static set_shader = function(shader) {
+		
+		final_pass_shader = shader;
+		
+		_u = {
+			ntsc_resolution: shader_get_uniform(shd_pass_ntsc, "u_resolution"),
+			time: shader_get_uniform(shd_pass_ntsc, "u_time"),
+			time_2: shader_get_uniform(final_pass_shader, "u_time"),
+			ntsc_bandwidth: shader_get_uniform(shd_pass_ntsc, "u_carrier_sub"),
+			ntsc_config: shader_get_uniform(shd_pass_ntsc, "u_ntsc_config"),
+			ntsc_sync: shader_get_uniform(shd_pass_ntsc, "u_sync_loss"),
+			ntsc_chroma_taps: shader_get_uniform(shd_pass_ntsc, "u_chroma_taps"),
+			ntsc_chroma_delay: shader_get_uniform(shd_pass_ntsc, "u_chroma_delay"),
+			ntsc_chroma_smear: shader_get_uniform(shd_pass_ntsc, "u_chroma_smear"),
+			ntsc_color_sat: shader_get_uniform(shd_pass_ntsc, "u_chroma_sat"),
+			ntsc_color_temp: shader_get_uniform(shd_pass_ntsc, "u_temperature"),
+			ntsc_notch_filter_scale: shader_get_uniform(shd_pass_ntsc, "u_notch_scale"),
+		
+			geom_content_size: shader_get_uniform(final_pass_shader, "u_content_size"),
+			geom_output_size: shader_get_uniform(final_pass_shader, "u_output_size"),
+			geom_aspect_ratio: shader_get_uniform(final_pass_shader, "u_aspect_ratio"),
+			geom_zoom: shader_get_uniform(final_pass_shader, "u_zoom"),
+			geom_offset: shader_get_uniform(final_pass_shader, "u_output_offset"),
+			geom_curvature: shader_get_uniform(final_pass_shader, "u_curvature"),
+			geom_int_scale: shader_get_uniform(final_pass_shader, "u_do_int_scale"),
+			geom_border_width: shader_get_uniform(final_pass_shader, "u_border_width"),
+			geom_border_brightness: shader_get_uniform(final_pass_shader, "u_border_brightness"),
+		
+			line_image_softness: shader_get_uniform(final_pass_shader, "u_image_softness"),
+			line_do_tate: shader_get_uniform(final_pass_shader, "u_do_tate"),
+			line_min_sigma: shader_get_uniform(final_pass_shader, "u_min_sigma"),
+			line_max_sigma: shader_get_uniform(final_pass_shader, "u_max_sigma"),
+			line_brightness: shader_get_uniform(final_pass_shader, "u_line_brightness"),
+			line_deconvergence: shader_get_uniform(final_pass_shader, "u_deconvergence"),
+			line_gamma: shader_get_uniform(final_pass_shader, "u_gamma"),
+			line_do_interlace: shader_get_uniform(final_pass_shader, "u_do_interlace"),
+		
+			mask_strength: shader_get_uniform(final_pass_shader, "u_mask_strength"),
+			mask_slot_strength: shader_get_uniform(final_pass_shader, "u_slot_strength"),
+			mask_scale: shader_get_uniform(final_pass_shader, "u_mask_scale"),
+			mask_do_mirror: shader_get_uniform(final_pass_shader, "u_do_mask_mirror"),
+			mask_do_shadow: shader_get_uniform(final_pass_shader, "u_mask_do_shadow"),
+			mask_tex_width: shader_get_uniform(final_pass_shader, "u_mask_tex_width"),
+			mask_repeat_on_three: shader_get_uniform(final_pass_shader, "u_mask_repeat_on_three"),
+			mask_bright_fade: shader_get_uniform(final_pass_shader, "u_mask_fade"),
+		
+			bloom_strength: shader_get_uniform(final_pass_shader, "u_bloom_strength"),
+			mask_sampler: shader_get_sampler_index(final_pass_shader, "u_mask_sampler"),
+			slot_sampler: shader_get_sampler_index(final_pass_shader, "u_slot_sampler"),
+			bloom_sampler: shader_get_sampler_index(final_pass_shader, "u_bloom_sampler"),
+		}
+		
+		update_uniforms();
+		
+		return self;
+	}
+
+	/// @func cleanup()
+	/// @desc Frees all internal surfaces from memory. Must be called before the struct is garbage collected to prevent memory leaks
+	/// @return {Struct.CRT} Returns self for method chaining
+	static cleanup = function() {
+		if surface_exists(ntsc_pass_result) {
+			surface_free(ntsc_pass_result);
+		}
+		
+		for (var i = 0; i < bloom.passes; i++) {
+			if surface_exists(bloom_pass_result[i]) {
+				surface_free(bloom_pass_result[i]);
+			}
+		}
+		return self;
+	}
+	
+	/// @func configure_ntsc(enable, [config_struct])
+	/// @desc Updates the NTSC signal artifact settings
+	/// @param {Bool} enable Whether to enable the NTSC pre-pass
+	/// @param {Struct} [config_struct] A struct containing overrides for NTSC properties (e.g. {cable_noise: 0.01})
+	/// @return {Struct.CRT} Returns self for method chaining
+	static configure_ntsc = function(enable, config_struct) {
+		ntsc.enabled = enable;
+		if not is_struct(config_struct) config_struct = {};
+		
+		ntsc = {
+			bandwidth: config_struct[$ "bandwidth"] ?? ntsc.bandwidth,
+			phase_offset_per_line: config_struct[$ "phase_offset_per_line"] ?? ntsc.phase_offset_per_line,
+			phase_offset_per_frame: config_struct[$ "phase_offset_per_frame"] ?? ntsc.phase_offset_per_frame,
+			cable_noise: config_struct[$ "cable_noise"] ?? ntsc.cable_noise,
+			temporal_aa: config_struct[$ "temporal_aa"] ?? ntsc.temporal_aa,
+			hsync_failure: config_struct[$ "hsync_failure"] ?? ntsc.hsync_failure,
+			vsync_offset: config_struct[$ "vsync_failure"] ?? ntsc.vsync_offset,
+			chroma_smear: config_struct[$ "chroma_smear"] ?? ntsc.chroma_smear,
+			chroma_delay: config_struct[$ "chroma_delay"] ?? ntsc.chroma_delay,
+			color_saturation: config_struct[$ "color_saturation"] ?? ntsc.color_saturation,
+			notch_filter_scale: config_struct[$ "notch_filter_scale"] ?? ntsc.notch_filter_scale,
+			enabled: config_struct[$ "enabled"] ?? ntsc.enabled,
+			color_temperature: config_struct[$ "color_temperature"] ?? ntsc.color_temperature,
+			sim_hz: config_struct[$ "sim_hz"] ?? ntsc.sim_hz,
+		};
+		update_uniforms();
+		return self;
+	}
+	
+	/// @func configure_bloom(enable, [config_struct])
+	/// @desc Updates the bloom/glow settings
+	/// @param {Bool} enable Whether to enable the Bloom pre-pass
+	/// @param {Struct} [config_struct] A struct containing overrides for Bloom properties (e.g. {strength: 1.0})
+	/// @return {Struct.CRT} Returns self for method chaining
+	static configure_bloom = function(enable, config_struct) {
+		bloom.enabled = enable;
+		if not is_struct(config_struct) config_struct = {};
+		
+		bloom = {
+			strength: config_struct[$ "strength"] ?? bloom.strength,
+			passes: config_struct[$ "passes"] ?? bloom.passes,
+			enabled: config_struct[$ "enabled"] ?? bloom.enabled,
+		};
+		update_uniforms();
+		return self;
+	}
+
+	/// @func configure_mask([config_struct])
+	/// @desc Updates the phosphor mask settings
+	/// @param {Struct} [config_struct] A struct containing overrides for mask properties (e.g. {scale: 1.0})
+	/// @return {Struct.CRT} Returns self for method chaining
+	static configure_mask = function(config_struct) {
+		if not is_struct(config_struct) config_struct = {};
+		
+		mask = {
+			strength: config_struct[$ "strength"] ?? mask.strength,
+			scale: config_struct[$ "scale"] ?? mask.scale,
+			slot_strength: config_struct[$ "slot_strength"] ?? mask.slot_strength,
+			sprite: config_struct[$ "sprite"] ?? mask.sprite,
+			do_mirror: config_struct[$ "do_mirror"] ?? mask.do_mirror,
+			do_shadow: config_struct[$ "do_shadow"] ?? mask.do_shadow,
+			rgbx_repeat_on_threes: config_struct[$ "rgbx_repeat_on_threes"] ?? mask.rgbx_repeat_on_threes,
+			slot_height: config_struct[$ "slot_height"] ?? mask.slot_height,
+			bright_fade: config_struct[$ "bright_fade"] ?? mask.bright_fade,
+		};
+		update_uniforms();
+		return self;
+	}
+
+	/// @func configure_geometry([config_struct])
+	/// @desc Updates the screen geometry, curvature, and border settings
+	/// @param {Struct} [config_struct] A struct containing overrides for geometry properties (e.g. {curvature: 0.2})
+	/// @return {Struct.CRT} Returns self for method chaining
+	static configure_geometry = function(config_struct) {
+		if not is_struct(config_struct) config_struct = {};
+		
+		geometry = {
+			content_width: config_struct[$ "content_width"] ?? geometry.content_width,
+			content_height: config_struct[$ "content_height"] ?? geometry.content_height,
+			aspect_ratio: config_struct[$ "aspect_ratio"] ?? geometry.aspect_ratio,
+			zoom: config_struct[$ "zoom"] ?? geometry.zoom,
+			curvature: config_struct[$ "curvature"] ?? geometry.curvature,
+			offset_x: config_struct[$ "offset_x"] ?? geometry.offset_x,
+			offset_y: config_struct[$ "offset_y"] ?? geometry.offset_y,
+			do_int_scale: config_struct[$ "do_int_scale"] ?? geometry.do_int_scale,
+			border_width: config_struct[$ "border_width"] ?? geometry.border_width,
+			border_brightness: config_struct[$ "border_brightness"] ?? geometry.border_brightness,
+		};
+		update_uniforms();
+		return self;
+	}
+
+	/// @func configure_lines([config_struct])
+	/// @desc Updates the scanline emulation and beam profile settings
+	/// @param {Struct} [config_struct] A struct containing overrides for Line properties (e.g. {max_sigma: 0.6})
+	/// @return {Struct.CRT} Returns self for method chaining
+	static configure_lines = function(config_struct) {
+		if not is_struct(config_struct) config_struct = {};
+		
+		lines = {
+			image_softness: config_struct[$ "image_softness"] ?? lines.image_softness,
+			do_tate: config_struct[$ "do_tate"] ?? lines.do_tate,
+			min_sigma: config_struct[$ "min_sigma"] ?? lines.min_sigma,
+			max_sigma: config_struct[$ "max_sigma"] ?? lines.max_sigma,
+			brightness: config_struct[$ "brightness"] ?? lines.brightness,
+			deconvergence: config_struct[$ "deconvergence"] ?? lines.deconvergence,
+			gamma: config_struct[$ "gamma"] ?? lines.gamma,
+			do_interlace: config_struct[$ "do_interlace"] ?? lines.do_interlace,
+		};
+		update_uniforms();
+		return self;
+	}
+	
+	/// @func update_uniforms()
+	/// @desc Sends all current configuration data to the shader uniforms. Must be called after modifying any config
+	/// @return {Struct.CRT} Returns self for method chaining
+	static update_uniforms = function() {
+		shader_set(shd_pass_ntsc);
+		
+		shader_set_uniform_f(_u.ntsc_resolution, geometry.content_width * ntsc.bandwidth, geometry.content_height);
+        shader_set_uniform_f(_u.ntsc_bandwidth, ntsc.bandwidth);
+        shader_set_uniform_f(_u.ntsc_config, ntsc.phase_offset_per_line, ntsc.phase_offset_per_frame, ntsc.cable_noise, ntsc.temporal_aa);
+        shader_set_uniform_f(_u.ntsc_sync, ntsc.hsync_failure, ntsc.vsync_offset);
+		shader_set_uniform_i(_u.ntsc_chroma_taps, round(ntsc.chroma_smear*2));
+		shader_set_uniform_f(_u.ntsc_chroma_delay, ntsc.chroma_delay);
+		shader_set_uniform_f(_u.ntsc_chroma_smear, ntsc.chroma_smear);
+		shader_set_uniform_f(_u.ntsc_color_sat, ntsc.color_saturation);
+		shader_set_uniform_f(_u.ntsc_color_temp, ntsc.color_temperature);
+		shader_set_uniform_f(_u.ntsc_notch_filter_scale, ntsc.notch_filter_scale);
+		
+		shader_reset();
+		
+		shader_set(final_pass_shader);
+		
+		shader_set_uniform_f(_u.geom_content_size, geometry.content_width, geometry.content_height);
+		shader_set_uniform_f(_u.geom_aspect_ratio, geometry.aspect_ratio);
+		shader_set_uniform_f(_u.geom_zoom, geometry.zoom);
+		shader_set_uniform_f(_u.geom_curvature, geometry.curvature);
+		shader_set_uniform_f(_u.geom_int_scale, geometry.do_int_scale);
+		shader_set_uniform_f(_u.geom_offset, geometry.offset_x, geometry.offset_y);
+		shader_set_uniform_f(_u.geom_border_width, geometry.border_width);
+		shader_set_uniform_f(_u.geom_border_brightness, geometry.border_brightness);
+		
+		shader_set_uniform_f(_u.line_image_softness, lines.image_softness);
+		shader_set_uniform_f(_u.line_do_tate, lines.do_tate);
+		shader_set_uniform_f(_u.line_min_sigma, lines.min_sigma);
+		shader_set_uniform_f(_u.line_max_sigma, lines.max_sigma);
+		shader_set_uniform_f(_u.line_brightness, lines.brightness);
+		shader_set_uniform_f(_u.line_deconvergence, lines.deconvergence);
+		shader_set_uniform_f(_u.line_gamma, lines.gamma);
+		shader_set_uniform_f(_u.line_do_interlace, lines.do_interlace);
+		
+		shader_set_uniform_f(_u.mask_strength, mask.strength);
+		shader_set_uniform_f(_u.mask_slot_strength, mask.slot_strength);
+		shader_set_uniform_f(_u.mask_scale, mask.scale);
+		shader_set_uniform_f(_u.mask_do_mirror, mask.do_mirror);
+		shader_set_uniform_f(_u.mask_do_shadow, mask.do_shadow);
+		shader_set_uniform_f(_u.mask_repeat_on_three, mask.rgbx_repeat_on_threes);
+		shader_set_uniform_f(_u.mask_bright_fade, mask.bright_fade);
+		shader_set_uniform_f(_u.mask_tex_width, sprite_get_width(mask.sprite));
+		
+		shader_set_uniform_f(_u.bloom_strength, bloom.strength * real(bloom.enabled));
+		
+		shader_reset();
+		
+		return self;
+	}
+	
+	/// @func to_json([prettify])
+	/// @desc Serializes the current CRT configuration into a JSON string
+	/// @param {Bool} [prettify] Whether to format the JSON string for readability (default: false)
+	/// @return {String} The JSON string representation of the config
+	static to_json = function(prettify=false) {
+		return json_stringify({ntsc:ntsc, bloom:bloom, lines:lines, geometry:geometry, mask:mask}, prettify);
+	}
+	
+	/// @func apply_ntsc_pass([source])
+	/// @desc Renders the NTSC artifact pass to an internal surface
+	/// @param {Id.Surface} [source] The source surface to process (default: application_surface)
+	/// @return {Id.Surface} A reference to the surface containing the result
+	static apply_ntsc_pass = function(source=application_surface) {
+		
+		// Get content and output size (the latter determined by sampling bandwidth)
+		var _src_w = geometry.content_width;
+		var _src_h = geometry.content_height;
+		var _target_surf_w = floor(_src_w * ntsc.bandwidth);
+		var _target_surf_h = _src_h;
+
+		// Making sure to re-create surface as necessary
+		if (surface_exists(ntsc_pass_result)) {
+		    if (surface_get_width(ntsc_pass_result) != _target_surf_w || surface_get_height(ntsc_pass_result) != _target_surf_h) {
+		        surface_free(ntsc_pass_result);
+		    }
+		}
+
+		if (!surface_exists(ntsc_pass_result)) {
+		    ntsc_pass_result = surface_create(_target_surf_w, _target_surf_h);
+		}
+
+		// Invoke the shader
+		surface_set_target(ntsc_pass_result);
+		draw_clear_alpha(c_black, 1.0);
+		
+		shader_set(shd_pass_ntsc);
+		shader_set_uniform_f(_u.time, _frame_counter);
+		
+		draw_surface_stretched(source, 0, 0, _target_surf_w, _target_surf_h);
+        
+		shader_reset();
+		surface_reset_target();
+		
+		return ntsc_pass_result;
+	}
+	
+	/// @func apply_bloom_pass([source])
+	/// @desc Renders the multi-pass bloom effect to internal surfaces
+	/// @param {Id.Surface} [source] The source surface to process (default: application_surface)
+	/// @return {Id.Surface} A reference to the surface containing the result
+	static apply_bloom_pass = function(source=application_surface) {
+		
+		// A bit lazy, but grabbing the uniform IDs on the fly for now
+		var uniform_down = shader_get_uniform(shd_pass_bloom_down, "u_texel_size");
+		var uniform_up = shader_get_uniform(shd_pass_bloom_up, "u_texel_size");
+		
+		// Creating mip chain as necessary
+		// Sizes must be floored to whole pixels: surface_get_width() returns integers,
+		// so a fractional expected size would never match and the chain would be
+		// freed and recreated every single frame
+	    for (var i = 0; i < bloom.passes; i++) {
+	        var expected_w = max(1, floor(geometry.content_width / power(2, i + 1)));
+	        var expected_h = max(1, floor(geometry.content_height / power(2, i + 1)));
+
+	        if (i >= array_length(bloom_pass_result) ||
+	            !surface_exists(bloom_pass_result[i]) ||
+	            surface_get_width(bloom_pass_result[i]) != expected_w ||
+	            surface_get_height(bloom_pass_result[i]) != expected_h) {
+	            if (i < array_length(bloom_pass_result) && surface_exists(bloom_pass_result[i])) {
+	                surface_free(bloom_pass_result[i]);
+	            }
+	            bloom_pass_result[i] = surface_create(expected_w, expected_h);
+	        }
+	    }
+		
+		// Dual Kawase downsampling passes
+		shader_set(shd_pass_bloom_down);
+		for (var i = 0; i < bloom.passes; i++) {
+			var w = max(1, floor(geometry.content_width / power(2, i + 1)));
+			var h = max(1, floor(geometry.content_height / power(2, i + 1)));
+			
+			var s = (i == 0) ? source : bloom_pass_result[i-1];
+			var tex_w = 1/surface_get_width(s);
+			var tex_h = 1/surface_get_height(s);
+			
+			shader_set_uniform_f(uniform_down, tex_w, tex_h);
+			
+			surface_set_target(bloom_pass_result[i]);
+			
+			draw_surface_stretched(s, 0, 0, w, h);
+			surface_reset_target();
+		}
+		shader_reset();
+		
+		// Dual Kawase upsampling passes
+		shader_set(shd_pass_bloom_up);
+		for (var i = bloom.passes - 2; i >= 0; i--) {
+			var w = max(1, floor(geometry.content_width / power(2, i + 1)));
+			var h = max(1, floor(geometry.content_height / power(2, i + 1)));
+			
+			var tex_w = 1/surface_get_width(bloom_pass_result[i+1]);
+			var tex_h = 1/surface_get_height(bloom_pass_result[i+1]);
+			
+			shader_set_uniform_f(uniform_up, tex_w, tex_h);
+			
+			surface_set_target(bloom_pass_result[i]);
+			draw_surface_stretched(bloom_pass_result[i+1], 0, 0, w, h);
+			surface_reset_target();
+		}
+		shader_reset();
+		
+		//bloom_pass_result[0] will always hold the final bloom result, regardless of the number of passes
+		return bloom_pass_result[0];
+	}
+	
+	/// @func draw([source], x, y, width, height)
+	/// @desc Processes the pipeline and draws the final result to the specified coordinates
+	/// @param {Id.Surface} [source] The source surface to process (default: application_surface)
+	/// @param {Real} x The x position to draw at
+	/// @param {Real} y The y position to draw at
+	/// @param {Real} width The width to draw
+	/// @param {Real} height The height to draw
+
+	static draw = function(source=application_surface, x, y, width, height) {
+		
+		// Store the current state so as not to interfere with the games' aesthetic
+		var _reset_tex_filter = gpu_get_tex_filter();
+		
+		// Advance the simulated signal at approximately ntsc.sim_hz (60 = NTSC, 50 = PAL-like)
+		// Frame-based as opposed to wall clock to avoid beating or stuttering at odd frame rates
+		_frame_acc++;
+		if (_frame_acc >= max(1, round(game_get_speed(gamespeed_fps) / max(1, ntsc.sim_hz)))) {
+			_frame_acc = 0;
+			_frame_counter = (_frame_counter + 1) mod 32768;
+		}
+		
+		// Do NTSC prepass
+		if (_reset_tex_filter) {
+			gpu_set_tex_filter(false);
+		}
+		var crt_pass_input = source;
+		if ntsc.enabled {
+			_ntsc_time = apply_ntsc_pass(source);
+			crt_pass_input = ntsc_pass_result;
+		}
+		
+		// Bloom and the final pass always sample bilinearly
+		if (final_pass_shader != shd_pass_crt_raw_variant) {
+			gpu_set_tex_filter(true);
+		}
+		
+		if bloom.enabled {
+			apply_bloom_pass(source);
+		}
+		
+		shader_set(final_pass_shader);
+		
+		shader_set_uniform_f(_u.time_2, _frame_counter);
+		shader_set_uniform_f(_u.geom_output_size, width, height);
+		
+		texture_set_stage(_u.mask_sampler, sprite_get_texture(mask.sprite, 0));
+		texture_set_stage(_u.slot_sampler, sprite_get_texture(spr_slot, mask.slot_height));
+		if bloom.enabled {
+			texture_set_stage(_u.bloom_sampler, surface_get_texture(bloom_pass_result[0]));
+			// Let me know if you manage to make dirty glass bloom look good, I gave up
+			//texture_set_stage(shader_get_sampler_index(final_pass_shader, "u_dirt_sampler"), sprite_get_texture(spr_lens_dirt, 0));
+		}
+		
+		gpu_set_tex_repeat_ext(_u.mask_sampler, true);
+		gpu_set_tex_repeat_ext(_u.slot_sampler, true);
+		draw_surface_stretched(crt_pass_input, x, y, width, height);
+		shader_reset();
+		
+		gpu_set_tex_filter(_reset_tex_filter);
+	}
+	
+	/// @func draw_to_backbuffer([source])
+	/// @desc Helper method for Post-Draw events. Delegates rendering to .draw() and manages application surface state
+
+	static draw_to_backbuffer = function(source=application_surface) {
+		
+	    // Prevent the application surface from being drawn over our work
+		if (application_surface_is_enabled()) {
+			application_surface_draw_enable(false);
+		}
+    
+	    // Ensure the application surface matches the internal content resolution
+	    if (surface_get_width(application_surface) != geometry.content_width) {
+	        surface_resize(application_surface, geometry.content_width, geometry.content_height);
+	    }
+    
+		// Render
+	    draw(source, 0, 0, window_get_width(), window_get_height());
+	}
+	
+	/// @func get_mouse([_window_mouse_x], [_window_mouse_y], [_draw_x], [_draw_y], [_draw_w], [_draw_h])
+	/// @desc Returns a struct { x, y, valid, view_index } containing the room coordinates of the mouse
+	static get_mouse = function(_win_x=window_mouse_get_x(), _win_y=window_mouse_get_y(), _draw_x=0, _draw_y=0, _draw_w=window_get_width(), _draw_h=window_get_height()) {
+    
+	    static _result = {
+	        x: 0,
+	        y: 0,
+	        valid: false,
+	        view_index: -1
+	    };
+
+	    // Normalize window coords relative to the CRT draw area
+	    var _uv_x = (_win_x - _draw_x) / _draw_w;
+	    var _uv_y = (_win_y - _draw_y) / _draw_h;
+    
+	    var _nearest_int = geometry.content_height * floor(_draw_h / geometry.content_height);
+	    var _vertical_scale = 1.0;
+	    if (geometry.do_int_scale && _nearest_int != 0) {
+	        _vertical_scale = 1.0 + (-1.0 + _draw_h / _nearest_int);
+	    }
+    
+	    var _aspect = _draw_w / (_draw_h * geometry.aspect_ratio);
+    
+	    _uv_x = ((_uv_x - 0.5) * _vertical_scale * geometry.zoom) + 0.5;
+	    _uv_y = ((_uv_y - 0.5) * _vertical_scale * geometry.zoom) + 0.5;
+    
+	    _uv_x = ((_uv_x - 0.5) * _aspect) + 0.5;
+    
+	    var _cx = _uv_x - 0.5;
+	    var _cy = _uv_y - 0.5;
+	    var _r2 = (_cx * _cx) + (_cy * _cy);
+	    var _distortion = 1.0 + geometry.curvature * _r2;
+    
+	    _uv_x = 0.5 + (_cx * _distortion);
+	    _uv_y = 0.5 + (_cy * _distortion);
+    
+	    var _scale_back = 1.0 / (1.0 + geometry.curvature * 0.25);
+	    _uv_x = ((_uv_x - 0.5) * _scale_back) + 0.5;
+	    _uv_y = ((_uv_y - 0.5) * _scale_back) + 0.5;
+    
+	    _uv_x += geometry.offset_x;
+	    _uv_y += geometry.offset_y;
+    
+	    var _valid = (_uv_x >= 0.0 && _uv_x <= 1.0 && _uv_y >= 0.0 && _uv_y <= 1.0);
+    
+	    var _surf_x = _uv_x * geometry.content_width;
+	    var _surf_y = _uv_y * geometry.content_height;
+    
+	    var _world_x = 0;
+	    var _world_y = 0;
+	    var _view_index = -1;
+    
+	    // Handle viewports
+	    if (_valid) {
+	        if (view_enabled) {
+
+	            for (var i = 7; i >= 0; i--) {
+	                if (view_visible[i]) {
+	                    var _vp_x = view_xport[i];
+	                    var _vp_y = view_yport[i];
+	                    var _vp_w = view_wport[i];
+	                    var _vp_h = view_hport[i];
+                    
+	                    if (_surf_x >= _vp_x && _surf_x < _vp_x + _vp_w &&
+	                        _surf_y >= _vp_y && _surf_y < _vp_y + _vp_h) {
+                        
+	                        _view_index = i;
+                        
+	                        var _v_local_u = (_surf_x - _vp_x) / _vp_w;
+	                        var _v_local_v = (_surf_y - _vp_y) / _vp_h;
+                        
+	                        var _cam = view_camera[i];
+	                        _world_x = camera_get_view_x(_cam) + _v_local_u * camera_get_view_width(_cam);
+	                        _world_y = camera_get_view_y(_cam) + _v_local_v * camera_get_view_height(_cam);
+                        
+	                        break; // Found the top-most view, stop looking
+	                    }
+	                }
+	            }
+	        } else {
+	            _world_x = _surf_x;
+	            _world_y = _surf_y;
+	            _view_index = 0;
+	        }
+	    }
+    
+	    _result.x = _world_x;
+	    _result.y = _world_y;
+	    _result.valid = _valid;
+	    _result.view_index = _view_index;
+    
+	    return _result;
+	}
+	
+	// Update uniforms immediately upon instantiation
+	set_shader(final_pass_shader);
+}

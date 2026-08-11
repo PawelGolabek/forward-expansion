@@ -140,6 +140,7 @@ function executeStep(){
 	    if(attacks <= 0){
 	        global.unitActing = noone;
 	        o_clock.animationBlocked = false;
+			owner.unitletsCleanup();
 	        unitletsNumber = array_length(owner.unitlets);
 	        for(i = 0; i < unitletsNumber; i += 1){
 	            owner.unitlets[i].sprite_index = defaultSprite;

@@ -1,3 +1,5 @@
+
+
 // obj_palette_enforcer :: Create event
 //
 // Put this object in your very first room, make it persistent (or otherwise

@@ -621,13 +621,20 @@ function onRoundEnd(){
 		findNewTargetForSelf() 
 	}
 }
+function unitletsCleanup(){
 
-function executeStep(){
 	for (var i = array_length(unitlets) - 1; i >= 0; i--) {
 	    if (!instance_exists(unitlets[i])) {
 	        array_delete(unitlets, i, 1);
 	    }
 	}
+}
+
+
+
+
+function executeStep(){
+	unitletsCleanup()
 	if (array_length(unitlets) == 0 and not noUnitlets) {
 	    instance_destroy()
 		exit;
