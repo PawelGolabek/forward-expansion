@@ -22,7 +22,6 @@ aiType = "range"
 
 handleHeartsCreation(self)
 
-
 function initiate(){
 	mySprite = s_archer_flag_3
 	myUnitlet = o_archer_let;

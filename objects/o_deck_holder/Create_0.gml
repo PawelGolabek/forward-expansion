@@ -1,69 +1,45 @@
 // CREATE EVENT
-deck = [
+deck = [   
+
+
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
+	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
     instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
     instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
     instance_create_layer(0, -9999900, "Cards", o_slime_spawner),
     instance_create_layer(0, -9999900, "Cards", o_house_spawner),
     instance_create_layer(0, -9999900, "Cards", o_house_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_house_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
     instance_create_layer(0, -9999900, "Cards", o_helicopter_spawner),
     instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_explosive_drone_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_scout_drone_spawner),
     instance_create_layer(0, -9999900, "Cards", o_archer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_cavalry_spawner),
     instance_create_layer(0, -9999900, "Cards", o_artillery_spawner),
     instance_create_layer(0, -9999900, "Cards", o_artillery_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
-    instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
     instance_create_layer(0, -9999900, "Cards", o_observer_spawner),
@@ -110,7 +86,7 @@ function organize_hand()
     var newY = display_get_gui_height() - 140;
     var start = display_get_gui_width() * 0.5 - ((count - 1) * spacing * 0.5);
 
-    for (var i = 0; i < count; i++)
+    for (i = 0; i < count; i++)
     {
         hand[i].x = start + i * spacing;
         hand[i].y = newY;
@@ -120,7 +96,7 @@ function organize_hand()
 function shuffle_deck()
 {
     var count = array_length(deck);
-    for (var i = count - 1; i > 0; i--)
+    for (i = count - 1; i > 0; i--)
     {
         var j = irandom(i);
         var temp = deck[i];
@@ -131,7 +107,7 @@ function shuffle_deck()
 
 function hand_index(card)
 {
-    for (var i = 0; i < array_length(hand); i++)
+    for (i = 0; i < array_length(hand); i++)
     {
         if (hand[i].id == card.id)
             return i;

@@ -29,7 +29,7 @@ function palette_from_hex_array(_hex_array)
 {
     var _n = array_length(_hex_array);
     var _out = array_create(_n);
-    for (var i = 0; i < _n; i++) _out[i] = hex_to_color(_hex_array[i]);
+    for (i = 0; i < _n; i++) _out[i] = hex_to_color(_hex_array[i]);
     return _out;
 }
 
@@ -63,7 +63,7 @@ function PaletteEnforcer(_shader = sh_palette_enforcer) constructor
     {
         var _n = min(array_length(_color_array), max_colors);
         colors = array_create(_n);
-        for (var i = 0; i < _n; i++) colors[i] = _color_array[i];
+        for (i = 0; i < _n; i++) colors[i] = _color_array[i];
         _t = 1.0; // cancel any in-progress transition
         return self;
     }
@@ -166,7 +166,7 @@ function PaletteEnforcer(_shader = sh_palette_enforcer) constructor
 
         var _n = min(array_length(_color_array), max_colors);
         _to_colors = array_create(_n);
-        for (var i = 0; i < _n; i++) _to_colors[i] = _color_array[i];
+        for (i = 0; i < _n; i++) _to_colors[i] = _color_array[i];
 
         _duration = max(1, _frames);
         _t = 0.0;
@@ -182,7 +182,7 @@ function PaletteEnforcer(_shader = sh_palette_enforcer) constructor
 
             var _n = array_length(_to_colors);
             var _mixed = array_create(_n);
-            for (var i = 0; i < _n; i++)
+            for (i = 0; i < _n; i++)
             {
                 var _cA = (i < array_length(_from_colors)) ? _from_colors[i] : _to_colors[i];
                 _mixed[i] = merge_color(_cA, _to_colors[i], _t);

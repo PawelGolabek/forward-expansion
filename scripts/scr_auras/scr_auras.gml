@@ -5,7 +5,7 @@ function checkForAuras(unit){
 		var myId = unit.id;
 
 		// first, drop auras from sources that are gone or now out of range
-		for(var i = array_length(unit.activeAuras) - 1; i >= 0; i--){
+		for(i = array_length(unit.activeAuras) - 1; i >= 0; i--){
 			var _source = unit.activeAuras[i].source;
 			var _stillValid = false;
 			if(instance_exists(_source) && _source.aura && _source.allegience == unit.allegience){
@@ -25,7 +25,7 @@ function checkForAuras(unit){
 				var dist2 = point_distance_ellipse_sq(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset, 0.6);
 				if(dist2 <= range * range and allegience == unit.allegience){
 					inflictAura(other);
-					o_combat_log.log(unit.name + " inflicts aura upon " + other.name);
+				//	o_combat_log.log(unit.name + " inflicts aura upon " + other.name);
 				}
 			}
 		}
@@ -33,7 +33,7 @@ function checkForAuras(unit){
 }
 // aura related
 function hasAuraFromSource(unit,_source){
-	for(var i = 0; i < array_length(unit.activeAuras); i++){
+	for(i = 0; i < array_length(unit.activeAuras); i++){
 		if(unit.activeAuras[i].source == _source){
 			return true;
 		}
@@ -55,7 +55,7 @@ function applyAura(unit,_source, _boost, _effectObj){
 }
 
 function removeAura(unit,_source){
-	for(var i = 0; i < array_length(unit.activeAuras); i++){
+	for(i = 0; i < array_length(unit.activeAuras); i++){
 		if(unit.activeAuras[i].source == _source){
 			var _entry = unit.activeAuras[i];
 			unit.damage -= _entry.boost;
@@ -72,7 +72,7 @@ function removeAura(unit,_source){
 }
 
 function resetAuras(unit){
-	for(var i = array_length(unit.activeAuras) - 1; i >= 0; i--){
+	for(i = array_length(unit.activeAuras) - 1; i >= 0; i--){
 		var _entry = unit.activeAuras[i];
 		unit.damage -= _entry.boost;
 		unit.damageBoost -= _entry.boost;

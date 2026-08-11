@@ -13,6 +13,9 @@ if(not checkedFoW){
     fogOfWarCheck();
     checkedFoW = true;
 }
+with(o_unitlet){
+	targettedBySpell = false;
+}
 
 // 1. EXECUTE LOGIC FIRST
 // Run unit logic before gathering draw arrays so destroyed units are removed before drawing.
@@ -34,6 +37,11 @@ with(o_unit){
         alpha = 0.7;
     }
 }
+with(o_unitlet){
+	executeStep()
+}
+
+
 with(o_expand_circle){
 	executeStep()
 }
@@ -56,7 +64,7 @@ with (o_cliff) {
     );
 }
 var surfaces = [];
-var i = 0;
+i = 0;
 with (o_surface) {
     array_push(surfaces, self);
 }
@@ -223,3 +231,10 @@ draw_set_alpha(1); // Reset alpha
 scr_draw_units_batch_trees(trees, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
 scr_draw_units_batch(unitsToDraw, 1, 2);
+
+////////////// 
+/// POST DRAW CLEANUP
+//////////////
+with(o_unitlet){
+	targettedBySpell = false;
+}

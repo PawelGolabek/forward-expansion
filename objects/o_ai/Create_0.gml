@@ -7,7 +7,7 @@ function ai_evaluate_and_place() {
     var _types = [o_enemy_archer, o_enemy_inferna, o_enemy_cavalry];
     var unit_types = [];
     
-    for (var i = 0; i < array_length(_types); i++) {
+    for (i = 0; i < array_length(_types); i++) {
         var _tmp = instance_create_layer(-9999, -9999, "units", _types[i]);
         array_push(unit_types, {
             obj:           _types[i],
@@ -182,7 +182,7 @@ function ai_evaluate_and_place() {
                 var _num = instance_place_list(x, y, o_unit, _list, false);
                 var _moved = false;
                 
-                for (var i = 0; i < _num; i++) {
+                for (i = 0; i < _num; i++) {
                     var _other = _list[| i];
                     if (_other == id) continue; // 'id' here means _spawned. Properly ignores itself now!
                     
@@ -216,7 +216,7 @@ function ai_evaluate_and_place() {
 			var _deployable = false;
 			var _lastFriendly = noone;
 
-			for (var i = 0; i < instance_number(o_unit); i++){
+			for (i = 0; i < instance_number(o_unit); i++){
 			    var u2 = instance_find(o_unit, i);          // FIX: declared as local now
 
 			    if (u2.allegience != "enemy") continue;

@@ -2,7 +2,7 @@
  // Only tick if there is actually something waiting in line
 if (!ds_queue_empty(action_queue)) {
 	blocked = true;
-	for (var i = 0; i < array_length(ui_to_block); i++)
+	for (i = 0; i < array_length(ui_to_block); i++)
 		{
 		    ui_to_block[i].active = false;
 		}

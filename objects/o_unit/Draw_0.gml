@@ -47,9 +47,7 @@ if (wantCircle or keyboard_check(vk_tab) or circleOverride) {
 			if(allegience == "enemy"){
 				circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_enemy);
 			}else{
-				circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_1);
-				show_debug_message("created immortal")
-	
+				circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_1);	
 			}
 			
 			immortal = circleInst

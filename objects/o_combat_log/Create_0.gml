@@ -24,7 +24,7 @@ function log(message1)
 
     // Calculate total height
     var total_h = 0;
-    for (var i = 0; i < ds_list_size(logList); i++)
+    for (i = 0; i < ds_list_size(logList); i++)
     {
         total_h += string_height_ext(logList[| i], 14, wrap_width) + 4;
     }

@@ -31,7 +31,7 @@ function scr_draw_units_batch(_instances, _thickness, _black_thickness)
 
     var n = array_length(_instances);
 
-    for (var i = 0; i < n; i++)
+    for (i = 0; i < n; i++)
     {
         var inst = _instances[i];
         if (!instance_exists(inst)) continue;
@@ -95,7 +95,7 @@ function scr_draw_units_batch_trees(_instances, _thickness)
     static _u_uvclamp = shader_get_uniform(shd_outline, "u_uvClamp");
     var n = array_length(_instances);
 
-    for (var i = 0; i < n; i++)
+    for (i = 0; i < n; i++)
     {
         var inst = _instances[i];
         if (!instance_exists(inst)) continue;

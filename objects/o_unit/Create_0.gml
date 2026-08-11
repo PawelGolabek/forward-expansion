@@ -87,6 +87,11 @@ recalled = false;
 flying = false;
 destroyOnAttack = false;
 explosionOnDeath = false;
+highlightEnemy = false;
+deployedAnywhere = false;
+damagedUlets = 0;
+realHpTriggerTime = -1;
+realHpTriggerOn = false;
 
 if(!noEyes){
 	eyeX = 20
@@ -152,10 +157,13 @@ expectedDamage = 0;
 //shaders
 u_shadow_color = shader_get_uniform(shd_shadow, "u_shadow_color");
 // Shadow settings: Adjust these to change how the shadow looks
-shadow_offset_y = 60;     // How far "down" the shadow sits from the sprite's feet
-shadow_alpha = 0.7;      // Transparency of the shadow (0 = invisible, 1 = solid)
-shadow_yscale = 0.7;     // Squishes the shadow vertically to give it a flat, top-down floor look
+shadow_offset_y = 60;
+shadow_alpha = 0.7;
+shadow_yscale = 0.7;
 sprite_center_offset = 0;
+noTargetting = false;
+untargetable = false;
+realHpDmg = 0;
 
 
 function initiate(){}
@@ -167,7 +175,7 @@ function draw_half_circle(cx, cy, radius, start_angle, end_angle)
     var segments = 32;
     draw_primitive_begin(pr_trianglefan);
     draw_vertex(cx, cy);
-    for (var i = 0; i <= segments; i++)
+    for (i = 0; i <= segments; i++)
     {
         var ang = lerp(start_angle, end_angle, i / segments);
         draw_vertex(
@@ -183,7 +191,7 @@ function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, 
     var segments = 32;
     draw_primitive_begin(pr_trianglefan);
     draw_vertex(cx, cy);
-    for (var i = 0; i <= segments; i++)
+    for (i = 0; i <= segments; i++)
     {
         var ang = lerp(start_angle, end_angle, i / segments);
         draw_vertex(
@@ -266,55 +274,95 @@ function line_blocked_terrain_only(_x1, _y1, _x2, _y2)
     return false;
 }
 
-function performAttacks(retaliation){
-	self.retaliation = retaliation
-	global.unitActing = self;
-	o_clock.animationBlocked = true;
-	o_clock.toNextEvent = o_clock.maxToNextEvent;
-	
-	if(instance_exists(target)){
-		uletsNumber = array_length(unitlets);
-		for(i = 0; i < uletsNumber; i += 1){
-		    unitlets[i].attacks = attacks; // no hardcoded 2, no +/-1 needed once step logic is fixed
-		    unitlets[i].sprite_index = unitlets[i].attackingSprite;
-		    unitlets[i].image_index = 0;
+function enemyInRange(){
+	var myX = x;
+	var myY = y;
+	var myRange = range;
+	with(o_unit){
+		if(point_distance_ellipse_sq(x,y,myX,myY,0.6) < myRange * myRange and allegience != other.allegience){
+			return true;		
 		}
 	}
-	repeat(attacks){
+	return false;
+
+}
+
+
+
+function performAttacks(retaliation){
+	
+	if(enemyInRange()){
+		self.retaliation = retaliation
+		global.unitActing = self;
+		o_clock.animationBlocked = true;
+		o_clock.toNextEvent = o_clock.maxToNextEvent;
+		if(instance_exists(target)){
+			uletsNumber = array_length(unitlets);
+			for(i = 0; i < uletsNumber; i += 1){
+			    unitlets[i].attacks = attacks; // no hardcoded 2, no +/-1 needed once step logic is fixed
+			    unitlets[i].sprite_index = unitlets[i].attackingSprite;
+			    unitlets[i].image_index = 0;
+			}
+		}
+		o_combat_log.log("Player spawned " + name);
+		repeat(attacks){
+			ds_queue_enqueue(o_clock.action_queue, {
+				// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
+				my_spawned_unit: id,
+				func: function() {
+					toNextEvent = o_clock.maxToNextEvent;
+					if(instance_exists(my_spawned_unit)){
+						var _unit = self.my_spawned_unit;
+						my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
+						my_spawned_unit.drag_draw_offset = 0;
+						if (instance_exists(_unit)) {
+							with (_unit) {
+								resetTargets();
+								global.dropped = id; 
+								global.draggingUnit = id;
+							
+								// resolve logically
+								show_debug_message(attacks)
+								o_combat_resolver.resolve_first_strike_without_retaliation(global.dropped);	
+								global.dropped = noone;
+								global.draggingUnit = noone;
+								// 2. Clear state inside the unit context right as combat resolves
+								if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
+								    lastFriendly = noone;
+								}
+							}
+						}
+					}
+				}
+			});
+		}
+	
 		ds_queue_enqueue(o_clock.action_queue, {
-			// FIXED: Use 'id' instead of 'self' to guarantee a solid instance reference
 			my_spawned_unit: id,
 			func: function() {
 				toNextEvent = o_clock.maxToNextEvent;
 				if(instance_exists(my_spawned_unit)){
-					o_combat_log.log("Player spawned " + my_spawned_unit.name);
 					var _unit = self.my_spawned_unit;
 					my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
 					my_spawned_unit.drag_draw_offset = 0;
 					if (instance_exists(_unit)) {
 						with (_unit) {
-							resetTargets();
-							global.dropped = id; 
-							global.draggingUnit = id;
-							
-							// resolve logically
-							if(not retaliation or attacks > 1){
-								o_combat_resolver.resolve_first_strike(global.dropped);
-							}else{
-								o_combat_resolver.resolve_first_strike_without_retaliation(global.dropped);	
-							}
-							global.dropped = noone;
-							global.draggingUnit = noone;
+							resetTargets();							
+					//		o_combat_resolver.retaliate(self);
 							// 2. Clear state inside the unit context right as combat resolves
 							if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-							    lastFriendly = noone;
+								lastFriendly = noone;
 							}
 						}
 					}
 				}
 			}
 		});
+	
 	}
+	global.dropped = noone;
+	global.draggingUnit = noone;
+	
 }
 
 function place(){
@@ -368,7 +416,7 @@ function resetTargets()
     with (o_unit) 
     {
         if (id == droppedUnit) continue;
-        if (allegience != droppedAllegience) 
+        if (allegience != droppedAllegience and not droppedUnit.untargetable) 
         {
             var distanceToDropped2 = point_distance_ellipse_sq(x, y, droppedX, droppedY, 0.6);
             if (distanceToDropped2 <= range * range) 
@@ -428,7 +476,7 @@ function createUnitlets(){
 			ulet.initiate();
 			ulet.initiate2();
 
-		for (var i = 0; i < 200; i++) {
+		for (i = 0; i < 200; i++) {
 			angle = random(360);
 			dist = random(300);
 			px = x + lengthdir_x(dist, angle);
@@ -465,6 +513,11 @@ function createUnitlets(){
 
 
 }
+function onDragging(){
+
+}
+
+
 
 function findNewTargetForSelf() 
 {
@@ -477,6 +530,9 @@ function findNewTargetForSelf()
     var myRange = range;
 	var dist;
 	var expectedDamageFrame = 0;
+	if(noTargetting){
+		exit;
+	}
     with (o_unit) 
     {
         dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
@@ -514,7 +570,7 @@ function findNewTargetForSelf()
 		}
 	}
 	///// targets dmg
-
+	
 	target = closestEnemy; 
 
 	if(target != noone){
@@ -567,14 +623,26 @@ function onRoundEnd(){
 }
 
 function executeStep(){
-	if (global.unitActing == self && unitlets[0].image_index >= unitlets[0].image_number - 1) {
-		uletsNumber = array_length(unitlets);
+	for (var i = array_length(unitlets) - 1; i >= 0; i--) {
+	    if (!instance_exists(unitlets[i])) {
+	        array_delete(unitlets, i, 1);
+	    }
+	}
+	if (array_length(unitlets) == 0 and not noUnitlets) {
+	    instance_destroy()
+		exit;
+	}
+	if(not noUnitlets){
+		if (global.unitActing == self && unitlets[0].image_index >= unitlets[0].image_number - 1) {
+			uletsNumber = array_length(unitlets);
+		}
 	}
 	mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
 	// i hate that it does not match the flag but will fix later brb
     var myX = x;
     var myY = y;
 	var myID = id;
+	reactedTo = noone;
 	if(mous){drawCircle = true;}
 	alpha = 1.0;
 	depth = -y;
@@ -584,9 +652,9 @@ function executeStep(){
 		last_valid_y = y;
 		place();
 	}
-	if (dragging)
-	{
-		
+	if (dragging){
+		/////////////////////////////////////////////////////////
+		self.onDragging();
 		mask_index = s_placed_hitbox;
 		checkForAuras(self);
 		if(specialFriendly){
@@ -607,7 +675,7 @@ function executeStep(){
 		}
 		drag_draw_offset = - 5;
 		uletsNum = array_length(unitlets)
-		for (var i = 0; i < uletsNum; i++)
+		for (i = 0; i < uletsNum; i++)
 		{
 		    unitlets[i].drag_draw_offset = drag_draw_offset;
 		}
@@ -622,7 +690,7 @@ function executeStep(){
 	        var _list = ds_list_create();
 	        var _num = instance_place_list(x, y, o_unit, _list, false);
 	        var _moved = false;
-	        for (var i = 0; i < _num; i++)
+	        for (i = 0; i < _num; i++)
 	        {
 	            var _other = _list[| i];
 	            if (_other == id) continue;
@@ -656,7 +724,7 @@ function executeStep(){
 		var u;
 		var _lineClear = false;
 
-		for (var i = 0; i < instance_number(o_unit); i++)
+		for (i = 0; i < instance_number(o_unit); i++)
 		{
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
@@ -677,7 +745,7 @@ function executeStep(){
 				
 		    }
 		}
-		valid = (_checkTerrain == noone) && _deployable && _lineClear && (_placable_terrain != noone or flying);
+		valid = ((_checkTerrain == noone) && _deployable && _lineClear && (_placable_terrain != noone or flying)) or deployedAnywhere;
 
 		if (!valid)
 		{
@@ -703,9 +771,6 @@ function executeStep(){
 	}
 	breathe_timer += breathe_speed * (delta_time / 1000000) * 60;
 	image_xscaleToSend = og_image_xscale * (base_scale + sin(breathe_timer) * breathe_amount);
-	
-	// "true" position is whatever x was before we started nudging it
-
 	breatheDrawXOffset = ((image_xscaleToSend - og_image_xscale) * sprite_center_offset);
 
 	if (global.draggingUnit == self){
@@ -715,11 +780,15 @@ function executeStep(){
 		    var dist = point_distance_ellipse_sq(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 		    if(global.draggingUnit == self){
 				drawCircle = true
-			}else if (dist <= range * range and global.draggingUnit.allegience != allegience and reactionStrike
+			}else if (dist <= range * range and global.draggingUnit.allegience != allegience 
+			and reactionStrike
+			and not  global.draggingUnit.untargetable
 			){
-				drawCircle = true
-				tmpTarget = global.draggingUnit;
-				global.expectedDmg += damage
+				if(not noTargetting){
+					drawCircle = true
+					tmpTarget = global.draggingUnit;
+					global.expectedDmg += damage
+				}
 			}
 		}
 	}
@@ -731,10 +800,14 @@ function executeStep(){
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
 	    var dist2 = point_distance_ellipse_sq(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 
-	    if (dist2 <= range * range and global.draggingUnit.allegience != allegience and reactionStrike) {
-	        drawCircle = true;
-	        tmpTarget = global.draggingUnit;
-	        global.expectedDmg += damage;
+	    if (dist2 <= range * range and global.draggingUnit.allegience != allegience and reactionStrike
+			and not global.draggingUnit.untargetable
+		) {
+			if(not noTargetting){	/// for spells / airstrikes purpose
+		        drawCircle = true;
+		        tmpTarget = global.draggingUnit;
+		        global.expectedDmg += damage;
+			}
 	    }
 	} else if (global.draggingUnit == self) {
 		drawCircle = true; // always sho circle on the unit being dragged
@@ -796,8 +869,17 @@ function executeStep(){
 		color = c_white
 	    alpha = 1.0;
 	}
-	  
-  
+	if(hp - realHpDmg <= 0){			/// this might have to be put somewhere else to avoid 1 frame double damage or sth
+		untargetable = true;
+		noTargetting = true;		
+	}
+	if(realHpTriggerOn){
+		realHpTriggerTime -= delta_time;
+		if(realHpTriggerTime < 0){
+			hp -= realHpDmg;
+			realHpTriggerOn = false;
+		}
+	}
 	
 	array_push(o_draw_manager.units,id)
 	if(toDestroy){

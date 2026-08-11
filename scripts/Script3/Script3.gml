@@ -2,7 +2,7 @@ function handleHeartsCreation(unit) {
     unit.hearts = [];
     var heartsPerRow = 5;
     var spacing = 48;
-    for (var i = 0; i < unit.maxhp; i++) {
+    for (i = 0; i < unit.maxhp; i++) {
         var col = i mod heartsPerRow;
         var row = i div heartsPerRow;
         var heart = instance_create_depth(
@@ -37,10 +37,6 @@ function getDamaged(damageTaken, unit){
 		}
 	}
     if(unit.hp <= 0){
-        if(unit.logDeath){
-            // FIXED: this unit itself died, so log ITS OWN unit.allegience/unit.name, not target's
-            o_combat_log.log(string(unit.allegience) + "'s " + string(unit.name) + " died");					
-        }
         with(o_unit){
             if(unit.target == other.id) unit.target = noone;
         }

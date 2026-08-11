@@ -3,7 +3,7 @@ function fogOfWarCheck(){
 	with(o_unit){
 		visible = false;						
 		uletsNum = array_length(unitlets)
-		for (var i = 0; i < uletsNum; i++){
+		for (i = 0; i < uletsNum; i++){
 			unitlets[i].visible = false;
 		}
 		if(allegience == "player"){
@@ -25,7 +25,7 @@ function fogOfWarCheck(){
 						fowVisible = true;
 						visible = true;
 						uletsNum = array_length(unitlets)
-						for (var i = 0; i < uletsNum; i++){
+						for (i = 0; i < uletsNum; i++){
 							udistToPlayer2 = point_distance_ellipse_sq(unitlets[i].x, unitlets[i].y, otherU.x, otherU.y - otherU.drag_draw_offset, 0.6)
 							if(udistToPlayer2 < otherU.revealRange * otherU.revealRange){
 								unitlets[i].visible = true;
@@ -49,7 +49,7 @@ function fogOfWarCheck(){
 				visible = true;
 				if(isUnit){
 					uletsNum = array_length(unitlets);
-					for (var i = 0; i < uletsNum; ++i) {
+					for (i = 0; i < uletsNum; ++i) {
 						unitlets[i].visible = true;
 					}
 				}
