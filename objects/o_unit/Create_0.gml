@@ -98,6 +98,7 @@ hasTurnCounter = false;
 isAirStrike = false;
 explosiveShots = false;
 reverseTargetting = false;
+speaking = true;
 
 
 if(!noEyes){
@@ -325,7 +326,6 @@ function performAttacks(retaliation){
 								resetTargets();
 								global.dropped = id; 
 								global.draggingUnit = id;
-							
 								// resolve logically
 								show_debug_message(attacks)
 								o_combat_resolver.resolve_first_strike_without_retaliation(global.dropped);	
@@ -341,7 +341,6 @@ function performAttacks(retaliation){
 				}
 			});
 		}
-	
 		ds_queue_enqueue(o_clock.action_queue, {
 			my_spawned_unit: id,
 			func: function() {
@@ -363,11 +362,9 @@ function performAttacks(retaliation){
 				}
 			}
 		});
-	
 	}
 	global.dropped = noone;
 	global.draggingUnit = noone;
-	
 }
 
 

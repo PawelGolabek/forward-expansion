@@ -70,6 +70,7 @@
   "resources":[
     {"id":{"name":"fnt_24","path":"fonts/fnt_24/fnt_24.yy",},},
     {"id":{"name":"fnt_log","path":"fonts/fnt_log/fnt_log.yy",},},
+    {"id":{"name":"Font3_1","path":"fonts/Font3_1/Font3_1.yy",},},
     {"id":{"name":"Font3_shadow","path":"fonts/Font3_shadow/Font3_shadow.yy",},},
     {"id":{"name":"Font3","path":"fonts/Font3/Font3.yy",},},
     {"id":{"name":"Configuration Guide","path":"notes/Configuration Guide/Configuration Guide.yy",},},
@@ -184,6 +185,7 @@
     {"id":{"name":"o_master_let","path":"objects/o_master_let/o_master_let.yy",},},
     {"id":{"name":"o_master_spawner","path":"objects/o_master_spawner/o_master_spawner.yy",},},
     {"id":{"name":"o_master","path":"objects/o_master/o_master.yy",},},
+    {"id":{"name":"o_message","path":"objects/o_message/o_message.yy",},},
     {"id":{"name":"o_object","path":"objects/o_object/o_object.yy",},},
     {"id":{"name":"o_observer_let","path":"objects/o_observer_let/o_observer_let.yy",},},
     {"id":{"name":"o_observer_spawner","path":"objects/o_observer_spawner/o_observer_spawner.yy",},},
@@ -451,6 +453,7 @@
     {"id":{"name":"Sprite1","path":"sprites/Sprite1/Sprite1.yy",},},
     {"id":{"name":"Sprite140","path":"sprites/Sprite140/Sprite140.yy",},},
     {"id":{"name":"Sprite168","path":"sprites/Sprite168/Sprite168.yy",},},
+    {"id":{"name":"Sprite169","path":"sprites/Sprite169/Sprite169.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
