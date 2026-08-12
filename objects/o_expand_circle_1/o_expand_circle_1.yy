@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite85_2",
-    "path":"sprites/Sprite85_2/Sprite85_2.yy",
+    "name":"s_expand_circle_X",
+    "path":"sprites/s_expand_circle_X/s_expand_circle_X.yy",
   },
   "spriteMaskId":null,
   "visible":true,

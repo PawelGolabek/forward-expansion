@@ -114,7 +114,6 @@ if (mousCooldown < 0){
 color = c_white;
 //var tilemap = layer_tilemap_get_id("Tiles_1");
 //tilemap_get_at_pixel(tilemap, x, y);
-glow = false;
 
 // --- 5. ADDITIONAL GAMEPLAY ELEMENTS ---
 if (not noEyes){

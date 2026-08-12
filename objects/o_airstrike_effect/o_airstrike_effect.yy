@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite148",
-    "path":"sprites/Sprite148/Sprite148.yy",
+    "name":"s_airstrike_effect",
+    "path":"sprites/s_airstrike_effect/s_airstrike_effect.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -77,9 +77,9 @@ function onEnter(){
 
 function onIntercepted(){
 	instance_create_depth(room_width,y,-999999,o_plane_shadow)	
-	
 }
 
+// this might be standardized as a class airstrike or sth i think, should be the same for all like 5 strikes in final game
 function onDragging(){
     var me = id;
     var myRange = range;
@@ -90,7 +90,15 @@ function onDragging(){
 			targettedBySpell = true;
 		}
 	}
+	with(o_unit){
+		if(antiAir and point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
+			greenGlow = true;
+			wantCircle = true;		
+		}
+	}
 }
+
+
 
 
 function onPlace(){}

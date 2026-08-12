@@ -63,10 +63,11 @@ noUnitlets = false;
 //cosmetics
 bornOfSpawner = false;
 // shaders
-glow = false;
-redGlow = false;
-blueGlow = false;
-outline_surf = -2
+glow = false;		// involved in combat
+redGlow = false;	// current target of dragged unit
+blueGlow = false;	// target of aura of dragged unit
+greenGlow = false;	// has antiair and has airstrike in its range
+outline_surf = -2	
 breatheDrawXOffset = 0
 global.deployHighlight = noone
 //drawing

@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite141",
-    "path":"sprites/Sprite141/Sprite141.yy",
+    "name":"s_irs_boost",
+    "path":"sprites/s_irs_boost/s_irs_boost.yy",
   },
   "spriteMaskId":null,
   "visible":true,

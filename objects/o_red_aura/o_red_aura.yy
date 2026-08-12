@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite108",
-    "path":"sprites/Sprite108/Sprite108.yy",
+    "name":"s_red_aura",
+    "path":"sprites/s_red_aura/s_red_aura.yy",
   },
   "spriteMaskId":null,
   "visible":true,

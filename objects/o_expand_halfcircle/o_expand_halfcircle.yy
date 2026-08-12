@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite85_1",
-    "path":"sprites/Sprite85_1/Sprite85_1.yy",
+    "name":"s_bottom_half_circle",
+    "path":"sprites/s_bottom_half_circle/s_bottom_half_circle.yy",
   },
   "spriteMaskId":null,
   "visible":true,

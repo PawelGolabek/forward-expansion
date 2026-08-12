@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite142",
-    "path":"sprites/Sprite142/Sprite142.yy",
+    "name":"s_energy_counter",
+    "path":"sprites/s_energy_counter/s_energy_counter.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite93",
-    "path":"sprites/Sprite93/Sprite93.yy",
+    "name":"s_house_let",
+    "path":"sprites/s_house_let/s_house_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

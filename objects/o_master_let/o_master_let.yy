@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite79",
-    "path":"sprites/Sprite79/Sprite79.yy",
+    "name":"s_master_let",
+    "path":"sprites/s_master_let/s_master_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

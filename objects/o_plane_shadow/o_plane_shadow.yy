@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite149",
-    "path":"sprites/Sprite149/Sprite149.yy",
+    "name":"s_plane_shadow",
+    "path":"sprites/s_plane_shadow/s_plane_shadow.yy",
   },
   "spriteMaskId":null,
   "visible":true,

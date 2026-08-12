@@ -43,5 +43,4 @@ function onEnter(){
 }
 
 function onPlace(){
-	show_debug_message("a")
 }

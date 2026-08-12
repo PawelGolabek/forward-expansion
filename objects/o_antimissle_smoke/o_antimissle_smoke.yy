@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite165",
-    "path":"sprites/Sprite165/Sprite165.yy",
+    "name":"s_antimissle_smoke",
+    "path":"sprites/s_antimissle_smoke/s_antimissle_smoke.yy",
   },
   "spriteMaskId":null,
   "visible":true,

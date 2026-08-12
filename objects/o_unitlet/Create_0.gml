@@ -9,6 +9,7 @@ tex_w = (1/sprite_width)*image_xscale;
 glow = false;
 redGlow = false;
 blueGlow = false;
+greenGlow = false;
 // Create event (once)
 u_outlineColor = shader_get_uniform(shd_outline, "outlineColor");
 u_spriteSize   = shader_get_uniform(shd_outline, "sprite_size");

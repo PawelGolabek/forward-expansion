@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite164",
-    "path":"sprites/Sprite164/Sprite164.yy",
+    "name":"s_antimissle",
+    "path":"sprites/s_antimissle/s_antimissle.yy",
   },
   "spriteMaskId":null,
   "visible":true,

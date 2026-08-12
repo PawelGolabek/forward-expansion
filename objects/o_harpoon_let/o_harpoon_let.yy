@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite163",
-    "path":"sprites/Sprite163/Sprite163.yy",
+    "name":"s_enemy_harpoon_let",
+    "path":"sprites/s_enemy_harpoon_let/s_enemy_harpoon_let.yy",
   },
   "spriteMaskId":null,
   "visible":true,

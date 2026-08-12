@@ -83,6 +83,12 @@ function onDragging(){
 			targettedBySpell = true;
 		}
 	}
+	with(o_unit){
+		if(antiAir and point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
+			greenGlow = true;
+			wantCircle = true;		
+		}
+	}
 }
 
 function onIntercepted(){		
