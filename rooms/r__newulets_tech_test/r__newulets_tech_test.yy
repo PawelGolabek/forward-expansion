@@ -51,7 +51,7 @@
         {"$GMRInstance":"v4","%Name":"inst_6C87936F1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6C87936F1","objectId":{"name":"o_archer","path":"objects/o_archer/o_archer.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":17.0,"scaleY":11.666667,"x":896.0,"y":1664.0,},
       ],"layers":[],"name":"units","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":true,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"terrain","depth":99999,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_1FB1F7DE","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1FB1F7DE","objectId":{"name":"o_terrain_generator_no_units","path":"objects/o_terrain_generator_no_units/o_terrain_generator_no_units.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":19.0,"scaleY":11.0,"x":1376.0,"y":32.0,},
+        {"$GMRInstance":"v4","%Name":"inst_1FB1F7DE","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1FB1F7DE","objectId":{"name":"o_terrain_generator_no_units","path":"objects/o_terrain_generator_no_units/o_terrain_generator_no_units.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":19.0,"scaleY":11.0,"x":1376.0,"y":352.0,},
       ],"layers":[],"name":"terrain","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":true,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"dynamic_background","depth":100099,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_11F70EC8_1_1_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_11F70EC8_1_1_1","objectId":{"name":"o_dynamicbg_1","path":"objects/o_dynamicbg_1/o_dynamicbg_1.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":-1952.0,"y":-704.0,},
@@ -79,7 +79,7 @@
     "Height":2500,
     "inheritRoomSettings":false,
     "persistent":false,
-    "Width":4000,
+    "Width":3000,
   },
   "sequenceId":null,
   "views":[

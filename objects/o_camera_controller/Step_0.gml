@@ -113,13 +113,19 @@ if (scroll != 0)
 var view_w = window_get_width()  / zoom;
 var view_h = window_get_height() / zoom;
 
-// cam_x/cam_y are currently top-left — convert to center, clamp CENTER only, convert back
-var center_x = cam_x + view_w / 2;
-var center_y = cam_y + view_h / 2;
-center_x = clamp(center_x, 0, room_width);
-center_y = clamp(center_y, 0, room_height);
-cam_x = center_x - view_w / 2;
-cam_y = center_y - view_h / 2;
+// Clamp camera position so view edges never exceed room boundaries
+// If the camera view is larger than the room itself, center it in the room
+if (view_w >= room_width) {
+    cam_x = (room_width - view_w) / 2;
+} else {
+    cam_x = clamp(cam_x, 0, room_width - view_w);
+}
+
+if (view_h >= room_height) {
+    cam_y = (room_height - view_h) / 2;
+} else {
+    cam_y = clamp(cam_y, 0, room_height - view_h);
+}
 
 // apply
 camera_set_view_pos(cam, cam_x, cam_y);

@@ -96,6 +96,7 @@ realHpTriggerTime = -1;
 realHpTriggerOn = false;
 hasTurnCounter = false;
 isAirStrike = false;
+explosiveShots = false;
 
 if(!noEyes){
 	eyeX = 20
