@@ -16,6 +16,7 @@ function initiate(){
 	unitletsPerHp = 20;
 	unit_collisions = mask_index;
 	flying = true;
+	crystalCost = 0;
 
 	og_image_xscale = 2;
 	og_image_yscale = 2;

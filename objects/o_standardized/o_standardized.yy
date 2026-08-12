@@ -1,17 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"o_relic",
+  "%Name":"o_standardized",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_relic",
+  "name":"o_standardized",
   "overriddenProperties":[],
   "parent":{
     "name":"relics",
     "path":"folders/objects/relics.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_relic",
+    "path":"objects/o_relic/o_relic.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -29,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite168",
+    "path":"sprites/Sprite168/Sprite168.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

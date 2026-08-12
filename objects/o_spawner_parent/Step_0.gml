@@ -23,7 +23,7 @@ if(mousePressed){
 		inst.bornOfSpawner = true;
 	    inst.dragging = true;
 		with(o_relic){
-			onUnitCreation(inst);	// for relics
+			self.onUnitCreation(inst);	// for relics
 		}
 		global.draggingUnit = inst;
 		global.crystals -= crystalCost

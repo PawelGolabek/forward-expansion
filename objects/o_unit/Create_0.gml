@@ -414,7 +414,10 @@ function place(){
 				turnCounterTrigger()
 				exit;
 			}
-		}		
+		}
+		with(o_relic){
+			self.onUnitPlace(other);	// for relics
+		}
 		with(o_spawner_parent){
 			selected = false;
 		}
