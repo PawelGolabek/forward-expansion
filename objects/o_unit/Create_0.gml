@@ -97,6 +97,8 @@ realHpTriggerOn = false;
 hasTurnCounter = false;
 isAirStrike = false;
 explosiveShots = false;
+reverseTargetting = false;
+
 
 if(!noEyes){
 	eyeX = 20
@@ -448,7 +450,6 @@ function place(){
 }
 
 
-
 function resetTargets() 
 {
     // Store references to the dropped unit's properties before looping
@@ -476,27 +477,35 @@ function resetTargets()
         }
     }
     
-    // 2. DROPPED UNIT: Find the closest enemy unit for itself
-    var closestEnemy = noone;
-    var minDistance = infinity; 
+    // 2. DROPPED UNIT: Find the target for itself based on reverseTargetting flag
+    var targetEnemy = noone;
+    var isReverse = droppedUnit.reverseTargetting;
+    
+    // Initialize target distance: infinity for closest, -1 for furthest
+    var bestDistance = isReverse ? -1 : infinity; 
     
     with (o_unit) 
     {
-        // Skip yourself and skip teammates
+        // Skip self and teammates
         if (id == droppedUnit || allegience == droppedAllegience) continue;
         
         // Calculate distance to this potential enemy
         var dist2 = point_distance_ellipse_sq(droppedX, droppedY, x, y, 0.6);
         
-        // If this one is closer than the previous closest, update it
-		// resetTargets
-		if (dist2 < minDistance and dist2 <= droppedUnit.range * droppedUnit.range) 
-		{
-		    minDistance = dist2;
-		    closestEnemy = id;
-		}
+        // Must be within range
+        if (dist2 <= droppedUnit.range * droppedUnit.range)
+        {
+            // If normal: check if dist2 is smaller than bestDistance
+            // If reverse: check if dist2 is larger than bestDistance
+            if ((!isReverse && dist2 < bestDistance) || (isReverse && dist2 > bestDistance))
+            {
+                bestDistance = dist2;
+                targetEnemy = id;
+            }
+        }
     }
-    droppedUnit.target = closestEnemy;
+    
+    droppedUnit.target = targetEnemy;
 }
 
 function createUnitlets(){
@@ -563,102 +572,105 @@ function onDragging(){
 }
 
 
-
 function findNewTargetForSelf() 
 {
     var myId = id; 
     var myAllegience = allegience;
     var myX = x;
     var myY = y;
-    var closestEnemy = noone;
-    var minDistance = infinity; 
     var myRange = range;
-	var dist;
-	var expectedDamageFrame = 0;
-	if(noTargetting){
-		exit;
-	}
+    var expectedDamageFrame = 0;
+    
+    if (noTargetting) {
+        exit;
+    }
+
+    var targetEnemy = noone;
+    var isReverse = reverseTargetting;
+    var bestDistance = isReverse ? -1 : infinity;
+
     with (o_unit) 
     {
-        dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
         if (id == myId || allegience == myAllegience) continue;        
         
-		// findNewTargetForSelf
-		if (dist2 < minDistance && myRange * myRange > dist2)
-		{
-		    minDistance = dist2;
-		    closestEnemy = id;
-		}
-		if(dist2 < range * range){
-			expectedDamageFrame += damage;
-		}
+        var dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
+        
+        // Evaluate valid enemy within range based on targeting mode
+        if (dist2 <= myRange * myRange)
+        {
+            if ((!isReverse && dist2 < bestDistance) || (isReverse && dist2 > bestDistance))
+            {
+                bestDistance = dist2;
+                targetEnemy = id;
+            }
+
+            expectedDamageFrame += damage;
+        }
     }
-    // my dmg
-	damageTmp = expectedDamageFrame
+
+	// Update self-damage preview hearts
+	var damageTmp = expectedDamageFrame;
 	var heartIdx = hp - 1;
-	if(damageTmp >= hp){
-		// lethal - every current heart beats
-		while(heartIdx >= 0){
-			hearts[heartIdx].visible = true
-			hearts[heartIdx].container.visible = true
-			hearts[heartIdx].beating = true;
-			heartIdx -= 1;
-		}
-	}else{
-		// only the hearts that would actually be lost beat (top ones down to the amount)
-		var stopAt = hp - damageTmp;
-		while(heartIdx >= stopAt){
-			hearts[heartIdx].visible = true
-			hearts[heartIdx].container.visible = true
-			hearts[heartIdx].beating = true;
-			heartIdx -= 1;
-		}
+	if (damageTmp >= hp) {
+	    while (heartIdx >= 0) {
+	        hearts[heartIdx].visible = true;
+	        hearts[heartIdx].container.visible = true;
+	        hearts[heartIdx].beating = true; // <--- FORCED TO TRUE
+	        heartIdx -= 1;
+	    }
+	} else {
+	    var stopAt = hp - damageTmp;
+	    while (heartIdx >= stopAt) {
+	        hearts[heartIdx].visible = true;
+	        hearts[heartIdx].container.visible = true;
+	        hearts[heartIdx].beating = true; // <--- FORCED TO TRUE EVEN WHEN damageTmp IS 0
+	        heartIdx -= 1;
+	    }
 	}
-	///// targets dmg
-	
-	target = closestEnemy; 
+    
+    target = targetEnemy; 
 
-	if(target != noone){
-		with(target){
-			targettedByDragging = true;
-			if(not noUnitlets){
-				redGlow = true;
-				ulets = array_length(unitlets) - 1;
-				while(ulets >= 0){
-					unitlets[ulets].redGlow = true;
-					ulets -= 1;
-				}
-			}
-			heartsMax = array_length(hearts) - 1;
-			while(heartsMax >= 0){
-				hearts[heartsMax].visible = true;
-				hearts[heartsMax].beating = false;
-				heartsMax -= 1;
-			}
+    // Apply target highlighting & target's damage preview
+    if (target != noone) {
+        with (target) {
+            targettedByDragging = true;
+            if (!noUnitlets) {
+                redGlow = true;
+                var ulets = array_length(unitlets) - 1;
+                while (ulets >= 0) {
+                    unitlets[ulets].redGlow = true;
+                    ulets -= 1;
+                }
+            }
+            
+            var heartsMax = array_length(hearts) - 1;
+            while (heartsMax >= 0) {
+                hearts[heartsMax].visible = true;
+                hearts[heartsMax].beating = false;
+                heartsMax -= 1;
+            }
 
-			// --- TARGET's hearts: damage the dragged unit (other) deals to it ---
-			damageTmp = other.damage;
-			heartIdx = hp - 1;
-			if(damageTmp >= hp){
-				// lethal - every current heart beats
-				while(heartIdx >= 0){
-					hearts[heartIdx].visible = true
-					hearts[heartIdx].container.visible = true
-					hearts[heartIdx].beating = true;
-					heartIdx -= 1;
-				}
-			}else{
-				// only the hearts that would actually be lost beat (top ones down to the amount)
-				var stopAt = hp - damageTmp;
-				while(heartIdx >= stopAt){
-					hearts[heartIdx].visible = true
-					hearts[heartIdx].container.visible = true
-					hearts[heartIdx].beating = true;
-					heartIdx -= 1;
-				}
-			}
-		}
-	}
+            // Target's hearts: calculate incoming damage from dragged unit
+            damageTmp = other.damage;
+            heartIdx = hp - 1;
+            if (damageTmp >= hp) {
+                while (heartIdx >= 0) {
+                    hearts[heartIdx].visible = true;
+                    hearts[heartIdx].container.visible = true;
+                    hearts[heartIdx].beating = true;
+                    heartIdx -= 1;
+                }
+            } else {
+                var stopAt = hp - damageTmp;
+                while (heartIdx >= stopAt) {
+                    hearts[heartIdx].visible = true;
+                    hearts[heartIdx].container.visible = true;
+                    hearts[heartIdx].beating = true;
+                    heartIdx -= 1;
+                }
+            }
+        }
+    }
 }
 
 function onRoundEnd(){

@@ -4,16 +4,16 @@ function initiate(){
 	dragging = false;
 
 	name = "Explosive Drone";
-	hp = 1
-	maxhp = hp
+	hp = 1;
+	maxhp = hp;
 	damage = 5;
-	baseDamage = damage
-	allegience = "player"
+	baseDamage = damage;
+	allegience = "player";
 	range = 250
 	revealRange = range * 2
 	myUnitlet = o_explosive_drone_let;
-	unitletsPerHp = 20
-	unit_collisions = mask_index
+	unitletsPerHp = 20;
+	unit_collisions = mask_index;
 	flying = true;
 	destroyOnAttack = true;
 	explosionOnDeath = true;

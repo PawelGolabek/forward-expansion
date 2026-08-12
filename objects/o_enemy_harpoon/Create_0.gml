@@ -20,7 +20,6 @@ function initiate(){
 	dragging = false;
 	mySprite = s_enemy_harpoon_flag;
 	uletDeployMaxRange = 200;
-	
 	turnCounter = 0;
 	maxTurnCounter = 3;
 	turnCounterOn = false;
