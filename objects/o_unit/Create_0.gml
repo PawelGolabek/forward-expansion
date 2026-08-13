@@ -703,25 +703,6 @@ function unitletsCleanup(){
 
 
 function handleShield(){
-	if(shieldActive){
-		if(not uletsHaveShields){
-			maxUlets = array_length(unitlets);
-			for(i = 0; i < maxUlets; i += 1){
-				ulet = unitlets[i]
-				unitlets[i].shield = instance_create_depth(ulet.x,ulet.y,ulet.depth+40,o_shield_status);
-			}
-			uletsHaveShields = true;
-		}
-	}else{
-		if(uletsHaveShields){
-			maxUlets = array_length(unitlets);
-			for(i = 0; i < maxUlets; i += 1){
-				instance_destroy(unitlets[i].shield);
-				unitlets[i].shield = noone;
-			}
-			uletsHaveShields = false;
-		}
-	}
 }
 
 

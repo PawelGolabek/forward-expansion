@@ -42,6 +42,8 @@ attackingSprite = s_attacking_placeholder;
 targettedBySpell = false;
 markForDeath = false;
 ttl = -1;
+shield = instance_create_depth(x, y, depth, o_shield_status);
+shield.owner = self;
 
 function initiate(){
 	if(not noEyes){

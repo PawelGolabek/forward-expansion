@@ -1,4 +1,4 @@
-draw_text(x,y,uletsHaveShields)
+draw_text(x,y,shieldActive)
 
 if(initiated){
 	if(speaking){

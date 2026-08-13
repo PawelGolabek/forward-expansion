@@ -15,3 +15,11 @@ if(not noEyes){
 	instance_destroy(lEyeLid)
 	instance_destroy(rEyeLid)
 }
+
+
+
+// in the unitlet's Destroy event (or death code)
+if(instance_exists(shield)){
+	instance_destroy(shield);
+}
+
