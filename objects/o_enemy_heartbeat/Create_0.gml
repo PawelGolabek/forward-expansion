@@ -24,7 +24,7 @@ function initiate(){
 	maxTurnCounter = 3;
 	turnCounterOn = true;
 	hasTurnCounter = true;
-	hasShield = true;
+	hasShield = false;
 	shieldActive = false;
 	myShield = noone;
 
@@ -45,11 +45,21 @@ function initiate(){
 function triggerTurn(){
 	if(shieldActive == false){
 		myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
-		show_debug_message("A")
+		shieldActive = true;
+		with(o_unit){
+			if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+				shieldActive = true;
+			}
+		}
 	}else{
 		instance_destroy(myShield);
 		myShield = noone;
+		shieldActive = false;
+		with(o_unit){
+			if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+				shieldActive = false;
+			}
+		}
 	}
-	shieldActive = !shieldActive;
-
 }
+// possible race condition

@@ -1,4 +1,3 @@
-
 relics = [];
 
 with(o_relic){

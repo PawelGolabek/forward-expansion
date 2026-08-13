@@ -58,7 +58,6 @@ guiY = (y - viewY) * display_get_gui_height() / viewH;
 xx = guiX;
 yy = guiY + 35;
 //// this makes no sense but might keep it for later.
-noEyes = true
 noUnitlets = false;
 //cosmetics
 bornOfSpawner = false;
@@ -78,7 +77,6 @@ _expected = 0;
 wantCircle = false;
 circleInst = noone;
 circleOverride = false ///true; // workaround to probably delete later
-onEnter = function(){}
 //effects
 aura = false;
 applyingAura = false;
@@ -100,8 +98,8 @@ explosiveShots = false;
 reverseTargetting = false;
 speaking = true;
 initiated = false;
-
-
+//eyes related
+noEyes = true
 if(!noEyes){
 	eyeX = 20
 	eyeDist = 30;
@@ -174,11 +172,17 @@ noTargetting = false;
 untargetable = false;
 realHpDmg = 0;
 mousVisible = false;
-hasShield = true;
-shieldActive = false;
+// pulse shield related
+hasShield = true;		// this one is for the shield that comes with a unit. If this one is down it means that unit has lost its initial shield no matter what temporary it got
+shieldActive = false;	// this one is for temporary shields given by units, avilities, relics
+uletsHaveShields = false;
 
 
+function triggerTurn(){}
+function onAntiAir(){}
+function onIntercepted(){}
 function initiate(){}
+function onEnter(){}
 
 
 function draw_half_circle(cx, cy, radius, start_angle, end_angle)
@@ -384,9 +388,6 @@ function turnCounterTrigger(){
 	}
 }
 
-function triggerTurn(){}
-function onAntiAir(){}
-function onIntercepted(){}
 
 function interceptionsCheck(unit){
 	with(o_unit){
@@ -701,6 +702,29 @@ function unitletsCleanup(){
 }
 
 
+function handleShield(){
+	if(shieldActive){
+		if(not uletsHaveShields){
+			maxUlets = array_length(unitlets);
+			for(i = 0; i < maxUlets; i += 1){
+				ulet = unitlets[i]
+				unitlets[i].shield = instance_create_depth(ulet.x,ulet.y,ulet.depth+40,o_shield_status);
+			}
+			uletsHaveShields = true;
+		}
+	}else{
+		if(uletsHaveShields){
+			maxUlets = array_length(unitlets);
+			for(i = 0; i < maxUlets; i += 1){
+				instance_destroy(unitlets[i].shield);
+				unitlets[i].shield = noone;
+			}
+			uletsHaveShields = false;
+		}
+	}
+}
+
+
 function executeStep(){
 	unitletsCleanup()
 	if (array_length(unitlets) == 0 and not noUnitlets) {
@@ -711,6 +735,7 @@ function executeStep(){
 		if (global.unitActing == self && unitlets[0].image_index >= unitlets[0].image_number - 1) {
 			uletsNumber = array_length(unitlets);
 		}
+		handleShield();
 	}
 	mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y)
 	// i hate that it does not match the flag but will fix later brb
