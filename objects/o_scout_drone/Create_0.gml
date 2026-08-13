@@ -1,6 +1,5 @@
 event_inherited()
 
-handleHeartsCreation(self)
 function initiate(){
 	dragging = false;
 
@@ -9,7 +8,6 @@ function initiate(){
 	maxhp = hp
 	damage = 0
 	baseDamage = damage
-	allegience = "player"
 	range = 450
 	revealRange = range * 2
 	myUnitlet = o_scout_drone_let;
@@ -27,5 +25,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	createUnitlets();
 }
-
-initiate()

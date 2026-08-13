@@ -8,8 +8,6 @@ function initiate(){
 	maxhp = hp
 	damage = 4
 	baseDamage = damage
-	allegience = "player"
-
 	range = 180
 	revealRange = range * 2
 
@@ -24,5 +22,3 @@ function initiate(){
 	og_image_yscale = 2;
 	createUnitlets()
 }
-initiate()
-handleHeartsCreation(self)

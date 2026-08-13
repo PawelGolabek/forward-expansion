@@ -6,11 +6,10 @@ function initiate(){
 	hp = 1;
 	maxhp = hp;
 	damage = 7;
-	baseDamage = damage
-	allegience = "player";
+	baseDamage = damage;
 	crystalCost = 0;
 	range = 200;
-	revealRange = range * 2
+	revealRange = range * 2;
 	firstStrike = false;
 	reactionStrike = false;
 	myUnitlet = o_worker_let;
@@ -24,6 +23,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	createUnitlets();
 }
-initiate()
-
-handleHeartsCreation(self)

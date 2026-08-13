@@ -1,9 +1,18 @@
+// Begin Step  (reset before anyone registers this frame)
+unitsToDraw = [];
+trees = [];
+
+
+
+
 with(o_unit){
-	// lethal - every current heart beats
-	heartIdx = array_length(hearts) - 1
-	while(heartIdx >= 0){
-		hearts[heartIdx].beating = false;
-		heartIdx -= 1;
+	if(initiated){
+		// lethal - every current heart beats
+		heartIdx = array_length(hearts) - 1
+		while(heartIdx >= 0){
+			hearts[heartIdx].beating = false;
+			heartIdx -= 1;
+		}
 	}
 }
 
@@ -19,29 +28,31 @@ with(o_unitlet){
 // Run unit logic before gathering draw arrays so destroyed units are removed before drawing.
 draw_set_alpha(1.0);
 with(o_unit){
-    drawCircle = false;
-    minDistToPlayer = 9999999;
-    if(allegience == "player"){
-        visible = true;
-        var _uletsLen = array_length(unitlets);
-        for(var _i = 0; _i < _uletsLen; _i += 1){
-            if (instance_exists(unitlets[_i])) {
-                unitlets[_i].visible = true;
-            }
-        }
-    }
-    executeStep();
-    if(inCombat){
-        alpha = 0.7;
-    }
+	if(initiated){
+	    drawCircle = false;
+	    minDistToPlayer = 9999999;
+	    if(allegience == "player"){
+	        visible = true;
+	        var _uletsLen = array_length(unitlets);
+	        for(var _i = 0; _i < _uletsLen; _i += 1){
+	            if (instance_exists(unitlets[_i])) {
+	                unitlets[_i].visible = true;
+	            }
+	        }
+	    }
+	    executeStep();
+	    if(inCombat){
+	        alpha = 0.7;
+		}
+	}
 }
 with(o_unitlet){
-	executeStep()
+	executeStep();
 }
 
 
 with(o_expand_circle){
-	executeStep()
+	executeStep();
 }
 
 ///////////////////////////////
@@ -195,18 +206,28 @@ with (o_trees) {
 
 draw_set_alpha(1.0);
 with (o_unit) {
-    if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
-        array_push(other.unitsToDraw, self);
-        var _uletsNum = array_length(unitlets);
-        for(var _i = 0; _i < _uletsNum; _i += 1){
-            var _ulet = unitlets[_i];
-            if (instance_exists(_ulet)) {
-                array_push(other.uletsToDraw, _ulet);
-            }
-        }
-    }
+	if(not initiated){
+	
+		initiate();
+		handleHeartsCreation(self);
+		initiated = true
+		executeStep()
+	
+	}
+	if(initiated){
+	    if (other.rect_in_draw_area(bbox_left, bbox_top, bbox_right, bbox_bottom)) {
+	        array_push(other.unitsToDraw, self);
+	        var _uletsNum = array_length(unitlets);
+	        for(var _i = 0; _i < _uletsNum; _i += 1){
+	            var _ulet = unitlets[_i];
+	            if (instance_exists(_ulet)) {
+	                array_push(other.uletsToDraw, _ulet);
+	            }
+	        }
+	    }
+	}
 }
-
+show_debug_message(array_length(unitsToDraw))
 with (o_status) {
 	//	 if statuses get outlines
 

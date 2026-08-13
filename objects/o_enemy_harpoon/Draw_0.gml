@@ -2,5 +2,6 @@
 event_inherited();
 
 
-
-draw_text(x,y,turnCounter);
+if(initiated){
+	draw_text(x,y,turnCounter);
+}

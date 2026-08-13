@@ -15,6 +15,7 @@ function process_unit_deaths(_involved) {
                 damageTaken = 0;
                 
                 if (hp <= 0) {
+					
                     // --- HANDLE EXPLOSION ON DEATH ---
                     if (explosionOnDeath) {
                         var _ex = x;
@@ -43,6 +44,7 @@ function process_unit_deaths(_involved) {
                     with (o_unit) {
                         if (target == other.id) target = noone;
                     }
+					
                     instance_destroy();
                 }
             }

@@ -1,6 +1,5 @@
 event_inherited()
 
-handleHeartsCreation(self)
 
 function initiate(){
 
@@ -11,7 +10,6 @@ function initiate(){
 	maxhp = hp
 	damage = 1
 	baseDamage = damage
-	allegience = "player"
 	damageTaken = 0
 
 	firstStrike = true;
@@ -25,11 +23,8 @@ function initiate(){
 	range = 1200;
 	revealRange = range * 2;
 	uletDeployMaxRange = 100;
-
 	aiType = "range";
 	unitletsPerHp = 1;
-
-
 	mySprite = s_artillery_flag
 	myUnitlet = o_artillery_let;
 	uletSize = s_artillery_let;
@@ -37,5 +32,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	createUnitlets()
 }
-
-initiate()

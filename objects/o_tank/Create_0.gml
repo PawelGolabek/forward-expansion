@@ -1,6 +1,4 @@
 event_inherited()
-handleHeartsCreation(self)
-
 
 function initiate(){
 	dragging = false;
@@ -9,7 +7,6 @@ function initiate(){
 	maxhp = hp;
 	damage = 1;
 	baseDamage = damage;
-	allegience = "player";
 	range = 400;
 	revealRange = range * 2;
 	noEyes = true;
@@ -24,4 +21,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	createUnitlets();
 }
-initiate();

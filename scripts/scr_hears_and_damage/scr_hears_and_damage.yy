@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Script5",
+  "%Name":"scr_hears_and_damage",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Script5",
+  "name":"scr_hears_and_damage",
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"scripts",
+    "path":"folders/scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

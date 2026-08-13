@@ -5,7 +5,8 @@ allegience = "player";
 
 drag_draw_offset = 0;
 range = infinity;
-
+name = "Single Cycle ISR";
+description = "1 hp units get ISR aura (+ 3 damage)";
 
 function onUnitCreation(unit){
 	if(unit.hp == 1){

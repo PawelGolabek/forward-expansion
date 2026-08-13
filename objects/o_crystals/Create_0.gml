@@ -16,8 +16,6 @@ function initiate(){
 	allegience = "enemy"
 	noUnitlets = true;
 	damageTaken = 0
-
-
 	og_image_xscale = 1;
 	og_image_yscale = 1;
 	image_xscale = og_image_xscale;
@@ -29,6 +27,4 @@ function initiate(){
 	createUnitlets()
 
 }
-initiate()
 
-handleHeartsCreation(self)

@@ -8,7 +8,6 @@ function initiate(){
 	maxhp = hp
 	damage = 12
 	baseDamage = damage
-	allegience = "player"
 	range = 210
 	revealRange = range * 2
 
@@ -24,5 +23,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	createUnitlets()
 }
-initiate();
-handleHeartsCreation(self)

@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"o_standardized",
+  "%Name":"o_standardized_replicator",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_standardized",
+  "name":"o_standardized_replicator",
   "overriddenProperties":[],
   "parent":{
     "name":"relics",

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Script6",
+  "%Name":"scr_draw_threat_circle",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Script6",
+  "name":"scr_draw_threat_circle",
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"scripts",
+    "path":"folders/scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -9,7 +9,6 @@ function initiate(){
 	maxhp = hp
 	damage = 80
 	baseDamage = damage
-	allegience = "player"
 	damageTaken = 0
 	mySprite = sprite_index;
 
@@ -20,6 +19,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2.0)
 	createUnitlets()
 }
-initiate()
-
-handleHeartsCreation(self)

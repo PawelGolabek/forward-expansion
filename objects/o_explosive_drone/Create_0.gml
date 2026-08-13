@@ -8,7 +8,6 @@ function initiate(){
 	maxhp = hp;
 	damage = 5;
 	baseDamage = damage;
-	allegience = "player";
 	range = 250
 	revealRange = range * 2
 	myUnitlet = o_explosive_drone_let;
@@ -25,7 +24,5 @@ function initiate(){
 
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
-	handleHeartsCreation(self)
 	createUnitlets()
 }
-initiate()

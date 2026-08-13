@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_recall",
   "parent":{
-    "name":"BLANK GAME",
-    "path":"BLANK GAME.yyp",
+    "name":"scripts",
+    "path":"folders/scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

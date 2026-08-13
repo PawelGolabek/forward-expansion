@@ -13,8 +13,9 @@ if(mousePressed){
 		}
 		with(o_unit){
 			if(dragging){
-				global.crystals += crystalCost
-				instance_destroy()
+				global.crystals += crystalCost;
+				recalled = true;
+				instance_destroy();
 			}
 		}
 		selected = true;
@@ -22,9 +23,12 @@ if(mousePressed){
 	    var inst = instance_create_layer(mouse_x, mouse_y, units, spawn_object);
 		inst.bornOfSpawner = true;
 	    inst.dragging = true;
+		inst.initiate();
 		with(o_relic){
 			self.onUnitCreation(inst);	// for relics
 		}
+		handleHeartsCreation(inst);
+		inst.initiated = true
 		global.draggingUnit = inst;
 		global.crystals -= crystalCost
 		inst.x = -9999;

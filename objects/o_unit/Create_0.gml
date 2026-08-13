@@ -1,4 +1,4 @@
-allegience = "enemy"
+allegience = "player"
 name = "NO NAME ASSIGNED";
 range = 10;
 uletDeployMaxRange = 300;
@@ -99,6 +99,7 @@ isAirStrike = false;
 explosiveShots = false;
 reverseTargetting = false;
 speaking = true;
+initiated = false;
 
 
 if(!noEyes){
@@ -172,10 +173,9 @@ sprite_center_offset = 0;
 noTargetting = false;
 untargetable = false;
 realHpDmg = 0;
-
+mousVisible = false;
 
 function initiate(){}
-
 
 
 function draw_half_circle(cx, cy, radius, start_angle, end_angle)
@@ -421,6 +421,7 @@ function place(){
 		if(last_valid_x < 0 and last_valid_y < 0){
 			global.dropped = noone;
 			global.draggingUnit = noone;
+			
 			instance_destroy();
 		}else{
 			mask_index = s_flag_hitbox;
@@ -433,6 +434,9 @@ function place(){
 				performAttacks(true);	
 				o_deck_holder.discard_card(parentSpawner);
 
+			}else{
+				self.initiate()
+				initiated = true;
 			}
 			dragging = false;
 			placed = true;
@@ -673,13 +677,15 @@ function findNewTargetForSelf()
     }
 }
 
+
 function onRoundEnd(){
 	if(not instance_exists(target) or target == noone){
 		findNewTargetForSelf() 
 	}
 }
-function unitletsCleanup(){
 
+
+function unitletsCleanup(){
 	for (var i = array_length(unitlets) - 1; i >= 0; i--) {
 	    if (!instance_exists(unitlets[i])) {
 	        array_delete(unitlets, i, 1);
@@ -688,12 +694,10 @@ function unitletsCleanup(){
 }
 
 
-
-
 function executeStep(){
 	unitletsCleanup()
 	if (array_length(unitlets) == 0 and not noUnitlets) {
-	    instance_destroy()
+	    instance_destroy();
 		exit;
 	}
 	if(not noUnitlets){
@@ -715,7 +719,6 @@ function executeStep(){
 		last_valid_x = x;
 		last_valid_y = y;
 		place();
-		
 	}
 	if (dragging){
 		/////////////////////////////////////////////////////////
@@ -946,8 +949,8 @@ function executeStep(){
 		}
 	}
 	
-	array_push(o_draw_manager.units,id)
 	if(toDestroy){
+		
 		instance_destroy()
 	}
 }

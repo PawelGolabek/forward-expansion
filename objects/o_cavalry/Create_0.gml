@@ -9,7 +9,6 @@ function initiate(){
 	crystalCost = 60
 	damage = 10
 	baseDamage = damage
-	allegience = "player"
 	damageTaken = 0
 	reactionStrike = false;
 	range = 220
@@ -29,6 +28,3 @@ function initiate(){
 
 	createUnitlets()
 }
-initiate();
-
-handleHeartsCreation(self)

@@ -1,3 +1,5 @@
+
+
 if(not noEyes){
 	instance_destroy(lPupil);
 	instance_destroy(rPupil);
@@ -21,12 +23,12 @@ with(o_expand_circle){
 	}
 }
 
-
-while(array_length(hearts) > 0){
-	heart = array_pop(hearts);
-	instance_destroy(heart);
+if(initiated){
+	while(array_length(hearts) > 0){
+		heart = array_pop(hearts);
+		instance_destroy(heart);
+	}
 }
-
 if (!recalled && logDeath) {
     if (instance_exists(o_combat_log)) {
         var combat_log = instance_find(o_combat_log, 0);

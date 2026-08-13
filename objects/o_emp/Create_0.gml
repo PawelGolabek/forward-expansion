@@ -5,7 +5,6 @@ hp = 0;
 maxhp = hp;
 damage = 0;
 baseDamage = damage;
-allegience = "player";
 damageTaken = 0;
 firstStrike = true;
 og_image_xscale = 2;
@@ -23,7 +22,6 @@ noTargetting = true;
 untargetable = true;
 isAirStrike = true;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
-handleHeartsCreation(self);
 
 function onEnter(){
 	instance_create_depth(room_width,y,-999999,o_plane_shadow)

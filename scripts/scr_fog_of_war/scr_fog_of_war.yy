@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Script3",
+  "%Name":"scr_fog_of_war",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Script3",
+  "name":"scr_fog_of_war",
   "parent":{
-    "name":"player",
-    "path":"folders/objects/units/player.yy",
+    "name":"scripts",
+    "path":"folders/scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

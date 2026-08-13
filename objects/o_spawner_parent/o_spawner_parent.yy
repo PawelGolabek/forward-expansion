@@ -10,8 +10,8 @@
   "name":"o_spawner_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/objects/unit_spawners/player.yy",
+    "name":"unit_spawners",
+    "path":"folders/objects/unit_spawners.yy",
   },
   "parentObjectId":{
     "name":"o_ui_element",

@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite169",
-    "path":"sprites/Sprite169/Sprite169.yy",
+    "name":"s_relic2",
+    "path":"sprites/s_relic2/s_relic2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

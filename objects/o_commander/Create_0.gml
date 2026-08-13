@@ -7,7 +7,6 @@ function initiate(){
 	maxhp = hp;
 	damage = 0;
 	baseDamage = damage
-	allegience = "player";
 	damageTaken = 0;
 	firstStrike = true;
 	og_image_xscale = 2;
@@ -23,11 +22,9 @@ function initiate(){
 	specialFriendly = true;
 	aura = true;
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
-	handleHeartsCreation(self);
 	damageBoostAbility = 3; // plain instance var — must persist past Create, so no `var`
 	createUnitlets()
 }
-initiate()
 
 function inflictAura(targetUnit){
 	applyAura(targetUnit, self, damageBoostAbility, o_red_aura);

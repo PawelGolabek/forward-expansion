@@ -8,7 +8,6 @@ function initiate(){
 	maxhp = hp;
 	damage = 4;
 	baseDamage = damage
-	allegience = "player";
 	range = 480;
 	revealRange = range * 2
 	description = "Deflects enemy first strikes";
@@ -25,7 +24,3 @@ function initiate(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2.0)
 	createUnitlets()
 }
-
-createUnitlets()
-
-handleHeartsCreation(self)

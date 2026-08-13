@@ -40,10 +40,11 @@ function getDamaged(damageTaken, unit){
         with(o_unit){
             if(unit.target == other.id) unit.target = noone;
         }
+		
+				show_debug_message("pls no")
         instance_destroy();
     }
             
     unit.hp -= damageTaken;
     damageTaken = 0
-
 }
