@@ -3,8 +3,6 @@ unitsToDraw = [];
 trees = [];
 
 
-
-
 with(o_unit){
 	if(initiated){
 		// lethal - every current heart beats
@@ -152,6 +150,9 @@ if(not keyboard_check(vk_tab)){
 	scr_draw_units_batch_trees(bloodstains, 1);
 }
 
+
+
+
 surface_reset_target();
 
 // 3. Prepare main mask surface
@@ -286,7 +287,7 @@ with (o_unit) {
 draw_set_alpha(0.2);
 draw_surface(global.threatSurf, 0, 0);
 
-// 4. DRAW BATCHES
+// 4. DRAW BATCHESl
 draw_set_alpha(1); // Reset alpha
 scr_draw_units_batch_trees(trees, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
