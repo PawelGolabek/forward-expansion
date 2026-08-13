@@ -10,7 +10,7 @@ maxCountdown = countdown;
 name = "Multi-role Tanker Support";
 description = "Get 1 energy for each non-intercepted airstrike";
 function onUnitPlace(unit){
-	if(unit.isAirStrike){
+	if(unit.isAirStrike and unit.allegience == "player"){
 		countdown -= 1;
 	}
 	if(countdown == 0){

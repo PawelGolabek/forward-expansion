@@ -8,7 +8,7 @@ name = "Standardized Replicator";
 description = "Get 1 energy every time you play a 0 cost card";
 
 function onUnitPlace(unit){
-	if(unit.crystalCost == 0){
+	if(unit.crystalCost == 0 and unit.allegience == "player"){
 		global.crystals += 1;		// this will need an animation later on
 	}
 }

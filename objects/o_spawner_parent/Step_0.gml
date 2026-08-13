@@ -35,5 +35,19 @@ if(mousePressed){
 		inst.y = -9999;
 		inst.dragging = true;
 		inst.parentSpawner = self;
+	}else{
+		deselect()
 	}
+}else if (mouse_check_button(mb_right)){
+	deselect()
+
+}
+
+
+function deselect(){
+
+	selected = false;
+	global.dropped = noone;
+	global.draggingUnit = noone;
+	instance_destroy(global.draggingUnit);
 }

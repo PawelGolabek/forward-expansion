@@ -421,7 +421,6 @@ function place(){
 		if(last_valid_x < 0 and last_valid_y < 0){
 			global.dropped = noone;
 			global.draggingUnit = noone;
-			
 			instance_destroy();
 		}else{
 			mask_index = s_flag_hitbox;
@@ -593,24 +592,28 @@ function findNewTargetForSelf()
     var isReverse = reverseTargetting;
     var bestDistance = isReverse ? -1 : infinity;
 
-    with (o_unit) 
+   with (o_unit) 
+{
+    if (id == myId || allegience == myAllegience) continue;        
+    
+    var dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
+    
+    // Target selection: based on the DRAGGED unit's own range
+    if (dist2 <= myRange * myRange)
     {
-        if (id == myId || allegience == myAllegience) continue;        
-        
-        var dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
-        
-        // Evaluate valid enemy within range based on targeting mode
-        if (dist2 <= myRange * myRange)
+        if ((!isReverse && dist2 < bestDistance) || (isReverse && dist2 > bestDistance))
         {
-            if ((!isReverse && dist2 < bestDistance) || (isReverse && dist2 > bestDistance))
-            {
-                bestDistance = dist2;
-                targetEnemy = id;
-            }
-
-            expectedDamageFrame += damage;
+            bestDistance = dist2;
+            targetEnemy = id;
         }
     }
+
+    // Incoming damage preview: based on the ENEMY's own range (can it actually hit the dragged unit?)
+    if (dist2 <= range * range)
+    {
+        expectedDamageFrame += damage;
+    }
+}
 
 	// Update self-damage preview hearts
 	var damageTmp = expectedDamageFrame;
