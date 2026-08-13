@@ -1,19 +1,14 @@
-draw_text(x,y,initiated);
-
 
 
 if(initiated){
 	if(speaking){
-		var msg = instance_create_depth(x, y, depth - 10000, o_message);
-
+		var msg = instance_create_depth(x - sprite_width, y - sprite_height*2, depth - 10000, o_message);
 		msg.message_set(
 		    "Give them hell!",
 		    30,
 		    180
 		);
 		speaking = false;
-	
-
 	}
 
 

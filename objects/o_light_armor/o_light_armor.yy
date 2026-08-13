@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_light_armor",
-    "path":"sprites/s_light_armor/s_light_armor.yy",
+    "name":"s_multi_role_tanker_transport",
+    "path":"sprites/s_multi_role_tanker_transport/s_multi_role_tanker_transport.yy",
   },
   "spriteMaskId":null,
   "visible":true,
