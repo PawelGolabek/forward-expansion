@@ -1,18 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"o_relic",
+  "%Name":"o_ballistic_tip",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_relic",
+  "name":"o_ballistic_tip",
   "overriddenProperties":[],
   "parent":{
     "name":"relics",
     "path":"folders/objects/relics.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_relic",
+    "path":"objects/o_relic/o_relic.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"s_ballistic_tip",
+    "path":"sprites/s_ballistic_tip/s_ballistic_tip.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
