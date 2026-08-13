@@ -62,7 +62,6 @@ function removeAura(unit,_source){
 			unit.damageBoost -= _entry.boost;
 			if(instance_exists(_entry.effect)){
 				instance_destroy(_entry.effect);
-				show_debug_message("destroyed")
 			}
 			array_delete(unit.activeAuras, i, 1);
 			return true;

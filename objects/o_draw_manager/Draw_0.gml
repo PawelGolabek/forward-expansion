@@ -228,7 +228,6 @@ with (o_unit) {
 	    }
 	}
 }
-show_debug_message(array_length(unitsToDraw))
 with (o_status) {
 	//	 if statuses get outlines
 

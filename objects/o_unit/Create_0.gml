@@ -174,6 +174,9 @@ noTargetting = false;
 untargetable = false;
 realHpDmg = 0;
 mousVisible = false;
+hasShield = true;
+shieldActive = false;
+
 
 function initiate(){}
 
@@ -327,7 +330,6 @@ function performAttacks(retaliation){
 								global.dropped = id; 
 								global.draggingUnit = id;
 								// resolve logically
-								show_debug_message(attacks)
 								o_combat_resolver.resolve_first_strike_without_retaliation(global.dropped);	
 								global.dropped = noone;
 								global.draggingUnit = noone;
@@ -370,18 +372,19 @@ function performAttacks(retaliation){
 
 function turnCounterTrigger(){
 	with(o_unit){
+		self.triggerTurn();
 		if(hasTurnCounter){
 			if(turnCounterOn){
 				turnCounter -= 1;
 				if(turnCounter == 0){
-					triggerTurnCounter();
+					self.triggerTurnCounter();
 				}
 			}
 		}
 	}
 }
 
-
+function triggerTurn(){}
 function onAntiAir(){}
 function onIntercepted(){}
 
@@ -444,7 +447,8 @@ function place(){
 			
 		fogOfWarCheck();
 		onEnter();
-		checkInCombat()
+		checkInCombat();
+		turnCounterTrigger();
 		mask_index = s_placed_hitbox;
 		}
 	}

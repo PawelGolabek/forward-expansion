@@ -58,6 +58,5 @@ function executeStep(){
 	if(immortal and not visible and owner.killImmortal){
 		owner.immortalExists = false;
 	    instance_destroy();
-		show_debug_message("killed immortal");
 	}
 }
