@@ -9,8 +9,8 @@
   "name":"o_expand_halfcircle",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/objects/units.yy",
+    "name":"range indicators",
+    "path":"folders/objects/unit cosmetics/range indicators.yy",
   },
   "parentObjectId":null,
   "persistent":false,

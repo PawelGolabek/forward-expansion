@@ -30,7 +30,6 @@ function executeStep(){
 	if(owner != noone){
 		visible = owner.wantCircle or owner.mousVisible
 	}
-
 	var t = clamp(timer / life, 0, 1);
 	var e = sin(t * pi * 0.5);
 	var scale = lerp(start_scale, end_scale, e);
@@ -42,7 +41,6 @@ function executeStep(){
 	x = owner.x
 	y = owner.y //+ owner.drag_draw_offset
 
-
 	if(not immortal){
 		timer++;
 	}else{
@@ -50,10 +48,8 @@ function executeStep(){
 		visible = true;
 	}
 
-
 	if (t >= 1 and not immortal)
 	    instance_destroy();
-
 
 	if(immortal and not visible and owner.killImmortal){
 		owner.immortalExists = false;

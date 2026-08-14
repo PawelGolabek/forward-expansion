@@ -8,8 +8,8 @@
   "name":"o_master",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/objects/units/player.yy",
+    "name":"legacy",
+    "path":"folders/objects/units/legacy.yy",
   },
   "parentObjectId":{
     "name":"o_unit",

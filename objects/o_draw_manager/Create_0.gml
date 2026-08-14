@@ -8,7 +8,6 @@ trees = [];
 checkedFoW = false;
 
 
-	my_crt = new CRT();
 
 
 circle_surface = surface_create(room_width, room_height);
@@ -94,4 +93,3 @@ var overrides = {
 		gamma: -1                 // already the neutral sRGB passthrough
 	}
 }
-my_crt = new CRT(overrides);

@@ -2,7 +2,6 @@ event_inherited()
 
 function initiate(){
 
-
 	name = "cavalry";
 	hp = 2
 	maxhp = hp
@@ -11,7 +10,7 @@ function initiate(){
 	baseDamage = damage
 	damageTaken = 0
 	reactionStrike = false;
-	range = 220
+	range = 270
 	revealRange = range * 2
 	dragging = false;
 	mySprite = s_cavalry_flag_3;

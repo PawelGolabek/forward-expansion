@@ -24,7 +24,7 @@ isAirStrike = true;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
 function onEnter(){
-	instance_create_depth(room_width,y,-999999,o_plane_shadow)
+	instance_create_depth(room_width,y,-999999,o_plane_shadow);
     var me = id;
     var myRange = range;
     var myY = y;
@@ -51,8 +51,9 @@ function onEnter(){
     // 1. Destroy marked unitlets
     var totalUlets = array_length(uletsDestroyed);
     for (var i = 0; i < totalUlets; i++) {
-		uletsDestroyed[i].markForDeath = true;
-		uletsDestroyed[i].ttl = ttl
+		uletsDestroyed[i].markForDeathCountdown = true;
+		uletsDestroyed[i].markForDeathDelay = 260000;
+		uletsDestroyed[i].ttl = ttl;
     }
 
     // 2. Apply scaled HP damage to affected units
@@ -67,6 +68,7 @@ function onEnter(){
 		spread = 100;
 		a = instance_create_depth(x - spread + random(spread*2),y - (spread * 0.6) + random(spread * 2 * 0.6), 0, o_airstrike_effect);
 	}
+	
 	instance_destroy()
 }
 

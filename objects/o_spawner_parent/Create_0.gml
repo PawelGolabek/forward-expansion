@@ -3,6 +3,8 @@ spawn_object = o_inferna;
 active = false;
 selected = false;
 mousePressed = false;
+deploymentsLeft = 0;
+
 
 function setCrystalCost(){
 

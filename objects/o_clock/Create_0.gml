@@ -1,6 +1,8 @@
 toNextEvent = 0;
 maxToNextEvent = 100000;
 
+multipleDeploymentInProgress = false;
+
 debug = false;
 blocked = false;
 ui_to_block = [o_spawner_parent]

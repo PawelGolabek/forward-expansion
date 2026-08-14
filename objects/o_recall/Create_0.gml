@@ -20,6 +20,7 @@ noUnitlets = true;
 specialFriendly = true;
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 recall = 3;
+isAirStrike = true;
 
 function onEnter(){
 	var me = id;

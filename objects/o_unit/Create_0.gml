@@ -2,15 +2,15 @@ allegience = "player"
 name = "NO NAME ASSIGNED";
 range = 10;
 uletDeployMaxRange = 300;
-revealRange = 10
-damage = 100
-baseDamage = damage
+revealRange = 10;
+damage = 100;
+baseDamage = damage;
 attacks = 1;
-hp = 10
-maxhp = hp
+hp = 10;
+maxhp = hp;
 firstStrike = true;
 reactionStrike = true;
-crystalCost = 10
+crystalCost = 10;
 deployAlly = true;
 antiAir = 0;
 // ulet spawning
@@ -21,7 +21,7 @@ uletSize = Sprite1;
 ulet_xScale = 0.3;
 ulet_yScale = ulet_xScale;
 //tmp variables for combat
-damageTaken = 0
+damageTaken = 0;
 drawCircle = false; 
 fragility = 10;
 aiType = "melee";
@@ -46,7 +46,7 @@ mousCooldown = 4500000;
 mousMaxCooldown = mousCooldown
 immortalExists = false;
 TheOne = noone;
-minDistToPlayer = 99999999
+minDistToPlayer = 99999999;
 // ui for skull
 cam = view_camera[0];
 viewX = camera_get_view_x(cam);
@@ -176,6 +176,7 @@ mousVisible = false;
 hasShield = true;		// this one is for the shield that comes with a unit. If this one is down it means that unit has lost its initial shield no matter what temporary it got
 shieldActive = false;	// this one is for temporary shields given by units, avilities, relics
 uletsHaveShields = false;
+deploymentsLeft = 0;
 
 
 function triggerTurn(){}
@@ -183,6 +184,8 @@ function onAntiAir(){}
 function onIntercepted(){}
 function initiate(){}
 function onEnter(){}
+function onDragging(){}
+function handleShield(){}
 
 
 function draw_half_circle(cx, cy, radius, start_angle, end_angle)
@@ -410,17 +413,38 @@ function place(){
 		if(isAirStrike){
 			intercepted = interceptionsCheck(self);
 			if(intercepted){
-				instance_destroy();
-				o_deck_holder.discard_card(parentSpawner);
-				turnCounterTrigger()
-				exit;
+				parentSpawner.deploymentsLeft -= 1;
+				if(parentSpawner.deploymentsLeft > 0){
+					intercepted = false;
+				}else{
+					with(o_spawner_parent){
+						selected = false;
+						hardSelected = false;
+					}
+					instance_destroy();
+					o_deck_holder.discard_card(parentSpawner);
+					turnCounterTrigger();
+					exit;
+				}
+			}else{		
+				self.onEnter()
+				parentSpawner.deploymentsLeft -= 1;
+				if(parentSpawner.deploymentsLeft > 0){
+						selected = false;
+				}else{
+					with(o_spawner_parent){
+						selected = false;
+						hardSelected = false;
+					}
+					instance_destroy();
+					o_deck_holder.discard_card(parentSpawner);
+					turnCounterTrigger();
+					exit;
+				}
 			}
 		}
 		with(o_relic){
 			self.onUnitPlace(other);	// for relics
-		}
-		with(o_spawner_parent){
-			selected = false;
 		}
 		if(last_valid_x < 0 and last_valid_y < 0){
 			global.dropped = noone;
@@ -434,9 +458,21 @@ function place(){
 			//// first strike, ommit if spawned on room creation
 			if(bornOfSpawner){
 				checkForAuras(self);
-				performAttacks(true);	
-				o_deck_holder.discard_card(parentSpawner);
-
+				performAttacks(true);
+				parentSpawner.deploymentsLeft -= 1;
+				if(parentSpawner.deploymentsLeft > 0){
+					o_clock.multipleDeploymentInProgress = true;
+					with(o_spawner_parent){
+						selected = false;
+					}
+				}else{
+					with(o_spawner_parent){
+						selected = false;
+						hardSelected = false;
+					}
+					o_clock.multipleDeploymentInProgress = false;
+					o_deck_holder.discard_card(parentSpawner);
+				}
 			}else{
 				self.initiate()
 				initiated = true;
@@ -447,10 +483,19 @@ function place(){
 			drag_draw_offset = 0;
 			
 		fogOfWarCheck();
-		onEnter();
+		self.onEnter()
 		checkInCombat();
-		turnCounterTrigger();
 		mask_index = s_placed_hitbox;
+		
+		if(bornOfSpawner and not deploymentsLeft){
+			ds_queue_enqueue(o_clock.action_queue, {
+			func: function() {
+				with(o_unit){
+					turnCounterTrigger();
+					}
+				}
+			});
+			}
 		}
 	}
 	image_xscale = og_image_xscale;
@@ -572,13 +617,7 @@ function createUnitlets(){
 		array_push(unitlets,ulet);		
 		}
 	}
-
-
 }
-function onDragging(){
-
-}
-
 
 function findNewTargetForSelf() 
 {
@@ -702,8 +741,6 @@ function unitletsCleanup(){
 }
 
 
-function handleShield(){
-}
 
 
 function executeStep(){
@@ -896,7 +933,7 @@ function executeStep(){
 	///////////////////////////////////////// on taking damage kill unitlets /////////////////////
 	if(array_length(unitlets) > ceil(hp * unitletsPerHp)){
 		ulet = array_pop(unitlets);
-		instance_destroy(ulet);
+		ulet.markForDeath = true;
 	}
 	/////////////////////////////////////// drop animation
 	
@@ -963,7 +1000,6 @@ function executeStep(){
 	}
 	
 	if(toDestroy){
-		
 		instance_destroy()
 	}
 }

@@ -298,16 +298,3 @@ scr_draw_units_batch(unitsToDraw, 1, 2);
 with(o_unitlet){
 	targettedBySpell = false;
 }
-
-
-//draw_text(mouse_x, mouse_y, "\n\nTest GUI");
-
-// --- FIX: release app_surface as the render target BEFORE feeding it into
-// the shader as a source texture. Previously app_surface was still the
-// active target when my_crt.draw(app_surface, ...) ran, meaning the surface
-// was being read from and written to at the same time (undefined / blank /
-// corrupted result depending on platform).
-//surface_reset_target();
-//my_crt.draw(app_surface, 0, 0, room_width, room_height);
-
-//crt_gui_end();

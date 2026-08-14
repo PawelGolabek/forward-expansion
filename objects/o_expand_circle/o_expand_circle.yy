@@ -10,8 +10,8 @@
   "name":"o_expand_circle",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"range indicators",
+    "path":"folders/objects/unit cosmetics/range indicators.yy",
   },
   "parentObjectId":null,
   "persistent":false,

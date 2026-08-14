@@ -23,7 +23,7 @@
   ],
   "name":"s_shield_status",
   "nineSlice":null,
-  "origin":4,
+  "origin":7,
   "parent":{
     "name":"BLANK GAME",
     "path":"BLANK GAME.yyp",
@@ -76,7 +76,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":32,
-    "yorigin":32,
+    "yorigin":64,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

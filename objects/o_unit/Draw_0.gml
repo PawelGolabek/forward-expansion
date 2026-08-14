@@ -1,4 +1,4 @@
-draw_text(x,y,shieldActive)
+
 
 if(initiated){
 	if(speaking){
@@ -11,12 +11,10 @@ if(initiated){
 		speaking = false;
 	}
 
-
 	// --- 1. DRAGGING LINE ---
 	if (global.draggingUnit == self and global.deployHighlight != noone){
 	    draw_line_width(x, y - drag_draw_offset, global.deployHighlight.x, global.deployHighlight.y, 10);
 	}
-
 
 	mous = (x - sprite_width/2 < mouse_x and x + sprite_width/2 > mouse_x and y - sprite_height < mouse_y and y > mouse_y);
 	// Default: child circle is allowed to die once it's invisible.

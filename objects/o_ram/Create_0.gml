@@ -11,6 +11,7 @@ function initiate(){
 	baseDamage = damage
 	damageTaken = 0
 	mySprite = sprite_index;
+	deploymentsLeft = 3;
 
 
 	range = 20

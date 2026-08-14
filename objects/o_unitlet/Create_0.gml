@@ -1,4 +1,3 @@
-// Create event or a persistent spot
 //Outline shader
 sprite_scale = shader_get_uniform(shd_outline, "sprite_size");
 outline_surf = -1
@@ -19,7 +18,7 @@ animationOn = true
 breathe_timer = random(200000);
 breathe_speed = 0.05;   // how fast it breathes
 breathe_amount = 0.05;  // how much it scales (0.05 = 5%)
-base_scale = 1;         // your sprite's normal scale
+base_scale = 1;         // normal scale
 hit_timer = 0;
 drawCircle = false;
 og_image_xscale = 1;
@@ -44,6 +43,18 @@ markForDeath = false;
 ttl = -1;
 shield = instance_create_depth(x, y, depth, o_shield_status);
 shield.owner = self;
+
+deathElapsed = 0;
+deathStartY = 0;
+markForDeletion = false;
+
+initialAscendSpeed = -20; // Jump speed (negative is UP)
+deathGravity = 800;        // Gravity force pulling it down
+ySpeed = 0
+markForDeathCountdown = false;
+markForDeathDelay = 0;
+spin = false;
+spinSpeed = 0;
 
 function initiate(){
 	if(not noEyes){
@@ -136,7 +147,6 @@ function executeStep(){
 			blink = maxBlink
 		}
 	}
-
 	if(image_index >= image_number - 1){
 	    attacks -= 1;
 	    image_index = 0;
@@ -212,16 +222,51 @@ function executeStep(){
 			y = best_y;
 		}
 	}
-
-
+	if(markForDeathCountdown){
+		markForDeathDelay -= delta_time;
+		if(markForDeathDelay < 0 and not markForDeath){
+			markForDeath = true;
+			spin = random(1);
+			if(spin > 0.5){
+				spin = true;
+				spinSpeed = random(10) * 0.0001;
+			}else{
+				spin = false;
+				spinSpeed = random(10) * 0.0001;
+			}
+		}
+	}
+	
 	if(targettedBySpell){
 		blueGlow = true;
 	}
-	if(markForDeath){
-		ttl -= delta_time;
-	}
-	if(markForDeath and ttl < 0){
-		instance_destroy();
-	}
-}
+	if (markForDeath) {
+        // Convert microseconds to seconds for smooth, predictable physics
+        var dt = delta_time; 
 
+        if (not markForDeletion) {
+            ySpeed = initialAscendSpeed;
+            markForDeletion = true;
+            deathStartY = y;
+        } else {
+            // Apply speed to position
+            y += ySpeed * dt * 0.00001;
+			if(ySpeed < 0){
+				if(spin){
+					image_angle += spinSpeed * delta_time;
+				}else{
+					image_angle -= spinSpeed * delta_time;
+				}
+			}
+            // Apply gravity to speed
+            ySpeed += deathGravity * 0.0000001 * dt;
+        }
+    }
+
+    // Destroy once it's falling again (ySpeed turned positive) AND has
+    // come back down to its starting height — not deathBounceHeight past it.
+    if (markForDeletion and ySpeed >= 0 and y >= deathStartY) {
+        y = deathStartY; // snap exactly back to the original spot
+        instance_destroy();
+    }
+}

@@ -1,3 +1,4 @@
+
 if(not owner.recalled and bloodOnDeath){
 	instance_create_depth(x,y,depth-20,o_blood_droplet)
 }
@@ -22,4 +23,3 @@ if(not noEyes){
 if(instance_exists(shield)){
 	instance_destroy(shield);
 }
-

@@ -1,15 +1,23 @@
-if(o_clock.blocked){
+if(o_clock.blocked or (o_clock.multipleDeploymentInProgress and not selected)){
 	active = false;
 }else{
 	if(global.crystals >= crystalCost){
 		active = true;
 	}
 }
+
+if(o_clock.multipleDeploymentInProgress and deploymentsLeft and hardSelected){
+	active = true;
+}
+
 if(mousePressed){
 	mousePressed = false;
 	if (active and not selected){
+		hardSelected = true;
 		with(o_spawner_parent){
-			selected = false;
+			if(other.id != id){
+				selected = false;
+			}
 		}
 		with(o_unit){
 			if(dragging){
@@ -21,9 +29,13 @@ if(mousePressed){
 		selected = true;
 		var units = layer_get_id("units");
 	    var inst = instance_create_layer(mouse_x, mouse_y, units, spawn_object);
+		inst.parentSpawner = self;
 		inst.bornOfSpawner = true;
 	    inst.dragging = true;
 		inst.initiate();
+		if(not deploymentsLeft){
+			deploymentsLeft = inst.deploymentsLeft;
+		}
 		with(o_relic){
 			self.onUnitCreation(inst);	// for relics
 		}
@@ -34,18 +46,13 @@ if(mousePressed){
 		inst.x = -9999;
 		inst.y = -9999;
 		inst.dragging = true;
-		inst.parentSpawner = self;
-	}else{
-		deselect()
 	}
-}else if (mouse_check_button(mb_right)){
+}else if (mouse_check_button(mb_right) and not o_clock.multipleDeploymentInProgress){
 	deselect()
-
 }
 
 
 function deselect(){
-
 	selected = false;
 	global.dropped = noone;
 	global.draggingUnit = noone;

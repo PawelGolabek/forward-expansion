@@ -44,7 +44,6 @@ function process_unit_deaths(_involved) {
                     with (o_unit) {
                         if (target == other.id) target = noone;
                     }
-					
                     instance_destroy();
                 }
             }

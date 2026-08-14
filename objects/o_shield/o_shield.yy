@@ -9,8 +9,8 @@
   "name":"o_shield",
   "overriddenProperties":[],
   "parent":{
-    "name":"unit cosmetics",
-    "path":"folders/objects/unit cosmetics.yy",
+    "name":"legacy",
+    "path":"folders/objects/unit cosmetics/legacy.yy",
   },
   "parentObjectId":null,
   "persistent":false,

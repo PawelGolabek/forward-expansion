@@ -18,6 +18,7 @@ aiType = "range";
 mySprite = s_recall_flag;
 noUnitlets = true;
 specialFriendly = true;
+isAirStrike = true;
 
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 
