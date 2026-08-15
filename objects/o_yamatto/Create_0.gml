@@ -51,8 +51,8 @@ function onEnter(){
     // 1. Destroy marked unitlets
     var totalUlets = array_length(uletsDestroyed);
     for (var i = 0; i < totalUlets; i++) {
-		uletsDestroyed[i].markForDeath = true;
-		uletsDestroyed[i].ttl = ttl
+		uletsDestroyed[i].markForDeathCountdown = true;
+		uletsDestroyed[i].markForDeathDelay = 260000;
     }
 
     // 2. Apply scaled HP damage to affected units

@@ -765,9 +765,12 @@ function executeStep(){
 	alpha = 1.0;
 	depth = -y;
 	tmpTarget = noone;
-	if(not bornOfSpawner){
+	if(not bornOfSpawner and not initiated){
 		last_valid_x = x;
 		last_valid_y = y;
+		self.initiate()
+		initiated = true;
+		bornOfSpawner = true;
 		place();
 	}
 	if (dragging){
