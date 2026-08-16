@@ -76,7 +76,7 @@ unitletsPerHp = 3;
 _expected = 0;
 wantCircle = false;
 circleInst = noone;
-circleOverride = false ///true; // workaround to probably delete later
+circleOverride = false ///true; // workaround to probably delete later	// no idea what it is at this point
 //effects
 aura = false;
 applyingAura = false;
@@ -177,6 +177,7 @@ hasShield = true;		// this one is for the shield that comes with a unit. If this
 shieldActive = false;	// this one is for temporary shields given by units, avilities, relics
 uletsHaveShields = false;
 deploymentsLeft = 0;
+abilityActive = false;
 
 
 function triggerTurn(){}
@@ -186,7 +187,7 @@ function initiate(){}
 function onEnter(){}
 function onDragging(){}
 function handleShield(){}
-
+function triggerTurnCounter(){}
 
 function draw_half_circle(cx, cy, radius, start_angle, end_angle)
 {
@@ -471,6 +472,14 @@ function place(){
 						hardSelected = false;
 					}
 					o_clock.multipleDeploymentInProgress = false;
+					
+					ds_queue_enqueue(o_clock.action_queue, {
+						func: function() {
+							with(o_unit){
+								turnCounterTrigger();
+								}
+							}
+						});
 					o_deck_holder.discard_card(parentSpawner);
 				}
 			}else{
@@ -487,15 +496,6 @@ function place(){
 		checkInCombat();
 		mask_index = s_placed_hitbox;
 		
-		if(bornOfSpawner and not deploymentsLeft){
-			ds_queue_enqueue(o_clock.action_queue, {
-			func: function() {
-				with(o_unit){
-					turnCounterTrigger();
-					}
-				}
-			});
-			}
 		}
 	}
 	image_xscale = og_image_xscale;
@@ -789,7 +789,7 @@ function executeStep(){
 					ulets = array_length(unitlets) - 1
 					while(ulets >= 0){
 						unitlets[ulets].blueGlow = true;
-						ulets-=1;
+						ulets -= 1;
 					}
 		        }
 			}
@@ -936,7 +936,8 @@ function executeStep(){
 	///////////////////////////////////////// on taking damage kill unitlets /////////////////////
 	if(array_length(unitlets) > ceil(hp * unitletsPerHp)){
 		ulet = array_pop(unitlets);
-		ulet.markForDeath = true;
+		ulet.markForDeathCountdown = true;
+		ulet.markForDeathDelay = 10000;
 	}
 	/////////////////////////////////////// drop animation
 	

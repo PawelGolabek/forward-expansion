@@ -2,7 +2,6 @@
 unitsToDraw = [];
 trees = [];
 
-
 with(o_unit){
 	if(initiated){
 		// lethal - every current heart beats
@@ -20,6 +19,7 @@ if(not checkedFoW){
 }
 with(o_unitlet){
 	targettedBySpell = false;
+	drawn = false;
 }
 
 // 1. EXECUTE LOGIC FIRST
@@ -223,17 +223,23 @@ with (o_unit) {
 	            var _ulet = unitlets[_i];
 	            if (instance_exists(_ulet)) {
 	                array_push(other.uletsToDraw, _ulet);
+					_ulet.drawn = true;
 	            }
 	        }
 	    }
 	}
 }
-with (o_status) {
-	//	 if statuses get outlines
-
+var uletsToDrawWithoutSpecialBorder = [];
+with(o_unitlet){
+	if(drawn == false){
+	      array_push(uletsToDrawWithoutSpecialBorder, self);		
+	}
 }
 	
-	
+with (o_status) {
+	//	 if statuses get outlines
+}
+
 draw_set_alpha(1.0);
 // 3. SAFE SORTING WITH INSTANCE_EXISTS CHECKS
 array_sort(trees, function(a, b) {
@@ -245,6 +251,10 @@ array_sort(uletsToDraw, function(a, b) {
     return a.depth - b.depth;
 });
 array_sort(unitsToDraw, function(a, b) {
+    if (!instance_exists(a) || !instance_exists(b)) return 0;
+    return a.depth - b.depth;
+});
+array_sort(uletsToDrawWithoutSpecialBorder, function(a, b) {
     if (!instance_exists(a) || !instance_exists(b)) return 0;
     return a.depth - b.depth;
 });
@@ -289,8 +299,11 @@ draw_surface(global.threatSurf, 0, 0);
 // 4. DRAW BATCHESl
 draw_set_alpha(1); // Reset alpha
 scr_draw_units_batch_trees(trees, 1);
+scr_draw_units_batch_trees(uletsToDrawWithoutSpecialBorder, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
 scr_draw_units_batch(unitsToDraw, 1, 2);
+
+
 
 ////////////// 
 /// POST DRAW CLEANUP

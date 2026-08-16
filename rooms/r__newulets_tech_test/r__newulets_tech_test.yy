@@ -21,7 +21,6 @@
     {"name":"inst_1FB1F7DE","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_30D90A2F1_1_1","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_3732AA1_1_1_1_1_1","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
-    {"name":"inst_7BA8B103_1_1_1_1","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_6DB5E110","path":"roomui/RoomUI/RoomUI.yy",},
     {"name":"inst_2214236D","path":"roomui/RoomUI/RoomUI.yy",},
     {"name":"inst_3493639","path":"roomui/RoomUI/RoomUI.yy",},
@@ -36,6 +35,7 @@
     {"name":"inst_1386E4AD","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_455B7686","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_1C2FC3F2","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
+    {"name":"inst_7BA8B103_1_1_1_1","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
   ],
   "isDnd":false,
   "layers":[

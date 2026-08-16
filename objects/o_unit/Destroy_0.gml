@@ -14,7 +14,8 @@ instance_destroy(arrow);
 
 while(array_length(unitlets) > 0){
 	ulet = array_pop(unitlets);
-	ulet.markForDeath = true;
+	ulet.markForDeathCountdown = true;
+	ulet.markForDeathDelay = 10000;
 }
 
 with(o_expand_circle){

@@ -56,6 +56,8 @@ function onEnter(){
 			currentUnit.antiAir = 0;						// need to add another abilities here if they start existing
 			currentUnit.turnCounter = currentUnit.maxTurnCounter;
 			currentUnit.turnCounterOn = true;
+			currentUnit.shieldActive = false;
+			currentUnit.abilityActive = true;
 		}		
     }
 		spread = 0;

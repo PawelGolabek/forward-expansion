@@ -37,17 +37,15 @@ explosionOnDeath = false;
 sprite_center_offset = sprite_width/2
 defaultSprite = sprite_index;
 attacks = 0;
-attackingSprite = s_attacking_placeholder;
+attackingSprite = s_a_attacking_placeholder;
 targettedBySpell = false;
 markForDeath = false;
 ttl = -1;
 shield = instance_create_depth(x, y, depth, o_shield_status);
 shield.owner = self;
-
 deathElapsed = 0;
 deathStartY = 0;
 markForDeletion = false;
-
 initialAscendSpeed = -20; // Jump speed (negative is UP)
 deathGravity = 800;        // Gravity force pulling it down
 ySpeed = 0
@@ -55,6 +53,7 @@ markForDeathCountdown = false;
 markForDeathDelay = 0;
 spin = false;
 spinSpeed = 0;
+drawn = false;
 
 function initiate(){
 	if(not noEyes){

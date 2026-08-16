@@ -8,6 +8,7 @@ function initiate(){
 	damage = 0;
 	baseDamage = damage;
 	range = 300;
+	uletDeployMaxRange = 150;
 	revealRange = range * 2;
 	noEyes = true;
 	mySprite = sprite_index;

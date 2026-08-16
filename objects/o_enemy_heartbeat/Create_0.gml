@@ -27,6 +27,7 @@ function initiate(){
 	hasShield = false;
 	shieldActive = false;
 	myShield = noone;
+	abilityActive = true;
 
 	og_image_xscale = 2;
 	og_image_yscale = 2;
@@ -43,21 +44,23 @@ function initiate(){
 
 
 function triggerTurn(){
-	if(shieldActive == false){
-		myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
-		shieldActive = true;
-		with(o_unit){
-			if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
-				shieldActive = true;
+	if(abilityActive){
+		if(shieldActive == false){
+			myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
+			shieldActive = true;
+			with(o_unit){
+				if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+					shieldActive = true;
+				}
 			}
-		}
-	}else{
-		instance_destroy(myShield);
-		myShield = noone;
-		shieldActive = false;
-		with(o_unit){
-			if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
-				shieldActive = false;
+		}else{
+			instance_destroy(myShield);
+			myShield = noone;
+			shieldActive = false;
+			with(o_unit){
+				if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+					shieldActive = false;
+				}
 			}
 		}
 	}

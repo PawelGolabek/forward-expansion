@@ -162,10 +162,12 @@ function return_to_deck(card)
 
 array_shuffle(deck);
 hand = [];
-
+initialized = false;
 repeat (3)
 {
     deck_draw();
 }
 
 
+
+organize_hand();
