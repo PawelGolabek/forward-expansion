@@ -6,7 +6,7 @@ function initiate(){
 	dragging = false;
 
 	name = "artillery"
-	hp = 2
+	hp = 1
 	maxhp = hp
 	damage = 1
 	baseDamage = damage
@@ -24,10 +24,11 @@ function initiate(){
 	revealRange = range * 2;
 	uletDeployMaxRange = 100;
 	aiType = "range";
-	unitletsPerHp = 1;
+	unitletsPerHp = 2;
 	mySprite = s_artillery_flag
 	myUnitlet = o_artillery_let;
 	uletSize = s_artillery_let;
+	crystalCost = 2;
 
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	createUnitlets()

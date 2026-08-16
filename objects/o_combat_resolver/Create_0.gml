@@ -25,17 +25,33 @@ function process_unit_deaths(_involved) {
                         var _eAllegience = allegience;
                         var _eName = name;
                         var _eId = id;
-
+                        instance_create_depth(x, y, depth, o_explosion);
+						uletsMax = array_length(unitlets)
+						for(i = 0; i < uletsMax; i += 1){
+							a.markForDeathCountdown = true;
+							a.markForDeathDelay = 1000000000000;
+						}
+						
                         with (o_unit) {
                             if (id != _eId and point_distance_ellipse_sq(_ex, _ey, x, y, 0.6) <= _eRange * _eRange) {
                                 damageTaken += _eDamage;
                                 o_combat_log.log(string(allegience) + "'s " + string(name) + " got hit by an explosion from " + string(_eAllegience) + "'s " + string(_eName) + " by " + string(_eDamage));
-                                instance_create_depth(x, y, depth, o_explosion);
-                                
+
+								unitletsCleanup();
+                                var realhptmp = hp - damageTaken
+								var uletsToKill = array_length(unitlets) * unitletsPerHp - (realhptmp * unitletsPerHp);
+								show_debug_message(uletsToKill)
+								for(i = 0; i < uletsToKill; i += 1){
+									a = array_pop(unitlets)
+									a.markForDeathCountdown = true;
+									a.markForDeathDelay = 1000000000;
+								}
+								unitletsCleanup();
+								
                                 // Add splash victims to involved list for chain explosions/deaths
                                 if (ds_list_find_index(_involved, id) == -1) {
                                     ds_list_add(_involved, id);
-                                }
+                                }					
                             }
                         }
                     }
@@ -65,6 +81,7 @@ function resolve_combat(){
                     
                     if(explosiveShots and target.damageTaken >= target.hp){
                         target.explosionOnDeath = true;
+						instance_create_depth(target.x,target.y,target.depth,o_explosion)
                     }
 
                     if(target.logHit){
@@ -134,6 +151,7 @@ function resolve_first_strike(firstStrikeUnit){
             
             if(explosiveShots and target.damageTaken >= target.hp){
                 target.explosionOnDeath = true;
+				instance_create_depth(target.x,target.y,target.depth,o_explosion)
             }
             if (ds_list_find_index(_involved, target.id) == -1) ds_list_add(_involved, target.id);
             
@@ -168,12 +186,19 @@ function resolve_first_strike_without_retaliation(firstStrikeUnit){
             
             if(explosiveShots and target.damageTaken >= target.hp){
                 target.explosionOnDeath = true;
+				instance_create_depth(target.x, target.y, target.depth, o_explosion)
             }
             if (ds_list_find_index(_involved, target.id) == -1) ds_list_add(_involved, target.id);
             
             if(destroyOnAttack){
                 hp = 0;
                 explosionOnDeath = true;
+				unitletsCleanup();
+				maxUlets = array_length(unitlets);
+				for(i = 0; i < maxUlets; i += 1){
+					unitlets[i].markForDeathCountdown = true;
+					unitlets[i].markForDeathDelay = 0;
+				}
             }
         }
     }

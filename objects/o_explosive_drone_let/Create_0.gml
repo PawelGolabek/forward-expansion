@@ -24,6 +24,7 @@ function initiate2(){
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2);
 	og_image_xscale = image_xscale
 	og_image_yscale = image_yscale
+	attackingSprite = s_a_explosive_drone_let;
 	
 	//image_index = random(image_number)
 

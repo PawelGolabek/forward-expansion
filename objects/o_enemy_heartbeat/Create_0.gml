@@ -6,7 +6,7 @@ function initiate(){
 	allegience = "enemy";
 	name = "harpoon"
 	mySprite = sprite_index;
-	myUnitlet = o_enemy_archer_let;
+	myUnitlet = o_enemy_heartbeat_let;
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 	hp = 2
 	maxhp = hp
@@ -28,15 +28,13 @@ function initiate(){
 	shieldActive = false;
 	myShield = noone;
 	abilityActive = true;
-
 	og_image_xscale = 2;
 	og_image_yscale = 2;
 	image_xscale = og_image_xscale;
 	image_yscale = og_image_yscale;
 	mySprite = sprite_index;
-
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
-	myUnitlet = o_harpoon_let;
+	uletDeployMaxRange = 300;
 
 	createUnitlets()
 }

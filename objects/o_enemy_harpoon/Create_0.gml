@@ -24,6 +24,7 @@ function initiate(){
 	maxTurnCounter = 3;
 	turnCounterOn = false;
 	hasTurnCounter = true;
+	uletDeployMaxRange = 150;
 
 	og_image_xscale = 2;
 	og_image_yscale = 2;
