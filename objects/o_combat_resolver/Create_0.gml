@@ -1,6 +1,5 @@
 global.draggingUnit = noone;
 
-/// @desc Processes damage resolution, explosions (including chain reactions), and destruction for an involved list.
 function process_unit_deaths(_involved) {
     var _i = 0;
     while (_i < ds_list_size(_involved)) {
@@ -29,7 +28,7 @@ function process_unit_deaths(_involved) {
 						uletsMax = array_length(unitlets)
 						for(i = 0; i < uletsMax; i += 1){
 							a.markForDeathCountdown = true;
-							a.markForDeathDelay = 1000000000000;
+							a.markForDeathDelay = 1000000;
 						}
 						
                         with (o_unit) {
@@ -38,13 +37,13 @@ function process_unit_deaths(_involved) {
                                 o_combat_log.log(string(allegience) + "'s " + string(name) + " got hit by an explosion from " + string(_eAllegience) + "'s " + string(_eName) + " by " + string(_eDamage));
 
 								unitletsCleanup();
-                                var realhptmp = hp - damageTaken
-								var uletsToKill = array_length(unitlets) * unitletsPerHp - (realhptmp * unitletsPerHp);
+                                var realhptmp = clamp(0,array_length(unitlets) - 1, hp - damageTaken)
+								var uletsToKill = clamp(0,array_length(unitlets), array_length(unitlets) - (realhptmp * unitletsPerHp));
 								show_debug_message(uletsToKill)
 								for(i = 0; i < uletsToKill; i += 1){
 									a = array_pop(unitlets)
 									a.markForDeathCountdown = true;
-									a.markForDeathDelay = 1000000000;
+									a.markForDeathDelay = 1000000;
 								}
 								unitletsCleanup();
 								
@@ -227,6 +226,14 @@ function retaliate(firstStrikeUnit){
            and firstStrikeUnit.allegience != allegience){
             
             reactedTo = firstStrikeUnit.id;
+			if(instance_exists(target)){
+				uletsNumber = array_length(unitlets);
+				for(i = 0; i < uletsNumber; i += 1){
+					unitlets[i].attacks = attacks;
+				    unitlets[i].sprite_index = unitlets[i].attackingSprite;
+				    unitlets[i].image_index = 0;
+				}
+			}
             
             if(firstStrikeUnit.parry){
                 o_combat_log.log(string(firstStrikeUnit.allegience) + "'s " + string(firstStrikeUnit.name) + " parried " + string(allegience) + "'s " + string(name) + " and hit it back by " + string(damage));

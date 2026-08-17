@@ -307,7 +307,6 @@ function enemyInRange(){
 
 
 function performAttacks(retaliation){
-	
 	if(enemyInRange()){
 		self.retaliation = retaliation
 		global.unitActing = self;
@@ -350,6 +349,7 @@ function performAttacks(retaliation){
 					}
 				}
 			});
+		
 		}
 		ds_queue_enqueue(o_clock.action_queue, {
 			my_spawned_unit: id,
@@ -360,15 +360,9 @@ function performAttacks(retaliation){
 					my_spawned_unit.y -= my_spawned_unit.drag_draw_offset;
 					my_spawned_unit.drag_draw_offset = 0;
 					if (instance_exists(_unit)) {
-						with (_unit) {
-							resetTargets();							
-					//		o_combat_resolver.retaliate(self);
-							// 2. Clear state inside the unit context right as combat resolves
-							if (variable_instance_exists(id, "lastFriendly") && instance_exists(lastFriendly)) {
-								lastFriendly = noone;
-							}
-						}
+						o_combat_resolver.retaliate(my_spawned_unit);
 					}
+					
 				}
 			}
 		});
