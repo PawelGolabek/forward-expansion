@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_rebel_flag",
-    "path":"sprites/s_rebel_flag/s_rebel_flag.yy",
+    "name":"s_enemy_rebel_flag",
+    "path":"sprites/s_enemy_rebel_flag/s_enemy_rebel_flag.yy",
   },
   "spriteMaskId":null,
   "visible":true,

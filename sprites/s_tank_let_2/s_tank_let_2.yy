@@ -1,11 +1,11 @@
 {
   "$GMSprite":"v2",
-  "%Name":"s_tank_let",
+  "%Name":"s_tank_let_2",
   "bboxMode":2,
-  "bbox_bottom":72,
-  "bbox_left":0,
-  "bbox_right":39,
-  "bbox_top":42,
+  "bbox_bottom":1468,
+  "bbox_left":4,
+  "bbox_right":797,
+  "bbox_top":823,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
@@ -16,12 +16,12 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":90,
+  "height":1469,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"d1602780-30b0-4e05-841f-aed41b12e15d","blendMode":0,"displayName":"default","isLocked":false,"name":"d1602780-30b0-4e05-841f-aed41b12e15d","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"s_tank_let",
+  "name":"s_tank_let_2",
   "nineSlice":null,
   "origin":0,
   "parent":{
@@ -69,7 +69,7 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7911cf69-f8ee-4b96-a256-d704cc6a2bb7","path":"sprites/s_tank_let/s_tank_let.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7911cf69-f8ee-4b96-a256-d704cc6a2bb7","path":"sprites/s_tank_let_2/s_tank_let_2.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"3d681e39-9e6e-4b94-8544-903fd19d3522","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":50,
+  "width":798,
 }

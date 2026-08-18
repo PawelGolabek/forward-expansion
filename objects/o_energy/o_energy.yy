@@ -4,6 +4,7 @@
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"o_energy",
@@ -12,7 +13,10 @@
     "name":"ui",
     "path":"folders/objects/ui.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_outlinable",
+    "path":"objects/o_outlinable/o_outlinable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_energy_counter",
-    "path":"sprites/s_energy_counter/s_energy_counter.yy",
+    "name":"s_energy_counter_1",
+    "path":"sprites/s_energy_counter_1/s_energy_counter_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

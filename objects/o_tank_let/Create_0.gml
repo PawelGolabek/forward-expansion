@@ -4,10 +4,15 @@ event_inherited();
 
 defaultSprite = sprite_index;
 noEyes = true;
+
+animationOn = true;
 function initiate2(){
 	
+
+
 	image_xscale = 1;
-	image_yscale = 1;	
+	image_yscale = 1;
+
 sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
 og_image_xscale = image_xscale
 og_image_yscale = image_yscale

@@ -1,4 +1,3 @@
-draw_self();
 
 draw_set_font(Font3);
 
@@ -22,3 +21,6 @@ draw_text(_ox + 1, _oy + 1, _text);
 // 2) Draw main text on top
 draw_set_colour(_text_color);
 draw_text(_ox, _oy, _text);
+
+
+// mismatch between where it is and where the text is, whatever, to fix if ever get complete.

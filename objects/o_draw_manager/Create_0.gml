@@ -8,8 +8,6 @@ trees = [];
 checkedFoW = false;
 
 
-
-
 circle_surface = surface_create(room_width, room_height);
 app_surface = surface_create(room_width, room_height);
 

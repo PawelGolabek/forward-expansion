@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_expand_circle_enemy_top",
-    "path":"sprites/s_expand_circle_enemy_top/s_expand_circle_enemy_top.yy",
+    "name":"s_expand_circle_enemy",
+    "path":"sprites/s_expand_circle_enemy/s_expand_circle_enemy.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_expand_circle_3",
-    "path":"sprites/s_expand_circle_3/s_expand_circle_3.yy",
+    "name":"s_expand_circle_enemy",
+    "path":"sprites/s_expand_circle_enemy/s_expand_circle_enemy.yy",
   },
   "spriteMaskId":null,
   "visible":true,

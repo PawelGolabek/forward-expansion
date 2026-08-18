@@ -795,8 +795,13 @@ function executeStep(){
 		    unitlets[i].drag_draw_offset = drag_draw_offset;
 		}
 	    global.draggingUnit = self;
-	    x = mouse_x;
-	    y = mouse_y;
+		grid_size = 32; // Change this to your desired grid cell size
+
+		x = round(mouse_x / grid_size) * grid_size;
+		y = round(mouse_y / grid_size) * grid_size;
+		
+		
+		
 	    // --- COLLISION RESOLUTION ---
 		/*
 	    var _iterations = 300;
@@ -825,7 +830,7 @@ function executeStep(){
 		var _halfLeft   = sprite_index != -1 ? sprite_get_xoffset(sprite_index) * image_xscale : 0;
 		var _halfRight  = sprite_index != -1 ? (sprite_get_width(sprite_index) - sprite_get_xoffset(sprite_index)) * image_xscale : 0;
 		var _halfTop    = sprite_index != -1 ? sprite_get_yoffset(sprite_index) * image_yscale : 0;
-		var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale : 0;	    
+		var _halfBottom = sprite_index != -1 ? (sprite_get_height(sprite_index) - sprite_get_yoffset(sprite_index)) * image_yscale : 0;
 		
 		x = clamp(x, _halfLeft, room_width - _halfRight);
 	    y = clamp(y, _halfTop, room_height - _halfBottom);
@@ -860,7 +865,7 @@ function executeStep(){
 				
 		    }
 		}
-		valid = ((_checkTerrain == noone) && _deployable && _lineClear && (_placable_terrain != noone or flying)) or deployedAnywhere;
+		valid = (((_checkTerrain == noone) && _deployable && _lineClear && (_placable_terrain != noone or flying)) or deployedAnywhere) and not place_meeting(x,y - drag_draw_offset, o_unit) ;
 
 		if (!valid)
 		{
