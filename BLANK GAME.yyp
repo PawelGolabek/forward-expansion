@@ -318,6 +318,8 @@
     {"id":{"name":"s_cliff_2","path":"sprites/s_cliff_2/s_cliff_2.yy",},},
     {"id":{"name":"s_cliff_3","path":"sprites/s_cliff_3/s_cliff_3.yy",},},
     {"id":{"name":"s_cliff_4","path":"sprites/s_cliff_4/s_cliff_4.yy",},},
+    {"id":{"name":"s_cliff_5","path":"sprites/s_cliff_5/s_cliff_5.yy",},},
+    {"id":{"name":"s_cliff_6","path":"sprites/s_cliff_6/s_cliff_6.yy",},},
     {"id":{"name":"s_cliff","path":"sprites/s_cliff/s_cliff.yy",},},
     {"id":{"name":"s_clouds_bg_1","path":"sprites/s_clouds_bg_1/s_clouds_bg_1.yy",},},
     {"id":{"name":"s_clouds_bg","path":"sprites/s_clouds_bg/s_clouds_bg.yy",},},

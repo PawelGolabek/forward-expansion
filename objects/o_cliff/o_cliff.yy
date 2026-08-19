@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_cliff_1",
-    "path":"sprites/s_cliff_1/s_cliff_1.yy",
+    "name":"s_cliff_4",
+    "path":"sprites/s_cliff_4/s_cliff_4.yy",
   },
   "spriteMaskId":null,
   "visible":true,
