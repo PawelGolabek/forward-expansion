@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_archer_let",
-    "path":"sprites/s_archer_let/s_archer_let.yy",
+    "name":"Sprite190",
+    "path":"sprites/Sprite190/Sprite190.yy",
   },
   "spriteMaskId":null,
   "visible":true,

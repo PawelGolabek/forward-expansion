@@ -1,11 +1,11 @@
 {
   "$GMSprite":"v2",
   "%Name":"s_inferna_let",
-  "bboxMode":2,
-  "bbox_bottom":42,
-  "bbox_left":15,
-  "bbox_right":31,
-  "bbox_top":37,
+  "bboxMode":0,
+  "bbox_bottom":44,
+  "bbox_left":3,
+  "bbox_right":25,
+  "bbox_top":3,
   "collisionKind":0,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
@@ -16,7 +16,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":40,
+  "height":46,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"84c9b589-e14d-4d00-ad07-4e00cc75367b","blendMode":0,"displayName":"default","isLocked":false,"name":"84c9b589-e14d-4d00-ad07-4e00cc75367b","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -105,5 +105,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":23,
+  "width":29,
 }

@@ -1,25 +1,25 @@
 {
   "$GMSprite":"v2",
   "%Name":"s_enemy_tentacle_let",
-  "bboxMode":0,
-  "bbox_bottom":44,
-  "bbox_left":2,
-  "bbox_right":28,
-  "bbox_top":16,
+  "bboxMode":2,
+  "bbox_bottom":38,
+  "bbox_left":6,
+  "bbox_right":45,
+  "bbox_top":30,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"33af77f8-1225-4ddb-a7ce-d61904fec56c","name":"33af77f8-1225-4ddb-a7ce-d61904fec56c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"6729cdd1-4723-4690-a2ce-d690c966ce1c","name":"6729cdd1-4723-4690-a2ce-d690c966ce1c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":48,
+  "height":50,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"7460beac-dfae-4078-ad79-69daafd4a886","blendMode":0,"displayName":"default","isLocked":false,"name":"7460beac-dfae-4078-ad79-69daafd4a886","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"d82a72e9-b2a1-44b2-875c-b5d109b87198","blendMode":0,"displayName":"default","isLocked":false,"name":"d82a72e9-b2a1-44b2-875c-b5d109b87198","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"s_enemy_tentacle_let",
   "nineSlice":null,
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"33af77f8-1225-4ddb-a7ce-d61904fec56c","path":"sprites/s_enemy_tentacle_let/s_enemy_tentacle_let.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"eb285f16-9e2d-4df1-9114-ad690ea315de","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"6729cdd1-4723-4690-a2ce-d690c966ce1c","path":"sprites/s_enemy_tentacle_let/s_enemy_tentacle_let.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"31f833b3-b9a2-4435-8803-32320168c5b4","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":32,
+  "width":50,
 }

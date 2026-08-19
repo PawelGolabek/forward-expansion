@@ -148,6 +148,7 @@ for (var r = 0; r < rows; r++) {
 		
 		if(r < 4){
 			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
+			instance_create_depth(tile_x - 20, row_y + 60, y + 5000, o_enemy_inferna)
 		}
 		if(r < 3){
 		}
@@ -159,6 +160,9 @@ for (var r = 0; r < rows; r++) {
 		}
 		if(r < 2){
 			instance_create_depth(tile_x, row_y + 80, y + 5000, o_enemy_archer)
+			instance_create_depth(tile_x , row_y + 0, y + 0, o_fence)
+			instance_create_depth(tile_x + 64, row_y + 0, y + 0, o_fence)
+			instance_create_depth(tile_x + 128, row_y + 0, y + 0, o_fence)
 		}
 		if(r < 2){
 		}

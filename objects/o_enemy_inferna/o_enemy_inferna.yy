@@ -12,8 +12,8 @@
     "path":"folders/objects/units/enemy.yy",
   },
   "parentObjectId":{
-    "name":"o_inferna",
-    "path":"objects/o_inferna/o_inferna.yy",
+    "name":"o_unit",
+    "path":"objects/o_unit/o_unit.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

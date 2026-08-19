@@ -239,14 +239,18 @@ function executeStep(){
 	if(targettedBySpell){
 		blueGlow = true;
 	}
-	if (markForDeath) {
+	if (markForDeath){
         // Convert microseconds to seconds for smooth, predictable physics
         var dt = delta_time; 
 
         if (not markForDeletion) {
-            ySpeed = initialAscendSpeed;
-            markForDeletion = true;
-            deathStartY = y;
+			if(owner.recalled){
+				instance_destroy();
+			}else{
+	            ySpeed = initialAscendSpeed;
+	            markForDeletion = true;
+	            deathStartY = y;
+			}
         } else {
             // Apply speed to position
             y += ySpeed * dt * 0.00001;

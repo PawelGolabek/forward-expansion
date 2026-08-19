@@ -133,7 +133,7 @@ with (o_placable_terrain) {
 // 2. Render all circles onto intermediate surface first
 draw_set_alpha(1.0);
 surface_set_target(circle_surface);
-draw_clear_alpha(c_lime, 0);
+draw_clear_alpha(c_maroon, 0);
 gpu_set_blendmode(bm_normal);
 
 draw_set_alpha(1.0);
@@ -242,6 +242,10 @@ with(o_bones){
 	array_push(scenery, self);
 }
 
+with(o_fence){
+	array_push(scenery, self);
+}
+
 if (!surface_exists(bones_surface)) {
     bones_surface = surface_create(room_width, room_height);
 }
@@ -281,7 +285,7 @@ array_sort(uletsToDraw, function(a, b) {
 });
 array_sort(unitsToDraw, function(a, b) {
     if (!instance_exists(a) || !instance_exists(b)) return 0;
-    return a.depth - b.depth;
+    return b.depth - a.depth;
 });
 array_sort(uletsToDrawWithoutSpecialBorder, function(a, b) {
     if (!instance_exists(a) || !instance_exists(b)) return 0;

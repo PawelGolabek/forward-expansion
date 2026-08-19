@@ -2,9 +2,9 @@
   "$GMSprite":"v2",
   "%Name":"s_enemy_harpoon_let",
   "bboxMode":0,
-  "bbox_bottom":57,
-  "bbox_left":12,
-  "bbox_right":57,
+  "bbox_bottom":50,
+  "bbox_left":1,
+  "bbox_right":39,
   "bbox_top":11,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,14 +12,14 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"c4eb2fe6-e792-49d3-991c-19d0b7c9dabd","name":"c4eb2fe6-e792-49d3-991c-19d0b7c9dabd","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"0aa51e68-59ca-45fa-b902-1b44dfd4681c","name":"0aa51e68-59ca-45fa-b902-1b44dfd4681c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":64,
+  "height":60,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"44da8305-97a1-45b4-9b4a-3fecedf09e74","blendMode":0,"displayName":"default","isLocked":false,"name":"44da8305-97a1-45b4-9b4a-3fecedf09e74","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"e3c6025b-b2b7-40f1-a440-095cdce3b26a","blendMode":0,"displayName":"default","isLocked":false,"name":"e3c6025b-b2b7-40f1-a440-095cdce3b26a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"s_enemy_harpoon_let",
   "nineSlice":null,
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c4eb2fe6-e792-49d3-991c-19d0b7c9dabd","path":"sprites/s_enemy_harpoon_let/s_enemy_harpoon_let.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"ee0aa4cc-2dac-4841-939f-447b9a5adcaf","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0aa51e68-59ca-45fa-b902-1b44dfd4681c","path":"sprites/s_enemy_harpoon_let/s_enemy_harpoon_let.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"809a32dd-fa6b-4a00-a124-d01649d5fcf6","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":64,
+  "width":40,
 }
