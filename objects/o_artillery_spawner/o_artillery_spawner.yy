@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_artillery_flag",
-    "path":"sprites/s_artillery_flag/s_artillery_flag.yy",
+    "name":"s_enemy_artillery_flag",
+    "path":"sprites/s_enemy_artillery_flag/s_enemy_artillery_flag.yy",
   },
   "spriteMaskId":null,
   "visible":true,

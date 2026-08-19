@@ -1,10 +1,10 @@
 event_inherited()
 
+function initiate2(){
 noEyes = true;
 image_index = random(image_number)
 defaultSprite = sprite_index;
 
-function initiate2(){
 	/*
 	dzida = instance_create_depth(x + sprite_width/2,y - 64 * image_yscale,depth-10,o_dzida);
 	dzida.image_xscale = self.image_xscale

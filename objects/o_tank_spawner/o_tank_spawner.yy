@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_tank_flag_2",
-    "path":"sprites/s_tank_flag_2/s_tank_flag_2.yy",
+    "name":"s_enemy_tank_flag",
+    "path":"sprites/s_enemy_tank_flag/s_enemy_tank_flag.yy",
   },
   "spriteMaskId":null,
   "visible":true,

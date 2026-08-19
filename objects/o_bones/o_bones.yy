@@ -1,20 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"o_enemy_inferna_unitlet",
+  "%Name":"o_bones",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_enemy_inferna_unitlet",
+  "name":"o_bones",
   "overriddenProperties":[],
   "parent":{
-    "name":"lets",
-    "path":"folders/objects/units/lets.yy",
+    "name":"unit cosmetics",
+    "path":"folders/objects/unit cosmetics.yy",
   },
-  "parentObjectId":{
-    "name":"o_inferna_let",
-    "path":"objects/o_inferna_let/o_inferna_let.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -33,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_inferna_let",
-    "path":"sprites/s_inferna_let/s_inferna_let.yy",
+    "name":"Sprite182",
+    "path":"sprites/Sprite182/Sprite182.yy",
   },
   "spriteMaskId":null,
   "visible":true,

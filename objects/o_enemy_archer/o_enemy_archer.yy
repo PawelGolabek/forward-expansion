@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_enemy_archer_flag_4",
-    "path":"sprites/s_enemy_archer_flag_4/s_enemy_archer_flag_4.yy",
+    "name":"s_archer_flag_3",
+    "path":"sprites/s_archer_flag_3/s_archer_flag_3.yy",
   },
   "spriteMaskId":null,
   "tags":[

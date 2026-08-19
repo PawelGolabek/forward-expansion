@@ -176,9 +176,10 @@ mousVisible = false;
 hasShield = true;		// this one is for the shield that comes with a unit. If this one is down it means that unit has lost its initial shield no matter what temporary it got
 shieldActive = false;	// this one is for temporary shields given by units, avilities, relics
 uletsHaveShields = false;
+shieldDestroyed = false;
+//
 deploymentsLeft = 0;
 abilityActive = false;
-
 
 function triggerTurn(){}
 function onAntiAir(){}

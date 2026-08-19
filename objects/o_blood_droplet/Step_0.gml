@@ -7,6 +7,5 @@ ttl -= delta_time
 if(ttl <= 0){
 	x = targetX + 25 - random(50)
 	y = targetY + 25 - random(50)
-	instance_create_depth(x,y,200,o_bloodstain)
 	instance_destroy()
 }

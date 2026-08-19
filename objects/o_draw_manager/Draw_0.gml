@@ -152,7 +152,7 @@ if(not keyboard_check(vk_tab)){
 
 
 
-
+mask_surface2 = mask_surface;
 surface_reset_target();
 
 // 3. Prepare main mask surface
@@ -168,7 +168,6 @@ with (o_placable_terrain) {
 // 4. Apply circles using separate alpha logic
 // Parameters: (src_color, dest_color, src_alpha, dest_alpha)
 gpu_set_blendmode_ext_sepalpha(bm_dest_alpha, bm_zero, bm_zero, bm_one);
-
 
 
 draw_surface(circle_surface, 0, 0);
@@ -229,12 +228,42 @@ with (o_unit) {
 	    }
 	}
 }
+
+
 var uletsToDrawWithoutSpecialBorder = [];
 with(o_unitlet){
 	if(drawn == false){
 	      array_push(uletsToDrawWithoutSpecialBorder, self);		
 	}
 }
+	// --- BONES: draw masked by mask_surface's alpha (terrain footprint) ---
+var scenery = [];
+with(o_bones){
+	array_push(scenery, self);
+}
+
+if (!surface_exists(bones_surface)) {
+    bones_surface = surface_create(room_width, room_height);
+}
+
+surface_set_target(bones_surface);
+draw_clear_alpha(c_black, 0);
+gpu_set_blendmode(bm_normal);
+
+draw_set_alpha(1.0);
+scr_draw_units_batch_trees(scenery, 1);
+
+// Keep bones' own color, multiply their alpha by mask_surface's alpha
+gpu_set_blendmode_ext_sepalpha(bm_zero, bm_one, bm_dest_alpha, bm_zero);
+draw_surface(mask_surface, 0, 0);
+
+gpu_set_blendmode(bm_normal);
+surface_reset_target();
+
+
+	
+gpu_set_blendmode(bm_normal);
+	
 	
 with (o_status) {
 	//	 if statuses get outlines
@@ -255,6 +284,11 @@ array_sort(unitsToDraw, function(a, b) {
     return a.depth - b.depth;
 });
 array_sort(uletsToDrawWithoutSpecialBorder, function(a, b) {
+    if (!instance_exists(a) || !instance_exists(b)) return 0;
+    return a.depth - b.depth;
+});
+
+array_sort(scenery, function(a, b) {
     if (!instance_exists(a) || !instance_exists(b)) return 0;
     return a.depth - b.depth;
 });
@@ -296,13 +330,13 @@ with (o_unit) {
 draw_set_alpha(0.2);
 draw_surface(global.threatSurf, 0, 0);
 
-// 4. DRAW BATCHESl
 draw_set_alpha(1); // Reset alpha
 scr_draw_units_batch_trees(trees, 1);
 scr_draw_units_batch_trees(uletsToDrawWithoutSpecialBorder, 1);
 scr_draw_units_batch(uletsToDraw, 1, 2);
+draw_set_alpha(1.0);
+draw_surface(bones_surface, 0, 0);
 scr_draw_units_batch(unitsToDraw, 1, 2);
-
 
 
 ////////////// 

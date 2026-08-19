@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_enemy_flag_template",
-    "path":"sprites/s_enemy_flag_template/s_enemy_flag_template.yy",
+    "name":"s_armored_drone_flag",
+    "path":"sprites/s_armored_drone_flag/s_armored_drone_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

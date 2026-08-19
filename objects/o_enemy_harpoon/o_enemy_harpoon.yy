@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_enemy_harpoon_flag",
-    "path":"sprites/s_enemy_harpoon_flag/s_enemy_harpoon_flag.yy",
+    "name":"s_harpoon_flag",
+    "path":"sprites/s_harpoon_flag/s_harpoon_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

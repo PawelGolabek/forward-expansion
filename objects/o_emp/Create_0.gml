@@ -57,6 +57,7 @@ function onEnter(){
 			currentUnit.turnCounter = currentUnit.maxTurnCounter;
 			currentUnit.turnCounterOn = true;
 			currentUnit.shieldActive = false;
+			currentUnit.shieldDestroyed = true;
 			currentUnit.abilityActive = true;
 		}		
     }

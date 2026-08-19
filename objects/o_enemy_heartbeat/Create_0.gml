@@ -45,10 +45,14 @@ function triggerTurn(){
 	if(abilityActive){
 		if(shieldActive == false){
 			myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
-			shieldActive = true;
+			if(not shieldDestroyed){
+				shieldActive = true;
+			}
 			with(o_unit){
 				if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
-					shieldActive = true;
+					if(not shieldDestroyed){
+						shieldActive = true;
+					}
 				}
 			}
 		}else{
@@ -57,7 +61,9 @@ function triggerTurn(){
 			shieldActive = false;
 			with(o_unit){
 				if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
-					shieldActive = false;
+					if(not shieldDestroyed){
+						shieldActive = false;
+					}
 				}
 			}
 		}

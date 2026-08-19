@@ -16,7 +16,7 @@ function initiate(){
 	range = 200;
 	revealRange = range * 2;
 	aiType = "range";
-	mySprite = s_commander_flag;
+	mySprite = s_enemy_commander_flag;
 	myUnitlet = o_commander_let;
 	uletSize = s_observer_let;
 	specialFriendly = true;

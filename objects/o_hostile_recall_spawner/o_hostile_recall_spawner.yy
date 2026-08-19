@@ -8,8 +8,8 @@
   "name":"o_hostile_recall_spawner",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/objects/unit_spawners/player.yy",
+    "name":"unit_spawners",
+    "path":"folders/objects/unit_spawners.yy",
   },
   "parentObjectId":{
     "name":"o_spawner_parent",

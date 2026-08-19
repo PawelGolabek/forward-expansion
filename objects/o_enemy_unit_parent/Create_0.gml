@@ -9,5 +9,5 @@ allegience = "enemy";
 damageTaken = 0;
 
 
-myUnitlet = o_enemy_inferna_unitlet;
+myUnitlet = o_enemy_inferna_let;
 mySprite = sprite_index;

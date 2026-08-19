@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_commander_flag",
-    "path":"sprites/s_commander_flag/s_commander_flag.yy",
+    "name":"s_enemy_commander_flag",
+    "path":"sprites/s_enemy_commander_flag/s_enemy_commander_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[

@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_enemy_heartbeat_flag",
-    "path":"sprites/s_enemy_heartbeat_flag/s_enemy_heartbeat_flag.yy",
+    "name":"s_heartbeat_flag",
+    "path":"sprites/s_heartbeat_flag/s_heartbeat_flag.yy",
   },
   "spriteMaskId":null,
   "tags":[
