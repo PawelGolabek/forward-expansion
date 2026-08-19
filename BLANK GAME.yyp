@@ -271,6 +271,7 @@
     {"id":{"name":"scr_palette_enforcer","path":"scripts/scr_palette_enforcer/scr_palette_enforcer.yy",},},
     {"id":{"name":"scr_recall","path":"scripts/scr_recall/scr_recall.yy",},},
     {"id":{"name":"Script1","path":"scripts/Script1/Script1.yy",},},
+    {"id":{"name":"sch_background_flare","path":"shaders/sch_background_flare/sch_background_flare.yy",},},
     {"id":{"name":"sh_palette_enforcer","path":"shaders/sh_palette_enforcer/sh_palette_enforcer.yy",},},
     {"id":{"name":"Shader3","path":"shaders/Shader3/Shader3.yy",},},
     {"id":{"name":"shd_light","path":"shaders/shd_light/shd_light.yy",},},

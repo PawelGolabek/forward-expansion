@@ -174,3 +174,14 @@ function draw_instance_outline(inst, thickness, outline_colour)
 
     shader_reset();
 }
+
+
+
+function fade_to_point(_x, _y)
+{
+    fade_target_x = _x;
+    fade_target_y = _y;
+
+    fade_radius = 1.5;
+    fade_active = true;
+}

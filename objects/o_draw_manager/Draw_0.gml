@@ -89,12 +89,51 @@ array_sort(dynamicBG, function(a, b) {
     return b.depth - a.depth;
 });
 
+ 
+fade_radius = 0.7;
+fade_active = true;
+
+fade_edge = 0.5;
+
+fade_target_x = o_camera_controller.x;
+fade_target_y =  o_camera_controller.y;
+
+if (!surface_exists(my_surface_bg))
+{
+	my_surface_bg = surface_create(room_width, room_height);
+}
+
+var _shader = sch_background_flare;
+
+shader_set(_shader);
+
+var _target_x = fade_target_x / surface_get_width(my_surface_bg);
+var _target_y = fade_target_y / surface_get_height(my_surface_bg);
+
+var _u_target = shader_get_uniform(_shader, "u_target");
+var _u_radius = shader_get_uniform(_shader, "u_radius");
+var _u_edge = shader_get_uniform(_shader, "u_edge");
+
+shader_set_uniform_f(_u_target, _target_x, _target_y);
+shader_set_uniform_f(_u_radius, fade_radius);
+shader_set_uniform_f(_u_edge, fade_edge);
+
+
+
 maxBG = array_length(dynamicBG);
 for(i = 0; i < maxBG; i+= 1){
 	with(dynamicBG[i]){
 		draw_self();
 	}
 }
+
+draw_surface(my_surface_bg, 0, 0);
+
+shader_reset();
+
+
+
+
 
 draw_set_alpha(1.0);
 with (o_cliff) {

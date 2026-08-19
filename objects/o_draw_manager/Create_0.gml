@@ -7,10 +7,26 @@ units = [];
 trees = [];
 checkedFoW = false;
 
+// bg thingys
+fade_active = false;
 
+fade_radius = 1.5;
+fade_speed = 0.025;
+
+fade_target_x = 0;
+fade_target_y = 0;
+
+
+
+fade_edge = 0.03;
+// end bg thingys
+
+
+
+my_surface_bg = surface_create(room_width, room_height);
 circle_surface = surface_create(room_width, room_height);
 app_surface = surface_create(room_width, room_height);
-    bones_surface = surface_create(room_width, room_height);
+bones_surface = surface_create(room_width, room_height);
 
 
 global.threatSurf = noone;
