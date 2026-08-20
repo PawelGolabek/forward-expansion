@@ -103,6 +103,7 @@ if (!surface_exists(my_surface_bg))
 	my_surface_bg = surface_create(room_width, room_height);
 }
 
+/*
 var _shader = sch_background_flare;
 
 shader_set(_shader);
@@ -118,7 +119,7 @@ shader_set_uniform_f(_u_target, _target_x, _target_y);
 shader_set_uniform_f(_u_radius, fade_radius);
 shader_set_uniform_f(_u_edge, fade_edge);
 
-
+*/
 
 maxBG = array_length(dynamicBG);
 for(i = 0; i < maxBG; i+= 1){
@@ -381,6 +382,10 @@ draw_set_alpha(1.0);
 draw_surface(bones_surface, 0, 0);
 scr_draw_units_batch(unitsToDraw, 1, 2);
 
+
+with(o_card){
+	draw();
+}
 
 ////////////// 
 /// POST DRAW CLEANUP

@@ -1,12 +1,7 @@
 // CREATE EVENT
 deck = [   
 	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
-	instance_create_layer(0, -9999900, "Cards", o_airstrike_spawner),
 	instance_create_layer(0, -9999900, "Cards", o_yamatto_spawner),
-	instance_create_layer(0, -9999900, "Cards", o_yamatto_spawner),
-	instance_create_layer(0, -9999900, "Cards", o_emp_spawner),
-	instance_create_layer(0, -9999900, "Cards", o_emp_spawner),
-	instance_create_layer(0, -9999900, "Cards", o_emp_spawner),
 	instance_create_layer(0, -9999900, "Cards", o_emp_spawner),
     instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
     instance_create_layer(0, -9999900, "Cards", o_inferna_spawner),
@@ -45,6 +40,7 @@ function deck_draw()
     var card = array_pop(deck);
     card.visible = true;
 	card.layer = layer_get_id("UILayer_1");
+	show_debug_message(card.layer)
     array_push(hand, card);
     organize_hand();
 }

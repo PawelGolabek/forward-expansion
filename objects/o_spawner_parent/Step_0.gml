@@ -14,6 +14,8 @@ if(o_clock.multipleDeploymentInProgress and deploymentsLeft and hardSelected){
 }
 
 if(mousePressed){
+card.x = self.x;
+card.y = self.y;
 	mousePressed = false;
 	if (active and not selected){
 		hardSelected = true;
