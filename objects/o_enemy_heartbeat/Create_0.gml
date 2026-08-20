@@ -4,19 +4,19 @@ allegience = "enemy";
 function initiate(){
 
 	allegience = "enemy";
-	name = "harpoon"
+	name = "heartbeat";
 	mySprite = sprite_index;
 	myUnitlet = o_enemy_heartbeat_let;
 	sprite_center_offset = (sprite_get_width(sprite_index) / 2) - sprite_get_xoffset(sprite_index);
-	hp = 2
-	maxhp = hp
-	crystalCost = 60
-	damage = 2
+	hp = 2;
+	maxhp = hp;
+	crystalCost = 60;
+	damage = 2;
 	antiAir = 1;
-	baseDamage = damage
-	allegience = "enemy"
-	range = 220
-	revealRange = range * 2
+	baseDamage = damage;
+	allegience = "enemy";
+	range = 220;
+	revealRange = range * 2;
 	dragging = false;
 	mySprite = s_enemy_heartbeat_flag;
 	uletDeployMaxRange = 200;
@@ -44,25 +44,25 @@ function initiate(){
 function triggerTurn(){
 	if(abilityActive){
 		if(shieldActive == false){
-			myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
 			if(not shieldDestroyed){
-				shieldActive = true;
-			}
-			with(o_unit){
-				if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
-					if(not shieldDestroyed){
-						shieldActive = true;
+					shieldActive = true;
+					myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
+				with(o_unit){
+					if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+						if(not shieldDestroyed){
+							shieldActive = true;
+						}
 					}
 				}
-			}
-		}else{
-			instance_destroy(myShield);
-			myShield = noone;
-			shieldActive = false;
-			with(o_unit){
-				if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
-					if(not shieldDestroyed){
-						shieldActive = false;
+			}else{
+				instance_destroy(myShield);
+				myShield = noone;
+				shieldActive = false;
+				with(o_unit){
+					if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+						if(not shieldDestroyed){
+							shieldActive = false;
+						}
 					}
 				}
 			}

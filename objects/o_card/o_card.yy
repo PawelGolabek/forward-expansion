@@ -1,20 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"o_armored_drone_spawner",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"o_card",
+  "eventList":[],
   "managed":true,
-  "name":"o_armored_drone_spawner",
+  "name":"o_card",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/objects/unit_spawners/player.yy",
+    "name":"unit_spawners",
+    "path":"folders/objects/unit_spawners.yy",
   },
-  "parentObjectId":{
-    "name":"o_spawner_parent",
-    "path":"objects/o_spawner_parent/o_spawner_parent.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -33,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"s_enemy_flag_template",
-    "path":"sprites/s_enemy_flag_template/s_enemy_flag_template.yy",
+    "name":"s_card",
+    "path":"sprites/s_card/s_card.yy",
   },
   "spriteMaskId":null,
   "visible":true,

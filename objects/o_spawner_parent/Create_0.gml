@@ -5,6 +5,8 @@ selected = false;
 mousePressed = false;
 deploymentsLeft = 0;
 
+//card = instance_create_depth(100,100,depth+10,o_card)
+//card.owner = self;
 
 function setCrystalCost(){
 
@@ -19,3 +21,5 @@ function mouseEvent(){
 		mousePressed = true;
 	}
 }
+
+

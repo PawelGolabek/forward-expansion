@@ -1,27 +1,28 @@
 {
   "$GMSprite":"v2",
-  "%Name":"s_scout_drone_let",
+  "%Name":"s_helicopter_let_1",
   "bboxMode":0,
-  "bbox_bottom":34,
-  "bbox_left":4,
-  "bbox_right":58,
-  "bbox_top":9,
+  "bbox_bottom":52,
+  "bbox_left":11,
+  "bbox_right":91,
+  "bbox_top":8,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"66186e13-abec-4794-9294-0b8dd8777cfc","name":"66186e13-abec-4794-9294-0b8dd8777cfc","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"65a8b68b-070e-4157-ab5c-863b48f561ea","name":"65a8b68b-070e-4157-ab5c-863b48f561ea","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":48,
+  "height":64,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"4d3ad487-4c46-472e-8b29-aa4fe477a5a2","blendMode":0,"displayName":"default","isLocked":false,"name":"4d3ad487-4c46-472e-8b29-aa4fe477a5a2","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"bff169b1-199e-488b-a35b-f323ed190130","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"bff169b1-199e-488b-a35b-f323ed190130","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"s_scout_drone_let",
+  "name":"s_helicopter_let_1",
   "nineSlice":null,
   "origin":0,
   "parent":{
@@ -33,7 +34,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"s_scout_drone_let",
+    "%Name":"s_helicopter_let",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -57,7 +58,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"s_scout_drone_let",
+    "name":"s_helicopter_let",
     "playback":1,
     "playbackSpeed":6.0,
     "playbackSpeedType":0,
@@ -69,8 +70,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"66186e13-abec-4794-9294-0b8dd8777cfc","path":"sprites/s_scout_drone_let/s_scout_drone_let.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"4e850ddf-12c2-4f49-9ca7-1a58d134d467","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"65a8b68b-070e-4157-ab5c-863b48f561ea","path":"sprites/s_helicopter_let_1/s_helicopter_let_1.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"a3a32b00-7f29-41f9-89a6-0d3b9a124cfb","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
@@ -86,5 +87,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":64,
+  "width":96,
 }
