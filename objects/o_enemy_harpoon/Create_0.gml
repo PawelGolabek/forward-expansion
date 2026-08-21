@@ -1,9 +1,7 @@
 event_inherited()
 
-allegience = "enemy";
 function initiate(){
 
-	allegience = "enemy";
 	name = "harpoon"
 	mySprite = sprite_index;
 	myUnitlet = o_enemy_archer_let;
@@ -14,7 +12,7 @@ function initiate(){
 	damage = 2
 	antiAir = 1;
 	baseDamage = damage
-	allegience = "enemy"
+	allegiance = "enemy"
 	range = 220
 	revealRange = range * 2
 	dragging = false;

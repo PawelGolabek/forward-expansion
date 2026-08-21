@@ -1,4 +1,5 @@
 global.draggingUnit = noone;
+global.turnInProgress = false;
 
 function process_unit_deaths(_involved) {
     var _i = 0;
@@ -21,7 +22,7 @@ function process_unit_deaths(_involved) {
                         var _ey = y;
                         var _eRange = range; 
                         var _eDamage = damage;
-                        var _eAllegience = allegience;
+                        var _eAllegiance = allegiance;
                         var _eName = name;
                         var _eId = id;
                         instance_create_depth(x, y, depth, o_explosion);
@@ -34,7 +35,7 @@ function process_unit_deaths(_involved) {
                         with (o_unit) {
                             if (id != _eId and point_distance_ellipse_sq(_ex, _ey, x, y, 0.6) <= _eRange * _eRange) {
                                 damageTaken += _eDamage;
-                                o_combat_log.log(string(allegience) + "'s " + string(name) + " got hit by an explosion from " + string(_eAllegience) + "'s " + string(_eName) + " by " + string(_eDamage));
+                                o_combat_log.log(string(allegiance) + "'s " + string(name) + " got hit by an explosion from " + string(_eAllegiance) + "'s " + string(_eName) + " by " + string(_eDamage));
 
 								unitletsCleanup();
                                 var realhptmp = clamp(0,array_length(unitlets) - 1, hp - damageTaken)
@@ -84,8 +85,8 @@ function resolve_combat(){
                     }
 
                     if(target.logHit){
-                        o_combat_log.log(string(target.allegience) + "'s " + string(target.name) + 
-                        " got hit by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
+                        o_combat_log.log(string(target.allegiance) + "'s " + string(target.name) + 
+                        " got hit by " + string(allegiance) + "'s "  + string(name) + " by " + string(damage));
                     }
                 }
             }
@@ -122,17 +123,17 @@ function resolve_first_strike(firstStrikeUnit){
         if(reactionStrike 
            and reactedTo != firstStrikeUnit.id
            and point_distance_ellipse_sq(x, y, firstStrikeUnit.x, firstStrikeUnit.y, 0.6) <= range * range 
-           and firstStrikeUnit.allegience != allegience){
+           and firstStrikeUnit.allegiance != allegiance){
             
             reactedTo = firstStrikeUnit.id;
             
             if(firstStrikeUnit.parry){
-                o_combat_log.log(string(firstStrikeUnit.allegience) + "'s " + string(firstStrikeUnit.name) + " parried " + string(allegience) + "'s " + string(name) + " and hit it back by " + string(damage));
+                o_combat_log.log(string(firstStrikeUnit.allegiance) + "'s " + string(firstStrikeUnit.name) + " parried " + string(allegiance) + "'s " + string(name) + " and hit it back by " + string(damage));
                 damageTaken += damage;
                 firstStrikeUnit.parried = true;
                 if (ds_list_find_index(_involved, id) == -1) ds_list_add(_involved, id);
             } else {
-                o_combat_log.log(string(firstStrikeUnit.allegience) + "'s " + string(firstStrikeUnit.name) + " got hit with the first strike by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
+                o_combat_log.log(string(firstStrikeUnit.allegiance) + "'s " + string(firstStrikeUnit.name) + " got hit with the first strike by " + string(allegiance) + "'s "  + string(name) + " by " + string(damage));
                 firstStrikeUnit.damageTaken += damage;
                 if(destroyOnAttack){
                     hp = 0;
@@ -146,7 +147,7 @@ function resolve_first_strike(firstStrikeUnit){
     with(firstStrikeUnit){
         if(instance_exists(target) and target != noone and firstStrike){
             target.damageTaken += damage;        
-            o_combat_log.log(string(target.allegience) + "'s " + string(target.name) + " got hit by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
+            o_combat_log.log(string(target.allegiance) + "'s " + string(target.name) + " got hit by " + string(allegiance) + "'s "  + string(name) + " by " + string(damage));
             
             if(explosiveShots and target.damageTaken >= target.hp){
                 target.explosionOnDeath = true;
@@ -181,7 +182,7 @@ function resolve_first_strike_without_retaliation(firstStrikeUnit){
     with(firstStrikeUnit){
         if(instance_exists(target) and target != noone and firstStrike){
             target.damageTaken += damage;        
-            o_combat_log.log(string(target.allegience) + "'s " + string(target.name) + " got hit by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
+            o_combat_log.log(string(target.allegiance) + "'s " + string(target.name) + " got hit by " + string(allegiance) + "'s "  + string(name) + " by " + string(damage));
             
             if(explosiveShots and target.damageTaken >= target.hp){
                 target.explosionOnDeath = true;
@@ -223,7 +224,7 @@ function retaliate(firstStrikeUnit){
     with(o_unit){
         if(reactionStrike 
            and point_distance_ellipse_sq(x, y, firstStrikeUnit.x, firstStrikeUnit.y, 0.6) <= range * range 
-           and firstStrikeUnit.allegience != allegience){
+           and firstStrikeUnit.allegiance != allegiance){
             
             reactedTo = firstStrikeUnit.id;
 			if(instance_exists(target)){
@@ -236,12 +237,12 @@ function retaliate(firstStrikeUnit){
 			}
             
             if(firstStrikeUnit.parry){
-                o_combat_log.log(string(firstStrikeUnit.allegience) + "'s " + string(firstStrikeUnit.name) + " parried " + string(allegience) + "'s " + string(name) + " and hit it back by " + string(damage));
+                o_combat_log.log(string(firstStrikeUnit.allegiance) + "'s " + string(firstStrikeUnit.name) + " parried " + string(allegiance) + "'s " + string(name) + " and hit it back by " + string(damage));
                 damageTaken += damage;
                 firstStrikeUnit.parried = true;
                 if (ds_list_find_index(_involved, id) == -1) ds_list_add(_involved, id);
             } else {
-                o_combat_log.log(string(firstStrikeUnit.allegience) + "'s " + string(firstStrikeUnit.name) + " got hit with the first strike by " + string(allegience) + "'s "  + string(name) + " by " + string(damage));
+                o_combat_log.log(string(firstStrikeUnit.allegiance) + "'s " + string(firstStrikeUnit.name) + " got hit with the first strike by " + string(allegiance) + "'s "  + string(name) + " by " + string(damage));
                 firstStrikeUnit.damageTaken += damage;
                 if(destroyOnAttack){
                     hp = 0;

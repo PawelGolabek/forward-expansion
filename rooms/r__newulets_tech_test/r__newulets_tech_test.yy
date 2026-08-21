@@ -35,6 +35,7 @@
     {"name":"inst_1386E4AD","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_455B7686","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
     {"name":"inst_441FEDC1","path":"rooms/r__newulets_tech_test/r__newulets_tech_test.yy",},
+    {"name":"inst_73803D5E","path":"roomui/RoomUI/RoomUI.yy",},
     {"name":"inst_5CAA693F","path":"roomui/RoomUI/RoomUI.yy",},
   ],
   "isDnd":false,

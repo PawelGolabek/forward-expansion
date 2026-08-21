@@ -8,7 +8,7 @@ function checkForAuras(unit){
 		for(i = array_length(unit.activeAuras) - 1; i >= 0; i--){
 			var _source = unit.activeAuras[i].source;
 			var _stillValid = false;
-			if(instance_exists(_source) && _source.aura && _source.allegience == unit.allegience){
+			if(instance_exists(_source) && _source.aura && _source.allegiance == unit.allegiance){
 				var _dist2 = point_distance_ellipse_sq(_source.x, _source.y - _source.drag_draw_offset, myX, myY - myId.drag_draw_offset, 0.6);
 				if(_dist2 <= _source.range * _source.range){
 					_stillValid = true;
@@ -23,7 +23,7 @@ function checkForAuras(unit){
 			if(id == myId) continue; // don't let the placed unit buff itself
 			if(aura){
 				var dist2 = point_distance_ellipse_sq(x, y - drag_draw_offset, myX, myY - myId.drag_draw_offset, 0.6);
-				if(dist2 <= range * range and allegience == unit.allegience){
+				if(dist2 <= range * range and allegiance == unit.allegiance){
 					inflictAura(other);
 				//	o_combat_log.log(unit.name + " inflicts aura upon " + other.name);
 				}

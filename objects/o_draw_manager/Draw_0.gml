@@ -29,7 +29,7 @@ with(o_unit){
 	if(initiated){
 	    drawCircle = false;
 	    minDistToPlayer = 9999999;
-	    if(allegience == "player"){
+	    if(allegiance == "player"){
 	        visible = true;
 	        var _uletsLen = array_length(unitlets);
 	        for(var _i = 0; _i < _uletsLen; _i += 1){
@@ -274,9 +274,6 @@ var uletsToDrawWithoutSpecialBorder = [];
 with(o_unitlet){
 	if(drawn == false){
 	      array_push(uletsToDrawWithoutSpecialBorder, self);	
-		  if(name == "The Lady"){
-			show_debug_message("she exists")
-		  }
 	}
 }
 	// --- BONES: draw masked by mask_surface's alpha (terrain footprint) ---

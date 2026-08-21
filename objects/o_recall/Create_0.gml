@@ -29,7 +29,7 @@ function onEnter(){
 	var myY = y;
 	var myX = x;
 	with(o_unit){
-		if (id != me && point_distance_ellipse_sq(x, y + drag_draw_offset, myX, myY + me.drag_draw_offset, 0.6) <= myRange * myRange and allegience = "player"){
+		if (id != me && point_distance_ellipse_sq(x, y + drag_draw_offset, myX, myY + me.drag_draw_offset, 0.6) <= myRange * myRange and allegiance = "player"){
 			if(not noUnitlets){
 				scr_recall(id,600000)
 				maxUnitlets = array_length(unitlets);

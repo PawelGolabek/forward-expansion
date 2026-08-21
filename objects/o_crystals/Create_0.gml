@@ -10,10 +10,10 @@ function initiate(){
 	damage = 0;
 	baseDamage = damage
 	//noEyes = true;
-	//allegience = "none";
+	//allegiance = "none";
 	//logDeath = false;
 	//logHit = false;
-	allegience = "enemy"
+	allegiance = "enemy"
 	noUnitlets = true;
 	damageTaken = 0
 	og_image_xscale = 1;

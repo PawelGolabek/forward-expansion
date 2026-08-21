@@ -33,6 +33,6 @@ if(initiated){
 if (!recalled && logDeath) {
     if (instance_exists(o_combat_log)) {
         var combat_log = instance_find(o_combat_log, 0);
-        combat_log.log(string(allegience) + "'s " + string(name) + " died");
+        combat_log.log(string(allegiance) + "'s " + string(name) + " died");
     }
 }

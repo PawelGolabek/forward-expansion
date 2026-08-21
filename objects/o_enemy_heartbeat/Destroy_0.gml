@@ -6,7 +6,7 @@ if(instance_exists(myShield)){
 }
 
 with(o_unit){
-	if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+	if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegiance == other.allegiance){
 		shieldActive = false;
 	}
 }

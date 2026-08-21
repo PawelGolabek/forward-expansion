@@ -6,7 +6,7 @@ function fogOfWarCheck(){
 		for (i = 0; i < uletsNum; i++){
 			unitlets[i].visible = false;
 		}
-		if(allegience == "player"){
+		if(allegiance == "player"){
 			visible = true;
 			uletsNumber = array_length(unitlets);
 			for(i = 0; i < uletsNumber; i += 1){
@@ -19,7 +19,7 @@ function fogOfWarCheck(){
 		with(o_outlinable){
 			otherU = other
 			if(isUnit){
-				if(allegience != "player" and other.allegience == "player"){
+				if(allegiance != "player" and other.allegiance == "player"){
 					distToPlayer = point_distance_ellipse(x, y - drag_draw_offset, otherU.x, otherU.y - otherU.drag_draw_offset, 0.6)
 					if(distToPlayer < range + otherU.revealRange){
 						fowVisible = true;
@@ -34,7 +34,7 @@ function fogOfWarCheck(){
 					}
 				}
 			}
-			if(isTree and other.allegience == "player"){						
+			if(isTree and other.allegiance == "player"){						
 				udistToPlayer = point_distance_ellipse(x, y, otherU.x + (other.sprite_width/other.image_xscale)/2, 
 					otherU.y + (sprite_height/other.image_yscale) - otherU.drag_draw_offset, 0.6)
 				if(udistToPlayer < other.revealRange){

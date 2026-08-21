@@ -56,10 +56,16 @@ spinSpeed = 0;
 drawn = false;
 owner = noone;
 name = "no name";
+speed1 = 100; // pixels per second
+allegiance = "enemy";
+range = 200;
+placed = false;
+
 
 function initiate(){
 	if(owner != noone){
 		name = owner.name;
+		allegiance = owner.allegiance;
 	}
 	if(not noEyes){
 		eyeX = 20;
@@ -290,4 +296,46 @@ function executeStep(){
         y = deathStartY; // snap exactly back to the original spot
         instance_destroy();
     }
+	
+
+// movement
+if (placed && global.turnInProgress) {
+    if (owner != noone && owner.target != noone) {
+        target = owner.target;
+
+        if (owner.allegiance == "player") {
+            var moveDist = speed1 * delta_time / 1000000;
+            movementBuffer = 3;
+            targetCheckDist = owner.range + movementBuffer;
+
+            if (point_distance_ellipse_sq(x, y, target.x, target.y, 0.6)
+                > targetCheckDist * targetCheckDist) {
+
+                var baseDir = point_direction(x, y, target.x, target.y);
+
+                var directions = [
+                    baseDir,
+                    baseDir - 45,
+                    baseDir + 45,
+                    baseDir - 90,
+                    baseDir + 90
+                ];
+
+                for (var i = 0; i < 5; i++) {
+                    var dir = directions[i];
+
+                    var tmpX = x + lengthdir_x(moveDist, dir);
+                    var tmpY = y + lengthdir_y(moveDist, dir);
+
+                    if (!place_meeting(tmpX, tmpY, o_unitlet)) {
+                        x = tmpX;
+                        y = tmpY;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 }

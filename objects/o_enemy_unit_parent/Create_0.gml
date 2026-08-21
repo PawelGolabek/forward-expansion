@@ -5,7 +5,7 @@ dragging = false;
 damage = 1;
 hp = 10;
 maxhp = 10;
-allegience = "enemy";
+allegiance = "enemy";
 damageTaken = 0;
 
 

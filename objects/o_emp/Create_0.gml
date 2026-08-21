@@ -37,12 +37,14 @@ function onEnter(){
     }
     // Check all unitlets within the elliptical range
     with(o_unitlet){
-        if (owner.id != me && point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
+        if (point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
 			targettedBySpell = true;
-            if (owner.damagedUlets == 0) {
-                array_push(unitsAffected, owner);
-            }
-            owner.damagedUlets += 1;
+			if(owner != noone){
+	            if (owner.damagedUlets == 0) {
+	                array_push(unitsAffected, owner);
+	            }
+				owner.damagedUlets += 1;
+			}
         }
     }
 	ttl = 1000000;
@@ -76,7 +78,7 @@ function onDragging(){
     var myY = y;
     var myX = x;
     with(o_unitlet){
-        if (owner.id != me && point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
+        if (point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
 			targettedBySpell = true;
 		}
 	}

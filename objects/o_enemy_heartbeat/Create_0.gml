@@ -1,9 +1,8 @@
 event_inherited()
 
-allegience = "enemy";
+allegiance = "enemy";
 function initiate(){
 
-	allegience = "enemy";
 	name = "heartbeat";
 	mySprite = sprite_index;
 	myUnitlet = o_enemy_heartbeat_let;
@@ -14,7 +13,7 @@ function initiate(){
 	damage = 2;
 	antiAir = 1;
 	baseDamage = damage;
-	allegience = "enemy";
+	allegiance = "enemy";
 	range = 220;
 	revealRange = range * 2;
 	dragging = false;
@@ -48,7 +47,7 @@ function triggerTurn(){
 					shieldActive = true;
 					myShield = instance_create_depth(x,y,depth - 40, o_pulse_shield);
 				with(o_unit){
-					if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+					if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegiance == other.allegiance){
 						if(not shieldDestroyed){
 							shieldActive = true;
 						}
@@ -59,7 +58,7 @@ function triggerTurn(){
 				myShield = noone;
 				shieldActive = false;
 				with(o_unit){
-					if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegience == other.allegience){
+					if(point_distance_ellipse_sq(x,y,other.x,other.y,0.6) <= other.range * other.range and allegiance == other.allegiance){
 						if(not shieldDestroyed){
 							shieldActive = false;
 						}

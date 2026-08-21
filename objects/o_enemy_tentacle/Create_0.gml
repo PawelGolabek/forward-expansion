@@ -3,7 +3,6 @@ event_inherited()
 
 function initiate(){
 
-	allegience = "enemy";
 	name = "harpoon";
 	mySprite = sprite_index;
 	myUnitlet = o_enemy_tentacle_let;
@@ -13,7 +12,7 @@ function initiate(){
 	crystalCost = 60;
 	damage = 1;
 	baseDamage = damage;
-	allegience = "enemy";
+	allegiance = "enemy";
 	range = 180;
 	revealRange = range * 2;
 	dragging = false;

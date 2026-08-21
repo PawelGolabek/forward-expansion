@@ -9,7 +9,7 @@ if(active){
 	// Draw a white circle (or sprite) at each entity that grants vision
 
 	with(o_unit){
-		if(allegience == "player"){
+		if(allegiance == "player"){
 			draw_set_color(c_white);
 			if(not dragging){
 				draw_ellipse(x - revealRange, y - revealRange*0.6, x + revealRange, y + revealRange*0.6, false);

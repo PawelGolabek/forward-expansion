@@ -3,8 +3,7 @@ event_inherited()
 
 function initiate(){
 	
-	allegience = "enemy";
-
+	allegiance = "enemy";
 	dragging = false;
 	name = "Inferna";
 	hp = 2;

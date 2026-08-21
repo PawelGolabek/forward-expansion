@@ -32,7 +32,7 @@ function ai_evaluate_and_place() {
     var fragile_own_y   = -1;
     var _lowest_own_hp  = 999999;
     with (o_unit) {
-        var _is_ai = (allegience == "enemy" || allegience != "player");
+        var _is_ai = (allegiance == "enemy" || allegiance != "player");
         if (_is_ai && hp < _lowest_own_hp) {
             _lowest_own_hp = hp;
             fragile_own_x  = x;
@@ -45,7 +45,7 @@ function ai_evaluate_and_place() {
     var fragile_enemy_y   = -1;
     var _lowest_enemy_hp  = 999999;
     with (o_unit) {
-        if (allegience == "player" && hp < _lowest_enemy_hp) {
+        if (allegiance == "player" && hp < _lowest_enemy_hp) {
             _lowest_enemy_hp = hp;
             fragile_enemy_x  = x;
             fragile_enemy_y  = y;
@@ -66,7 +66,7 @@ function ai_evaluate_and_place() {
 			// --- precompute list of friendly (enemy-side) units that can still accept a link ---
 			var _friendlies = [];
 			with (o_unit) {
-			    if (allegience == "enemy" && !targetted) {
+			    if (allegiance == "enemy" && !targetted) {
 			        array_push(_friendlies, self);
 			    }
 			}
@@ -108,7 +108,7 @@ function ai_evaluate_and_place() {
                 with (o_unit) {
 					var estimatedDamage = 0;
                     var _d    = point_distance_ellipse(cx, cy - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
-                    var _is_ai = (allegience == "enemy" || allegience != "player");
+                    var _is_ai = (allegiance == "enemy" || allegiance != "player");
 
                     if (!_is_ai) {
                         // + proximity to player units/nodes
@@ -170,7 +170,7 @@ function ai_evaluate_and_place() {
     if (best_type != -1 && best_x != -1) {
         _spawned        = instance_create_layer(best_x, best_y, "units", unit_types[best_type].obj);
         _spawned.placed     = true;
-        _spawned.allegience = "enemy";
+        _spawned.allegiance = "enemy";
         
         var _destroyed = false;
         
@@ -219,7 +219,7 @@ function ai_evaluate_and_place() {
 			for (i = 0; i < instance_number(o_unit); i++){
 			    var u2 = instance_find(o_unit, i);          // FIX: declared as local now
 
-			    if (u2.allegience != "enemy") continue;
+			    if (u2.allegiance != "enemy") continue;
 
 			    if (point_distance_ellipse(x, y, u2.x, u2.y,0.6) <= u2.range and not u2.targetted)
 			    {

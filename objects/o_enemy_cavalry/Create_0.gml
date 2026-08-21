@@ -1,4 +1,4 @@
 event_inherited();
-allegience = "enemy";
+allegiance = "enemy";
 myUnitlet = o_calvalry_let;
 mySprite = sprite_index;

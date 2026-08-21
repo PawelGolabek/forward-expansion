@@ -1,7 +1,7 @@
 event_inherited()
 damageBoost = 2;
 aura = true;
-allegience = "player";
+allegiance = "player";
 
 drag_draw_offset = 0;
 range = infinity;

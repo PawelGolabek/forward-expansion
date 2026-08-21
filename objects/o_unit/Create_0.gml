@@ -1,4 +1,4 @@
-allegience = "player"
+allegiance = "player"
 name = "NO NAME ASSIGNED";
 range = 10;
 uletDeployMaxRange = 300;
@@ -224,24 +224,6 @@ function draw_half_circle_scale(cx, cy, radius, start_angle, end_angle, xscale, 
 }
 
 
-function calculateDamageExpectedDelayed() {
-	// cache self's data since 'self' changes inside the with block
-	var myId = id;
-	var myAllegience = allegience;
-	var total = 0;
-	
-	with (o_unit) {
-		if (id == myId) continue;              // skip self
-		if (allegience == myAllegience) continue; // skip allies
-		var dist = point_distance_ellipse_sq(x, y - drag_draw_offset, x, y - myId.drag_draw_offset,0.6);
-		if (dist <= range * range) {
-			total += damage;
-		}
-	}
-	return total;
-}
-
-
 function mouseEvent(){
 	mouseClicked = true;
 }
@@ -261,7 +243,7 @@ function line_blocked(_x1, _y1, _x2, _y2)
             return true;
 		u = collision_point(xx1, yy1, o_unitlet, false, true);
 		if(u != noone){
-			if(u.unit.allegience != allegience){
+			if(u.allegiance != allegiance){
 				return true;
 			}
 		}
@@ -269,7 +251,7 @@ function line_blocked(_x1, _y1, _x2, _y2)
 	u = instance_place(xx1, yy1, o_unitlet);
 	if (u != noone)
 	{
-		if (u.unit.allegience != allegience)
+		if (u.unit.allegiance != allegiance)
 		{
 			return true;
 		}
@@ -300,14 +282,14 @@ function enemyInRange(){
 	var myY = y;
 	var myRange = range;
 	with(o_unit){
-		if(point_distance_ellipse_sq(x,y,myX,myY,0.6) < myRange * myRange and allegience != other.allegience){
+		if(point_distance_ellipse_sq(x,y,myX,myY,0.6) < myRange * myRange and allegiance != other.allegiance){
 			return true;		
 		}
 	}
 	return false;
 }
 
-
+// dead code but might be useful somehow?
 function performAttacks(retaliation){
 	if(enemyInRange()){
 		self.retaliation = retaliation
@@ -455,7 +437,7 @@ function place(){
 			//// first strike, ommit if spawned on room creation
 			if(bornOfSpawner){
 				checkForAuras(self);
-				performAttacks(true);
+			//	performAttacks(true);
 				parentSpawner.deploymentsLeft -= 1;
 				if(parentSpawner.deploymentsLeft > 0){
 					o_clock.multipleDeploymentInProgress = true;
@@ -491,6 +473,10 @@ function place(){
 		self.onEnter()
 		checkInCombat();
 		mask_index = s_placed_hitbox;
+		maxUlets = array_length(unitlets);
+		for(i = 0; i < maxUlets; i += 1){
+			unitlets[i].placed = true;
+		}
 		
 		}
 	}
@@ -503,58 +489,20 @@ function resetTargets()
 {
     // Store references to the dropped unit's properties before looping
     var droppedUnit = self;
-    var droppedAllegience = allegience;
+    var droppedallegiance = allegiance;
     var droppedX = x;
     var droppedY = y;
     
     // 1. OTHER UNITS: Update their targets based on the dropped unit's new position
     with (o_unit) 
     {
-        if (id == droppedUnit) continue;
-        if (allegience != droppedAllegience and not droppedUnit.untargetable) 
-        {
-            var distanceToDropped2 = point_distance_ellipse_sq(x, y, droppedX, droppedY, 0.6);
-            if (distanceToDropped2 <= range * range) 
-            {
-                target = droppedUnit; 
-            }
-            else if (target == droppedUnit) 
-            {
-                target = noone;
-                findNewTargetForSelf(); 
-            }
-        }
+        findNewTargetForSelf(); 
     }
     
     // 2. DROPPED UNIT: Find the target for itself based on reverseTargetting flag
     var targetEnemy = noone;
     var isReverse = droppedUnit.reverseTargetting;
     
-    // Initialize target distance: infinity for closest, -1 for furthest
-    var bestDistance = isReverse ? -1 : infinity; 
-    
-    with (o_unit) 
-    {
-        // Skip self and teammates
-        if (id == droppedUnit || allegience == droppedAllegience) continue;
-        
-        // Calculate distance to this potential enemy
-        var dist2 = point_distance_ellipse_sq(droppedX, droppedY, x, y, 0.6);
-        
-        // Must be within range
-        if (dist2 <= droppedUnit.range * droppedUnit.range)
-        {
-            // If normal: check if dist2 is smaller than bestDistance
-            // If reverse: check if dist2 is larger than bestDistance
-            if ((!isReverse && dist2 < bestDistance) || (isReverse && dist2 > bestDistance))
-            {
-                bestDistance = dist2;
-                targetEnemy = id;
-            }
-        }
-    }
-    
-    droppedUnit.target = targetEnemy;
 }
 
 function createUnitlets(){
@@ -618,7 +566,7 @@ function createUnitlets(){
 function findNewTargetForSelf() 
 {
     var myId = id; 
-    var myAllegience = allegience;
+    var myAllegiance = allegiance;
     var myX = x;
     var myY = y;
     var myRange = range;
@@ -634,24 +582,14 @@ function findNewTargetForSelf()
 
    with (o_unit) 
 {
-    if (id == myId || allegience == myAllegience) continue;        
+    if (id == myId || allegiance == myAllegiance) continue;        
     
     var dist2 = point_distance_ellipse_sq(myX, myY - myId.drag_draw_offset, x, y - drag_draw_offset, 0.6);
     
-    // Target selection: based on the DRAGGED unit's own range
-    if (dist2 <= myRange * myRange)
+    if (!isReverse && dist2 < bestDistance)
     {
-        if ((!isReverse && dist2 < bestDistance) || (isReverse && dist2 > bestDistance))
-        {
-            bestDistance = dist2;
-            targetEnemy = id;
-        }
-    }
-
-    // Incoming damage preview: based on the ENEMY's own range (can it actually hit the dragged unit?)
-    if (dist2 <= range * range)
-    {
-        expectedDamageFrame += damage;
+        bestDistance = dist2;
+        targetEnemy = id;
     }
 }
 
@@ -779,7 +717,7 @@ function executeStep(){
 				if(myID == id){continue;}
 		        // Calculate distance from the calling unit to others
 		        var dist2 = point_distance_ellipse_sq(myX, myY - other.drag_draw_offset, x, y - drag_draw_offset,0.6);
-		        if (dist2 < other.range * other.range and allegience == other.allegience)
+		        if (dist2 < other.range * other.range and allegiance == other.allegiance)
 		        {
 					blueGlow = true;
 					ulets = array_length(unitlets) - 1
@@ -850,7 +788,7 @@ function executeStep(){
 		{
 		    u = instance_find(o_unit, i);
 		    if (u == id) continue;
-		    if (u.allegience != "player") continue;
+		    if (u.allegiance != "player") continue;
 		    if (point_distance_ellipse_sq(x, y - drag_draw_offset, u.x, u.y, 0.6) <= u.range * u.range and not u.inCombat and u.deployAlly and not line_blocked(x, y - drag_draw_offset, u.x, u.y))
 		    {
 				 u.drawCircle = true;
@@ -873,12 +811,7 @@ function executeStep(){
 		{
 		    x = last_valid_x;
 		    y = last_valid_y;
-			global.deployHighlight = lastFriendly;	
-			with(o_unit){
-				if(point_distance_ellipse_sq(x, y - drag_draw_offset, u.x, u.y,0.6) <= u.range * u.range){
-					_expected = calculateDamageExpectedDelayed()
-				}
-			}
+			global.deployHighlight = lastFriendly;
 		}
 		else
 		{
@@ -902,7 +835,7 @@ function executeStep(){
 		    var dist = point_distance_ellipse_sq(x, y - drag_draw_offset, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 		    if(global.draggingUnit == self){
 				drawCircle = true
-			}else if (dist <= range * range and global.draggingUnit.allegience != allegience 
+			}else if (dist <= range * range and global.draggingUnit.allegiance != allegiance 
 			and reactionStrike
 			and not  global.draggingUnit.untargetable
 			){
@@ -922,7 +855,7 @@ function executeStep(){
 	if (global.draggingUnit != noone and global.draggingUnit != self) {
 	    var dist2 = point_distance_ellipse_sq(x, y, global.draggingUnit.x, global.draggingUnit.y - global.draggingUnit.drag_draw_offset,0.6);
 
-	    if (dist2 <= range * range and global.draggingUnit.allegience != allegience and reactionStrike
+	    if (dist2 <= range * range and global.draggingUnit.allegiance != allegiance and reactionStrike
 			and not global.draggingUnit.untargetable
 		) {
 			if(not noTargetting){	/// for spells / airstrikes purpose

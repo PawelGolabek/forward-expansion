@@ -24,7 +24,6 @@ if(initiated){
 
 	circleOverride = true;
 	if(wantCircle){
-		_expected = calculateDamageExpectedDelayed();
 		for(i = 0; i < maxhp; i+=1){
 			with(hearts[i]){
 				visible = false;
@@ -55,7 +54,7 @@ if(initiated){
 	if (wantCircle or keyboard_check(vk_tab) or circleOverride) {
 	    if (not immortalExists) {
 			if(deployAlly){
-				if(allegience == "enemy"){
+				if(allegiance == "enemy"){
 					circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_enemy);
 				}else{
 					circleInst = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_1);	
@@ -84,7 +83,7 @@ if(initiated){
 	// --- 3. PERIODIC PULSE CIRCLES (self-destructing, unrelated to immortal one) ---
 
 	if (mousCooldown == 0){
-		if(allegience == "enemy"){
+		if(allegiance == "enemy"){
 			u = instance_create_layer(x, y - drag_draw_offset, "units", o_expand_circle_enemy_top);
 		    u.life = random(150) + 150;
 		    u.end_scale = (range / u.sprite_width) * 2;
