@@ -162,6 +162,7 @@ for (var r = 0; r < rows; r++) {
 		}
 		if(r < 2){
 			instance_create_depth(tile_x, row_y + 80, y + 5000, o_enemy_archer)
+			instance_create_depth(tile_x, row_y, y + 5000, o_the_lady)
 		}
 		if(r < 2){
 			instance_create_depth(tile_x + 50, row_y + 80 - 40, y + 5000, o_enemy_cavalry)

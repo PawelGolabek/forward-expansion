@@ -273,7 +273,10 @@ with (o_unit) {
 var uletsToDrawWithoutSpecialBorder = [];
 with(o_unitlet){
 	if(drawn == false){
-	      array_push(uletsToDrawWithoutSpecialBorder, self);		
+	      array_push(uletsToDrawWithoutSpecialBorder, self);	
+		  if(name == "The Lady"){
+			show_debug_message("she exists")
+		  }
 	}
 }
 	// --- BONES: draw masked by mask_surface's alpha (terrain footprint) ---

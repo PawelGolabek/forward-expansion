@@ -99,7 +99,8 @@ reverseTargetting = false;
 speaking = true;
 initiated = false;
 //eyes related
-noEyes = true
+noEyes = true;
+
 if(!noEyes){
 	eyeX = 20
 	eyeDist = 30;

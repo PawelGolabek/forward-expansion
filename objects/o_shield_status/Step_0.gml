@@ -9,9 +9,12 @@ if(image_xscale > 1){
 
 
 
-
-visible = owner.owner.shieldActive;
-
+if(owner.owner != noone){
+	visible = owner.owner.shieldActive;
+}else{
+	visible = false;
+}
+	// shield logic will probably change to be about the individual unit instead;
 x = owner.x
 y = owner.y
 depth = owner.depth - 100000

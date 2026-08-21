@@ -147,22 +147,23 @@ for (var r = 0; r < rows; r++) {
         flat_inst[r][c] = f1;
 		
 		if(r < 4){
-			instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer)
-			instance_create_depth(tile_x - 20, row_y + 60, y + 5000, o_enemy_inferna)
+	//		instance_create_depth(tile_x, row_y + 120, y + 5000, o_enemy_archer);
+	//		instance_create_depth(tile_x - 20, row_y + 60, y + 5000, o_enemy_inferna);
+		}
+		if(r < 3){
+			instance_create_depth(tile_x - 20, row_y + 60, y + 5000, o_the_lady);
 		}
 		if(r < 3){
 		}
-		if(r < 3){
-			instance_create_depth(tile_x + 10, row_y + 60, y + 5000, o_enemy_harpoon)
+		if(r < 2){
+	//		instance_create_depth(tile_x - 20, row_y - 20, y + 5000, o_enemy_inferna);
 		}
 		if(r < 2){
-			instance_create_depth(tile_x - 20, row_y - 20, y + 5000, o_enemy_inferna)
-		}
-		if(r < 2){
-			instance_create_depth(tile_x, row_y + 80, y + 5000, o_enemy_archer)
-			instance_create_depth(tile_x , row_y + 0, y + 0, o_fence)
-			instance_create_depth(tile_x + 64, row_y + 0, y + 0, o_fence)
-			instance_create_depth(tile_x + 128, row_y + 0, y + 0, o_fence)
+	//		instance_create_depth(tile_x + 10, row_y + 60, y + 5000, o_enemy_harpoon);
+	//		instance_create_depth(tile_x, row_y + 80, y + 5000, o_enemy_archer);
+	//		instance_create_depth(tile_x , row_y + 0, y + 0, o_fence);
+	///		instance_create_depth(tile_x + 64, row_y + 0, y + 0, o_fence);
+	//		instance_create_depth(tile_x + 128, row_y + 0, y + 0, o_fence);
 		}
 		if(r < 2){
 		}
