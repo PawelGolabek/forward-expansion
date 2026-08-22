@@ -28,6 +28,10 @@ card.y = self.y;
 			if(dragging){
 				global.crystals += crystalCost;
 				recalled = true;
+				maxUnitlets = array_length(unitlets);
+				for(i = 0; i < maxUnitlets; i+= 1){
+					unitlets[i].recalled = true;
+				}
 				instance_destroy();
 			}
 		}

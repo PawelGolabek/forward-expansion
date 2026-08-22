@@ -60,6 +60,11 @@ speed1 = 100; // pixels per second
 allegiance = "enemy";
 range = 200;
 placed = false;
+recalled = false;
+// combat
+maxAttackCooldown = 800000;
+attackCooldown = maxAttackCooldown
+hp = 10;
 
 
 function initiate(){
@@ -144,6 +149,14 @@ function initiate(){
 
 
 function initiate2(){}
+
+function dealDamage(damage){
+	hp -= damage;
+	if(hp <= 0){
+		markForDeath = true;
+	}
+
+}
 
 
 function executeStep(){
@@ -300,42 +313,87 @@ function executeStep(){
 
 // movement
 if (placed && global.turnInProgress) {
-    if (owner != noone && owner.target != noone) {
-        target = owner.target;
+	    if (owner != noone && owner.target != noone) {
+			movementCheck();
+	        target = findClosestEnemyUnitlet()
+			combatCheck();
+	    }
+	}
+}
 
-        if (owner.allegiance == "player") {
-            var moveDist = speed1 * delta_time / 1000000;
-            movementBuffer = 3;
-            targetCheckDist = owner.range + movementBuffer;
+function findClosestEnemyUnitlet(){
+	var _closest = noone;
+	var _closestDistSq = infinity;
 
-            if (point_distance_ellipse_sq(x, y, target.x, target.y, 0.6)
-                > targetCheckDist * targetCheckDist) {
+	with(o_unitlet){
+		if(allegiance != other.allegiance){
+			var _dx = x - other.x;
+			var _dy = y - other.y;
+			var _distSq = _dx*_dx + _dy*_dy;
+			if(_distSq < _closestDistSq){
+				_closestDistSq = _distSq;
+				_closest = id;
+			}
+		}
+	}
 
-                var baseDir = point_direction(x, y, target.x, target.y);
+	target = _closest;
+	return _closest;
+	// probably win if noone
+}
 
-                var directions = [
-                    baseDir,
-                    baseDir - 45,
-                    baseDir + 45,
-                    baseDir - 90,
-                    baseDir + 90
-                ];
 
-                for (var i = 0; i < 5; i++) {
-                    var dir = directions[i];
+function combatCheck(){
+	if(target != noone and point_distance_ellipse_sq(x, y, target.x ,target.y , 0.6) <= range * range){
+		if(attackCooldown <= 0){
+			b = instance_create_depth(x,y,depth - 1, o_bullet);
+			b.target = target;
+			b.initialX = x;
+			b.initialY = y;
+			b.initialTargetX = target.x;
+			b.initialTargetY = target.y;
+			attackCooldown = maxAttackCooldown
+		}else{
+			attackCooldown -= delta_time;
+		}
+	}else{
+			attackCooldown = maxAttackCooldown		
+	}
 
-                    var tmpX = x + lengthdir_x(moveDist, dir);
-                    var tmpY = y + lengthdir_y(moveDist, dir);
+};
 
-                    if (!place_meeting(tmpX, tmpY, o_unitlet)) {
-                        x = tmpX;
-                        y = tmpY;
-                        break;
-                    }
+
+function movementCheck(){
+    if (allegiance == "player") {
+        var moveDist = speed1 * delta_time / 1000000;
+        movementBuffer = 3;
+        targetCheckDist = range + movementBuffer;
+
+        if (point_distance_ellipse_sq(x, y, target.x, target.y, 0.6)
+            > range * range) {
+
+            var baseDir = point_direction(x, y, target.x, target.y);
+
+            var directions = [
+                baseDir,
+                baseDir - 45,
+                baseDir + 45,
+                baseDir - 90,
+                baseDir + 90
+            ];
+
+            for (var i = 0; i < 5; i++) {
+                var dir = directions[i];
+
+                var tmpX = x + lengthdir_x(moveDist, dir);
+                var tmpY = y + lengthdir_y(moveDist, dir);
+
+                if (!place_meeting(tmpX, tmpY, o_unitlet)) {
+                    x = tmpX;
+                    y = tmpY;
+                    break;
                 }
             }
         }
     }
-}
-
 }

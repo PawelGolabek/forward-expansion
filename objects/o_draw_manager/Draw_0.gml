@@ -387,6 +387,10 @@ with(o_card){
 	draw();
 }
 
+with(o_bullet){
+	draw();
+}
+
 ////////////// 
 /// POST DRAW CLEANUP
 //////////////

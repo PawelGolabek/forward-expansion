@@ -1,5 +1,9 @@
 function scr_recall(unit,recallTime){
 	unit.recalled = true;
+	maxUnitlets = array_length(unitlets);
+	for(i = 0; i < maxUnitlets; i+= 1){
+		unitlets[i].recalled = true;
+	}
 	unit.active = false;
 	recallObj = instance_create_depth(unit.x,unit.y,unit.depth - 10, o_blue_carpet);
 	if(unit.isUnit){
