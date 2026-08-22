@@ -6,7 +6,7 @@ if(target != noone && instance_exists(target)){
 	y = y + lengthdir_y(moveDist, baseDir);
 
 	if(point_distance_ellipse_sq(x,y,target.x,target.y,0.6) < 25){
-		target.dealDamage(damage);
+		target.dealDamage(damage,deadly);
 		instance_destroy();
 	}
 

@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite188",
-    "path":"sprites/Sprite188/Sprite188.yy",
+    "name":"s_bones",
+    "path":"sprites/s_bones/s_bones.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -78,7 +78,7 @@ function onDragging(){
     var myY = y;
     var myX = x;
     with(o_unitlet){
-        if (owner.id != me && point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
+        if ( point_distance_ellipse_sq(x, y, myX, myY, 0.6) <= myRange * myRange){
 			targettedBySpell = true;
 		}
 	}

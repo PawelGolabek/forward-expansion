@@ -463,6 +463,7 @@ function place(){
 			}else{
 				self.initiate()
 				initiated = true;
+				
 			}
 			dragging = false;
 			placed = true;

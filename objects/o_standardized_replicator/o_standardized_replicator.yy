@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite168",
-    "path":"sprites/Sprite168/Sprite168.yy",
+    "name":"s_standardized_replicator",
+    "path":"sprites/s_standardized_replicator/s_standardized_replicator.yy",
   },
   "spriteMaskId":null,
   "visible":true,

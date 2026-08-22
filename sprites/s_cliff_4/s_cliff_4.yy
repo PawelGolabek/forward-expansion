@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":1,
   "parent":{
-    "name":"sprites",
-    "path":"folders/sprites.yy",
+    "name":"terrain_gen",
+    "path":"folders/sprites/terrain_gen.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

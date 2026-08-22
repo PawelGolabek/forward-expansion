@@ -63,8 +63,16 @@ placed = false;
 recalled = false;
 // combat
 maxAttackCooldown = 800000;
-attackCooldown = maxAttackCooldown
+attackCooldown = 0;
 hp = 10;
+target = noone;
+civilian = false;
+og_sprite = sprite_index;
+captured_sprite = s_c_the_lady;
+fear = 1;
+captured = false;
+captureFadeState = "none"; // "none", "out", "in"
+captureFadeDuration = 0.4; // seconds for each fade direction — tweak to taste
 
 
 function initiate(){
@@ -150,17 +158,36 @@ function initiate(){
 
 function initiate2(){}
 
-function dealDamage(damage){
+function dealDamage(damage, deadly){
 	hp -= damage;
 	if(hp <= 0){
-		markForDeath = true;
+		if(not civilian){
+			markForDeath = true;
+		}else{
+			if(not captured){
+				captured = true;
+				captureFadeState = "out"; // only kicks off the fade the first time
+			}
+		}
 	}
 
 }
 
-
 function executeStep(){
-	
+	if(captureFadeState == "out"){
+	    alpha -= (delta_time / 1000000) / captureFadeDuration;
+	    if(alpha <= 0){
+	        alpha = 0;
+	        sprite_index = captured_sprite;
+	        captureFadeState = "in";
+	    }
+	} else if(captureFadeState == "in"){
+	    alpha += (delta_time / 1000000) / captureFadeDuration;
+	    if(alpha >= 1){
+	        alpha = 1;
+	        captureFadeState = "none";
+	    }
+	}
 	if(not noEyes){
 		blink -= delta_time;
 		if(blink <= 0){
@@ -312,11 +339,13 @@ function executeStep(){
 	
 
 // movement
-if (placed && global.turnInProgress) {
-	    if (owner != noone && owner.target != noone) {
-			movementCheck();
-	        target = findClosestEnemyUnitlet()
-			combatCheck();
+	if (placed && global.turnInProgress) {
+	    target = findClosestEnemyUnitlet()
+	    if (target != noone) {
+			if(instance_exists(target)){
+				movementCheck();
+				combatCheck();
+			}
 	    }
 	}
 }
@@ -326,7 +355,7 @@ function findClosestEnemyUnitlet(){
 	var _closestDistSq = infinity;
 
 	with(o_unitlet){
-		if(allegiance != other.allegiance){
+		if(allegiance != other.allegiance and not captured){
 			var _dx = x - other.x;
 			var _dy = y - other.y;
 			var _distSq = _dx*_dx + _dy*_dy;
@@ -344,7 +373,7 @@ function findClosestEnemyUnitlet(){
 
 
 function combatCheck(){
-	if(target != noone and point_distance_ellipse_sq(x, y, target.x ,target.y , 0.6) <= range * range){
+	if(target != noone and instance_exists(target) and point_distance_ellipse_sq(x, y, target.x ,target.y , 0.6) <= range * range){
 		if(attackCooldown <= 0){
 			b = instance_create_depth(x,y,depth - 1, o_bullet);
 			b.target = target;
@@ -357,7 +386,9 @@ function combatCheck(){
 			attackCooldown -= delta_time;
 		}
 	}else{
-			attackCooldown = maxAttackCooldown		
+		if(attackCooldown > 0){
+			attackCooldown -= delta_time;
+		}
 	}
 
 };

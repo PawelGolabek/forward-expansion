@@ -12,6 +12,7 @@ initialY = y;
 initialTargetX = 0		// will be set by source
 initialTargetY = 0
 target = noone;
+deadly = false;
 			
 			
 ttl = 1000000;

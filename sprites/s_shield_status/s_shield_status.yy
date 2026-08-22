@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"BLANK GAME",
-    "path":"BLANK GAME.yyp",
+    "name":"units_cosmetics",
+    "path":"folders/sprites/units_cosmetics.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

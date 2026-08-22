@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite198",
-    "path":"sprites/Sprite198/Sprite198.yy",
+    "name":"s_the_lady",
+    "path":"sprites/s_the_lady/s_the_lady.yy",
   },
   "spriteMaskId":null,
   "visible":true,

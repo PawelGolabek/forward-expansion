@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite140",
-    "path":"sprites/Sprite140/Sprite140.yy",
+    "name":"s_single_cycle_isr",
+    "path":"sprites/s_single_cycle_isr/s_single_cycle_isr.yy",
   },
   "spriteMaskId":null,
   "visible":true,
